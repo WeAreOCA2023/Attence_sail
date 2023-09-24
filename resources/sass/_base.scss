@@ -1,0 +1,59 @@
+@use "config/fonts" as f;
+@use "config/variables" as v;
+@use "mixin" as m;
+
+html {
+    transition-duration: 1s;
+}
+
+body {
+    width: 100%;
+}
+
+main {
+    position: relative;
+    height: calc(100vh - 55.05px);
+}
+
+.py-4 {
+    background-color: v.$mainColor;
+}
+
+.title{
+    position: relative;
+
+    img {
+        filter: brightness(60%);
+    }
+
+    p {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 0;
+        margin: 0;
+        font-size: 30px;
+        color: #fff;
+    }
+}
+.login-title {
+    color: v.$mainColor;
+}
+.login-main{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login{
+    height: 100% !important;
+}
+.login-btn {
+    @include m.loginBtn(v.$mainColor);
+}
+.reset-btn {
+    color: v.$mainColor;
+    text-decoration: none;
+}

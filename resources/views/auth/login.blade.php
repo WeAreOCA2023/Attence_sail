@@ -11,7 +11,10 @@
                     <!-- <div class="card-header">{{ __('Login') }}</div> -->
 
                     <div class="card-body">
+
                         <h1 class="text-center login-title">ログイン</h1>
+
+                      
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
 
@@ -58,7 +61,11 @@
                             <div class="row mb-0">
                                 <div class="col-md-8 offset-md-4">
                                     <button type="submit" class="login-btn">
+4
                                         {{ __('ログイン') }}
+
+                                    
+
                                     </button>
 
                                     @if (Route::has('password.request'))
