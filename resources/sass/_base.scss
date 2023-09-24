@@ -8,6 +8,7 @@ html {
 
 body {
     width: 100%;
+    user-select: none;
 }
 
 main {
@@ -37,23 +38,35 @@ main {
         color: #fff;
     }
 }
-.login-title {
-    color: v.$mainColor;
-}
-.login-main{
+.login{
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    .login-main{
+        height: 100% !important;
+    }    
+        
+    h1 {
+        color: v.$mainColor;
+    }
+    
+    button {
+        @include m.loginBtn(v.$mainColor);
+    }
+
+    .login-form {
+        margin: 0 auto;
+        display: flex;
+        flex-flow: column;
+        align-items: flex-start;
+
+        a {
+            color: v.$mainColor;
+            text-decoration: none;
+            margin: 0 auto;
+        }
+    }
 }
 
-.login{
-    height: 100% !important;
-}
-.login-btn {
-    @include m.loginBtn(v.$mainColor);
-}
-.reset-btn {
-    color: v.$mainColor;
-    text-decoration: none;
-}

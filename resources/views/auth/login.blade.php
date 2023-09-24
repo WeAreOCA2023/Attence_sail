@@ -1,20 +1,20 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container login-main">
+    <div class="container login">
         <div class="row justify-content-center">
             <div class="col-md-6 title px-0 d-flex align-items-center">
                 <img src="{{ asset('img/tree.png') }}" class="img-fluid rounded float-start" alt="木">
-                <p>Attence</p>
+                <p>ATTENCE</p>
             </div>
             <div class="col-md-6 px-0">
-                <div class="card login">
+                <div class="card login-main">
                     <!-- <div class="card-header">{{ __('Login') }}</div> -->
 
                     <div class="card-body">
 
                         <h1 class="text-center login-title">ログイン</h1>
 
-                      
+                    
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
 
@@ -46,8 +46,8 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="col-md-6 offset-md-4">
+                            <div class="row mb-3" >
+                                <div class="col-md-6 mx-auto d-inline-block w-auto">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
@@ -59,20 +59,20 @@
                             </div>
 
                             <div class="row mb-0">
-                                <div class="col-md-8 offset-md-4">
-                                    <button type="submit" class="login-btn">
+                                <div class="login-form col-md-8 offset-md-4 text-center">
+                                    <button type="submit">
 
                                         {{ __('ログイン') }}
 
                                     
 
                                     </button>
-
                                     @if (Route::has('password.request'))
                                         <a class="reset-btn" href="{{ route('password.request') }}">
                                             {{ __('パスワードをお忘れの方') }}
                                         </a>
                                     @endif
+                                    
                                 </div>
                             </div>
                         </form>
