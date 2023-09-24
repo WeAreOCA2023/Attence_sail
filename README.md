@@ -15,4 +15,5 @@
 #### マイグレーションファイルの作成: ```sail artisan make:migration "テーブル名"```
 #### コントローラー作成: ```sail artisan make:controller "コントローラー名" --resource```
 #### routeをリストで表示: ```sail artisan route:list```
-
+```sail artisan migrate```
+```sail artisan config:clear```
