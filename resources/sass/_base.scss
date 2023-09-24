@@ -37,3 +37,23 @@ main {
         color: #fff;
     }
 }
+.login-title {
+    color: v.$mainColor;
+}
+.login-main{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login{
+    height: 100% !important;
+}
+.login-btn {
+    @include m.loginBtn(v.$mainColor);
+}
+.reset-btn {
+    color: v.$mainColor;
+    text-decoration: none;
+}
