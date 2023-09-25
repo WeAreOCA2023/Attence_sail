@@ -38,16 +38,8 @@ main {
         color: #fff;
     }
 }
-.login{
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    .login-main{
-        height: 100% !important;
-    }    
-        
+.login{
     h1 {
         color: v.$mainColor;
     }
@@ -57,16 +49,20 @@ main {
     }
 
     .login-form {
-        margin: 0 auto;
-        display: flex;
         flex-flow: column;
-        align-items: flex-start;
 
         a {
             color: v.$mainColor;
-            text-decoration: none;
-            margin: 0 auto;
         }
+    }
+
+    label {
+        color: v.$mainColor;
+    }
+
+    .flex {
+        flex: none;
+        margin: auto 0;
     }
 }
 
