@@ -4,12 +4,12 @@
         <div class="row justify-content-center">
             <div class="col-md-6 title px-0 d-flex align-items-center">
                 <img src="{{ asset('img/tree.png') }}" class="img-fluid rounded float-start" alt="木">
-                <p>ATTENCE</p>
+                <h1>ATTENCE</h1>
             </div>
             <div class="col-md-6 px-0">
                 <div class="card h-100">
                     <div class="flex card-body">
-                        <h1 class="text-center mb-5">LOGIN</h1>
+                        <h2 class="text-center mb-5 h1">LOGIN</h2>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="row mb-3 form-input w-50 mx-auto">
