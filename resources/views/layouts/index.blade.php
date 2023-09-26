@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ config('index.name', 'Laravel') }}</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN">
+
+    <!-- Scripts -->
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <script src="https://kit.fontawesome.com/48efdb6da3.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="sidebar">
+        <main class="d-flex flex-nowrap">
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
+                <div class="dropdown">
+                    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-gear" style="color: #ffffff;"></i>
+                    <span class="fs-4">サイドバー</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        <li><a class="dropdown-item" href="#">プロフィール</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                        document.getElementById('logout-form').
+                                        submit();">
+                                サインアウト
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" aria-current="page">
+                    <i class="fa-solid fa-house" style="color: #ffffff;"></i>
+                    test
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                    <i class="fa-regular fa-clipboard" style="color: #ffffff;"></i>
+                    test
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                    test
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                    test
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                    test
+                    </a>
+                </li>
+                </ul>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
