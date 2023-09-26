@@ -5,20 +5,33 @@
 
 html {
     transition-duration: 1s;
+    height: -webkit-fill-available;
 }
 
 body {
     width: 100%;
     user-select: none;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
 }
 
 main {
     position: relative;
-    height: calc(100vh - 56px);
+    max-height: 100vh;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .py-4 {
     background-color: v.$mainColor;
+}
+
+// app
+#app {
+
+    .py-4 {
+        height: calc(100vh - 56px);
+    }
 }
 
 .title{
@@ -78,6 +91,7 @@ main {
     }
 }
 
+// register
 .register {
     @include r.mq(xl) {
         max-width: 100% !important;
@@ -97,22 +111,30 @@ main {
     }
 }
 
+// index
+
 .sidebar {
-    body {
-        min-height: 100vh;
-        min-height: -webkit-fill-available;
-    }
-      
-    html {
-        height: -webkit-fill-available;
-    }
-    
-    main {
-        height: 100vh;
-        max-height: 100vh;
-        overflow-x: auto;
-        overflow-y: hidden;
-    }
-      
     .dropdown-toggle { outline: 0; }
+
+    .user {
+        padding: 8px;
+
+        i {
+            font-size: 40px;
+            border-radius: 50%;
+            background-color: #535353;
+        }
+
+        .flex-flow {
+            flex-flow: column;
+        }
+
+        .color {
+            color: #A2A3A2;
+        }
+
+        .padding {
+            margin-right: 5%;
+        }
+    }
 }

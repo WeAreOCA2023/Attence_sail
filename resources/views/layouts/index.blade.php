@@ -16,61 +16,69 @@
 </head>
 
 <body>
-    <div class="sidebar">
-        <main class="d-flex flex-nowrap">
-            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
-                <div class="dropdown">
-                    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa-solid fa-gear" style="color: #ffffff;"></i>
-                    <span class="fs-4">サイドバー</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        <li><a class="dropdown-item" href="#">プロフィール</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                        document.getElementById('logout-form').
-                                        submit();">
-                                サインアウト
-                            </a>
+    <div id="index" class="d-flex vh-100">
+        <div class="sidebar d-inline-block">
+            <div class="d-flex flex-nowrap h-100">
+                <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
+                    <div class="dropdown user">
+                        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-gear padding" style="color: #ffffff;"></i>
+                        <div class="d-flex flex-flow">
+                            <span class="fs-4 fw-bold">{{ Auth::user()->userName }}</span>
+                            <span class="color">{{ Auth::user()->companyID }}</span>
+                        </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                            <li><a class="dropdown-item" href="#">プロフィール</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                            document.getElementById('logout-form').
+                                            submit();">
+                                    サインアウト
+                                </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active" aria-current="page">
+                        <i class="fa-solid fa-house" style="color: #ffffff;"></i>
+                        test
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                        <i class="fa-regular fa-clipboard" style="color: #ffffff;"></i>
+                        test
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                        test
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                        test
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                        test
+                        </a>
+                    </li>
                     </ul>
                 </div>
-                <hr>
-                <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item">
-                    <a href="#" class="nav-link active" aria-current="page">
-                    <i class="fa-solid fa-house" style="color: #ffffff;"></i>
-                    test
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link text-white">
-                    <i class="fa-regular fa-clipboard" style="color: #ffffff;"></i>
-                    test
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link text-white">
-                    test
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link text-white">
-                    test
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link text-white">
-                    test
-                    </a>
-                </li>
-                </ul>
             </div>
+        </div>
+        <main class="py-4 w-100">
+            @yield('content')
         </main>
     </div>
 </body>
