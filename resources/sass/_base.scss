@@ -1,69 +1,119 @@
 @use "config/fonts" as f;
 @use "config/variables" as v;
 @use "mixin" as m;
-
-html {
-    transition-duration: 1s;
-}
-
-body {
-    width: 100%;
-    user-select: none;
-}
-
-main {
-    position: relative;
-    height: calc(100vh - 55.05px);
-}
-
-.py-4 {
-    background-color: v.$mainColor;
-}
-
-.title{
-    position: relative;
-
-    img {
-        filter: brightness(60%);
-    }
-
-    h1 {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 0;
-        margin: 0;
-        font-size: 5rem;
-        color: #fff;
-        font-family: 'Kaushan Script', cursive;
-    }
-}
-
-.login{
-    h2 {
-        color: v.$mainColor;
+@use "responsive" as r;
+#app {
+    html {
+        transition-duration: 1s;
     }
     
-    button {
-        @include m.loginBtn(v.$mainColor);
+    body {
+        width: 100%;
+        user-select: none;
     }
-
-    .login-form {
-        flex-flow: column;
-
-        a {
-            color: v.$mainColor;
+    
+    main {
+        position: relative;
+        height: calc(100vh - 56px);
+    }
+    
+    .py-4 {
+        background-color: v.$mainColor;
+    }
+    
+    .title{
+        position: relative;
+    
+        img {
+            filter: brightness(50%);
         }
-    }
+    
+        h1{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0;
+            margin: 0;
+            font-size: 5rem;
+            color: #fff;
+            font-family: 'Kaushan Script', cursive;
+        }
+    
+        .logo {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0;
+            margin: 0;
+        }
+    }    
+}
 
-    label {
-        color: v.$mainColor;
-    }
+.mainColor {
+    color: v.$mainColor !important;
+}
 
-    .flex {
-        flex: none;
-        margin: auto 0;
+
+.login{
+    @include r.mq(xl) {
+        
+        button {
+            @include m.loginBtn(v.$mainColor);
+        }
+    
+        .login-form {
+            flex-flow: column;
+        }
+
+        .flex {
+            flex: none;
+            margin: 5vh 0 auto 0;
+        }
+        
+        .reset-rounded {
+            border-bottom-left-radius: 0%;
+            border-top-left-radius: 0%;
+        }
     }
 }
 
+.register {
+    @include r.mq(xl) {
+        max-width: 100% !important;
+        
+        .reset-rounded {
+            border-bottom-right-radius: 0%;
+            border-top-right-radius: 0%;
+        }
+
+        .flex {
+            flex: none;
+        }
+
+        button {
+            @include m.loginBtn(v.$mainColor);
+        }
+    }
+}
+
+.sidebar {
+    body {
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
+    }
+      
+    html {
+        height: -webkit-fill-available;
+    }
+    
+    main {
+        height: 100vh;
+        max-height: 100vh;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+      
+    .dropdown-toggle { outline: 0; }
+}

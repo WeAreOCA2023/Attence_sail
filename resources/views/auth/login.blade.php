@@ -3,16 +3,19 @@
     <div class="container h-100 d-flex justify-content-center align-items-center login">
         <div class="row justify-content-center">
             <div class="col-md-6 title px-0 d-flex align-items-center">
-                <img src="{{ asset('img/tree.png') }}" class="img-fluid rounded float-start" alt="木">
+                <img src="{{ asset('img/tree.png') }}" class="img-fluid rounded-start float-start" alt="木">
                 <h1>ATTENCE</h1>
             </div>
             <div class="col-md-6 px-0">
-                <div class="card h-100">
+                <div class="card h-100 reset-rounded">
                     <div class="flex card-body">
-                        <h2 class="text-center mb-5 h1">LOGIN</h2>
+                        <div class="text-center mb-5">
+                            <img src="{{ asset('img/logo-green-150.png') }}" alt="logo">
+                        </div>
+                        <h2 class="text-center mb-5 h1 mainColor">LOGIN</h2>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
-                            <div class="row mb-3 form-input w-50 mx-auto">
+                            <div class="row mb-3 form-input w-50 mx-auto mainColor">
                                 <label for="email" class="col-form-label">{{ __('メールアドレス') }}</label>
 
                                 <div class="col">
@@ -55,7 +58,7 @@
                                         {{ __('ログイン') }}
                                     </button>
                                     @if (Route::has('password.request'))
-                                        <a class="text-decoration-none mx-auto" href="{{ route('password.request') }}">
+                                        <a class="text-decoration-none mx-auto mainColor" href="{{ route('password.request') }}">
                                             {{ __('パスワードをお忘れの方') }}
                                         </a>
                                     @endif
