@@ -5,17 +5,46 @@
         <div class="col-md-4 px-0">
             <div class="card h-100 reset-rounded">
                 <div class="flex card-body">
-                    <h2 class="text-center mb-1 h1 mainColor">サインアップ（一般）</h2>
-                    <form method="POST" action="{{ route('register') }}">
+                    <h2 class="text-center mb-1 h1 mainColor">REGISTER-BOSS</h2>
+                    <form method="POST" action="{{ route('register-boss') }}">
                         @csrf
 
-                        <div class="row mb-4 form-input w-50 mx-auto mainColor">
-                            <label for="companyID" class="col-form-label">{{ __('会社ID') }}</label>
-                            <div class="col">
-                                <input id="companyID" type="text" class="form-control @error('companyID') is-invalid @enderror" name="companyID" required autocomplete="companyID">
+                        <div class="row mb-1 form-input w-50 mx-auto mainColor">
+                            <label for="companyName" class="col-form-label">{{ __('会社名') }}</label>
 
-                                @error('departmentID')
-                                <span class="invalid-feedback" role="alert">
+                            <div class="col">
+                                <input id="companyName" type="text" class="form-control @error('companyName') is-invalid @enderror" name="companyName" value="{{ old('companyName') }}" required autocomplete="companyName" autofocus>
+
+                                @error('companyName')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-1 form-input w-50 mx-auto mainColor">
+                            <label for="companyPostCode" class="col-form-label">{{ __('会社の郵便番号') }}</label>
+
+                            <div class="col">
+                                <input id="companyPostCode" type="text" class="form-control @error('companyPostCode') is-invalid @enderror" name="companyPostCode" value="{{ old('companyPostCode') }}" required autocomplete="companyPostCode">
+
+                                @error('companyAddress')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-1 form-input w-50 mx-auto mainColor">
+                            <label for="companyAddress" class="col-form-label">{{ __('会社の住所') }}</label>
+
+                            <div class="col">
+                                <input id="companyAddress" type="text" class="form-control @error('companyAddress') is-invalid @enderror" name="companyAddress" value="{{ old('companyAddress') }}" required autocomplete="companyAddress">
+
+                                @error('companyAddress')
+                                    <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
@@ -24,8 +53,9 @@
 
                         <div class="row mb-1 form-input w-50 mx-auto mainColor">
                             <label for="userName" class="col-form-label">{{ __('ユーザー名') }}</label>
+
                             <div class="col">
-                                <input id="userName" type="text" class="form-control @error('userName') is-invalid @enderror" name="userName" value="{{ old('userName') }}" required autocomplete="userName" autofocus>
+                                <input id="userName" type="text" class="form-control @error('userName') is-invalid @enderror" name="userName" value="{{ old('userName') }}" required autocomplete="userName">
 
                                 @error('userName')
                                     <span class="invalid-feedback" role="alert">
@@ -100,7 +130,18 @@
 
 
 
+                        <!-- <div class="row mb-4 form-input w-50 mx-auto mainColor">
+                            <label for="companyID" class="col-form-label">{{ __('Company ID') }}</label>
+                            <div class="col">
+                                <input id="companyID" type="text" class="form-control @error('companyID') is-invalid @enderror" name="companyID" required autocomplete="companyID">
 
+                                @error('departmentID')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div> -->
 
                         <div class="row mb-0">
                             <div class="login-form col-md-8 offset-md-4 text-center mx-auto d-flex align-items-start">
