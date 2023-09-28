@@ -47,30 +47,32 @@
                     <hr>
                     <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
-                        <a href="#" class="nav-link active" aria-current="page">
+                        <a href="home" class="nav-link active" aria-current="page">
                         <i class="fa-solid fa-house" style="color: #ffffff;"></i>
-                        test
+                        Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tasks" class="nav-link text-white">
+                        <i class="fa-solid fa-table-list" style="color: #ffffff;"></i>
+                        My all tasks
                         </a>
                     </li>
                     <li>
                         <a href="#" class="nav-link text-white">
-                        <i class="fa-regular fa-clipboard" style="color: #ffffff;"></i>
-                        test
+                        <i class="fa-solid fa-calendar-days"></i>
+                        Next 7 days
                         </a>
                     </li>
                     <li>
                         <a href="#" class="nav-link text-white">
-                        test
+                        <i class="fa-solid fa-poo"></i>
+                        Analytics
                         </a>
                     </li>
                     <li>
                         <a href="#" class="nav-link text-white">
-                        test
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-white">
-                        test
+                        Add new board
                         </a>
                     </li>
                     </ul>
