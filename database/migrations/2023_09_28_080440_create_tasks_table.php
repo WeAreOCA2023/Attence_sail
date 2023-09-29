@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 100);
             $table->string('detail', 1000);
+            $table->string('notes', 1000);
             $table->boolean('status')->default(false);
             $table->datetime('created_at')->useCurrent()->nullable();
             $table->datetime('updated_at')->useCurrent()->nullable();

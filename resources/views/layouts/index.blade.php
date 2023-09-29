@@ -45,37 +45,43 @@
                         </ul>
                     </div>
                     <hr>
-                    <ul class="nav nav-pills flex-column mb-auto">
-                    <li class="nav-item">
-                        <a href="home" class="nav-link active" aria-current="page">
-                        <i class="fa-solid fa-house" style="color: #ffffff;"></i>
-                        Home
-                        </a>
-                    </li>
-                    <li>
-                        <a href="tasks" class="nav-link text-white">
-                        <i class="fa-solid fa-table-list" style="color: #ffffff;"></i>
-                        My all tasks
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-white">
-                        <i class="fa-solid fa-calendar-days"></i>
-                        Next 7 days
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-white">
-                        <i class="fa-solid fa-poo"></i>
-                        Analytics
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-white">
-                        Add new board
-                        </a>
-                    </li>
-                    </ul>
+                    <?php
+                        $url = (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+
+                        $navs = [
+                            ["home", "Home", '<i class="fa-solid fa-house" style="color: #ffffff;"></i>'],
+                            ["tasks", "My all tasks", '<i class="fa-solid fa-table-list" style="color: #ffffff;"></i>'],
+                            ["next-7-days", "Next 7 days", '<i class="fa-solid fa-calendar-days"></i>'],
+                            ["analytics", "Analytics", '<i class="fa-solid fa-poo"></i>'],
+                            ["#", "Add new board", ''],
+                        ];
+                    ?>
+                    <?php
+                        if( $navs ){
+                    ?>
+                        <ul class="nav nav-pills flex-column mb-auto">
+                    <?php
+                        foreach( $navs as $vals ){
+                        $current = "";
+                        if( strpos($url,$vals[0]) !== false){
+                            $current = 'class="nav-link active" aria-current="page"';
+                        } else {
+                            $current = 'class="nav-link text-white"';
+                        }
+                    ?>
+                        <li class="nav-item">
+                            <a href="<?php echo $vals[0]; ?>" <?php echo $current; ?>>
+                            <?php echo $vals[2] ?>
+                            <?php echo $vals[1]; ?>
+                            </a>
+                        </li>
+                    <?php
+                        }
+                    ?>
+                        </ul>
+                    <?php
+                        }
+                    ?>
                 </div>
             </div>
         </div>
