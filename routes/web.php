@@ -1,6 +1,10 @@
 <?php
 
+// namespace App\Http\Controllers;
+
+
 use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\TaskController;
 
 /*
@@ -20,9 +24,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('register-boss', function () {
-    return view('/auth/register-boss');
-})->name('register-boss');
+Route::get('/register-boss', function () {return view('/auth/register-boss');})->name('register-boss');
+Route::post('/register-boss', 'Auth\RegisterController@register');
+
+
+// Route::get('register-boss', function () {
+//     return view('/auth/register-boss');
+// })->name('register-boss');
+// Route::post('register-boss', 'Auth\RegisterController@register')->name('register-boss');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

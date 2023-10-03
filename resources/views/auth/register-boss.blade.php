@@ -128,20 +128,11 @@
                             </div>
                         </div>
 
+                        <input type="hidden" name="is_boss" value="1">
 
 
-                        <!-- <div class="row mb-4 form-input w-50 mx-auto mainColor">
-                            <label for="companyID" class="col-form-label">{{ __('Company ID') }}</label>
-                            <div class="col">
-                                <input id="companyID" type="text" class="form-control @error('companyID') is-invalid @enderror" name="companyID" required autocomplete="companyID">
 
-                                @error('departmentID')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div> -->
+
 
                         <div class="row mb-0">
                             <div class="login-form col-md-8 offset-md-4 text-center mx-auto d-flex align-items-start">
