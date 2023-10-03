@@ -5,7 +5,7 @@
         <div class="col-md-4 px-0">
             <div class="card h-100 reset-rounded">
                 <div class="flex card-body">
-                    <h2 class="text-center mb-1 h1 mainColor">REGISTER-BOSS</h2>
+                    <h2 class="text-center mb-1 h1 mainColor">サインアップ（ボス）</h2>
                     <form method="POST" action="{{ route('register-boss') }}">
                         @csrf
 
@@ -69,7 +69,7 @@
                             <label for="fullName" class="col-form-label">{{ __('名前') }}</label>
 
                             <div class="col">
-                                <input id="fullName" type="text" class="form-control @error('fullName') is-invalid @enderror" name="fullName" value="{{ old('fullName') }}" required autocomplete="fullName" autofocus>
+                                <input id="fullName" type="text" class="form-control @error('fullName') is-invalid @enderror" name="fullName" value="{{ old('fullName') }}" required autocomplete="fullName">
 
                                 @error('fullName')
                                 <span class="invalid-feedback" role="alert">
