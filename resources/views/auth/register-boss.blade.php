@@ -5,7 +5,7 @@
         <div class="col-md-4 px-0">
             <div class="card h-100 reset-rounded">
                 <div class="flex card-body">
-                    <h2 class="text-center mb-1 h1 mainColor">REGISTER-BOSS</h2>
+                    <h2 class="text-center mb-1 h1 mainColor">サインアップ（ボス）</h2>
                     <form method="POST" action="{{ route('register-boss') }}">
                         @csrf
 
@@ -69,7 +69,7 @@
                             <label for="fullName" class="col-form-label">{{ __('名前') }}</label>
 
                             <div class="col">
-                                <input id="fullName" type="text" class="form-control @error('fullName') is-invalid @enderror" name="fullName" value="{{ old('fullName') }}" required autocomplete="fullName" autofocus>
+                                <input id="fullName" type="text" class="form-control @error('fullName') is-invalid @enderror" name="fullName" value="{{ old('fullName') }}" required autocomplete="fullName">
 
                                 @error('fullName')
                                 <span class="invalid-feedback" role="alert">
@@ -128,20 +128,11 @@
                             </div>
                         </div>
 
+                        <input type="hidden" name="is_boss" value="1">
 
 
-                        <!-- <div class="row mb-4 form-input w-50 mx-auto mainColor">
-                            <label for="companyID" class="col-form-label">{{ __('Company ID') }}</label>
-                            <div class="col">
-                                <input id="companyID" type="text" class="form-control @error('companyID') is-invalid @enderror" name="companyID" required autocomplete="companyID">
 
-                                @error('departmentID')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div> -->
+
 
                         <div class="row mb-0">
                             <div class="login-form col-md-8 offset-md-4 text-center mx-auto d-flex align-items-start">

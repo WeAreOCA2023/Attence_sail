@@ -19,6 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('telephone')->unique();
+            $table->boolean('is_boss')->default(0);
             $table->string('companyID');
             $table->string('departmentID')->nullable();
             $table->rememberToken();

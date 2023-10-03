@@ -99,6 +99,7 @@
                         </div>
 
 
+                        <input type="hidden" name="is_boss" value="0">
 
 
 

@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Foundation\Auth\RegistersBoss;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Company;
 
-class RegisterController extends Controller
+
+class BossRegisterController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +24,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    use RegistersBoss;
 
     /**
      * Where to redirect users after registration.
@@ -50,32 +52,55 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'companyName' => ['required', 'string', 'max:255'],
+            'companyPostCode' => ['required', 'string', 'max:7'],
+            'companyAddress' => ['required', 'string', 'max:255'],
             'userName' => ['required', 'string', 'max:255'],
             'fullName' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'telephone' => ['required', 'string','max:255', 'unique:users'],
             'is_boss' => ['bool'],
-            'companyID' => ['required', 'string', 'max:255'],
         ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
-     *
+     * 
      * @param  array  $data
      * @return \App\Models\User
      */
     protected function create(array $data)
     {
-        return User::create([
+        // return User::create([
+        //     'companyName' => $data['companyName'],
+        //     'companyPostCode' => $data['companyPostCode'],
+        //     'companyAddress' => $data['companyAddress'],
+        //     'userName' => $data['userName'],
+        //     'fullName' => $data['fullName'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+        //     'telephone' => $data['telephone'],
+        //     'is_boss' => $data['is_boss'],
+            
+        // ]);
+
+        $company = Company::create([
+            'company_name' => $data['companyName'],
+            'post_code' => $data['companyPostCode'],
+            'address' => $data['companyAddress'],
+        ]);
+
+        $user = User::create([
             'userName' => $data['userName'],
             'fullName' => $data['fullName'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'telephone' => $data['telephone'],
             'is_boss' => $data['is_boss'],
-            'companyID' => $data['companyID'],
+            'companyID' => $company->id,
         ]);
+
+        return $user;
     }
 }
