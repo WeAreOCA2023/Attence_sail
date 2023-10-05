@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserLogin;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -76,6 +77,13 @@ class RegisterController extends Controller
             'telephone' => $data['telephone'],
             'is_boss' => $data['is_boss'],
             'companyID' => $data['companyID'],
+        ]);
+
+        $userLogin = UserLogin::create([
+            'userName' => $data['userName'],
+            'password' => Hash::make($data['password']),
+            'created_at' => $data['created_at'],
+            'updated_at' => $data['updated_at'],
         ]);
     }
 }

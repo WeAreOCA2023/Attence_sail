@@ -4,7 +4,6 @@
 
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\RegisterBossController;
 use App\Http\Controllers\TaskController;
 
 /*

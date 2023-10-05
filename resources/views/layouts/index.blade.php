@@ -26,6 +26,7 @@
                         <div class="d-flex flex-flow">
                             <span class="fs-4 fw-bold">{{ Auth::user()->userName }}</span>
                             <span class="color">{{ Auth::user()->companyID }}</span>
+                            <?php if(Auth::user()->is_boss == 0){echo'<span class="color">'."user".'</span>';}?>
                         </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">

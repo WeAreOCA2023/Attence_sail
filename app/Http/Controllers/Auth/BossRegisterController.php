@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserLogin;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersBoss;
@@ -61,12 +62,14 @@ class BossRegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'telephone' => ['required', 'string','max:255', 'unique:users'],
             'is_boss' => ['bool'],
+//            'created_at' => ['required', 'datetime'],
+//            'updated_at' => ['required', 'datetime'],
         ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
-     * 
+     *
      * @param  array  $data
      * @return \App\Models\User
      */
@@ -82,7 +85,7 @@ class BossRegisterController extends Controller
         //     'password' => Hash::make($data['password']),
         //     'telephone' => $data['telephone'],
         //     'is_boss' => $data['is_boss'],
-            
+
         // ]);
 
         $company = Company::create([
@@ -90,16 +93,22 @@ class BossRegisterController extends Controller
             'post_code' => $data['companyPostCode'],
             'address' => $data['companyAddress'],
         ]);
+        $userLogin = UserLogin::create([
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
 
         $user = User::create([
             'userName' => $data['userName'],
             'fullName' => $data['fullName'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
             'telephone' => $data['telephone'],
             'is_boss' => $data['is_boss'],
             'companyID' => $company->id,
+            'loginID' => $userLogin->id,
         ]);
+        date_default_timezone_set("Asia/Tokyo");
+
 
         return $user;
     }
