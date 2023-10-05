@@ -15,14 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('userName');
             $table->string('fullName');
-            $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('telephone')->unique();
             $table->boolean('is_boss')->default(0);
             $table->string('companyID');
-            $table->string('loginID');
             $table->string('departmentID')->nullable();
-            $table->rememberToken();
             $table->timestamps();
         });
     }

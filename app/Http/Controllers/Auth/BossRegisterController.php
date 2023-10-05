@@ -53,12 +53,13 @@ class BossRegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'user_id' => ['id'],
             'companyName' => ['required', 'string', 'max:255'],
             'companyPostCode' => ['required', 'string', 'max:7'],
             'companyAddress' => ['required', 'string', 'max:255'],
             'userName' => ['required', 'string', 'max:255'],
             'fullName' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:user_logins'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'telephone' => ['required', 'string','max:255', 'unique:users'],
             'is_boss' => ['bool'],
@@ -93,21 +94,21 @@ class BossRegisterController extends Controller
             'post_code' => $data['companyPostCode'],
             'address' => $data['companyAddress'],
         ]);
-        $userLogin = UserLogin::create([
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+
 
         $user = User::create([
             'userName' => $data['userName'],
             'fullName' => $data['fullName'],
-            'email' => $data['email'],
             'telephone' => $data['telephone'],
             'is_boss' => $data['is_boss'],
             'companyID' => $company->id,
-            'loginID' => $userLogin->id,
         ]);
-        date_default_timezone_set("Asia/Tokyo");
+
+        $userLogin = UserLogin::create([
+            'user_id' => $user->id,
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
 
 
         return $user;

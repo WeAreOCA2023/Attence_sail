@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\User;
 
 return new class extends Migration
 {
@@ -13,11 +14,12 @@ return new class extends Migration
     {
         Schema::create('user_logins', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->string('email');
             $table->string('password');
-            $table->datetime('created_at');
-            $table->datetime('updated_at');
-//            $table->foreign('user_id')->references('id')->on('users');
+            $table->rememberToken();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->timestamps();
         });
     }
 
