@@ -93,10 +93,6 @@ class BossRegisterController extends Controller
             'post_code' => $data['companyPostCode'],
             'address' => $data['companyAddress'],
         ]);
-        $userLogin = UserLogin::create([
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
 
         $user = User::create([
             'userName' => $data['userName'],
@@ -105,11 +101,16 @@ class BossRegisterController extends Controller
             'telephone' => $data['telephone'],
             'is_boss' => $data['is_boss'],
             'companyID' => $company->id,
-            'loginID' => $userLogin->id,
         ]);
-        date_default_timezone_set("Asia/Tokyo");
+
+        $userLogin = UserLogin::create([
+            'userManagementID' => $user->id,
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
 
 
-        return $user;
+        return $userLogin;
     }
+
 }

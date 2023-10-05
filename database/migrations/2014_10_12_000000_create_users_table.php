@@ -20,10 +20,11 @@ return new class extends Migration
             $table->string('telephone')->unique();
             $table->boolean('is_boss')->default(0);
             $table->string('companyID');
-            $table->string('loginID');
+//            $table->foreignId('loginID')->references('id')->on('user_logins');
             $table->string('departmentID')->nullable();
             $table->rememberToken();
             $table->timestamps();
+//            $table->foreign('loginID')->references('id')->on('user_logins');
         });
     }
 

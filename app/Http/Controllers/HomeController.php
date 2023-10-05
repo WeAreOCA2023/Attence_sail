@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\UserLogin;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,8 +23,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index($i)
     {
+        echo $i;
+        $username = User::find($i)->id;
+        dump($username->telephone);
+//        $user = User::find(Auth::user);
         return view('home');
     }
+
 }

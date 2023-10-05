@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('user_logins', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('userManagementID')->references('id')->on('users');
             $table->string('email');
             $table->string('password');
             $table->datetime('created_at');
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_login');
+        Schema::dropIfExists('user_logins');
     }
 };
