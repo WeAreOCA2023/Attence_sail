@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('userName');
             $table->string('fullName');
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('telephone')->unique();
             $table->boolean('is_boss')->default(0);
             $table->string('companyID');

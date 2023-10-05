@@ -38,6 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
+            // changed from users
             'provider' => 'users',
         ],
     ],
@@ -93,6 +94,7 @@ return [
 
     'passwords' => [
         'users' => [
+            // changed from users
             'provider' => 'users',
             'table' => 'password_reset_tokens',
             'expire' => 60,
