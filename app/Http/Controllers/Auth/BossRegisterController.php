@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserLogin;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersBoss;
@@ -52,21 +53,24 @@ class BossRegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'user_id' => ['id'],
             'companyName' => ['required', 'string', 'max:255'],
             'companyPostCode' => ['required', 'string', 'max:7'],
             'companyAddress' => ['required', 'string', 'max:255'],
             'userName' => ['required', 'string', 'max:255'],
             'fullName' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:user_logins'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'telephone' => ['required', 'string','max:255', 'unique:users'],
             'is_boss' => ['bool'],
+//            'created_at' => ['required', 'datetime'],
+//            'updated_at' => ['required', 'datetime'],
         ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
-     * 
+     *
      * @param  array  $data
      * @return \App\Models\User
      */
@@ -82,7 +86,7 @@ class BossRegisterController extends Controller
         //     'password' => Hash::make($data['password']),
         //     'telephone' => $data['telephone'],
         //     'is_boss' => $data['is_boss'],
-            
+
         // ]);
 
         $company = Company::create([
@@ -91,15 +95,21 @@ class BossRegisterController extends Controller
             'address' => $data['companyAddress'],
         ]);
 
+
         $user = User::create([
             'userName' => $data['userName'],
             'fullName' => $data['fullName'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
             'telephone' => $data['telephone'],
             'is_boss' => $data['is_boss'],
             'companyID' => $company->id,
         ]);
+
+        $userLogin = UserLogin::create([
+            'user_id' => $user->id,
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+
 
         return $user;
     }

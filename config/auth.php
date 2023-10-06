@@ -38,6 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
+            // changed from users
             'provider' => 'users',
         ],
     ],
@@ -62,8 +63,9 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\UserLogin::class,
         ],
+        App\Providers\ViewComposerServiceProvider::class,
 
         // 'users' => [
         //     'driver' => 'database',
@@ -92,6 +94,7 @@ return [
 
     'passwords' => [
         'users' => [
+            // changed from users
             'provider' => 'users',
             'table' => 'password_reset_tokens',
             'expire' => 60,

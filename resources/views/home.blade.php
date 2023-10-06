@@ -15,6 +15,11 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <!-- usersテーブルの情報 -->
+                    <!-- {{ Auth::user()->user }} -->
+
+                    <!-- user_loginsテーブルの情報 -->
+                    <!-- {{ Auth::user() }} -->
                 </div>
             </div>
         </div>

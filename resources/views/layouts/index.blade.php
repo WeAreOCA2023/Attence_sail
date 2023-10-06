@@ -24,8 +24,9 @@
                         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-gear padding" style="color: #ffffff;"></i>
                         <div class="d-flex flex-flow">
-                            <span class="fs-4 fw-bold">{{ Auth::user()->userName }}</span>
-                            <span class="color">{{ Auth::user()->companyID }}</span>
+                            <span class="fs-4 fw-bold">{{ $username }}</span>
+                            <span class="fs-4 fw-bold">{{ $is_boss }}</span>
+                            
                         </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
@@ -45,6 +46,7 @@
                         </ul>
                     </div>
                     <hr>
+                    
                     <?php
                         $url = (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 
