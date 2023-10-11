@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('fullName');
             $table->string('telephone')->unique();
             $table->boolean('is_boss')->default(0);
+            // $table->foreignId('permission_id')->references('id')->on('permissions');
             $table->string('companyID');
             $table->string('departmentID')->nullable();
             $table->timestamps();

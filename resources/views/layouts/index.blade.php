@@ -55,32 +55,39 @@
                             ["tasks", "My all tasks", '<i class="fa-solid fa-table-list" style="color: #ffffff;"></i>'],
                             ["next-7-days", "Next 7 days", '<i class="fa-solid fa-calendar-days"></i>'],
                             ["analytics", "Analytics", '<i class="fa-solid fa-poo"></i>'],
+                            ["user-management", "User Management", '<i class="fa-solid fa-calendar-days"></i>'],
                             ["#", "Add new board", ''],
                         ];
                     ?>
                     <?php
-                        if( $navs ){
+                        if ($navs) {
                     ?>
                         <ul class="nav nav-pills flex-column mb-auto">
-                    <?php
-                        foreach( $navs as $vals ){
-                        $current = "";
-                        if( strpos($url,$vals[0]) !== false){
-                            $current = 'class="nav-link active" aria-current="page"';
-                        } else {
-                            $current = 'class="nav-link text-white"';
-                        }
-                    ?>
-                        <li class="nav-item">
-                            <a href="<?php echo $vals[0]; ?>" <?php echo $current; ?>>
-                            <?php echo $vals[2] ?>
-                            <?php echo $vals[1]; ?>
-                            </a>
-                        </li>
-                    <?php
-                        }
-                    ?>
+                            @foreach ($navs as $vals)
+                                @php
+                                    $current = (strpos($url, $vals[0]) !== false) ? 'class="nav-link active" aria-current="page"' : 'class="nav-link text-white"';
+                                @endphp
+
+                                @if ($vals[0] === 'user-management')
+                                    @can('boss')
+                                        <li class="nav-item">
+                                            <a href="{{ $vals[0] }}" {!! $current !!}>
+                                                {!! $vals[2] !!}
+                                                {{ $vals[1] }}
+                                            </a>
+                                        </li>
+                                    @endcan
+                                @else
+                                    <li class="nav-item">
+                                        <a href="{{ $vals[0] }}" {!! $current !!}>
+                                            {!! $vals[2] !!}
+                                            {{ $vals[1] }}
+                                        </a>
+                                    </li>
+                                @endif
+                            @endforeach
                         </ul>
+
                     <?php
                         }
                     ?>
