@@ -155,9 +155,13 @@ main {
         }
         .stopwatchTime p{
         }
+        h1{
+            width: 15vw;
+            height: 7vh;
+            padding-top: 7px;
+        }
     }
     .infoBox{
-        flex-direction: column;
         height: 90vh;
         width: 45vw;
         .taskList{

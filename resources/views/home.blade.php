@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container home d-flex justify-content-around h-100 align-items-center">
-        <div class="stopWatch bg-white rounded">
-            <h1>Stopwatch</h1>
+        <div class="stopWatch bg-white rounded d-flex align-items-center flex-column">
+            <h1 class="bg-black text-white text-center rounded">休憩中</h1>
             <div class="timeDisplay d-flex justify-content-center align-items-lg-center">
                 <p id="stopwatch">00:00:00</p>
             </div>
@@ -12,7 +12,7 @@
                 <button id="reset" onclick="resetStopwatch()">Reset</button>
             </div>
         </div>
-        <div class="infoBox d-flex justify-content-between">
+        <div class="infoBox d-flex justify-content-between flex-column">
             <div class="taskList bg-white rounded ">
 
             </div>
