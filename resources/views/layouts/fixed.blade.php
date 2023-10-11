@@ -94,6 +94,7 @@
                 </div>
             </div>
         </div>
+        <!-- うんこ -->
         <main class="py-4 w-100">
             @yield('content')
         </main>
