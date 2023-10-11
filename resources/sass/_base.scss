@@ -61,7 +61,7 @@ main {
         padding: 0;
         margin: 0;
     }
-}    
+}
 
 .mainColor {
     color: v.$mainColor !important;
@@ -70,11 +70,11 @@ main {
 
 .login{
     @include r.mq(xl) {
-        
+
         button {
             @include m.loginBtn(v.$mainColor);
         }
-    
+
         .login-form {
             flex-flow: column;
         }
@@ -83,7 +83,7 @@ main {
             flex: none;
             margin: 5vh 0 auto 0;
         }
-        
+
         .reset-rounded {
             border-bottom-left-radius: 0%;
             border-top-left-radius: 0%;
@@ -95,7 +95,7 @@ main {
 .register {
     @include r.mq(xl) {
         max-width: 100% !important;
-        
+
         .reset-rounded {
             border-bottom-right-radius: 0%;
             border-top-right-radius: 0%;
@@ -137,4 +137,45 @@ main {
             margin-right: 5%;
         }
     }
+}
+
+.home{
+    width: 87vw;
+    @include r.mq(xl) {
+        max-width: 100% !important;
+    }
+    .stopWatch{
+        height: 90vh;
+        width: 37vw;
+        .timeDisplay{
+            border: 10px solid;
+            border-image: conic-gradient(#7f7fff, #7fff7f, #ffff7f, #ff7f7f, #ff7fff, #7f7fff) 1;
+            height: 150px;
+            width: 150px;
+        }
+        .stopwatchTime p{
+        }
+        h1{
+            width: 15vw;
+            height: 7vh;
+            padding-top: 7px;
+        }
+    }
+    .infoBox{
+        height: 90vh;
+        width: 45vw;
+        .taskList{
+            //width: 44vw;
+            height: 25vh;
+        }
+        .extraWorkList{
+            //width: 44vw;
+            height: 25vh;
+        }
+        .workHourList{
+            //width: 44vw;
+            height: 25vh;
+        }
+    }
+
 }
