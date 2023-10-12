@@ -12,6 +12,19 @@
                 <button id="reset" onclick="resetStopwatch()">Reset</button>
             </div>
         </div>
+        <div class="player-timer">
+            <!-- タイマーの下地になるサークル -->
+            <svg class="player-timer-circle player-timer-track-circle" width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="110" cy="110" r="108.5" stroke="white" stroke-width="3"/>
+            </svg>
+            <!-- タイマーの移動する部分のサークル -->
+            <svg class="player-timer-circle player-timer-moving-circle" width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="110" cy="110" r="108.5" stroke="#B7B7B7" stroke-width="3"/>
+            </svg>
+            <!-- 再生ボタン -->
+            <img src="{{ asset('img/start.svg') }}" alt="" class="player-timer-btn" />
+            <h3 class='timeDisplay'>0:00</h3>
+        </div>
         <div class="infoBox d-flex justify-content-between flex-column">
             <div class="taskList bg-white rounded ">
 
@@ -66,6 +79,19 @@
                     hours++;
                 }
             }
+        }
+
+        const playBtn = document.querySelector('.player-timer-btn')
+        let leftTime = 1000;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            mapCheckPlayingEvent();
+        });
+        
+        const mapCheckPlayingEvent = () => {
+            playBtn.addEventListener('click', () => {
+                startStop();
+            });
         }
     </script>
 @endsection
