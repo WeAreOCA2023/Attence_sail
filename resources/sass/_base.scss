@@ -177,5 +177,18 @@ main {
             height: 25vh;
         }
     }
-
+    .player{
+        width: 100%;
+    }
+    .player-timer{
+        position: relative;
+    }
+    .player-timer-circle{
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-90deg);
+        height: 220px;
+        width: 220px;
+    }
 }
