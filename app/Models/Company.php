@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -24,12 +25,16 @@ class Company extends Authenticatable
         'post_code',
         'address',
     ];
-    public function department(): BelongsTo
+    public function companyToDepartment(): BelongsTo
     {
         return $this->belongsTo(Department::class);
     }
 
-    public function users():HasOne{
+    public function companyGiveToUser():HasOne{
         return $this->hasOne(User::class);
+    }
+
+    public function companyGiveToPosition(): HasMany{
+        return $this->hasMany(Position::class);
     }
 }

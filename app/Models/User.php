@@ -20,19 +20,19 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_id',
         'user_name',
         'full_name',
         'telephone',
         'is_boss',
         'company_id',
-        'department_id',
     ];
 
-    public function user_login() :HasOne
+    public function user_login() :BelongsTo
     {
-        return $this->hasOne(UserLogin::class);
+        return $this->belongsTo(UserLogin::class);
     }
-    public function company() :BelongsTo{
+    public function userToCompany() :BelongsTo{
         return $this->belongsTo(Company::class);
     }
 }

@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 
+use App\Models\Company;
 use App\Models\Department;
+use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
@@ -31,10 +33,13 @@ class AppServiceProvider extends ServiceProvider
         View::composer(['home', 'user-management', 'my-all-tasks'], function ($view) {
             // ↓の中にはuserLoginテーブル
             $user = Auth::user();
-            $user_id = $user->user->id;
+//            $user_key = $user->user;
+            $user_id = $user->user_login->id;
             $user_name = $user->user->user_name;
-            $is_boss = $user->user->is_boss;
             $department_name = Department::where('id', $user_id)->department_name;
+
+            $company_name = User::where('company_id', Company::on('id'))->company_name;
+            $is_boss = $user->user->is_boss;
             if ($is_boss == 1) {
                 $is_boss = 'BOSS';
             } else {
@@ -46,6 +51,7 @@ class AppServiceProvider extends ServiceProvider
                 'user_name' => $user_name,
                 'is_boss' => $is_boss,
                 'department_name' => $department_name,
+                'company_name' => $company_name,
 
             ]);
         });
