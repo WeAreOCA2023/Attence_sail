@@ -140,60 +140,27 @@ main {
 }
 
 .home{
-    width: 87vw;
-    @include r.mq(xl) {
-        max-width: 100% !important;
-    }
-    .stopWatch{
-        height: 90vh;
-        width: 37vw;
-        .timeDisplay{
-            border: 10px solid;
-            border-image: conic-gradient(#7f7fff, #7fff7f, #ffff7f, #ff7f7f, #ff7fff, #7f7fff) 1;
-            height: 150px;
-            width: 150px;
-        }
-        .stopwatchTime p{
-        }
-        h1{
-            width: 15vw;
-            height: 7vh;
-            padding-top: 7px;
-        }
-    }
-    .infoBox{
-        height: 90vh;
-        width: 45vw;
-        .taskList{
-            //width: 44vw;
-            height: 25vh;
-        }
-        .extraWorkList{
-            //width: 44vw;
-            height: 25vh;
-        }
-        .workHourList{
-            //width: 44vw;
-            height: 25vh;
-        }
-    }
-    .player{
-        width: 100%;
-    }
-    .player-timer{
+    #circle-timer {
         position: relative;
-        margin-top: 15vh;
+        text-align: center;
+        margin-top: 50px;
     }
-    .player-timer-circle{
-        position: absolute;
-        top: 40%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(-90deg);
-        height: 220px;
-        width: 220px;
+    
+    #circle {
+        border-radius: 50%;
+        background-color: #ccc;
+        width: 200px;
+        height: 200px;
+        margin: 0 auto 10px;
     }
-    .stopwatchButtons{
-        margin-top: 10vh;
-        width: 27vw;
+    
+    #display {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    
+    button {
+        margin: 5px;
+        font-size: 16px;
     }
 }

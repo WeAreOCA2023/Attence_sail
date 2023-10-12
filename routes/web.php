@@ -32,3 +32,4 @@ Route::resource('tasks', TaskController::class);
 Route::group(['middleware' => ['auth', 'can:boss']], function () {
     Route::get('/user-management', [App\Http\Controllers\AdminController::class, 'index'])->name('user-management');
 });
+
