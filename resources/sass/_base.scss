@@ -182,6 +182,7 @@ main {
     }
     .player-timer{
         position: relative;
+        margin-top: 15vh;
     }
     .player-timer-circle{
         position: absolute;
@@ -190,5 +191,9 @@ main {
         transform: translate(-50%, -50%) rotate(-90deg);
         height: 220px;
         width: 220px;
+    }
+    .stopwatchButtons{
+        margin-top: 10vh;
+        width: 27vw;
     }
 }
