@@ -77,6 +77,8 @@
         }
 
         const playBtn = document.querySelector('.player-timer-btn')
+        let outline = document.querySelector('.player-timer-moving-circle circle')
+        let outlineLength = outline.getTotalLength();
         let leftTime = 1000;
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -88,5 +90,9 @@
                 startStop();
             });
         }
+
+        const updateCircle = () => {
+            const progress
+        };
     </script>
 @endsection
