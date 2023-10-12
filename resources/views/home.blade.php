@@ -24,8 +24,16 @@
             </div>
         </div>
         <div class="infoBox d-flex justify-content-between flex-column">
-            <div class="taskList bg-white rounded ">
-
+            <div class="taskList bg-white rounded d-flex flex-column justify-content-around">
+                <div class="taskListTitle d-flex">
+                    <img src="{{ asset('img/newsLogo.svg') }}" alt="" class="player-timer-btn" />
+                    <h3>今日中に終わらせなければいけないタスク</h3>
+                </div>
+                <div class="taskListTasks">
+                    <p>タスク名    ----  期限(時間)</p>
+                    <p>タスク名    ----  期限(時間)</p>
+                    <p>タスク名    ----  期限(時間)</p>
+                </div>
             </div>
             <div class="extraWorkList bg-white rounded">
 
