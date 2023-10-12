@@ -25,7 +25,7 @@
                         <i class="fa-solid fa-gear padding" style="color: #ffffff;"></i>
                         <div class="d-flex flex-flow">
                             <span class="fs-4 fw-bold">{{ $user_name }}</span>
-                            <span class="fs-4 fw-bold">{{ $company_name }}</span>
+
 
                         </div>
                         </a>

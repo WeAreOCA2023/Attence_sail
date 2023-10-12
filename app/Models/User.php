@@ -28,11 +28,15 @@ class User extends Authenticatable
         'company_id',
     ];
 
-    public function user_login() :BelongsTo
-    {
-        return $this->belongsTo(UserLogin::class);
-    }
-    public function userToCompany() :BelongsTo{
-        return $this->belongsTo(Company::class);
-    }
+    // public function user_login() :BelongsTo
+    // {
+    //     return $this->belongsTo(UserLogin::class, 'user_id');
+    // }
+    // public function user_login() :HasOne
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
+    // public function userToCompany() :BelongsTo{
+    //     return $this->belongsTo(Company::class);
+    // }
 }

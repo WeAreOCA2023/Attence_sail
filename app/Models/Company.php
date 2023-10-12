@@ -25,16 +25,21 @@ class Company extends Authenticatable
         'post_code',
         'address',
     ];
-    public function companyToDepartment(): BelongsTo
-    {
-        return $this->belongsTo(Department::class);
-    }
+    // public function companyToDepartment(): BelongsTo
+    // {
+    //     return $this->belongsTo(Department::class);
+    // }
 
-    public function companyGiveToUser():HasOne{
-        return $this->hasOne(User::class);
-    }
+    // public function companyGiveToUser():HasOne{
+    //     return $this->hasOne(User::class);
+    // }
 
-    public function companyGiveToPosition(): HasMany{
-        return $this->hasMany(Position::class);
-    }
+    // public function companyGiveToPosition(): HasMany{
+    //     return $this->hasMany(Position::class);
+    // }
+
+    // public function company(): HasMany
+    // {
+    //     return $this->hasMany(Position::class);
+    // }
 }
