@@ -150,26 +150,28 @@ main {
         letter-spacing: 5px;
     }
     .button{
-        width: 300px
-    }
-    #btn{
-        display: flex;
-        list-style:none;
-        padding: 0;
-        justify-content: space-between;
-    }
-    .btn-item{
-        width: 100px;
-        border: 1px solid #000;
-        background: #eee;
-        padding: 5px;
-        border-radius: 5px;
-        cursor: pointer;
-        user-select: none;
-    }
-    .btn-item:hover,.disabled{
-        opacity: 0.2;
-        transition: 0.2s;
+        width: 300px;
+        
+        #btn{
+            display: flex;
+            list-style:none;
+            padding: 0;
+            justify-content: space-between;
+        }
+        .btn-item{
+            width: 100px;
+            border: 1px solid #000;
+            background: #eee;
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .btn-item:hover,.disabled{
+            opacity: 0.2;
+            transition: 0.2s;
+        }
+    
     }
     #progressPath {
         stroke-dasharray: 1256;
