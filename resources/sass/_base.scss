@@ -22,11 +22,10 @@ body {
     img{
 
     }
-    .dropdown-toggle { outline: 0; }
 
     .user {
         padding: 8px;
-
+        margin: 0 1vw 0 auto;
         i {
             font-size: 40px;
             border-radius: 50%;
@@ -46,7 +45,10 @@ body {
         }
         span{
             color: v.$black;
+            @include m.fz(30);
         }
+        .dropdown-toggle { outline: 0; }
+
     }
 }
 main {
@@ -146,6 +148,7 @@ main {
 // index
 
 .sidebar {
+
 }
 
 .home{

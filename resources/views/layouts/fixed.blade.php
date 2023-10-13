@@ -25,7 +25,7 @@
                 <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa-solid fa-gear padding" style="color: #0F1419;"></i>
                 <div class="d-flex flex-flow">
-                    <span class="fs-4 fw-bold">{{ $user_name }}</span>
+                    <span class="fw-bold">{{ $user_name }}</span>
                 </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
