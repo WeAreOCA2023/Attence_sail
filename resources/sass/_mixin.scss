@@ -14,3 +14,7 @@
     font-weight: 500;
     border: 1px;
 }
+
+@mixin fz($size: 16) {
+    font-size: calc($size / 10) + rem;
+}
