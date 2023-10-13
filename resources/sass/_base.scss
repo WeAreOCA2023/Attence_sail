@@ -140,30 +140,40 @@ main {
 }
 
 .home{
-    width: 87vw;
-    @include r.mq(xl) {
-        max-width: 100% !important;
-    }
-    .stopWatch{
-        height: 90vh;
+    .stopWatch {
         width: 37vw;
-        .timeDisplay{
-            border: 10px solid;
-            border-image: conic-gradient(#7f7fff, #7fff7f, #ffff7f, #ff7f7f, #ff7fff, #7f7fff) 1;
-            height: 150px;
-            width: 150px;
+    }
+    .circle{
+        width: 400px;
+        height: 400px;
+    }
+    #timer{
+        margin: 30px auto;
+        font-size: 30px;
+        letter-spacing: 5px;
+    }
+    .button{        
+        #btn{
+            display: flex;
+            list-style:none;
+            padding: 0;
         }
-        .stopwatchTime p{
+        .btn-item{
+            padding: 5px;
+            cursor: pointer;
+            user-select: none;
         }
-        h1{
-            width: 15vw;
-            height: 7vh;
-            padding-top: 7px;
+        .btn-item:hover,.disabled{
+            opacity: 0.2;
+            transition: 0.2s;
         }
+    
+    }
+    #progressPath {
+        stroke-dasharray: 1256;
     }
     .infoBox{
         height: 90vh;
-        width: 45vw;
         .taskList{
             //width: 44vw;
             height: 25vh;
@@ -177,24 +187,5 @@ main {
             //width: 44vw;
             height: 25vh;
         }
-    }
-    .player{
-        width: 100%;
-    }
-    .player-timer{
-        position: relative;
-        margin-top: 15vh;
-    }
-    .player-timer-circle{
-        position: absolute;
-        top: 40%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(-90deg);
-        height: 220px;
-        width: 220px;
-    }
-    .stopwatchButtons{
-        margin-top: 10vh;
-        width: 27vw;
     }
 }
