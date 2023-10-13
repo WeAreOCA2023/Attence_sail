@@ -33,6 +33,7 @@
                     <p>タスク名    ----  期限(時間)</p>
                     <p>タスク名    ----  期限(時間)</p>
                     <p>タスク名    ----  期限(時間)</p>
+                    <p>{{ Auth::user()->id }}</p>
                 </div>
             </div>
             <div class="extraWorkList bg-white rounded">

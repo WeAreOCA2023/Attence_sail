@@ -53,7 +53,6 @@ class BossRegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'user_id' => ['id'],
             'companyName' => ['required', 'string', 'max:255'],
             'companyPostCode' => ['required', 'string', 'max:7'],
             'companyAddress' => ['required', 'string', 'max:255'],
@@ -76,18 +75,10 @@ class BossRegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // return User::create([
-        //     'companyName' => $data['companyName'],
-        //     'companyPostCode' => $data['companyPostCode'],
-        //     'companyAddress' => $data['companyAddress'],
-        //     'userName' => $data['userName'],
-        //     'fullName' => $data['fullName'],
-        //     'email' => $data['email'],
-        //     'password' => Hash::make($data['password']),
-        //     'telephone' => $data['telephone'],
-        //     'is_boss' => $data['is_boss'],
-
-        // ]);
+        $userLogin = UserLogin::create([
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
 
         $company = Company::create([
             'company_name' => $data['companyName'],
@@ -96,19 +87,17 @@ class BossRegisterController extends Controller
         ]);
 
 
+
         $user = User::create([
-            'userName' => $data['userName'],
-            'fullName' => $data['fullName'],
+            'user_id' => $userLogin->id,
+            'user_name' => $data['userName'],
+            'full_name' => $data['fullName'],
             'telephone' => $data['telephone'],
             'is_boss' => $data['is_boss'],
-            'companyID' => $company->id,
+            'company_id' => $company->id,
         ]);
 
-        $userLogin = UserLogin::create([
-            'user_id' => $user->id,
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+
 
 
         return $user;
