@@ -30,9 +30,10 @@
     const svgPath = document.getElementById('progressPath');
 
     window.addEventListener('DOMContentLoaded', () => {
+        // ページ読み込み時に円を非表示にする
+        svgPath.style.strokeDasharray = '0';  // 初めは表示しないようにする
         updateSVG(0);
     });
-
 
     // タイマーを開始する関数
     function startTimer() {
@@ -40,6 +41,7 @@
             startTime = Date.now() - elapsedTime;
             timerInterval = setInterval(updateDisplay, 10);
             isRunning = true;
+            svgPath.style.strokeDasharray = '1000';
         }
     }
 
@@ -79,10 +81,12 @@
 
     // SVGの表示を更新する関数
     function updateSVG(elapsedTime) {
-        const progress = Math.min((elapsedTime / goalTime) * 100, 100);
-        const circumference = 2 * Math.PI * 200;
-        const dashoffset = circumference * (progress / 100);
-        svgPath.style.strokeDashoffset = dashoffset;
+        // const progress = Math.min((elapsedTime / goalTime) * 100, 100);
+        const circumference = svgPath.getTotalLength();
+        // const dashoffset = circumference * (progress / 100);
+        const dashoffset = circumference - (elapsedTime / goalTime) * circumference;
+        svgPath.style.strokeDashoffset = dashoffset; 
+        console.log(dashoffset);
     }
 
     // "Start" ボタンがクリックされた時の処理
