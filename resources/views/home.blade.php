@@ -1,9 +1,9 @@
 @extends('layouts.fixed')
 
 @section('content')
-    <div class="home d-flex justify-content-center gap-0 column-gap-3">
-        <div class="stopWatch bg-white rounded">
-            <h1 class="bg-black text-white text-center rounded">休憩中</h1>
+    <div class="home d-flex justify-content-center h-100 mx-auto py-4">
+        <div class="stopWatch">
+            <h1 class="mx-auto text-center d-flex align-items-center justify-content-center">休憩中</h1>
             <h2 class="text-center">2023/8/30</h2>
             <div class="home-timer mx-auto">
                 <div class="position-relative circle mx-auto">
@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="infoBox d-flex justify-content-between flex-column">
-            <div class="taskList bg-white rounded d-flex flex-column justify-content-around">
+            <div class="taskList bg-white d-flex flex-column justify-content-around">
                 <div class="taskListTitle d-flex">
                     <img src="{{ asset('img/newsLogo.svg') }}" alt="" class="player-timer-btn" />
                     <h3>今日中に終わらせなければいけないタスク</h3>
@@ -45,10 +45,10 @@
                     <p>{{ Auth::user()->id }}</p>
                 </div>
             </div>
-            <div class="extraWorkList bg-white rounded">
-
+            <div class="extraWorkList bg-white">
+                
             </div>
-            <div class="workHourList bg-white rounded">
+            <div class="workHourList bg-white">
 
             </div>
         </div>
