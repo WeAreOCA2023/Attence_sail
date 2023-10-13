@@ -140,25 +140,10 @@ main {
 }
 
 .home{
-    #circle-timer {
-        position: relative;
-        text-align: center;
-        margin-top: 50px;
+    .circle{
+        width: 400px;
+        height: 400px;
     }
-    
-    #circle {
-        border-radius: 50%;
-        background-color: #ccc;
-        width: 200px;
-        height: 200px;
-        margin: 0 auto 10px;
-    }
-    
-    #display {
-        font-size: 24px;
-        font-weight: bold;
-    }
-    
     #timer{
         margin: 30px auto;
         font-size: 30px;
@@ -168,28 +153,25 @@ main {
         width: 300px
     }
     #btn{
-    display: flex;
-    list-style:none;
-    padding: 0;
-    justify-content: space-between;
+        display: flex;
+        list-style:none;
+        padding: 0;
+        justify-content: space-between;
     }
     .btn-item{
-    width: 100px;
-    border: 1px solid #000;
-    background: #eee;
-    padding: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-    user-select: none;
+        width: 100px;
+        border: 1px solid #000;
+        background: #eee;
+        padding: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+        user-select: none;
     }
     .btn-item:hover,.disabled{
-    opacity: 0.2;
-    transition: 0.2s;
+        opacity: 0.2;
+        transition: 0.2s;
     }
     #progressPath {
         stroke-dasharray: 1256;
-        stroke-dashoffset: 0;
-        // transform: rotate(-90deg);
-        // transform-origin: 50% 50%;
     }
 }
