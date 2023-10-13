@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
@@ -32,10 +33,13 @@ class AuthServiceProvider extends ServiceProvider
 
         // default - works
         Gate::define('boss', function ($user) {
-            return ($user->is_boss === 1);
+            $user_login_id = Auth::user()->id;
+            $boss_check = User::where('user_id', $user_login_id)->first()->is_boss;
+//            dump($user);
+            return ($boss_check);
         });
-        
 
-        
+
+
     }
 }
