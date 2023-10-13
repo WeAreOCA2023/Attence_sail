@@ -65,7 +65,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\UserLogin::class,
         ],
-        App\Providers\ViewComposerServiceProvider::class,
+        App\Providers\CustomDataServiceProvider::class,
 
         // 'users' => [
         //     'driver' => 'database',

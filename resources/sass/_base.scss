@@ -140,6 +140,9 @@ main {
 }
 
 .home{
+    .stopWatch {
+        width: 37vw;
+    }
     .circle{
         width: 400px;
         height: 400px;
@@ -149,21 +152,14 @@ main {
         font-size: 30px;
         letter-spacing: 5px;
     }
-    .button{
-        width: 300px;
-        
+    .button{        
         #btn{
             display: flex;
             list-style:none;
             padding: 0;
-            justify-content: space-between;
         }
         .btn-item{
-            width: 100px;
-            border: 1px solid #000;
-            background: #eee;
             padding: 5px;
-            border-radius: 5px;
             cursor: pointer;
             user-select: none;
         }
@@ -175,5 +171,20 @@ main {
     }
     #progressPath {
         stroke-dasharray: 1256;
+    }
+    .infoBox{
+        height: 90vh;
+        .taskList{
+            //width: 44vw;
+            height: 25vh;
+        }
+        .extraWorkList{
+            //width: 44vw;
+            height: 25vh;
+        }
+        .workHourList{
+            //width: 44vw;
+            height: 25vh;
+        }
     }
 }

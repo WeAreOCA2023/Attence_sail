@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -19,16 +20,23 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'userName',
-        'fullName',
+        'user_id',
+        'user_name',
+        'full_name',
         'telephone',
         'is_boss',
-        'companyID',
-        'departmentID',
+        'company_id',
     ];
 
-    public function user_login() :HasOne
-    {
-        return $this->hasOne(UserLogin::class);
-    }
+    // public function user_login() :BelongsTo
+    // {
+    //     return $this->belongsTo(UserLogin::class, 'user_id');
+    // }
+    // public function user_login() :HasOne
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
+    // public function userToCompany() :BelongsTo{
+    //     return $this->belongsTo(Company::class);
+    // }
 }
