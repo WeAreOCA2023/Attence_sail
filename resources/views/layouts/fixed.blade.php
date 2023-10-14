@@ -48,13 +48,13 @@
         <main class="w-100 h-100 d-flex">
             <div class="sidebar d-inline-block">
                 <div class="d-flex flex-nowrap h-100">
-                    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 12vw;">
+                    <div class="d-flex flex-column flex-shrink-0 p-3" style="width: 12vw;">
                         <?php
                             $url = (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 
                             $navs = [
-                                ["home", "Home", '<i class="fa-solid fa-house" style="color: #ffffff;"></i>'],
-                                ["tasks", "My all tasks", '<i class="fa-solid fa-table-list" style="color: #ffffff;"></i>'],
+                                ["home", "Home", '<i class="fa-solid fa-house"></i>'],
+                                ["tasks", "My all tasks", '<i class="fa-solid fa-table-list"></i>'],
                                 ["next-7-days", "Next 7 days", '<i class="fa-solid fa-calendar-days"></i>'],
                                 ["analytics", "Analytics", '<i class="fa-solid fa-poo"></i>'],
                                 ["user-management", "User Management", '<i class="fa-solid fa-calendar-days"></i>'],
@@ -67,7 +67,7 @@
                             <ul class="nav nav-pills flex-column mb-auto">
                                 @foreach ($navs as $vals)
                                     @php
-                                        $current = (strpos($url, $vals[0]) !== false) ? 'class="nav-link active" aria-current="page"' : 'class="nav-link text-white"';
+                                        $current = (strpos($url, $vals[0]) !== false) ? 'class="nav-link selected" aria-current="page"' : 'class="nav-link"';
                                     @endphp
 
                                     @if ($vals[0] === 'user-management')

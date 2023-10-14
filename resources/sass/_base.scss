@@ -18,11 +18,7 @@ body {
 
 .header{
     height: 7vh;
-    
-    img{
-
-    }
-
+    background-color: v.$white;
     .user {
         padding: 8px;
         margin: 0 1vw 0 auto;
@@ -148,7 +144,18 @@ main {
 // index
 
 .sidebar {
-
+    background-color: v.$white;
+    a{
+        color: v.$black;
+        @include m.fz(18);
+    }
+    .selected{
+        font-weight: bold;
+    }
+    a:hover{
+        color: v.$black;
+        background-color: rgb(15, 20, 25, 0.1)
+    }
 }
 
 .home{
