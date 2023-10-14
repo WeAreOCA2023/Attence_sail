@@ -61,16 +61,16 @@
         let currentTime = 0;
         let elapsedTime = 0;
         let interval;
-        const totalDuration = 8 * 60 * 60 * 1000;
+        const totalDuration = 60 * 1000;
         const progressBar = document.getElementById('progressPath');
-
+        const progressBarLength = progressBar.getTotalLength();
         
         function runTimer(){
             currentTime = new Date();
             interval = setInterval(updateProgressBar, 10);
             showTime();
             setTimeoutId = setTimeout(() => {
-            runTimer();
+                runTimer();
             },10)
         }
         
@@ -102,14 +102,19 @@
 
         // プログレスバーを更新する関数
         function updateProgressBar() {
-            const progress = Math.min(((currentTime - startTime + elapsedTime) / totalDuration) * 1256, 1256); // 最大100%まで
-            progressBar.style.strokeDashoffset = 1256 - progress;
+            const progress = Math.min(((currentTime - startTime + elapsedTime) / totalDuration) * progressBarLength, progressBarLength);
+            progressBar.style.strokeDashoffset = progressBarLength - progress;
+        }
+
+        function resetProgressBar() {
+            console.log('called')
+            progressBar.style.display = 'none';
         }
 
 
         $("#start").click(function() {
             if($(this).hasClass('disabled')){
-            return;
+                return;
             }
             classReplacementRun()
             startTime = Date.now();
@@ -118,7 +123,7 @@
 
         $("#stop").click(function() {
             if($(this).hasClass('disabled')){
-            return;
+                return;
             }
             classReplacementStop()
             elapsedTime += currentTime - startTime;
@@ -127,11 +132,12 @@
 
         $("#reset").click(function() {
             if($(this).hasClass('disabled')){
-            return;
+                return;
             }
             classReplacementInitial()
-            clearTimeout(setTimeoutId);
-            elapsedTime = 0
+            elapsedTime = 0;
+            startTime = 0;
+            resetProgressBar();
             $("#timer").text("00:00:00");
         });
 
