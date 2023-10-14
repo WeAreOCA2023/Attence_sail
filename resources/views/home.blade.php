@@ -136,7 +136,6 @@
             }
             classReplacementInitial()
             elapsedTime = 0;
-            startTime = 0;
             resetProgressBar();
             $("#timer").text("00:00:00");
         });
