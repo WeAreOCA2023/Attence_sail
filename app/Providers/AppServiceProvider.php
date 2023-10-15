@@ -49,9 +49,6 @@ class AppServiceProvider extends ServiceProvider
             $view->with([
                 'user_name' => $user_name,
                 'is_boss' => $is_boss,
-                // 'department_name' => $department_name,
-                // 'company_name' => $company_name,
-
             ]);
         });
 
