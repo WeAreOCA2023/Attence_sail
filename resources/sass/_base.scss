@@ -225,3 +225,43 @@ main {
         }
     }
 }
+
+.userManagement{
+    gap: 0.2vw;
+    .whiteBox{
+        width: 80vw;
+        background-color: v.$white;
+        border-radius: v.$round-40;
+        box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+        .input-group{
+            width: 26vw;
+            margin: 30px auto 18px;
+            .svg{
+                margin-right: 2px;  
+                font-size: 3rem;
+            }
+        }
+        .filterOptions{
+            width: 20vw;
+            margin: 0 auto;
+            
+            p{
+                padding: 10px;
+                font-size: 1.2rem;
+                width: 5vw;
+                color: v.$white;
+                background-color: v.$black;
+                text-align: center;
+            }
+            
+        }
+        .table{
+            width: 75vw;
+            margin: 20px auto 18px;
+            th, td{
+                font-size: 1.3rem;
+                padding: 10px;
+            }
+        }
+    }
+}

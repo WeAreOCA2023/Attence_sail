@@ -6,6 +6,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserManagementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,5 +32,7 @@ Route::resource('tasks', TaskController::class);
 
 Route::group(['middleware' => ['auth', 'can:boss']], function () {
     Route::get('/user-management', [App\Http\Controllers\AdminController::class, 'index'])->name('user-management');
+    Route::get('/user-management', [UserManagementController::class, 'index'])->name('user-management');
 });
+
 
