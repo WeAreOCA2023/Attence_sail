@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="extraWorkList bg-white">
-                
+
             </div>
             <div class="workHourList bg-white">
 
@@ -64,7 +64,7 @@
         const totalDuration = 60 * 1000;
         const progressBar = document.getElementById('progressPath');
         const progressBarLength = progressBar.getTotalLength();
-        
+
         function runTimer(){
             currentTime = new Date();
             interval = setInterval(updateProgressBar, 10);
@@ -73,7 +73,7 @@
                 runTimer();
             },10)
         }
-        
+
         function showTime(){
             let d = new Date(currentTime - startTime + elapsedTime);
             const getHour = d.getHours() - 9;
