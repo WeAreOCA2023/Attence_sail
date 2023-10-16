@@ -47,16 +47,16 @@ jobs:
       # Set up Docker Compose
       - setup_remote_docker:
           version: 20.10.7
+          
+      # Install PHP dependencies
+      - run:
+          name: Install PHP dependencies
+          command: composer install
 
       # Build and start Laravel Sail containers
       - run:
           name: Start Laravel Sail containers
           command: docker-compose up -d
-
-      # Install PHP dependencies
-      - run:
-          name: Install PHP dependencies
-          command: composer install
 
       # Generate an application key
       - run:
