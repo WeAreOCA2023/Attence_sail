@@ -53,15 +53,17 @@ jobs:
           name: Install PHP dependencies
           command: composer install
 
+      # Generate an application key
+      - run:
+          name: Generate Laravel application key
+          command: php artisan key:generate
+          
       # Build and start Laravel Sail containers
       - run:
           name: Start Laravel Sail containers
           command: docker-compose up -d
 
-      # Generate an application key
-      - run:
-          name: Generate Laravel application key
-          command: php artisan key:generate
+
 
       # Run tests using Sail
       - run:
