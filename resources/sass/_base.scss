@@ -226,6 +226,8 @@ main {
     }
 }
 
+
+// userManagement
 .userManagement{
     gap: 0.2vw;
     .whiteBox{
@@ -242,9 +244,7 @@ main {
             }
         }
         .filterOptions{
-            width: 20vw;
-            margin: 0 auto;
-            
+            width: 20vw;            
             p{
                 padding: 10px;
                 font-size: 1.2rem;

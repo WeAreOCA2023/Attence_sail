@@ -9,8 +9,8 @@
             </span>
             <input style="font-size: 1.3rem; background: none; border: none; border-bottom: 2px solid #1C1C1C;"  class="form-control" type="text" placeholder="検索したいユーザーを入力してください" aria-label="Search" aria-describedby="search-addon" />
             <button style="width: 100px; font-size: 1.3rem; color: white; background-color: #1C1C1C" type="button" class="btn btn-outline-primary">検索</button>
-        </div>    
-        <div class="filterOptions d-flex justify-content-around">
+        </div>
+        <div class="filterOptions d-flex justify-content-around mx-auto">
             <p>フィルター</p>
             <p>部署</p>
             <p>役職</p>
@@ -32,22 +32,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- <tr>
-                    <th scope="row">1</th>
-                    <td>テスト太郎1</td>
-                    <td>営業</td>
-                    <td>部長</td>
-                    <td>有</td>
-                    <td>無</td>
-                    <td>出勤中</td>
-                    <td>いいえ</td>
-                    <td>
-                        <div class="edit-delete d-flex justify-content-around">
-                            <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
-                            <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
-                        </div>
-                    </td>
-                </tr> -->
                 @foreach ($users as $user)
                     <tr>
                         <th scope="row">{{ $user->id }}</th>
