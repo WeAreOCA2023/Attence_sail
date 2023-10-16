@@ -1,41 +1,3 @@
-version: 2.1
-jobs:
-  build:
-    docker:
-      - image: cimg/php:8.2.11
-
-    working_directory: ~/project
-
-    steps:
-      - checkout
-
-      - run: cp .env.example .env
-      - run: apt-get update
-      - run: DEBIAN_FRONTEND=noninteractive apt-get -y install git
-      - run: php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-      - run: php composer-setup.php
-      - run: php -r "unlink('composer-setup.php');"
-      - run: mv composer.phar /usr/local/bin/composer
-      - run: composer install
-      - run: php artisan key:generate
-
-      # Create and start Laravel Sail containers
-      - run: ./vendor/bin/sail up -d
-
-      # Run tests with Sail
-      - run: ./vendor/bin/sail test
-
-  # Add additional jobs and workflows as needed
-
-workflows:
-  version: 2
-  build-and-test:
-    jobs:
-      - build
-
-
-
-
 # version: 2.1
 # jobs:
 #   build:
@@ -47,31 +9,21 @@ workflows:
 #     steps:
 #       - checkout
 
-#       # Set up Docker Compose
-#       - setup_remote_docker:
-#           version: 20.10.7
-          
-#       # Install PHP dependencies
-#       - run:
-#           name: Install PHP dependencies
-#           command: composer install
+#       - run: cp .env.example .env
+#       - run: apt-get update
+#       - run: DEBIAN_FRONTEND=noninteractive apt-get -y install git
+#       - run: php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+#       - run: php composer-setup.php
+#       - run: php -r "unlink('composer-setup.php');"
+#       - run: mv composer.phar /usr/local/bin/composer
+#       - run: composer install
+#       - run: php artisan key:generate
 
-#       # Generate an application key
-#       - run:
-#           name: Generate Laravel application key
-#           command: php artisan key:generate
-          
-#       # Build and start Laravel Sail containers
-#       - run:
-#           name: Start Laravel Sail containers
-#           command: docker-compose up -d
+#       # Create and start Laravel Sail containers
+#       - run: ./vendor/bin/sail up -d
 
-
-
-#       # Run tests using Sail
-#       - run:
-#           name: Run tests with Laravel Sail
-#           command: ./vendor/bin/sail test
+#       # Run tests with Sail
+#       - run: ./vendor/bin/sail test
 
 #   # Add additional jobs and workflows as needed
 
@@ -80,3 +32,53 @@ workflows:
 #   build-and-test:
 #     jobs:
 #       - build
+
+
+
+
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: cimg/php:8.2.11
+
+    working_directory: ~/project
+
+    steps:
+      - checkout
+
+      # Set up Docker Compose
+      - setup_remote_docker:
+          version: 20.10.7
+          
+      # Install PHP dependencies
+      - run:
+          name: Install PHP dependencies
+          command: composer install
+
+      - run: cp .env.example .env
+      
+      # Generate an application key
+      - run:
+          name: Generate Laravel application key
+          command: php artisan key:generate
+          
+      # Build and start Laravel Sail containers
+      - run:
+          name: Start Laravel Sail containers
+          command: docker-compose up -d
+
+
+
+      # Run tests using Sail
+      - run:
+          name: Run tests with Laravel Sail
+          command: ./vendor/bin/sail test
+
+  # Add additional jobs and workflows as needed
+
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - build
