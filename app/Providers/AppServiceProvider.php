@@ -12,6 +12,7 @@ use Illuminate\Support\CustomDataServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Pagination\Paginator;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -30,6 +31,9 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        // paginationはdefaultでtailwindだから、bootstrapに切り替える
+        Paginator::useBootstrapFive();
+
         // ここで指定するのは bladeテンプレート
         View::composer(['home', 'user-management', 'my-all-tasks'], function ($view) {
 
@@ -39,10 +43,10 @@ class AppServiceProvider extends ServiceProvider
             // user_login_table の id の取得
             $user_login_id = $user_login_all->id;
 
-            // users_table の user_id = user_login_table の id が一致する一番最初のレコード 
+            // users_table の user_id = user_login_table の id が一致する一番最初のレコード
             $users = User::where('user_id', $user_login_id)->first();
 
-            $user_name = $users->user_name; 
+            $user_name = $users->user_name;
             $is_boss = ($users->is_boss == 1) ? 'BOSS' : 'USER';
 
 
