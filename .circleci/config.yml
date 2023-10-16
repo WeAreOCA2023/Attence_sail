@@ -10,6 +10,10 @@ jobs:
       - checkout
 
       - run: cp .env.example .env
+      - run: php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+      - run: php composer-setup.php
+      - run: php -r "unlink('composer-setup.php');"
+      - run: mv composer.phar /usr/local/bin/composer
       - run: composer install
       - run: php artisan key:generate
 
