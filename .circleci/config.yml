@@ -10,6 +10,8 @@ jobs:
       - checkout
 
       - run: cp .env.example .env
+      - run: sudo apt-get update
+      - run: sudo apt-get install git
       - run: php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
       - run: php composer-setup.php
       - run: php -r "unlink('composer-setup.php');"
