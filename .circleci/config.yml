@@ -11,6 +11,10 @@ jobs:
     steps:
       - checkout
 
+      - run:
+        name: Fix Permissions
+        command: sudo chown -R circleci:circleci /var/www
+
       # Laravel Sailのセットアップ
       - run:
           name: Install Docker Compose
