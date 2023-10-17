@@ -99,24 +99,86 @@ main {
 
 
 .login{
-    @include r.mq(xl) {
-
-        button {
-            @include m.loginBtn(v.$mainColor);
+    .main{
+        margin-top: 5vh;
+        height: 64vh;
+    }
+    background-color: v.$black;
+    .loginBox{
+        background-color: v.$darkGray;
+        width: 21vw;
+        height: 45vh;
+        border-radius: v.$round-15;
+        h1{
+            color: v.$white;
+            @include m.fz(36);
         }
+        .loginBoxInner{
+            height: 35vh;
+            width: 16vw;
+            form{
+                height: 27vh;
+            }
+            .emailBox{
+                label{
+                    color: v.$white;
+                    @include m.fz(15);
+                }
+                .emailInput{
+                    input{
+                        width: 16vw;
+                        height: 2vw;
+                        border-radius: v.$round-15;
+                        background-color: v.$darkGray;
+                        border: 1px solid v.$white;
+                    }
+                }
+            }
+            .passwordBox{
+                label{
+                    color: v.$white;
+                    @include m.fz(15);
+                }
+                .passwordInput{
+                    input{
+                        width: 16vw;
+                        height: 2vw;
+                        border-radius: v.$round-15;
+                        background-color: v.$darkGray;
+                        border: 1px solid v.$white;
+                    }
+                }
+            }
+            .keepLogin{
+                input{
+                    height: 1.6vh;
+                    width: 0.8vw;
+                    margin-right: 7px;
+                }
+                label{
+                    color: v.$white;
+                    background-color: v.$darkGray;
+                    @include m.fz(15);
+                }
+            }
+            .loginButton{
+                button{
+                    color: v.$white;
+                    @include m.fz(20);
+                    width: 16vw;
+                    height: 2vw;
+                    background-color: v.$red;
+                    border-radius: v.$round-15;
+                    border:none;
+                }
+            }
+            .forgotPass{
+                a{
+                    color: v.$white;
+                    @include m.fz(18);
+                }
 
-        .login-form {
-            flex-flow: column;
-        }
-
-        .flex {
-            flex: none;
-            margin: 5vh 0 auto 0;
-        }
-
-        .reset-rounded {
-            border-bottom-left-radius: 0%;
-            border-top-left-radius: 0%;
+            }
         }
     }
 }
@@ -183,7 +245,7 @@ main {
             @include m.fz(30);
             letter-spacing: 5px;
         }
-        .button{        
+        .button{
             #btn{
                 display: flex;
                 list-style:none;
@@ -198,11 +260,11 @@ main {
                 opacity: 0.2;
                 transition: 0.2s;
             }
-        
+
         }
         #progressPath {
             stroke-dasharray: 1225.2216796875;
-        }    
+        }
     }
     .infoBox{
         width: 45vw;
@@ -239,12 +301,12 @@ main {
             width: 26vw;
             margin: 30px auto 18px;
             .svg{
-                margin-right: 2px;  
+                margin-right: 2px;
                 font-size: 3rem;
             }
         }
         .filterOptions{
-            width: 20vw;            
+            width: 20vw;
             p{
                 padding: 10px;
                 font-size: 1.2rem;
@@ -253,7 +315,7 @@ main {
                 background-color: v.$black;
                 text-align: center;
             }
-            
+
         }
         .table{
             width: 75vw;
