@@ -17,3 +17,5 @@
 #### routeをリストで表示: ```sail artisan route:list```
 ```sail artisan migrate```
 ```sail artisan config:clear```
+```source ~/.zshrc```
+```cmd + shift + k```
