@@ -131,6 +131,11 @@ main {
                         border-radius: v.$round-15;
                         background-color: v.$darkGray;
                         border: 1px solid v.$white;
+                        color: v.$white;
+                        @include m.fz(15);
+                    }
+                    input:focus{
+                        border-color: v.$red;
                     }
                 }
             }
@@ -146,6 +151,11 @@ main {
                         border-radius: v.$round-15;
                         background-color: v.$darkGray;
                         border: 1px solid v.$white;
+                        color: v.$white;
+                        @include m.fz(15);
+                    }
+                    input:focus{
+                        border-color: v.$red;
                     }
                 }
             }
@@ -159,6 +169,9 @@ main {
                     color: v.$white;
                     background-color: v.$darkGray;
                     @include m.fz(15);
+                }
+                input[type="checkbox"]:checked{
+                    background-color: v.$red; /* チェックされたときの背景色を緑に変更 */
                 }
             }
             .loginButton{
