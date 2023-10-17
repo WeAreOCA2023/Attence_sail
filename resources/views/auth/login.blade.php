@@ -1,7 +1,3 @@
-{{--@extends('layouts.app')--}}
-{{--@section('content')--}}
-{{--@endsection--}}
-
 <!doctype html>
 <html lang="ja">
 <head>
