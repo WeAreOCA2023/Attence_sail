@@ -36,7 +36,7 @@
             <div class="taskList bg-white d-flex flex-column justify-content-around">
                 <div class="taskListTitle d-flex">
                     <img src="{{ asset('img/newsLogo.svg') }}" alt="" class="player-timer-btn" />
-                    <h3>今日中に終わらせなければいけないタスク</h3>
+                    <h3>今日中に終わらせなければいけないタスク home</h3>
                 </div>
                 <div class="taskListTasks">
                     <p>タスク名    ----  期限(時間)</p>
