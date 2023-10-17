@@ -4,6 +4,7 @@
 
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserManagementController;
@@ -25,14 +26,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'index'])->name('login');
+//Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'index'])->name('login');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::resource('tasks', TaskController::class);
 
 Route::group(['middleware' => ['auth', 'can:boss']], function () {
-    Route::get('/user-management', [App\Http\Controllers\AdminController::class, 'index'])->name('user-management');
+    Route::get('/user-management', [AdminController::class, 'index'])->name('user-management');
     Route::get('/user-management', [UserManagementController::class, 'index'])->name('user-management');
 });
 
