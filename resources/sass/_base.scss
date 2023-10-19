@@ -64,6 +64,11 @@ main {
     }
 }
 
+#auth {
+    height: 100vh;
+    background-color: v.$black;
+}
+
 .title{
     position: relative;
 
@@ -99,11 +104,9 @@ main {
 
 
 .login{
-    .main{
-        margin-top: 5vh;
-        height: 64vh;
+    .logo{
+        margin: 5vh 0 5vh 0;
     }
-    background-color: v.$black;
     .loginBox{
         background-color: v.$darkGray;
         width: 21vw;
