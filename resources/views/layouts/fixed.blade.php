@@ -72,7 +72,7 @@
                                         $current = (strpos($url, $vals[0]) !== false) ? 'class="nav-link selected" aria-current="page"' : 'class="nav-link"';
                                     @endphp
 
-                                    @if ($vals[0] === 'user-management' | $vals[0] === 'department-management')
+                                    @if ($vals[0] === 'department-management' | $vals[0] === 'position-management' | $vals[0] === 'user-management')
                                         @can('boss')
                                             <li class="nav-item">
                                                 <a href="{{ $vals[0] }}" {!! $current !!}>
