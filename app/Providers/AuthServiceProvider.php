@@ -23,19 +23,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // BOSS
-        // if (Auth::check()) {
-        //     $is_boss = \App\Models\User::where('user_id', Auth::user()->id)->first()->is_boss;
-        //     Gate::define('boss', function () use ($is_boss) {
-        //         return ($is_boss === "BOSS");
-        //     });
-        // }
-
-        // default - works
         Gate::define('boss', function ($user) {
             $user_login_id = Auth::user()->id;
             $boss_check = User::where('user_id', $user_login_id)->first()->is_boss;
-//            dump($user);
             return ($boss_check);
         });
 

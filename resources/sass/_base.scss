@@ -301,6 +301,40 @@ main {
     }
 }
 
+// departmentManagement
+.departmentManagement{
+    gap: 0 2vw;
+    .allDepartmentsBox {
+        width: 41vw;
+        border-radius: v.$round-40;
+        background-color: v.$white;
+        box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+    }
+    .addDepartmentsBox{
+        width: 41vw;
+        border-radius: v.$round-40;
+        background-color: v.$white;
+        box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+    }
+}
+
+// positionManagement
+.positionManagement{
+    gap: 0 2vw;
+    .allPositionsBox {
+        width: 41vw;
+        border-radius: v.$round-40;
+        background-color: v.$white;
+        box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+    }
+    .addPositionsBox{
+        width: 41vw;
+        border-radius: v.$round-40;
+        background-color: v.$white;
+        box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+    }
+}
+
 
 // userManagement
 .userManagement{
