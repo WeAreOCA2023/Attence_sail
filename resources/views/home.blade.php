@@ -25,10 +25,10 @@
                 <div class="button">
                     <p id="timer" class="text-center">00:00:00</p>
                     <ul id="btn" class="d-flex justify-content-around">
-                        <li class="btn-item" id="start" ><img src="{{ asset('img/start.svg') }}" alt=""></li>
-                        <li class="btn-item disabled" id="stop">ストップ</li>
+                        <li class="btn-item" id="toggleBtn"><img src="{{ asset('img/start.svg') }}" alt=""></li>
                         <li class="btn-item disabled" id="reset" ><img src="{{ asset('img/stop.svg') }}" alt=""/></li>
                     </ul>
+
                 </div>
             </div>
         </div>
@@ -56,6 +56,7 @@
     <script>
     $(document).ready(function() {
         let setTimeoutId = undefined;
+        let isRunning = false;
         let startTime = 0;
         let currentTime = 0;
         let elapsedTime = 0;
@@ -68,13 +69,14 @@
             currentTime = new Date();
             interval = setInterval(updateProgressBar, 10);
             showTime();
+            progressBar.style.display = 'block';
             setTimeoutId = setTimeout(() => {
                 runTimer();
-            },10)
+            },0)
         }
 
         function showTime(){
-            let d = new Date(currentTime - startTime + elapsedTime);
+            let d = new Date(currentTime - startTime);
             const getHour = d.getHours() - 9;
             const getMin = d.getMinutes();
             const getSec =d.getSeconds();
@@ -101,33 +103,13 @@
 
         // プログレスバーを更新する関数
         function updateProgressBar() {
-            const progress = Math.min(((currentTime - startTime + elapsedTime) / totalDuration) * progressBarLength, progressBarLength);
+            const progress = Math.min(((currentTime - startTime) / totalDuration) * progressBarLength, progressBarLength);
             progressBar.style.strokeDashoffset = progressBarLength - progress;
         }
 
         function resetProgressBar() {
-            console.log('called')
             progressBar.style.display = 'none';
         }
-
-
-        $("#start").click(function() {
-            if($(this).hasClass('disabled')){
-                return;
-            }
-            classReplacementRun()
-            startTime = Date.now();
-            runTimer();
-        });
-
-        $("#stop").click(function() {
-            if($(this).hasClass('disabled')){
-                return;
-            }
-            classReplacementStop()
-            elapsedTime += currentTime - startTime;
-            clearTimeout(setTimeoutId);
-        });
 
         $("#reset").click(function() {
             if($(this).hasClass('disabled')){
@@ -135,8 +117,25 @@
             }
             classReplacementInitial()
             elapsedTime = 0;
+            startTime = 0;
             resetProgressBar();
             $("#timer").text("00:00:00");
+        });
+
+        document.getElementById('toggleBtn').addEventListener('click', function() {
+            if (isRunning) {
+                clearTimeout(setTimeoutId);
+                $("#reset").removeClass("disabled");
+                elapsedTime = currentTime - startTime;
+                this.innerHTML = '<img src="{{ asset('img/start.svg') }}" alt="">';
+            } else {
+                console.log(elapsedTime);
+                startTime = Date.now() - elapsedTime;
+                runTimer();
+                $("#reset").addClass("disabled");
+                this.innerHTML = '<img src="{{ asset('img/pause.svg') }}" alt="">';
+            }
+            isRunning = !isRunning;
         });
 
     });

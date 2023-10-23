@@ -9,6 +9,9 @@
                     <form method="POST" action="{{ route('register-boss') }}">
                         @csrf
 
+                        
+
+
                         <div class="row mb-1 form-input w-50 mx-auto mainColor">
                             <label for="companyName" class="col-form-label">{{ __('会社名') }}</label>
 
@@ -23,11 +26,31 @@
                             </div>
                         </div>
 
+
+                        <div class="row mb-1 form-input w-50 mx-auto mainColor">
+                            <label for="companyCode" class="col-form-label">{{ __('会社コード') }}</label>
+                            <div class="col">
+                                <input id="companyCode" type="text" class="form-control @error('companyCode') is-invalid @enderror" name="companyCode" minlength=12 maxlength=12 value="{{ old('companyCode') }}" required autocomplete="companyCode" >
+                            </div>
+                        </div>
+
+                        <div class="row mb-4 form-input w-50 mx-auto mainColor">
+                            <label for="companyPassword" class="col-form-label">{{ __('会社パスワード') }}</label>
+                            <div class="col">
+                                <input id="companyPassword" type="password" class="form-control @error('companyPassword') is-invalid @enderror" name="companyPassword" value="{{ old('companyPassword') }}" required autocomplete="companyPassword">
+                                @error('companyPassword')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="row mb-1 form-input w-50 mx-auto mainColor">
                             <label for="companyPostCode" class="col-form-label">{{ __('会社の郵便番号') }}</label>
 
                             <div class="col">
-                                <input id="companyPostCode" type="text" class="form-control @error('companyPostCode') is-invalid @enderror" name="companyPostCode" value="{{ old('companyPostCode') }}" required autocomplete="companyPostCode">
+                                <input id="companyPostCode" type="text" class="form-control @error('companyPostCode') is-invalid @enderror" name="companyPostCode" minlength=7 maxlength=7 value="{{ old('companyPostCode') }}" required autocomplete="companyPostCode">
 
                                 @error('companyAddress')
                                     <span class="invalid-feedback" role="alert">
@@ -96,7 +119,7 @@
                         <div class="row mb-1 form-input w-50 mx-auto mainColor">
                             <label for="telephone" class="col-form-label">{{ __('電話番号') }}</label>
                             <div class="col">
-                                <input id="telephone" type="tel" class="form-control @error('telephone') is-invalid @enderror" name="telephone" required autocomplete="telephone">
+                                <input id="telephone" type="tel" class="form-control @error('telephone') is-invalid @enderror" minlength=11 maxlength=11 name="telephone" required autocomplete="telephone">
 
                                 @error('telephone')
                                 <span class="invalid-feedback" role="alert">

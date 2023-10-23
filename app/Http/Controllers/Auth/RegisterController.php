@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserLogin;
+use App\Models\Company;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -52,6 +54,23 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'userName' => ['required', 'string', 'max:255'],
+            'companyPassword' => ['required', 'string', 'max:255', function ($attribute, $value, $fail) use ($data) {
+                $companyCode = $data['companyID'];
+                $company = Company::where('company_code', $companyCode)->first();
+                
+                if (!$company) {
+                    $fail('会社コードまたは会社パスワードが一致しません');
+                } else {
+                    if($hashedPasswordFromDb = $company->company_password){
+                        $fail('会社コードまたは会社パスワードが一致しません');
+                    } else {
+                        
+                    }
+                    if (!Hash::check($value, $hashedPasswordFromDb)) {
+                        $fail('会社コードまたは会社パスワードが一致しません');
+                    }
+                }
+            }],
             'fullName' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:user_logins'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
