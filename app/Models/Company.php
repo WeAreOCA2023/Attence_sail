@@ -21,9 +21,19 @@ class Company extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'company_code',
         'company_name',
+        'company_password',
         'post_code',
         'address',
+    ];
+
+    protected $hidden = [
+        'company_password',
+    ];
+
+    protected $casts = [
+        'company_password' => 'hashed',
     ];
     // public function companyToDepartment(): BelongsTo
     // {
