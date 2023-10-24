@@ -10,21 +10,28 @@
                         @csrf
 
                         <div class="row mb-4 form-input w-50 mx-auto mainColor">
-                            @error('companyPassword')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+            
                             <label for="companyID" class="col-form-label">{{ __('会社コード') }}</label>
                             <div class="col">
                                 <input id="companyID" type="text" class="form-control @error('companyID') is-invalid @enderror" name="companyID" minlength=12 maxlength=12 value="{{ old('companyID') }}" required autocomplete="companyID" autofocus>
+
+                                @error('companyID')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="row mb-4 form-input w-50 mx-auto mainColor">
                             <label for="companyPassword" class="col-form-label">{{ __('会社パスワード') }}</label>
                             <div class="col">
-                                <input id="companyPassword" type="password" class="form-control @error('companyPassword') is-invalid @enderror" name="companyPassword" value="{{ old('companyPassword') }}" required autocomplete="companyPassword" >
+                                <input id="companyPassword" type="password" class="form-control @error('companyPassword') is-invalid @enderror" name="companyPassword" value="{{ old('companyPassword') }}" minlength=8 required autocomplete="companyPassword" >
+                                @error('companyPassword')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
@@ -86,7 +93,7 @@
                             <label for="password" class="col-form-label">{{ __('パスワード') }}</label>
 
                             <div class="col">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" minlength=8 required autocomplete="new-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">

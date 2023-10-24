@@ -1,11 +1,12 @@
 @extends('layouts.fixed')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <h1>タスク</h1>
-        </div>
+<div class="myAllTasks d-flex">
+    <div class="jobList">
+
+    </div>
+    <div class="job">
+        
     </div>
 </div>
 @endsection

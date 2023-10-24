@@ -102,6 +102,6 @@ class BossRegisterController extends Controller
 
 
 
-        return $user;
+        return $userLogin;
     }
 }

@@ -15,4 +15,16 @@ class UserManagementController extends Controller
             'users' => DB::table('user_logins')->paginate(15)
         ]);
     }
+
+    public function search(Request $request): View
+    {
+        $search = $request->input('search');
+        $users = User::query()
+            ->where('full_name', 'LIKE', "%{$search}%")
+            ->paginate(15);
+
+        return view('user-management', [
+            'users' => $users
+        ]);
+    }
 }
