@@ -397,10 +397,39 @@ main {
             margin-left: 2vw;
         }
         h1{
-            font-size: 45px;
+            @include m.fz(45);
             color: v.$white;
             font-weight: bold;
             margin-left: 0.5vw;
+        }
+    }
+    .main{
+        .indexTitle{
+            h1{
+                font-family: 'Sawarabi Gothic', sans-serif;
+                font-weight: bold;
+                @include m.fz(80);
+                color: v.$white;
+                width: 100vw;
+
+                span{
+                    @include m.fz(110);
+                    background: -webkit-linear-gradient(#1F58EA, #EB06FF);
+                    -webkit-background-clip: text;//テキストでくり抜く
+                    -webkit-text-fill-color: transparent;//テキストの色を透明に
+                }
+
+            }
+        }
+        .buttonList{
+            background-color: white;
+            width: 40vw;
+            .buttonBox{
+                a{
+                    //文字サイズ変えたい
+                    //@incldue m.fz(60);
+                }
+            }
         }
     }
 }

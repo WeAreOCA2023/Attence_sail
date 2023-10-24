@@ -23,8 +23,19 @@
             <h1>ATTENCE</h1>
         </header>
         <div class="main">
-            <div class="title">
+            <div class="indexTitle d-flex text-center mx-auto">
                 <h1>ビジネスを効率的に<br><span class="hightLight">進化</span>させる</h1>
+            </div>
+            <div class="buttonList d-flex justify-content-between">
+                <div class="buttonBox">
+                    <a href="{{ route('register') }}" class="registerButton">サインアップ(一般)</a>
+                </div>
+                <div class="buttonBox">
+                    <a href="{{ route('login') }}" class="loginButton">ログイン</a>
+                </div>
+                <div class="buttonBox">
+                    <a href="{{ route('register-boss') }}" class="loginButton">サインアップ(ボス)</a>
+                </div>
             </div>
         </div>
     </body>
