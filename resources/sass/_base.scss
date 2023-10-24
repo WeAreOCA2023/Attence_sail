@@ -387,7 +387,20 @@ main {
 
 .indexPage{
     background-color: black;
-    .backgroundImg{
-        opacity: 0.3;
+    background-image: url("/public/img/bestBG.svg");
+    background-size: cover;
+    header{
+        height: 7.5vh;
+        background-color: v.$black;
+        img{
+            height: 80%;
+            margin-left: 2vw;
+        }
+        h1{
+            font-size: 45px;
+            color: v.$white;
+            font-weight: bold;
+            margin-left: 0.5vw;
+        }
     }
 }

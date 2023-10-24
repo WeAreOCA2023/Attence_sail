@@ -17,12 +17,15 @@
         </style>
     </head>
     <!-- test -->
-    <header>
-
-    </header>
     <body class="indexPage">
-        <div class="backgroundImg">
-            <img class="demo-bg" src="{{asset("/img/bg.png")}}" alt="">
+        <header class="d-flex align-items-center">
+            <img class="logo" src="{{asset("/img/logo-white.svg")}}" alt="whiteLogo">
+            <h1>ATTENCE</h1>
+        </header>
+        <div class="main">
+            <div class="title">
+                <h1>ビジネスを効率的に<br><span class="hightLight">進化</span>させる</h1>
+            </div>
         </div>
     </body>
 </html>
