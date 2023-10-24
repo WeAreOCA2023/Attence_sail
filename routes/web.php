@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth', 'can:boss']], function () {
     Route::get('/position-management', [PositionManagementController::class, 'index'])->name('position-management');
     Route::get('/user-management', [AdminController::class, 'userManagement'])->name('user-management');
     Route::get('/user-management', [UserManagementController::class, 'index'])->name('user-management');
+    Route::get('/user-management/search', [UserManagementController::class, 'search'])->name('user-management.search');
 
 });
 

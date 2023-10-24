@@ -356,7 +356,7 @@ main {
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
         .input-group{
             width: 26vw;
-            margin: 30px auto 18px;
+            margin: 1% auto;
             .svg{
                 margin-right: 2px;
                 font-size: 3rem;
@@ -383,4 +383,15 @@ main {
             }
         }
     }
+}
+
+.myAllTasks{
+    .jobList{
+        background-color: v.$black;
+        width: 40vw;
+        height: 70vh;   }
+    .jcob{ 
+        background-color: v.$black;
+        width: 40vw;
+        height: 70vh;    }
 }
