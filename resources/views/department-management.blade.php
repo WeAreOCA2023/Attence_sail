@@ -7,8 +7,9 @@
             <img src="{{ asset('img/department.svg') }}" alt="department icon">
             <h2>部署</h2>
         </div>
-        <div class="department d-flex justify-content-around">
-            @foreach ($departments as $department)
+
+        @foreach ($departments as $department)
+            <div class="department d-flex justify-content-around">
                 <h3>{{ $department->department_name }}</h3>
                 @php
                     $bossName = DB::table('users')->where('user_id', $department->boss_id)->first()->full_name;
@@ -19,8 +20,9 @@
                     <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
                     <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
                 </div>
-            @endforeach
         </div>
+        @endforeach
+
     </div>
     <div class="addDepartmentsBox">
         <form method="POST" action="">

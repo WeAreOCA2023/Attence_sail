@@ -25,10 +25,10 @@ class DepartmentManagementController extends Controller
             'departmentName' => 'required',
             'bossName' => 'required'
         ]);
-        // 現在ログイン中のユーザーのusers_tableの情報
-        $users = User::where('user_id', Auth::user()->id)->first();
+        // Userテーブルからフルネームが一致するレコードを取得
+        $users = User::where('full_name', $request->get('bossName'))->first();
 
-        if ($users->full_name <> $request->get('bossName')) {
+        if (!$users) {
             return redirect('/department-management')->with('error', 'You are not responsible for this department!');
         }
 
