@@ -314,11 +314,18 @@ main {
 // departmentManagement
 .departmentManagement{
     gap: 0 2vw;
-    .allDepartmentsBox {
+    .allDepartmentsBox{
         width: 41vw;
         border-radius: v.$round-40;
         background-color: v.$white;
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+        .title{
+            h2{
+                @include m.fz(30);
+                margin-left: 4px;
+                vertical-align: middle;
+            }
+        }
     }
     .addDepartmentsBox{
         width: 41vw;
@@ -331,7 +338,7 @@ main {
 // positionManagement
 .positionManagement{
     gap: 0 2vw;
-    .allPositionsBox {
+    .allPositionsBox{
         width: 41vw;
         border-radius: v.$round-40;
         background-color: v.$white;

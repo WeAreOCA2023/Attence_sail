@@ -35,14 +35,9 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::resource('tasks', TaskController::class);
 
 Route::group(['middleware' => ['auth', 'can:boss']], function () {
-    Route::get('/department-management', [AdminController::class, 'departmentManagement'])->name('department-management');
-    Route::get('/department-management', [DepartmentManagementController::class, 'index'])->name('department-management');
+    Route::resource('department-management', DepartmentManagementController::class);
     Route::get('/position-management', [AdminController::class, 'positionManagement'])->name('position-management');
-    Route::get('/position-management', [PositionManagementController::class, 'index'])->name('position-management');
     Route::get('/user-management', [AdminController::class, 'userManagement'])->name('user-management');
-    Route::get('/user-management', [UserManagementController::class, 'index'])->name('user-management');
-    Route::get('/user-management/search', [UserManagementController::class, 'search'])->name('user-management.search');
-
 });
 
 
