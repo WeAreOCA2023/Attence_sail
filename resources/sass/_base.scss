@@ -395,6 +395,74 @@ main {
     }
 }
 
+.indexPage{
+    background-color: black;
+    background-image: url("/public/img/bestBG.svg");
+    background-size: cover;
+    header{
+        height: 7.5vh;
+        background-color: v.$black;
+        img{
+            height: 80%;
+            margin-left: 2vw;
+        }
+        h1{
+            @include m.fz(45);
+            color: v.$white;
+            font-weight: bold;
+            margin-left: 0.5vw;
+        }
+    }
+    .main{
+        .indexTitle{
+            margin-top: 25vh;
+            h1{
+                font-family: 'Sawarabi Gothic', sans-serif;
+                font-weight: bold;
+                @include m.fz(90);
+                color: v.$white;
+                width: 100vw;
+
+                span{
+                    @include m.fz(120);
+                    background: -webkit-linear-gradient(#1F58EA, #EB06FF);
+                    -webkit-background-clip: text;//テキストでくり抜く
+                    -webkit-text-fill-color: transparent;//テキストの色を透明に
+                }
+
+            }
+        }
+        .buttonList{
+            width: 60vw;
+            gap: 10vw;
+            margin: 0 auto;
+            margin-top: 20vh;
+            .buttonBox{
+                border: 4px solid v.$white;
+                border-radius: 20px;
+                height: 8vh;
+                width: 9vw;
+                a{
+                    @include m.fz(25);
+                    color: v.$white;
+                    //display: block;
+                }
+            }
+            .loginButton{
+                width: 9vw;
+                border-image: linear-gradient(to bottom, #0071F6, #1B1099) 1;
+            }
+            .registerBossButton{
+                width: 13vw;
+                border-image: linear-gradient(to bottom, #BC099F, #600546) 1;
+            }
+            .registerButton{
+                width: 13vw;
+                border-image: linear-gradient(to bottom, #BC099F, #600546) 1;
+            }
+        }
+    }
+}
 .myAllTasks{
     .jobList{
         background-color: v.$black;
