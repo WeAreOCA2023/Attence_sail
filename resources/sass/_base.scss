@@ -64,7 +64,10 @@ main {
     }
 }
 
-// auth
+//<<<<<<< HEAD
+//=======
+//// auth
+//>>>>>>> main
 #auth {
     height: 100vh;
     background-color: v.$black;
@@ -294,7 +297,7 @@ main {
         height: 100%;
         .taskList{
             height: 28vh;
-            padding-left: 2vw; 
+            padding-left: 2vw;
             border-radius: v.$round-40;
             box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
         }
@@ -397,7 +400,7 @@ main {
         background-color: v.$black;
         width: 40vw;
         height: 70vh;   }
-    .jcob{ 
+    .jcob{
         background-color: v.$black;
         width: 40vw;
         height: 70vh;    }
