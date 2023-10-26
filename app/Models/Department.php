@@ -10,13 +10,15 @@ class Department extends Model
 {
     use HasFactory;
 
+    protected $table = 'department';
+
     protected $fillable= [
         'department_name',
         'company_id',
-        'responsible_id'
+        'boss_id'
     ];
 
-    public function getFromCompany() :HasOne{
-        return $this->hasOne(Company::class);
-    }
+//    public function getFromCompany() :HasOne{
+//        return $this->hasOne(Company::class);
+//    }
 }
