@@ -64,7 +64,10 @@ main {
     }
 }
 
-// auth
+//<<<<<<< HEAD
+//=======
+//// auth
+//>>>>>>> main
 #auth {
     height: 100vh;
     background-color: v.$black;
@@ -392,7 +395,6 @@ main {
     }
 }
 
-<<<<<<< HEAD
 .indexPage{
     background-color: black;
     background-image: url("/public/img/bestBG.svg");
@@ -430,26 +432,30 @@ main {
             }
         }
         .buttonList{
-            background-color: white;
-            width: 40vw;
+            width: 60vw;
+            gap: 10vw;
+            //width: 100vw;
             .buttonBox{
+                border: 2px solid v.$white;
+                border-radius: 20px;
+                height: 5vh;
+                width: 12vw;
                 a{
-                    //文字サイズ変えたい
-                    //@incldue m.fz(60);
+                    @include m.fz(20);
+                    color: v.$white;
+                    //text-align: center;
                 }
             }
         }
     }
 }
-=======
 .myAllTasks{
     .jobList{
         background-color: v.$black;
         width: 40vw;
         height: 70vh;   }
-    .jcob{ 
+    .jcob{
         background-color: v.$black;
         width: 40vw;
         height: 70vh;    }
 }
->>>>>>> main
