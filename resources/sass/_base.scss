@@ -415,15 +415,16 @@ main {
     }
     .main{
         .indexTitle{
+            margin-top: 25vh;
             h1{
                 font-family: 'Sawarabi Gothic', sans-serif;
                 font-weight: bold;
-                @include m.fz(80);
+                @include m.fz(90);
                 color: v.$white;
                 width: 100vw;
 
                 span{
-                    @include m.fz(110);
+                    @include m.fz(120);
                     background: -webkit-linear-gradient(#1F58EA, #EB06FF);
                     -webkit-background-clip: text;//テキストでくり抜く
                     -webkit-text-fill-color: transparent;//テキストの色を透明に
@@ -434,17 +435,30 @@ main {
         .buttonList{
             width: 60vw;
             gap: 10vw;
-            //width: 100vw;
+            margin: 0 auto;
+            margin-top: 20vh;
             .buttonBox{
-                border: 2px solid v.$white;
+                border: 4px solid v.$white;
                 border-radius: 20px;
-                height: 5vh;
-                width: 12vw;
+                height: 8vh;
+                width: 9vw;
                 a{
-                    @include m.fz(20);
+                    @include m.fz(25);
                     color: v.$white;
-                    //text-align: center;
+                    //display: block;
                 }
+            }
+            .loginButton{
+                width: 9vw;
+                border-image: linear-gradient(to bottom, #0071F6, #1B1099) 1;
+            }
+            .registerBossButton{
+                width: 13vw;
+                border-image: linear-gradient(to bottom, #BC099F, #600546) 1;
+            }
+            .registerButton{
+                width: 13vw;
+                border-image: linear-gradient(to bottom, #BC099F, #600546) 1;
             }
         }
     }

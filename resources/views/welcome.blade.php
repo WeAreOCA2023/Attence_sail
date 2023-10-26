@@ -26,15 +26,15 @@
             <div class="indexTitle d-flex text-center mx-auto">
                 <h1>ビジネスを効率的に<br><span class="hightLight">進化</span>させる</h1>
             </div>
-            <div class="buttonList d-flex mx-auto">
-                <div class="buttonBox d-flex justify-content-center">
-                    <a href="{{ route('register') }}" class="registerButton d-flex mx-auto align-items-center">サインアップ(一般)</a>
+            <div class="buttonList d-flex justify-content-around">
+                <div class="buttonBox d-flex justify-content-center registerButton">
+                    <a href="{{ route('register') }}" class="d-flex w-100 align-items-center justify-content-center">サインアップ(一般)</a>
                 </div>
-                <div class="buttonBox d-flex">
-                    <a href="{{ route('login') }}" class="loginButton d-flex mx-auto align-items-center">ログイン</a>
+                <div class="buttonBox d-flex justify-content-center loginButton">
+                    <a href="{{ route('login') }}" class="d-flex w-100 align-items-center justify-content-center">ログイン</a>
                 </div>
-                <div class="buttonBox d-flex">
-                    <a href="{{ route('register-boss') }}" class="loginButton d-flex mx-auto align-items-center">サインアップ(ボス)</a>
+                <div class="buttonBox d-flex justify-content-center registerBossButton">
+                    <a href="{{ route('register-boss') }}" class="d-flex w-100 align-items-center justify-content-center">サインアップ(ボス)</a>
                 </div>
             </div>
         </div>
