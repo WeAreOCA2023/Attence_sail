@@ -322,12 +322,19 @@ main {
         border-radius: v.$round-40;
         background-color: v.$white;
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+        button{
+            border: none;
+            background: none;
+        }
         .title{
             h2{
                 @include m.fz(30);
                 margin-left: 4px;
                 vertical-align: middle;
             }
+        }
+        .deleteBtn{
+            cursor: pointer;
         }
     }
     .addDepartmentsBox{

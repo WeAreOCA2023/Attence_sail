@@ -18,7 +18,9 @@
                 <h3>責任者ID:{{ $department->boss_id }}</h3>
                 <div class="edit-delete">
                     <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
-                    <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
+                    <button>
+                        <img class="deleteBtn" id="deleteBtn{{ $department->id }}" src="{{ asset('img/delete.svg') }}" alt="deleting icon">
+                    </button>
                 </div>
         </div>
         @endforeach
