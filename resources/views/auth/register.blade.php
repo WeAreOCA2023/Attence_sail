@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 @section('content')
 <div class="container h-100 d-flex justify-content-center align-items-center register">
     <div class="row justify-content-center">
@@ -10,7 +10,7 @@
                         @csrf
 
                         <div class="row mb-4 form-input w-50 mx-auto mainColor">
-            
+
                             <label for="companyID" class="col-form-label">{{ __('会社コード') }}</label>
                             <div class="col">
                                 <input id="companyID" type="text" class="form-control @error('companyID') is-invalid @enderror" name="companyID" minlength=12 maxlength=12 value="{{ old('companyID') }}" required autocomplete="companyID" autofocus>
