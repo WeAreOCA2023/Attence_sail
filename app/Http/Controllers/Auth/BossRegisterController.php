@@ -54,16 +54,16 @@ class BossRegisterController extends Controller
     {
         return Validator::make($data, [
             'companyName' => ['required', 'string', 'max:255'],
+            'companyCode' => ['required', 'string', 'max:12'],
+            'companyPassword' => ['required', 'string', 'max:255'],
             'companyPostCode' => ['required', 'string', 'max:7'],
             'companyAddress' => ['required', 'string', 'max:255'],
             'userName' => ['required', 'string', 'max:255'],
             'fullName' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:user_logins'],
+            'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'telephone' => ['required', 'string','max:255', 'unique:users'],
+            'telephone' => ['required', 'string','max:255'],
             'is_boss' => ['bool'],
-//            'created_at' => ['required', 'datetime'],
-//            'updated_at' => ['required', 'datetime'],
         ]);
     }
 
@@ -81,6 +81,8 @@ class BossRegisterController extends Controller
         ]);
 
         $company = Company::create([
+            'company_code' => $data['companyCode'],
+            'company_password' => Hash::make($data['companyPassword']),
             'company_name' => $data['companyName'],
             'post_code' => $data['companyPostCode'],
             'address' => $data['companyAddress'],
@@ -100,6 +102,6 @@ class BossRegisterController extends Controller
 
 
 
-        return $user;
+        return $userLogin;
     }
 }

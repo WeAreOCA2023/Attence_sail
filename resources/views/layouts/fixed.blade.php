@@ -57,6 +57,8 @@
                                 ["tasks", "My all tasks", '<i class="fa-solid fa-table-list"></i>'],
                                 ["next-7-days", "Next 7 days", '<i class="fa-solid fa-calendar-days"></i>'],
                                 ["analytics", "Analytics", '<i class="fa-solid fa-poo"></i>'],
+                                ["department-management", "Department Management", '<i class="fa-solid fa-calendar-days"></i>'],
+                                ["position-management", "Position Management", '<i class="fa-solid fa-calendar-days"></i>'],
                                 ["user-management", "User Management", '<i class="fa-solid fa-calendar-days"></i>'],
                                 ["#", "Add new board", ''],
                             ];
@@ -70,7 +72,7 @@
                                         $current = (strpos($url, $vals[0]) !== false) ? 'class="nav-link selected" aria-current="page"' : 'class="nav-link"';
                                     @endphp
 
-                                    @if ($vals[0] === 'user-management')
+                                    @if ($vals[0] === 'department-management' | $vals[0] === 'position-management' | $vals[0] === 'user-management')
                                         @can('boss')
                                             <li class="nav-item">
                                                 <a href="{{ $vals[0] }}" {!! $current !!}>

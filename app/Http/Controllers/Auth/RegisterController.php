@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserLogin;
+use App\Models\Company;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -52,12 +54,31 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'userName' => ['required', 'string', 'max:255'],
+            'companyID' => ['required', 'string', 'max:255', function ($attribute, $value, $fail) {
+                $company = Company::where('company_code', $value)->first();
+                if (!$company) {
+                    $fail('会社コードが見つかりませんでした。');
+                }
+            }],
+            'companyPassword' => ['required', 'string', 'max:255', function ($attribute, $value, $fail) use ($data) {
+                $companyCode = $data['companyID'];
+                
+                $company = Company::where('company_code', $companyCode)->first();
+                
+                if (!$company) {
+                    $fail('会社パスワードが一致しません。');
+                } else {
+                    $hashedPasswordFromDb = $company->company_password;
+                    if (!Hash::check($value, $hashedPasswordFromDb)) {
+                        $fail('会社パスワードが一致しません');
+                    }
+                }
+            }],
             'fullName' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:user_logins'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'telephone' => ['required', 'string','max:255', 'unique:users'],
             'is_boss' => ['bool'],
-            'companyID' => ['required', 'string', 'max:255'],
         ]);
     }
 
@@ -74,17 +95,23 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
+        
+
         $user = User::create([
             'user_id' => $userLogin->id,
             'user_name' => $data['userName'],
             'full_name' => $data['fullName'],
             'telephone' => $data['telephone'],
-            'company_id' => $data['companyID'],
+            // 'company_id' => function() use ($data) {
+            //     $company = Company::where('company_code', $data['companyCode'])->first();
+            //     return $company->id;
+            // },
+            'company_id' => Company::where('company_code', $data['companyID'])->first()->id,
             'is_boss' => $data['is_boss'],
         ]);
 
 
 
-        return $user;
+        return $userLogin;
     }
 }

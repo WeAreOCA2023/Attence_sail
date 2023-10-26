@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
+            $table->char('company_code',12)->unique();
             $table->string('company_name');
             $table->char('post_code', 7);
             $table->string('address');
+            $table->string('company_password')->default(0);
             $table->timestamps();
         });
     }

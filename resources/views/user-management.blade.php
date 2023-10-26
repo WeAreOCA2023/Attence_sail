@@ -3,12 +3,14 @@
 @section('content')
 <div class="userManagement d-flex justify-content-center h-100 mx-auto py-4">
     <div class="whiteBox">
-        <div class="input-group">
+        <div class="input-group d-flex justify-content-center">
            <span class="svg">
                 <img src="{{ asset('img/search.svg') }}" alt="searching icon">
             </span>
-            <input style="font-size: 1.3rem; background: none; border: none; border-bottom: 2px solid #1C1C1C;"  class="form-control" type="text" placeholder="検索したいユーザーを入力してください" aria-label="Search" aria-describedby="search-addon" />
-            <button style="width: 100px; font-size: 1.3rem; color: white; background-color: #1C1C1C" type="button" class="btn btn-outline-primary">検索</button>
+            <form method="GET" action="">
+                <input style="width: 250px; font-size: 1.3rem; background: none; border: none; border-bottom: 2px solid #1C1C1C;"  type="text" placeholder="検索したいユーザーを入力してください" aria-label="Search" aria-describedby="search-addon" />
+                <button style="width: 100px; font-size: 1.3rem; color: white; background-color: #1C1C1C;" type="button" name="search">検索</button>
+            </form>
         </div>
         <div class="filterOptions d-flex justify-content-around mx-auto">
             <p>フィルター</p>
