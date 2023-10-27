@@ -64,10 +64,6 @@ main {
     }
 }
 
-//<<<<<<< HEAD
-//=======
-//// auth
-//>>>>>>> main
 #auth {
     height: 100vh;
     background-color: v.$black;
@@ -507,12 +503,17 @@ main {
     }
 }
 .myAllTasks{
+    gap: 0 2vw;
     .jobList{
-        background-color: v.$black;
+        background-color: v.$white;
         width: 40vw;
-        height: 70vh;   }
-    .jcob{
-        background-color: v.$black;
+        height: 85vh;
+        border-radius: 8%;
+    }
+    .job{
+        background-color: v.$white;
         width: 40vw;
-        height: 70vh;    }
+        height: 85vh;
+        border-radius: 8%;
+    }
 }

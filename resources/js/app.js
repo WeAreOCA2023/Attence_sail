@@ -46,8 +46,6 @@ app.mount('#app');
     })
   })()
 
-
-
 $(document).ready(function() {
     let setTimeoutId = undefined;
     let isRunning = false;
@@ -121,12 +119,13 @@ $(document).ready(function() {
             clearTimeout(setTimeoutId);
             $("#reset").removeClass("disabled");
             elapsedTime = currentTime - startTime;
-            this.innerHTML = "<img src='{{ asset('img/start.svg') }}' alt=''>";
+            this.innerHTML = '<img src="{{ asset('img/start.svg') }}" alt="">';
         } else {
+            console.log(elapsedTime);
             startTime = Date.now() - elapsedTime;
             runTimer();
             $("#reset").addClass("disabled");
-            this.innerHTML = "<img src='{{ asset('img/pause.svg') }}' alt=''>";
+            this.innerHTML = '<img src="{{ asset('img/pause.svg') }}" alt="">';
         }
         isRunning = !isRunning;
     });
