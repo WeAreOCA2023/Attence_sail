@@ -8,10 +8,6 @@
                     <h2 class="text-center mb-1 h1 mainColor">サインアップ（ボス）</h2>
                     <form method="POST" action="{{ route('register-boss') }}">
                         @csrf
-
-                        
-
-
                         <div class="row mb-1 form-input w-50 mx-auto mainColor">
                             <label for="companyName" class="col-form-label">{{ __('会社名') }}</label>
 
@@ -25,15 +21,12 @@
                                 @enderror
                             </div>
                         </div>
-
-
                         <div class="row mb-1 form-input w-50 mx-auto mainColor">
                             <label for="companyCode" class="col-form-label">{{ __('会社コード') }}</label>
                             <div class="col">
                                 <input id="companyCode" type="text" class="form-control @error('companyCode') is-invalid @enderror" name="companyCode" minlength=12 maxlength=12 value="{{ old('companyCode') }}" required autocomplete="companyCode" >
                             </div>
                         </div>
-
                         <div class="row mb-4 form-input w-50 mx-auto mainColor">
                             <label for="companyPassword" class="col-form-label">{{ __('会社パスワード') }}</label>
                             <div class="col">
@@ -45,7 +38,6 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="row mb-1 form-input w-50 mx-auto mainColor">
                             <label for="companyPostCode" class="col-form-label">{{ __('会社の郵便番号') }}</label>
 
@@ -59,7 +51,6 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="row mb-1 form-input w-50 mx-auto mainColor">
                             <label for="companyAddress" class="col-form-label">{{ __('会社の住所') }}</label>
 
@@ -73,7 +64,6 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="row mb-1 form-input w-50 mx-auto mainColor">
                             <label for="userName" class="col-form-label">{{ __('ユーザー名') }}</label>
 
@@ -87,7 +77,6 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="row mb-1 form-input w-50 mx-auto mainColor">
                             <label for="fullName" class="col-form-label">{{ __('名前') }}</label>
 
@@ -101,7 +90,6 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="row mb-1 form-input w-50 mx-auto mainColor">
                             <label for="email" class="col-form-label">{{ __('メールアドレス') }}</label>
 
@@ -115,7 +103,6 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="row mb-1 form-input w-50 mx-auto mainColor">
                             <label for="telephone" class="col-form-label">{{ __('電話番号') }}</label>
                             <div class="col">
@@ -128,7 +115,6 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="row mb-1 form-input w-50 mx-auto mainColor">
                             <label for="password" class="col-form-label">{{ __('パスワード') }}</label>
 
@@ -142,7 +128,6 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="row mb-1 form-input w-50 mx-auto mainColor">
                             <label for="password-confirm" class="col-form-label">{{ __('パスワードの確認') }}</label>
 
@@ -150,13 +135,7 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
-
                         <input type="hidden" name="is_boss" value="1">
-
-
-
-
-
                         <div class="row mb-0">
                             <div class="login-form col-md-8 offset-md-4 text-center mx-auto d-flex align-items-start">
                                 <button type="submit" class="text-decoration-none mx-auto">
