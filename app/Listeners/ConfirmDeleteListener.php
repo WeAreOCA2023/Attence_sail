@@ -20,7 +20,7 @@ class ConfirmDeleteListener
      */
     public function handle(object $event): void
     {
-        console.log('yo');
+
 
         
         // $javascript = <<<JS

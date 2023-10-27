@@ -131,7 +131,3 @@ $(document).ready(function() {
     });
 
 });
-
-
-
-
