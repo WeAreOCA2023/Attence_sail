@@ -201,23 +201,94 @@ main {
 
 // register
 .register {
-    @include r.mq(xl) {
-        max-width: 100% !important;
-
-        .reset-rounded {
-            border-bottom-right-radius: 0%;
-            border-top-right-radius: 0%;
+    .logo{
+        margin: 3vh 0 3vh 0;
+    }
+    .registerBox {
+        background-color: v.$darkGray;
+        width: 25vw;
+        height: 70vh;
+        border-radius: v.$round-15;
+        h1 {
+            color: v.$white;
+            @include m.fz(36);
         }
-
-        .flex {
-            flex: none;
-        }
-
-        button {
-            @include m.loginBtn(v.$mainColor);
+        .registerBoxInner {
+            form{
+                input{
+                    width: 16vw;
+                    height: 2vw;
+                    border-radius: v.$round-15;
+                    background-color: v.$darkGray;
+                    border: 1px solid v.$white;
+                    color: v.$white;
+                    @include m.fz(15);
+                }
+                label{
+                    color: v.$white;
+                    @include m.fz(15);
+                }
+            }
+            .RegisterButton {
+                margin-top: 2vh;
+                button {
+                    color: v.$white;
+                    @include m.fz(20);
+                    width: 16vw;
+                    height: 2vw;
+                    background-color: v.$green;
+                    border-radius: v.$round-15;
+                }
+            }
         }
     }
 }
+
+//registerBoss
+.registerBoss{
+    .logo{
+        margin: 1.5vh 0 1.5vh 0;
+    }
+    .registerBox {
+        background-color: v.$darkGray;
+        width: 25vw;
+        height: 85vh;
+        border-radius: v.$round-15;
+        h1 {
+            color: v.$white;
+            @include m.fz(36);
+        }
+        .registerBoxInner {
+            form{
+                input{
+                    width: 16vw;
+                    height: 2vw;
+                    border-radius: v.$round-15;
+                    background-color: v.$darkGray;
+                    border: 1px solid v.$white;
+                    color: v.$white;
+                    @include m.fz(15);
+                }
+                label{
+                    color: v.$white;
+                    @include m.fz(15);
+                }
+            }
+            .RegisterButton {
+                margin-top: 2vh;
+                button {
+                    color: v.$white;
+                    @include m.fz(20);
+                    width: 16vw;
+                    height: 2vw;
+                    background-color: v.$green;
+                    border-radius: v.$round-15;
+                }
+            }
+        }
+    }
+}
+
 
 // index
 
