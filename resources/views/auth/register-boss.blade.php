@@ -2,12 +2,12 @@
 @section('content')
 <div class="registerBoss">
     <div class="main d-flex flex-column align-items-center justify-content-between">
-        <div class="logo">
-            <img src="{{ asset('img/logo-white.svg') }}" alt="logo">
+        <div class="logo text-center">
+            <img src="{{ asset('img/logo-white.svg') }}" alt="logo" class="w-75 h-75">
         </div>
-        <div class="loginBox d-flex flex-column align-items-center justify-content-center">
-            <div class="loginBoxInner d-flex flex-column justify-content-center align-items-center">
-                <h1>サインアップ（ボス）</h1>
+        <div class="registerBox d-flex flex-column align-items-center justify-content-center">
+            <div class="registerBoxInner d-flex flex-column justify-content-center align-items-center">
+                <h1>サインアップ(ボス)</h1>
                 <form class="d-flex flex-column align-items-center justify-content-between" method="POST" action="{{ route('register-boss') }}">
                     @csrf
                     <div class="companyNameBox">
