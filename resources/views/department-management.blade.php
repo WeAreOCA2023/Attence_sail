@@ -26,7 +26,7 @@
                     </button>
                 </div>
             </div>
-            
+
             <div class="modal fade" id="confirmDeleteModal{{ $department->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-dialog">
@@ -40,7 +40,11 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-                                <button type="button" class="btn btn-primary">削除</button>
+                                <form class="delete" method="POST" action="{{ route('department-management.destroy',$department->id) }}">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-primary">削除</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -50,7 +54,7 @@
 
     </div>
     <div class="addDepartmentsBox">
-        <form method="POST" action="">
+        <form method="POST" action="{{ route('department-management.store') }}">
             @csrf
             <div class="department">
                 <label for="departmentName">{{ __('部署名') }}</label>
