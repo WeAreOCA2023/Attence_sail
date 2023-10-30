@@ -40,4 +40,11 @@ class DepartmentManagementController extends Controller
         $department->save();
         return redirect('/department-management')->with('success', 'Department saved!');
     }
+
+    public function destroy($id)
+    {
+        $department = Department::find($id);
+        $department->delete();
+        return redirect('/department-management')->with('success', 'Department deleted!');
+    }
 }
