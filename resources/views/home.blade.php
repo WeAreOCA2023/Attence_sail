@@ -52,8 +52,90 @@
             </div>
         </div>
     </div>
+<script>
+    $(document).ready(function() {
+        let setTimeoutId = undefined;
+        let isRunning = false;
+        let startTime = 0;
+        let currentTime = 0;
+        let elapsedTime = 0;
+        let interval;
+        const totalDuration = 60 * 1000;
+        const progressBar = document.getElementById('progressPath');
+        const progressBarLength = progressBar.getTotalLength();
 
-    <script>
+        function runTimer(){
+            currentTime = new Date();
+            interval = setInterval(updateProgressBar, 10);
+            showTime();
+            progressBar.style.display = 'block';
+            setTimeoutId = setTimeout(() => {
+                runTimer();
+            },0)
+        }
 
+        function showTime(){
+            let d = new Date(currentTime - startTime);
+            const getHour = d.getHours() - 9;
+            const getMin = d.getMinutes();
+            const getSec =d.getSeconds();
+            $("#timer").text(`${String(getHour).padStart(2,'0')}:${String(getMin).padStart(2,'0')}:${String(getSec).padStart(2,'0')}`);
+        }
+
+        function classReplacementRun()  {
+            $("#start").addClass("disabled");
+            $("#stop").removeClass("disabled");
+            $("#reset").addClass("disabled");
+        }
+
+        function classReplacementStop()  {
+            $("#start").removeClass("disabled");
+            $("#stop").addClass("disabled");
+            $("#reset").removeClass("disabled");
+        }
+
+        function classReplacementInitial()  {
+            $("#start").removeClass("disabled");
+            $("#stop").addClass("disabled");
+            $("#reset").addClass("disabled");
+        }
+
+        // プログレスバーを更新する関数
+        function updateProgressBar() {
+            const progress = Math.min(((currentTime - startTime) / totalDuration) * progressBarLength, progressBarLength);
+            progressBar.style.strokeDashoffset = progressBarLength - progress;
+        }
+
+        function resetProgressBar() {
+            progressBar.style.display = 'none';
+        }
+
+        $("#reset").click(function() {
+            if($(this).hasClass('disabled')){
+                return;
+            }
+            classReplacementInitial()
+            elapsedTime = 0;
+            startTime = 0;
+            resetProgressBar();
+            $("#timer").text("00:00:00");
+        });
+
+        document.getElementById('toggleBtn').addEventListener('click', function() {
+            if (isRunning) {
+                clearTimeout(setTimeoutId);
+                $("#reset").removeClass("disabled");
+                elapsedTime = currentTime - startTime;
+                this.innerHTML = '<img src="{{ asset('img/start.svg') }}" alt="">';
+            } else {
+                console.log(elapsedTime);
+                startTime = Date.now() - elapsedTime;
+                runTimer();
+                $("#reset").addClass("disabled");
+                this.innerHTML = '<img src="{{ asset('img/pause.svg') }}" alt="">';
+            }
+            isRunning = !isRunning;
+        });
+    });
 </script>
 @endsection
