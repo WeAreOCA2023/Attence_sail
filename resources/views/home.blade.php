@@ -59,23 +59,38 @@
         let startTime = 0;
         let currentTime = 0;
         let elapsedTime = 0;
-        let interval;
+        let breakStartTime = 0;
+        let breakTime = 0;
+        let intervalId;
         const totalDuration = 60 * 1000;
         const progressBar = document.getElementById('progressPath');
         const progressBarLength = progressBar.getTotalLength();
 
-        function runTimer(){
+        function runTimer() {
             currentTime = new Date();
-            interval = setInterval(updateProgressBar, 10);
-            showTime();
+            // if (intervalId) {
+            //     clearInterval(intervalId);
+            // }
+            intervalId = setInterval(upda4teProgressBar, 10)
+            console.log(intervalId);
+            showTime(startTime);
             progressBar.style.display = 'block';
             setTimeoutId = setTimeout(() => {
                 runTimer();
-            },0)
+            }, 0)
         }
 
-        function showTime(){
-            let d = new Date(currentTime - startTime);
+        function runBreakTimer() {
+            currentTime = new Date();
+            clearInterval(intervalId);
+            showTime(breakStartTime);
+            setTimeoutId = setTimeout(() => {
+                runBreakTimer();
+            }, 0)
+        }
+
+        function showTime(time){
+            let d = new Date(currentTime - time);
             const getHour = d.getHours() - 9;
             const getMin = d.getMinutes();
             const getSec =d.getSeconds();
@@ -124,17 +139,22 @@
         document.getElementById('toggleBtn').addEventListener('click', function() {
             if (isRunning) {
                 clearTimeout(setTimeoutId);
-                $("#reset").removeClass("disabled");
-                elapsedTime = currentTime - startTime;
-                this.innerHTML = '<img src="{{ asset('img/start.svg') }}" alt="">';
+                breakStartTime = Date.now() - breakTime;
+                runBreakTimer();
+                this.innerHTML = '<img src="{{ asset('img/restart.svg') }}" alt="">';
             } else {
-                console.log(elapsedTime);
                 startTime = Date.now() - elapsedTime;
                 runTimer();
                 $("#reset").addClass("disabled");
                 this.innerHTML = '<img src="{{ asset('img/pause.svg') }}" alt="">';
             }
             isRunning = !isRunning;
+        });
+
+        document.getElementById('reset').addEventListener('click', function() {
+            clearTimeout(setTimeoutId);
+            runBreakTimer();
+            this.innerHTML = '<img src="{{ asset('img/start.svg') }}" alt="">';
         });
     });
 </script>
