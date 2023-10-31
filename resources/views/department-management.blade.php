@@ -51,7 +51,7 @@
                 </div>
             </div>
         @endforeach
-
+        {{ $departments->links() }}
     </div>
     <div class="addDepartmentsBox">
         <form method="POST" action="{{ route('department-management.store') }}">

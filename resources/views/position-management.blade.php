@@ -6,6 +6,7 @@
         @foreach ($positions as $position)
             <h3>{{ $position->position_name }}</h3>
         @endforeach
+        {{ $positions->links() }}
     </div>
     <div class="addPositionsBox">
         <form method="POST" action="{{ route('position-management.store') }}">
