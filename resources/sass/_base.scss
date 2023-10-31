@@ -577,15 +577,17 @@ main {
     gap: 0 2vw;
     .jobList{
         background-color: v.$white;
-        width: 40vw;
-        height: 85vh;
-        border-radius: 8%;
+        width: 37vw;
+        height: 90vh;
+        border-radius: v.$round-40;
+        box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
     }
     .job{
         background-color: v.$white;
-        width: 40vw;
-        height: 85vh;
-        border-radius: 8%;
+        width: 45vw;
+        height: 90vh;
+        border-radius: v.$round-40;
+        box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
     }
 }
 .registerBoss{
