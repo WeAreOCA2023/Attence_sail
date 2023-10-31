@@ -62,14 +62,21 @@
         let breakStartTime = 0; // 休憩開始時間
         let breakTime = 0; // 休憩時間
         let intervalId; // タイマーを動かすための変数
+        let testCount = 0;
         const totalDuration = 60 * 1000; // タイマーのゴール時間
         const progressBar = document.getElementById('progressPath');
         const progressBarLength = progressBar.getTotalLength();
 
+
         // タイマーとプログレスバーを動かす関数
         function runTimer() {
             currentTime = new Date();
-            intervalId = setInterval(updateProgressBar, 10) // 10ミリ秒ごとにプログレスバーを更新
+            // ↓ここでプログレスバーを読んでる
+            console.log("]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]")
+            intervalId = setTimeout(updateProgressBar, 100) // 10ミリ秒ごとにプログレスバーを更新
+            console.log("--------"+intervalId+"---------");
+            //　↑ をコンソールで出すとIDが毎回変わってるそれが理由で止めたいsetIntervalが認識できてない可能性がある
+            testCount += 1;
             showTime(startTime); // タイマーを表示
             progressBar.style.display = 'block';
             setTimeoutId = setTimeout(() => {
@@ -77,8 +84,9 @@
             }, 0)
         }
 
-// 休憩を押した時の処理
+        // 休憩を押した時の処理
         function runBreakTimer() {
+            // console.log("yayayayayaayayayayay")
             currentTime = new Date();
             showTime(breakStartTime); // タイマーを表示
             setTimeoutId = setTimeout(() => {
@@ -86,6 +94,7 @@
             }, 0)
         }
 
+        // タイマーを表示させる関数
         function showTime(time){
             let d = new Date(currentTime - time);
             const getHour = d.getHours() - 9;
@@ -93,6 +102,7 @@
             const getSec =d.getSeconds();
             $("#timer").text(`${String(getHour).padStart(2,'0')}:${String(getMin).padStart(2,'0')}:${String(getSec).padStart(2,'0')}`);
         }
+
 
         function classReplacementRun()  {
             $("#start").addClass("disabled");
@@ -106,14 +116,16 @@
             $("#reset").removeClass("disabled");
         }
 
+        // ボタンをグレーアウトする関数
         function classReplacementInitial()  {
             $("#start").removeClass("disabled");
             $("#stop").addClass("disabled");
             $("#reset").addClass("disabled");
         }
 
-        // プログレスバーを更新する関数
+        // プログレスバーを更新する関数 (この関数を10ミリ秒ごとに呼び出してるから円のやつが動いてる)
         function updateProgressBar() {
+            console.log('called');
             const progress = Math.min(((currentTime - startTime) / totalDuration) * progressBarLength, progressBarLength);
             progressBar.style.strokeDashoffset = progressBarLength - progress;
         }
@@ -121,6 +133,11 @@
         function resetProgressBar() {
             progressBar.style.display = 'none';
         }
+
+        // function stopInterval() {
+        //     console.log("999999999999999999999");
+        //     clearInterval(intervalId);
+        // }
 
         // 退勤ボタンを押した時の処理
         $("#reset").click(function() {
@@ -134,14 +151,18 @@
             $("#timer").text("00:00:00");
         });
 
-        document.getElementById('toggleBtn').addEventListener('click', function() {
-            // 休憩ボタンを押した時
+        $("#toggleBtn").click(function() {
             if (isRunning) {
                 clearTimeout(setTimeoutId);
+                //　↓本来この関数でプログレンスバーが止まるはず
+                if(intervalId){
+                    clearTimeout(intervalId);
+                    console.log("~~~~~~~~~~~~~~~~~~~~~~")
+                }
                 breakStartTime = Date.now() - breakTime;
                 runBreakTimer();
                 this.innerHTML = '<img src="{{ asset('img/restart.svg') }}" alt="">';
-            // 出勤ボタンを押した時
+                // 出勤ボタンを押した時
             } else {
                 startTime = Date.now() - elapsedTime; // ボタンを押した時の時間をstartTimeに代入
                 runTimer();
