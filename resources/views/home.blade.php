@@ -55,35 +55,32 @@
 <script>
     $(document).ready(function() {
         let setTimeoutId = undefined;
-        let isRunning = false;
-        let startTime = 0;
-        let currentTime = 0;
-        let elapsedTime = 0;
-        let breakStartTime = 0;
-        let breakTime = 0;
-        let intervalId;
-        const totalDuration = 60 * 1000;
+        let isRunning = false; // タイマーが動いているかどうかのフラグ
+        let startTime = 0; // タイマーを開始した時間
+        let currentTime = 0; // 現在の時間
+        let elapsedTime = 0; // 経過時間
+        let breakStartTime = 0; // 休憩開始時間
+        let breakTime = 0; // 休憩時間
+        let intervalId; // タイマーを動かすための変数
+        const totalDuration = 60 * 1000; // タイマーのゴール時間
         const progressBar = document.getElementById('progressPath');
         const progressBarLength = progressBar.getTotalLength();
 
+        // タイマーとプログレスバーを動かす関数
         function runTimer() {
             currentTime = new Date();
-            // if (intervalId) {
-            //     clearInterval(intervalId);
-            // }
-            intervalId = setInterval(upda4teProgressBar, 10)
-            console.log(intervalId);
-            showTime(startTime);
+            intervalId = setInterval(updateProgressBar, 10) // 10ミリ秒ごとにプログレスバーを更新
+            showTime(startTime); // タイマーを表示
             progressBar.style.display = 'block';
             setTimeoutId = setTimeout(() => {
                 runTimer();
             }, 0)
         }
 
+// 休憩を押した時の処理
         function runBreakTimer() {
             currentTime = new Date();
-            clearInterval(intervalId);
-            showTime(breakStartTime);
+            showTime(breakStartTime); // タイマーを表示
             setTimeoutId = setTimeout(() => {
                 runBreakTimer();
             }, 0)
@@ -125,6 +122,7 @@
             progressBar.style.display = 'none';
         }
 
+        // 退勤ボタンを押した時の処理
         $("#reset").click(function() {
             if($(this).hasClass('disabled')){
                 return;
@@ -137,24 +135,20 @@
         });
 
         document.getElementById('toggleBtn').addEventListener('click', function() {
+            // 休憩ボタンを押した時
             if (isRunning) {
                 clearTimeout(setTimeoutId);
                 breakStartTime = Date.now() - breakTime;
                 runBreakTimer();
                 this.innerHTML = '<img src="{{ asset('img/restart.svg') }}" alt="">';
+            // 出勤ボタンを押した時
             } else {
-                startTime = Date.now() - elapsedTime;
+                startTime = Date.now() - elapsedTime; // ボタンを押した時の時間をstartTimeに代入
                 runTimer();
                 $("#reset").addClass("disabled");
                 this.innerHTML = '<img src="{{ asset('img/pause.svg') }}" alt="">';
             }
-            isRunning = !isRunning;
-        });
-
-        document.getElementById('reset').addEventListener('click', function() {
-            clearTimeout(setTimeoutId);
-            runBreakTimer();
-            this.innerHTML = '<img src="{{ asset('img/start.svg') }}" alt="">';
+            isRunning = !isRunning; // フラグを反転
         });
     });
 </script>
