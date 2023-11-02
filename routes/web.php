@@ -42,6 +42,6 @@ Route::group(['middleware' => ['auth', 'can:boss']], function () {
 });
 
 
-Route::get('/counter', Counter::class);
+// Route::get('/counter', Counter::class);
 
 
