@@ -20,6 +20,7 @@ class DepartmentFactory extends Factory
         return [
             "department_name" => fake()->unique()->word,
             "boss_id" => 1,
+            "company_id" => 1,
         ];
     }
 }

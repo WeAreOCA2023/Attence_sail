@@ -14,6 +14,11 @@
                         <label for="companyCode" class="col-form-label">{{ __('会社コード') }}</label>
                         <div class="companyCodeInput">
                             <input id="companyCode" type="text" class="form-control @error('companyCode') is-invalid @enderror" name="companyCode" minlength=12 maxlength=12 value="{{ old('companyCode') }}" required autocomplete="companyCode" >
+                            @error('companyCode')
+                                <span class="invalid-feedback" role="aleart">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="companyPasswordBox">
@@ -21,9 +26,9 @@
                         <div class="companyPasswordInput">
                             <input id="companyPassword" type="password" class="form-control @error('companyPassword') is-invalid @enderror" name="companyPassword" value="{{ old('companyPassword') }}" required autocomplete="companyPassword">
                             @error('companyPassword')
-                            <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                             @enderror
                         </div>
                     </div>
@@ -32,9 +37,9 @@
                         <div class="userNameInput">
                             <input id="userName" type="text" class="form-control @error('userName') is-invalid @enderror" name="userName" value="{{ old('userName') }}" required autocomplete="userName">
                             @error('userName')
-                            <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                             @enderror
                         </div>
                     </div>
@@ -43,9 +48,9 @@
                         <div class="fullNameInput">
                             <input id="fullName" type="text" class="form-control @error('fullName') is-invalid @enderror" name="fullName" value="{{ old('fullName') }}" required autocomplete="fullName">
                             @error('fullName')
-                            <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                             @enderror
                         </div>
                     </div>
@@ -54,9 +59,9 @@
                         <div class="emailInput">
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
                             @error('email')
-                            <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                             @enderror
                         </div>
                     </div>
@@ -65,9 +70,9 @@
                         <div class="telephoneInput">
                             <input id="telephone" type="tel" class="form-control @error('telephone') is-invalid @enderror" minlength=11 maxlength=11 name="telephone" required autocomplete="telephone">
                             @error('telephone')
-                            <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                             @enderror
                         </div>
                     </div>
@@ -76,9 +81,9 @@
                         <div class="passwordInput">
                             <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                             @error('password')
-                            <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                             @enderror
                         </div>
                     </div>

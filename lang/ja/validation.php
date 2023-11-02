@@ -141,4 +141,5 @@ return [
     'uppercase'            => ':Attributeは、大文字で入力してください。',
     'url'                  => ':Attributeは、有効なURL形式で指定してください。',
     'uuid'                 => ':Attributeは、有効なUUIDである必要があります。',
+    'matches_company_code_and_password' => '会社コードまたは会社パスワードが間違えています。',
 ];

@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -56,7 +58,22 @@ class AppServiceProvider extends ServiceProvider
             ]);
         });
 
+        // ユーザーの入力した会社コードがcompany_tableと一致するかの判定(RegisterController.php)
+        Validator::extend('matches_company_code_and_password', function ($attribute, $value, $parameters, $validator) {
+            // if (Company::where('company_code', $value)->first() == null) {
+            //     return false;
+            // }
+            // return true;
+            $companyCode = $value;
+            $inputPassword = $validator->getData()['companyPassword'];
 
+            $company = Company::where('company_code', $companyCode)->first();
+            if ($company && Hash::check($inputPassword, $company->company_password)) {
+                return true;
+            }
+            return false;
+            
+        });
     }
 
 }
