@@ -8,9 +8,6 @@
             <img src="{{ asset('img/department.svg') }}" alt="department icon">
             <h2>部署</h2>
         </div>
-
-        <div id="modalContainer"></div>
-
         @foreach ($departments as $department)
             <div class="department d-flex justify-content-around">
                 <h3>{{ $department->department_name }}</h3>

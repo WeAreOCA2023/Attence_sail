@@ -38,13 +38,13 @@ class DepartmentManagementController extends Controller
             'boss_id' => $users->user_id
         ]);
         $department->save();
-        return redirect('/department-management')->with('success', 'Department saved!');
+        return redirect('/department-management');
     }
 
     public function destroy($id)
     {
         $department = Department::find($id);
         $department->delete();
-        return redirect('/department-management')->with('success', 'Department deleted!');
+        return redirect('/department-management');
     }
 }
