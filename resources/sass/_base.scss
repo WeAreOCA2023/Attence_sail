@@ -581,6 +581,13 @@ main {
         height: 90vh;
         border-radius: v.$round-40;
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+        .title{
+            margin: 4% 0 0 4%;
+            gap: 0 1%;
+            h2{
+                margin: 0;
+            }
+        }
     }
     .job{
         background-color: v.$white;
