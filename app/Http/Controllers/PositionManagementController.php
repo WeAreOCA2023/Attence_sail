@@ -28,9 +28,19 @@ class PositionManagementController extends Controller
 
         $position = new Position ([
             'position_name' => $request->get('positionName'),
+            'rank' => $request->get('rank'),
             'company_id' => $user->company_id
         ]);
         $position->save();
-        return redirect('/position-management')->with('success', 'Postion saved!');
+        return redirect('/position-management');
+    }
+
+    public function destroy($id, Request $request)
+    {
+        $position = Position::find($id);
+        $position->delete();
+        $currentPage = $request->input('page', 1);
+        $redirectTo = '/position-management?page=' . $currentPage;
+        return redirect($redirectTo);
     }
 }
