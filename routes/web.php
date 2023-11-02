@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\DepartmentManagementController;
 use App\Http\Controllers\PositionManagementController;
+use App\Livewire\Counter;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,5 +40,8 @@ Route::group(['middleware' => ['auth', 'can:boss']], function () {
     Route::resource('position-management', PositionManagementController::class);
     Route::resource('user-management', UserManagementController::class);
 });
+
+
+Route::get('/counter', Counter::class);
 
 
