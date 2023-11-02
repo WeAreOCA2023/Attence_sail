@@ -34,50 +34,51 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users as $user)
-                    <tr>
-                        <th scope="row">{{ $user->id }}</th>
-                        <td>{{ $user->email }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                        <div class="edit-delete">
-                            <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
-                            <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $user->id }}" style="border: none; background: none;">
-                                <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
-                            </button>
-                        </div>
-                    </td>
-                    </tr>
-                    <div class="modal fade" id="confirmDeleteModal{{ $user->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">本当に削除しますか？</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>{{ $fullName }}</p>
-                                    <p>「{{ $user->email }}」</p>
-                                    <p>を削除すると、元には戻せません</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-                                    <form class="delete" method="POST" action="{{ route('user-management.destroy',$user->id) }}">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-primary">削除</button>
-                                    </form>
+                @foreach ($fullNameList as $test)
+                    @foreach ($test as $userId => $fullName)
+                        <tr>
+                            <th scope="row">{{ $userId }}</th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                            <div class="edit-delete">
+                                <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
+                                <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $userId }}" style="border: none; background: none;">
+                                    <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
+                                </button>
+                            </div>
+                        </td>
+                        </tr>
+                        <div class="modal fade" id="confirmDeleteModal{{ $userId }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">本当に削除しますか？</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>{{ $fullName }}</p>
+                                        <p>{{ $userId }}</p>
+                                        <p>を削除すると、元には戻せません</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                                        <form class="delete" method="POST" action="{{ route('user-management.destroy',$userId) }}">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-primary">削除</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    @endforeach
                 @endforeach
             </tbody>
         </table>
