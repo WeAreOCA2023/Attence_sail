@@ -62,14 +62,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    @php 
-                                        var_dump($user->id);
-                                        $test = DB::table('users');
-                                        var_dump($test);
-                                        $users_table = DB::table('users')->where('user_id', $user->id)->first();
-                                    @endphp
-
-                                    
+                                    <p>{{ $fullName }}</p>
                                     <p>「{{ $user->email }}」</p>
                                     <p>を削除すると、元には戻せません</p>
                                 </div>
