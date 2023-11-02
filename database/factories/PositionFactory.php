@@ -20,6 +20,7 @@ class PositionFactory extends Factory
         return [
             "position_name" => fake()->unique()->word,
             "company_id" => 1,
+            "rank" => 0,
         ];
     }
 }

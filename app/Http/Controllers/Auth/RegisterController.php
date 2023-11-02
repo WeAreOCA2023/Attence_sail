@@ -43,6 +43,18 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+    /**
+     * Check if the input password matches the company_password in company_table
+     */
+    public function unhash($inputPassword)
+    {
+        $companyCode = User::where('user_id', Auth::id())->first()->company_id;
+        $hashedPasswordFromDb = Company::where('company_code', $companyCode)->first()->company_password;
+        if (Hash::check($inputPassword, $hashedPasswordFromDb)) {
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Get a validator for an incoming registration request.
@@ -54,26 +66,8 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'userName' => ['required', 'string', 'max:255'],
-            'companyID' => ['required', 'string', 'max:255', function ($attribute, $value, $fail) {
-                $company = Company::where('company_code', $value)->first();
-                if (!$company) {
-                    $fail('会社コードが見つかりませんでした。');
-                }
-            }],
-            'companyPassword' => ['required', 'string', 'max:255', function ($attribute, $value, $fail) use ($data) {
-                $companyCode = $data['companyID'];
-                
-                $company = Company::where('company_code', $companyCode)->first();
-                
-                if (!$company) {
-                    $fail('会社パスワードが一致しません。');
-                } else {
-                    $hashedPasswordFromDb = $company->company_password;
-                    if (!Hash::check($value, $hashedPasswordFromDb)) {
-                        $fail('会社パスワードが一致しません');
-                    }
-                }
-            }],
+            'companyCode' => ['required', 'string', 'max:255', 'matches_company_code_and_password'],
+            'companyPassword' => ['required', 'string', 'max:255'],
             'fullName' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:user_logins'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -106,7 +100,7 @@ class RegisterController extends Controller
             //     $company = Company::where('company_code', $data['companyCode'])->first();
             //     return $company->id;
             // },
-            'company_id' => Company::where('company_code', $data['companyID'])->first()->id,
+            'company_id' => Company::where('company_code', $data['companyCode'])->first()->id,
             'is_boss' => $data['is_boss'],
         ]);
 
