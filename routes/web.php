@@ -1,16 +1,12 @@
 <?php
 
 
-
-
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\TaskController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\DepartmentManagementController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PositionManagementController;
-use App\Livewire\Counter;
+use App\Http\Controllers\UserManagementController;
+use App\Livewire\Task;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +29,7 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::resource('tasks', TaskController::class);
+Route::get('tasks', Task::class);
 
 Route::group(['middleware' => ['auth', 'can:boss']], function () {
     Route::resource('department-management', DepartmentManagementController::class);
@@ -42,6 +38,4 @@ Route::group(['middleware' => ['auth', 'can:boss']], function () {
 });
 
 
-// Route::get('/counter', Counter::class);
-
-
+//Route::get('/counter', Counter::class);
