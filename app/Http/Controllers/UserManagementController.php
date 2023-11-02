@@ -2,32 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserLogin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use App\Models\User;
+use App\Models\UserLogin;
+use App\Models\Department;
 
 class UserManagementController extends Controller
 {
     public function index(): View
     {
-//        $userId = Auth::user()->id;
-        $users = DB::table('user_logins')->paginate(15);
-        $userFullNameList = [];
-        foreach ($users as $user){
-            $userId = $user->id;
-            $userTable = User::query()->where('user_id', $userId)->first();
-            $userFullName = $userTable->full_name;
-            $userSet[$userId] = $userFullName;
-            $userFullNameList[] = $userSet;
-            $userSet = array();
-//            dd($userFullNameList);
+        $users = DB::table('users')->paginate(15);
+        $userLoginlData = [];
+        foreach ($users as $user) {
+            $userLoginlData[$user->user_id] = UserLogin::query()->where('id', $user->user_id)->first();
+            $department = Department::query()->where('id', $user->department_id)->first();
+            if ($user->department_id == null) {
+                $department = '未設定';
+            } else {
+                $department = $department->department_name;
+            }
         }
+
         return view('user-management', [
-            'users' => DB::table('user_logins')->paginate(15),
-            'fullNameList' => $userFullNameList,
+            'users' => DB::table('users')->paginate(15),
+            'userLoginData' => $userLoginlData,
+            'department' => $department
         ]);
     }
 
@@ -43,11 +45,10 @@ class UserManagementController extends Controller
         ]);
     }
 
-//    public function getModalData(): View{
-//        $userId = Auth::user()->id;
-//        $userTable = User::query()->where('user_id', $userId)->first();
-//        return view('user-management', [
-//            'userTable' => $userTable
-//        ]);
-//    }
+    public function destroy($id)
+    {
+        $user = UserLogin::find($id);
+        $user->delete();
+        return redirect('/user-management');
+    }
 }
