@@ -63,9 +63,13 @@
                                 </div>
                                 <div class="modal-body">
                                     @php 
-                                        $users_table = DB::table('users')->where('user_id', $user->id)->get();
+                                        var_dump($user->id);
+                                        $test = DB::table('users');
+                                        var_dump($test);
+                                        $users_table = DB::table('users')->where('user_id', $user->id)->first();
                                     @endphp
-                                    <p>{{ $users_table->full_name }}</p>
+
+                                    
                                     <p>「{{ $user->email }}」</p>
                                     <p>を削除すると、元には戻せません</p>
                                 </div>
