@@ -13,13 +13,21 @@ class UserManagementController extends Controller
 {
     public function index(): View
     {
-        $userId = Auth::user()->id;
-        $userTable = User::query()->where('user_id', $userId)->first();
-        $userFullName = $userTable->full_name;
+//        $userId = Auth::user()->id;
+        $users = DB::table('user_logins')->paginate(15);
+        $userFullNameList = [];
+        foreach ($users as $user){
+            $userId = $user->id;
+            $userTable = User::query()->where('user_id', $userId)->first();
+            $userFullName = $userTable->full_name;
+            $userSet[$userId] = $userFullName;
+            $userFullNameList[] = $userSet;
+            $userSet = array();
+//            dd($userFullNameList);
+        }
         return view('user-management', [
             'users' => DB::table('user_logins')->paginate(15),
-            'userTable' => $userTable,
-            'fullName' => $userFullName
+            'fullNameList' => $userFullNameList,
         ]);
     }
 
