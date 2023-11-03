@@ -10,16 +10,9 @@
         <div class="position-absolute plusIcon">
             <img src="{{ asset('img/plus.svg') }}" alt="">
         </div>
-        <div>
-            <h1>{{ $count }}</h1>
-
-            <button wire:click="increment">+</button>
-
-            <button wire:click="decrement">-</button>
-        </div>
     </div>
     <div class="job">
-
+        <livewire:task />
     </div>
 </div>
 @endsection

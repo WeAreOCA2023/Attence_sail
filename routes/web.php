@@ -5,7 +5,7 @@ use App\Http\Controllers\DepartmentManagementController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PositionManagementController;
 use App\Http\Controllers\UserManagementController;
-use App\Livewire\Task;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,7 +29,7 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('tasks', Task::class);
+Route::resource('tasks', TaskController::class);
 
 Route::group(['middleware' => ['auth', 'can:boss']], function () {
     Route::resource('department-management', DepartmentManagementController::class);
