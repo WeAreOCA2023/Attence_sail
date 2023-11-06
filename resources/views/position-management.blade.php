@@ -46,7 +46,7 @@
         {{ $positions->links() }}
     </div>
     <div class="addPositionsBox">
-        <form method="GET" action="{{ route('position-management.store') }}">
+        <form method="POST" action="{{ route('position-management.store') }}">
             @csrf
             <div class="position">
                 <label for="positionName">{{ __('役職名') }}</label>
