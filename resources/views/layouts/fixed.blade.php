@@ -14,6 +14,8 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <script src="https://kit.fontawesome.com/48efdb6da3.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    @livewireStyles
 </head>
 <body>
     <div id="index" class="d-flex vh-100 flex-column">
@@ -25,7 +27,7 @@
                 <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa-solid fa-gear padding" style="color: #0F1419;"></i>
                 <div class="d-flex flex-flow">
-                    <span class="fw-bold">{{ $user_name }}</span>
+{{--                    <span class="fw-bold">{{ $user_name }}</span>--}}
                 </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
@@ -101,5 +103,6 @@
             @yield('content')
         </main>
     </div>
+    @livewireScripts
 </body>
 </html>

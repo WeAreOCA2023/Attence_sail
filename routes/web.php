@@ -7,6 +7,7 @@ use App\Http\Controllers\PositionManagementController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\CreateTask;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,5 +38,6 @@ Route::group(['middleware' => ['auth', 'can:boss']], function () {
     Route::resource('user-management', UserManagementController::class);
 });
 
+//Route::get('/tasks', CreateTask::class)->name('tasks');
 
 //Route::get('/counter', Counter::class);

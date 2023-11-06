@@ -11,8 +11,6 @@
             <img src="{{ asset('img/plus.svg') }}" alt="">
         </div>
     </div>
-    <div class="job">
-        <livewire:task />
-    </div>
+    <livewire:CreateTask />
 </div>
 @endsection
