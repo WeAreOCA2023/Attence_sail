@@ -37,5 +37,7 @@ Route::group(['middleware' => ['auth', 'can:boss']], function () {
     Route::resource('user-management', UserManagementController::class);
 });
 
+//Route::get('/tasks', \App\Livewire\CreateTask::class);
+
 
 //Route::get('/counter', Counter::class);

@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="job">
-        <livewire:task />
+        <livewire:CreateTask />
     </div>
 </div>
 @endsection
