@@ -2,33 +2,34 @@
 
 namespace App\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Task;
+use App\Models\UserLogin;
 
 
 class CreateTask extends Component
 {
-    public $title;
-    public $description;
-    public $status;
-    public $deadline;
-    public $done_at;
 
-    public function index()
-    {
-        return view('my-all-tasks');
-    }
+    public $title = '';
+    public $description = '';
+    public $status = '';
+    public $deadline = '';
+    public $done_at = '';
+
     public function save()
     {
         Task::create([
-            'title' => $this->title,
-//            'description' => $this->description,
-//            'status' => $this->status,
-//            'deadline' => $this->deadline,
-//            'done_at' => $this->done_at,
+            $this -> only([
+                'title',
+                'description',
+                'status',
+                'deadline',
+                'done_at',
+            ])
         ]);
 
-//        $this->redirect('/tasks');
+        return $this->redirect('/tasks');
     }
     public function render()
     {

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('description');
             $table->integer('status');
-            $table->dateTime('deadline');
-            $table->dateTime('done_at');
+            $table->dateTime('deadline') ->nullable();
+            $table->dateTime('done_at') ->nullable();
             $table->timestamps();
         });
     }
