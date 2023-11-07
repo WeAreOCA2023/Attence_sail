@@ -7,9 +7,8 @@
             <img src="{{ asset('img/Onprogress.svg') }}" alt="">
             <h2>未完了</h2>
         </div>
-        <div class="position-absolute plusIcon">
-            <img src="{{ asset('img/plus.svg') }}" alt="">
-        </div>
+        <livewire:CreateBtn />
+        <livewire:ShowTask />
     </div>
     <livewire:CreateTask />
 </div>
