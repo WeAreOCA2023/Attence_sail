@@ -53,6 +53,7 @@
         </div>
     </div>
 <script>
+
     $(document).ready(function() {
         let setTimeoutId = undefined;
         let isRunning = false; // タイマーが動いているかどうかのフラグ
@@ -62,21 +63,20 @@
         let breakStartTime = 0; // 休憩開始時間
         let breakTime = 0; // 休憩時間
         let intervalId; // タイマーを動かすための変数
-        let testCount = 0;
         const totalDuration = 60 * 1000; // タイマーのゴール時間
         const progressBar = document.getElementById('progressPath');
         const progressBarLength = progressBar.getTotalLength();
 
 
-        // タイマーとプログレスバーを動かす関数
+        // 普通に出勤中のTimer(出勤中は定期的に呼ばれる / 多分休憩中は呼ばれてない)
         function runTimer() {
             currentTime = new Date();
             // ↓ここでプログレスバーを読んでる
-            console.log("]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]")
-            intervalId = setTimeout(updateProgressBar, 100) // 10ミリ秒ごとにプログレスバーを更新
-            console.log("--------"+intervalId+"---------");
+            intervalId = setTimeout(updateProgressBar, 100); // 10ミリ秒ごとにプログレスバーを更新
+            if(setTimeoutId){
+                clearTimeout(setTimeoutId);
+            }
             //　↑ をコンソールで出すとIDが毎回変わってるそれが理由で止めたいsetIntervalが認識できてない可能性がある
-            testCount += 1;
             showTime(startTime); // タイマーを表示
             progressBar.style.display = 'block';
             setTimeoutId = setTimeout(() => {
@@ -84,9 +84,8 @@
             }, 0)
         }
 
-        // 休憩を押した時の処理
+        // 休憩の時間のTimer(休憩中は定期的に呼ばれる / 出勤中は多分呼ばれてない)
         function runBreakTimer() {
-            // console.log("yayayayayaayayayayay")
             currentTime = new Date();
             showTime(breakStartTime); // タイマーを表示
             setTimeoutId = setTimeout(() => {
@@ -94,7 +93,7 @@
             }, 0)
         }
 
-        // タイマーを表示させる関数
+        // タイマーを表示させる関数(変更した秒数を表示するために定期的に呼ばれてる[break and normal])
         function showTime(time){
             let d = new Date(currentTime - time);
             const getHour = d.getHours() - 9;
@@ -103,29 +102,21 @@
             $("#timer").text(`${String(getHour).padStart(2,'0')}:${String(getMin).padStart(2,'0')}:${String(getSec).padStart(2,'0')}`);
         }
 
-
+        // 今使ってない
         function classReplacementRun()  {
             $("#start").addClass("disabled");
             $("#stop").removeClass("disabled");
             $("#reset").addClass("disabled");
         }
-
+        // 今使ってない
         function classReplacementStop()  {
             $("#start").removeClass("disabled");
             $("#stop").addClass("disabled");
             $("#reset").removeClass("disabled");
         }
 
-        // ボタンをグレーアウトする関数
-        function classReplacementInitial()  {
-            $("#start").removeClass("disabled");
-            $("#stop").addClass("disabled");
-            $("#reset").addClass("disabled");
-        }
-
         // プログレスバーを更新する関数 (この関数を10ミリ秒ごとに呼び出してるから円のやつが動いてる)
         function updateProgressBar() {
-            console.log('called');
             const progress = Math.min(((currentTime - startTime) / totalDuration) * progressBarLength, progressBarLength);
             progressBar.style.strokeDashoffset = progressBarLength - progress;
         }
@@ -141,35 +132,38 @@
 
         // 退勤ボタンを押した時の処理
         $("#reset").click(function() {
-            if($(this).hasClass('disabled')){
-                return;
-            }
-            classReplacementInitial()
-            elapsedTime = 0;
-            startTime = 0;
-            resetProgressBar();
-            $("#timer").text("00:00:00");
+            //ここでredirectする前にdbにデータを入れる必要がある
+
+            // ↓ で/homeにredirectしてる
+            window.location.replace("/home");
         });
 
+        // toggleするボタンを押した時
         $("#toggleBtn").click(function() {
+            // タイマーが動いてるかどうかのif文
             if (isRunning) {
-                clearTimeout(setTimeoutId);
-                //　↓本来この関数でプログレンスバーが止まるはず
+                // このif文の中はボタンが押された時が出勤中だった時の処理
+                clearTimeout(setTimeoutId); // タイマーを止めてる
+                // ↓ プログレスバーが動いてるかどうかのif文
                 if(intervalId){
+                    // ↓ プログレスバー止めてる
                     clearTimeout(intervalId);
-                    console.log("~~~~~~~~~~~~~~~~~~~~~~")
                 }
-                breakStartTime = Date.now() - breakTime;
-                runBreakTimer();
-                this.innerHTML = '<img src="{{ asset('img/restart.svg') }}" alt="">';
-                // 出勤ボタンを押した時
+                breakStartTime = Date.now() + breakTime; // ここはどういう処理？(休憩の開始時間を変数に入れてる？)
+                elapsedTime = startTime - Date.now(); //ここでelapsedTimeに今まで進んだ時間を代入
+                runBreakTimer(); // 休憩タイマーの変数を読んでる
+                this.innerHTML = '<img src="{{ asset('img/restart.svg') }}" alt="">'; // ボタンの画像を変えてる
             } else {
-                startTime = Date.now() - elapsedTime; // ボタンを押した時の時間をstartTimeに代入
-                runTimer();
-                $("#reset").addClass("disabled");
-                this.innerHTML = '<img src="{{ asset('img/pause.svg') }}" alt="">';
+                // この中はボタンが押された時が休憩中もしくは出勤してないだった時の処理
+                if (breakStartTime !== 0){
+                    breakTime = breakStartTime - Date.now();
+                }
+                startTime = Date.now() + elapsedTime; // ここはどういう処理？(startTimeにどんな時間が入ってる？)
+                runTimer(); // 普通の出勤タイマーを起動してる
+                $("#reset").removeClass("disabled"); // リセットボタンが機能するようにしてる
+                this.innerHTML = '<img src="{{ asset('img/pause.svg') }}" alt="">'; // ボタンの画像を変えてる
             }
-            isRunning = !isRunning; // フラグを反転
+            isRunning = !isRunning; // フラグを反転(なんで反転させてる？)
         });
     });
 </script>
