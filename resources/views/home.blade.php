@@ -63,7 +63,6 @@
         let breakStartTime = 0; // 休憩開始時間
         let breakTime = 0; // 休憩時間
         let intervalId; // タイマーを動かすための変数
-        let testCount = 0;
         const totalDuration = 60 * 1000; // タイマーのゴール時間
         const progressBar = document.getElementById('progressPath');
         const progressBarLength = progressBar.getTotalLength();
@@ -73,15 +72,11 @@
         function runTimer() {
             currentTime = new Date();
             // ↓ここでプログレスバーを読んでる
-            // if (intervalId) {
-            //     clearTimeout(intervalId);
-            // }
             intervalId = setTimeout(updateProgressBar, 100); // 10ミリ秒ごとにプログレスバーを更新
             if(setTimeoutId){
                 clearTimeout(setTimeoutId);
             }
             //　↑ をコンソールで出すとIDが毎回変わってるそれが理由で止めたいsetIntervalが認識できてない可能性がある
-            testCount += 1;
             showTime(startTime); // タイマーを表示
             progressBar.style.display = 'block';
             setTimeoutId = setTimeout(() => {
@@ -120,13 +115,6 @@
             $("#reset").removeClass("disabled");
         }
 
-        // ボタンをグレーアウトする関数 どこで呼ばれてる？
-        function classReplacementInitial()  {
-            $("#start").removeClass("disabled");
-            $("#stop").addClass("disabled");
-            $("#reset").addClass("disabled");
-        }
-
         // プログレスバーを更新する関数 (この関数を10ミリ秒ごとに呼び出してるから円のやつが動いてる)
         function updateProgressBar() {
             const progress = Math.min(((currentTime - startTime) / totalDuration) * progressBarLength, progressBarLength);
@@ -144,14 +132,10 @@
 
         // 退勤ボタンを押した時の処理
         $("#reset").click(function() {
-            if($(this).hasClass('disabled')){
-                return;
-            }
-            classReplacementInitial()
-            elapsedTime = 0;
-            startTime = 0;
-            resetProgressBar();
-            $("#timer").text("00:00:00");
+            //ここでredirectする前にdbにデータを入れる必要がある
+
+            // ↓ で/homeにredirectしてる
+            window.location.replace("/home");
         });
 
         // toggleするボタンを押した時
@@ -176,7 +160,7 @@
                 }
                 startTime = Date.now() + elapsedTime; // ここはどういう処理？(startTimeにどんな時間が入ってる？)
                 runTimer(); // 普通の出勤タイマーを起動してる
-                $("#reset").addClass("disabled"); // リセットボタンが機能しないようにしてる
+                $("#reset").removeClass("disabled"); // リセットボタンが機能するようにしてる
                 this.innerHTML = '<img src="{{ asset('img/pause.svg') }}" alt="">'; // ボタンの画像を変えてる
             }
             isRunning = !isRunning; // フラグを反転(なんで反転させてる？)
