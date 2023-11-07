@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Task;
 use App\Models\UserLogin;
+use Livewire\Attributes\On;
 
 
 class CreateTask extends Component
@@ -13,10 +14,17 @@ class CreateTask extends Component
 
     public $title = '';
     public $description = '';
-    public $status = '';
-    public $deadline = '';
-    public $done_at = '';
+    public $status = 1;
+    public $deadline = null;
+    public $done_at = null;
 
+    public bool $buttonVisible = true;
+
+    #[On('showTask')]
+    public function showTask()
+    {
+        $this->buttonVisible = true;
+    }
     public function save()
     {
         Task::create([

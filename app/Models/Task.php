@@ -17,14 +17,6 @@ class Task extends Model
         'done_at',
     ];
 
-    protected $attributes = [
-        'title' => '',
-        'description' => '',
-        'status' => 1,
-        'deadline' => null,
-        'done_at' => null,
-    ];
-
     public function userLogin()
     {
         return $this->belongsTo(UserLogin::class);
