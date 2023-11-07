@@ -20,13 +20,11 @@ class CreateTask extends Component
     public function save()
     {
         Task::create([
-            $this -> only([
-                'title',
-                'description',
-                'status',
-                'deadline',
-                'done_at',
-            ])
+            'title' => $this->title,
+            'description' => $this->description,
+            'status' => $this->status,
+            'deadline' => $this->deadline,
+            'done_at' => $this->done_at,
         ]);
 
         return $this->redirect('/tasks');
