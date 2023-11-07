@@ -73,7 +73,13 @@
         function runTimer() {
             currentTime = new Date();
             // ↓ここでプログレスバーを読んでる
+            // if (intervalId) {
+            //     clearTimeout(intervalId);
+            // }
             intervalId = setTimeout(updateProgressBar, 100); // 10ミリ秒ごとにプログレスバーを更新
+            if(setTimeoutId){
+                clearTimeout(setTimeoutId);
+            }
             //　↑ をコンソールで出すとIDが毎回変わってるそれが理由で止めたいsetIntervalが認識できてない可能性がある
             testCount += 1;
             showTime(startTime); // タイマーを表示
