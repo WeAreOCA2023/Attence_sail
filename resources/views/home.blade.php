@@ -53,6 +53,8 @@
         </div>
     </div>
 <script>
+    import {start} from "@popperjs/core";
+
     $(document).ready(function() {
         let setTimeoutId = undefined;
         let isRunning = false; // タイマーが動いているかどうかのフラグ
@@ -72,9 +74,7 @@
         function runTimer() {
             currentTime = new Date();
             // ↓ここでプログレスバーを読んでる
-            console.log("]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]")
-            intervalId = setTimeout(updateProgressBar, 100) // 10ミリ秒ごとにプログレスバーを更新
-            console.log("--------"+intervalId+"---------");
+            intervalId = setTimeout(updateProgressBar, 100); // 10ミリ秒ごとにプログレスバーを更新
             //　↑ をコンソールで出すとIDが毎回変わってるそれが理由で止めたいsetIntervalが認識できてない可能性がある
             testCount += 1;
             showTime(startTime); // タイマーを表示
@@ -86,7 +86,6 @@
 
         // 休憩の時間のTimer(休憩中は定期的に呼ばれる / 出勤中は多分呼ばれてない)
         function runBreakTimer() {
-            console.log("breakTimerRun");
             currentTime = new Date();
             showTime(breakStartTime); // タイマーを表示
             setTimeoutId = setTimeout(() => {
@@ -96,7 +95,6 @@
 
         // タイマーを表示させる関数(変更した秒数を表示するために定期的に呼ばれてる[break and normal])
         function showTime(time){
-            console.log("showTimer");
             let d = new Date(currentTime - time);
             const getHour = d.getHours() - 9;
             const getMin = d.getMinutes();
@@ -119,7 +117,6 @@
 
         // ボタンをグレーアウトする関数 どこで呼ばれてる？
         function classReplacementInitial()  {
-            console.log("grayOut");
             $("#start").removeClass("disabled");
             $("#stop").addClass("disabled");
             $("#reset").addClass("disabled");
@@ -132,7 +129,6 @@
         }
 
         function resetProgressBar() {
-            console.log("resetProgress");
             progressBar.style.display = 'none';
         }
 
@@ -165,15 +161,14 @@
                     clearTimeout(intervalId);
                 }
                 breakStartTime = Date.now() - breakTime; // ここはどういう処理？(休憩の開始時間を変数に入れてる？)
+                elapsedTime = startTime - breakStartTime; //ここでelapsedTimeに今まで進んだ時間を代入
                 runBreakTimer(); // 休憩タイマーの変数を読んでる
-                console.log("changetoResetImg");
                 this.innerHTML = '<img src="{{ asset('img/restart.svg') }}" alt="">'; // ボタンの画像を変えてる
             } else {
-                // この中はボタンが押された時が休憩中だった時の処理
+                // この中はボタンが押された時が休憩中もしくは出勤してないだった時の処理
                 startTime = Date.now() - elapsedTime; // ここはどういう処理？(startTimeにどんな時間が入ってる？)
                 runTimer(); // 普通の出勤タイマーを起動してる
                 $("#reset").addClass("disabled"); // リセットボタンが機能しないようにしてる
-                console.log("changetoPauseImg");
                 this.innerHTML = '<img src="{{ asset('img/pause.svg') }}" alt="">'; // ボタンの画像を変えてる
             }
             isRunning = !isRunning; // フラグを反転(なんで反転させてる？)
