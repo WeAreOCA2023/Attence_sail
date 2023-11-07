@@ -53,7 +53,6 @@
         </div>
     </div>
 <script>
-    import {start} from "@popperjs/core";
 
     $(document).ready(function() {
         let setTimeoutId = undefined;
@@ -166,7 +165,7 @@
                 this.innerHTML = '<img src="{{ asset('img/restart.svg') }}" alt="">'; // ボタンの画像を変えてる
             } else {
                 // この中はボタンが押された時が休憩中もしくは出勤してないだった時の処理
-                startTime = Date.now() - elapsedTime; // ここはどういう処理？(startTimeにどんな時間が入ってる？)
+                startTime = Date.now() + elapsedTime; // ここはどういう処理？(startTimeにどんな時間が入ってる？)
                 runTimer(); // 普通の出勤タイマーを起動してる
                 $("#reset").addClass("disabled"); // リセットボタンが機能しないようにしてる
                 this.innerHTML = '<img src="{{ asset('img/pause.svg') }}" alt="">'; // ボタンの画像を変えてる
