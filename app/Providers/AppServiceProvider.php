@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Builder;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -33,6 +34,12 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
+
+        // livewireの検索用のmacro(App\Http\Livewire\SearchName.php)
+        Builder::macro('search', function ($field, $string) {
+            return $string ? $this->where($field, 'LIKE', "%{$string}%") : $this;
+        });
+
         // paginationはdefaultでtailwindだから、bootstrapに切り替える
         Paginator::useBootstrapFive();
 

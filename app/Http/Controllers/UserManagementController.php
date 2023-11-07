@@ -27,21 +27,9 @@ class UserManagementController extends Controller
         }
 
         return view('user-management', [
-            'users' => DB::table('users')->paginate(15),
-            'userLoginData' => $userLoginlData,
-            'department' => $department
-        ]);
-    }
-
-    public function search(Request $request): View
-    {
-        $search = $request->input('search');
-        $users = User::query()
-            ->where('full_name', 'LIKE', "%{$search}%")
-            ->paginate(15);
-
-        return view('user-management', [
-            'users' => $users
+            // 'users' => DB::table('users')->paginate(15),
+            // 'userLoginData' => $userLoginlData,
+            // 'department' => $department
         ]);
     }
 
