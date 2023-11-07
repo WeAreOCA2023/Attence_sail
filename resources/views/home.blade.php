@@ -165,12 +165,15 @@
                     // ↓ プログレスバー止めてる
                     clearTimeout(intervalId);
                 }
-                breakStartTime = Date.now() - breakTime; // ここはどういう処理？(休憩の開始時間を変数に入れてる？)
-                elapsedTime = startTime - breakStartTime; //ここでelapsedTimeに今まで進んだ時間を代入
+                breakStartTime = Date.now() + breakTime; // ここはどういう処理？(休憩の開始時間を変数に入れてる？)
+                elapsedTime = startTime - Date.now(); //ここでelapsedTimeに今まで進んだ時間を代入
                 runBreakTimer(); // 休憩タイマーの変数を読んでる
                 this.innerHTML = '<img src="{{ asset('img/restart.svg') }}" alt="">'; // ボタンの画像を変えてる
             } else {
                 // この中はボタンが押された時が休憩中もしくは出勤してないだった時の処理
+                if (breakStartTime !== 0){
+                    breakTime = breakStartTime - Date.now();
+                }
                 startTime = Date.now() + elapsedTime; // ここはどういう処理？(startTimeにどんな時間が入ってる？)
                 runTimer(); // 普通の出勤タイマーを起動してる
                 $("#reset").addClass("disabled"); // リセットボタンが機能しないようにしてる
