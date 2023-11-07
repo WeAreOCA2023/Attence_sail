@@ -17,8 +17,4 @@ class Department extends Model
         'company_id',
         'boss_id'
     ];
-
-//    public function getFromCompany() :HasOne{
-//        return $this->hasOne(Company::class);
-//    }
 }
