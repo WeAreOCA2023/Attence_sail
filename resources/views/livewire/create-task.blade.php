@@ -1,5 +1,5 @@
 <div>
-@if($buttonVisible)
+@if($taskCreate)
     <div class="job">
         <form wire:submit="save">
             <input type="text" wire:model.lazy="title" placeholder="タイトルを入力">

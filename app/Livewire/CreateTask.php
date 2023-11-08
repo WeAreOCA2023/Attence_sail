@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\Task;
 use App\Models\UserLogin;
 use Livewire\Attributes\On;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 
 class CreateTask extends Component
@@ -18,13 +19,21 @@ class CreateTask extends Component
     public $deadline = null;
     public $done_at = null;
 
-    public bool $buttonVisible = true;
+    public bool $taskShow = false;
+    public bool $taskCreate = false;
 
+    #[On('showTaskCreate')]
+    public function showTaskCreate()
+    {
+        $this->taskCreate = true;
+
+    }
     #[On('showTask')]
     public function showTask()
     {
-        $this->buttonVisible = true;
+        $this->taskCreate = false;
     }
+
     public function save()
     {
         Task::create([

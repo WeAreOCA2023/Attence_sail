@@ -11,5 +11,6 @@
         <livewire:ShowTask />
     </div>
     <livewire:CreateTask />
+    <livewire:TaskDetail />
 </div>
 @endsection
