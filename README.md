@@ -19,3 +19,9 @@
 ```sail artisan config:clear```
 ```source ~/.zshrc```
 ```cmd + shift + k```
+
+---
+## LiveWire用コマンド
+
+#### LiveWireのインストール: ```sail composer require livewire/livewire```
+#### LiveWireのコンポーネント作成(コントローラーも含む) ```sail artisan make:livewire "コントローラー名"```
