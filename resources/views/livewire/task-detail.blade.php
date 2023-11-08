@@ -1,5 +1,5 @@
 <div>
     @if($taskShow)
-        <h1>テスと</h1>
+        <h2>{{ $tasks->title }}</h2>
     @endif
 </div>

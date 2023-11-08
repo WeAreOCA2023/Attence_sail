@@ -9,6 +9,7 @@ use App\Models\Task;
 use App\Livewire\CreateTask as CreateTask;
 class TaskDetail extends Component
 {
+    public $task;
     public bool $taskShow = false;
 
     #[On('showTaskCreate')]
@@ -18,13 +19,16 @@ class TaskDetail extends Component
 
     }
     #[On('showTask')]
-    public function showTask()
+    public function showTask($taskId)
     {
         $this->taskShow = true;
+        $this->task = $taskId;
     }
 
     public function render()
     {
-        return view('livewire.task-detail');
+        return view('livewire.task-detail', [
+            'tasks' => Task::all(),
+        ]);
     }
 }
