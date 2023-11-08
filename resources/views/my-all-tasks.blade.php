@@ -10,7 +10,9 @@
         <livewire:CreateBtn />
         <livewire:ShowTask />
     </div>
-    <livewire:CreateTask />
-    <livewire:TaskDetail />
+    <div class="job">
+        <livewire:CreateTask />
+        <livewire:TaskDetail />
+    </div>
 </div>
 @endsection
