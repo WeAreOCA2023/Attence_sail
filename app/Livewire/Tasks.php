@@ -2,36 +2,34 @@
 
 namespace App\Livewire;
 
-use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
 use App\Models\Task;
-use App\Models\UserLogin;
 use Livewire\Attributes\On;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use Livewire\Component;
 
-
-class CreateTask extends Component
+class Tasks extends Component
 {
-
+    public bool $taskShow = false;
+    public bool $taskCreate = false;
+    public Task $task;
     public $title = '';
     public $description = '';
     public $status = 1;
     public $deadline = null;
     public $done_at = null;
 
-    public bool $taskShow = false;
-    public bool $taskCreate = false;
-
     #[On('showTaskCreate')]
     public function showTaskCreate()
     {
         $this->taskCreate = true;
+        $this->taskShow = false;
 
     }
     #[On('showTask')]
-    public function showTask()
+    public function showTask($taskId)
     {
         $this->taskCreate = false;
+        $this->taskShow = true;
+        dd($taskId);
     }
 
     public function save()
@@ -48,6 +46,8 @@ class CreateTask extends Component
     }
     public function render()
     {
-        return view('livewire.create-task');
+        return view('livewire.tasks', [
+            'tasks' => Task::all(),
+        ]);
     }
 }
