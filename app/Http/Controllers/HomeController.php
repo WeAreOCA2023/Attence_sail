@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DailyWorkHours;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -29,16 +31,16 @@ class HomeController extends Controller
 
     public function store(Request $request)
     {
-        if ($request){
-            var_dump("no data sent");
-        }else{
-            $elapsed = $request->get('elapsedTime');
-            $break = $request->get('breakTime');
-            var_dump($elapsed);
-            var_dump($break);
-        }
-
-
+        $request->validate([
+            'elapsedTime' => 'required',
+            'breakTime' => 'required'
+        ]);
+        $dailyWorkHours = new DailyWorkHours([
+            'user_id' => Auth::user()->id,
+            'worked_at' => now(),
+            'worked_hours' => $request->get('elapsedTime')
+        ]);
+        $dailyWorkHours->save();
 //        return ('/home');
     }
 }
