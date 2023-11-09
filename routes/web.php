@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PositionManagementController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\CreateTask;
 
@@ -31,6 +32,9 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::resource('tasks', TaskController::class);
+
+Route::resource('profile', ProfileController::class);
+
 
 Route::group(['middleware' => ['auth', 'can:boss']], function () {
     Route::resource('department-management', DepartmentManagementController::class);

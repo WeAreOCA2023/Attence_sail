@@ -44,7 +44,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
 
         // ここで指定するのは bladeテンプレート
-        View::composer(['home', 'user-management', 'my-all-tasks', 'department-management', 'position-management'], function ($view) {
+        View::composer(['home', 'user-management', 'my-all-tasks', 'department-management', 'position-management', 'profile'], function ($view) {
 
             // 現在ログイン中のユーザーのログイン情報 -> database/'migrations/create_user_login_table
             $user_login_all = Auth::user();
