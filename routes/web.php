@@ -28,7 +28,9 @@ Auth::routes();
 
 //Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'index'])->name('login');
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+//Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::resource('home', HomeController::class);
+//Route::post('/insert', 'HomeController@insert')->name('home.insert');
 
 Route::resource('tasks', TaskController::class);
 

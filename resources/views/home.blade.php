@@ -133,9 +133,17 @@
         // 退勤ボタンを押した時の処理
         $("#reset").click(function() {
             //ここでredirectする前にdbにデータを入れる必要がある
-
+            //↓ await 使ってもいいかも？
+            fetch("{{ route('home.store') }}", {
+                method: "POST",
+                body: JSON.stringify({
+                    //この↓で送るデータを構成してる
+                    elapsedTime: elapsedTime,
+                    breakTime: breakTime,
+                }),
+            });
             // ↓ で/homeにredirectしてる
-            window.location.replace("/home");
+            // window.location.replace("/home");
         });
 
         // toggleするボタンを押した時
