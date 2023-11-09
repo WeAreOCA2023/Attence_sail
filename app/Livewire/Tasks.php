@@ -10,27 +10,27 @@ class Tasks extends Component
 {
     public bool $taskShow = false;
     public bool $taskCreate = false;
-    public Task $task;
-    public $title = '';
-    public $description = '';
-    public $status = 1;
-    public $deadline = null;
-    public $done_at = null;
+    public $title;
+    public $description;
+    public $status = 0;
+    public $deadline;
+    public $done_at;
+
+    public $TaskID;
 
     #[On('showTaskCreate')]
     public function showTaskCreate()
     {
         $this->taskCreate = true;
         $this->taskShow = false;
-
     }
     #[On('showTask')]
     public function showTask($taskId)
     {
         $this->taskCreate = false;
         $this->taskShow = true;
-//        $this->eachTask = Task::find($taskId);
-        $this->eachTask = $taskId;
+        $this->TaskID = $taskId;
+
     }
 
     public function save()

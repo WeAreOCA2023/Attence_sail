@@ -10,7 +10,7 @@
         <div>
             @foreach ($tasks as $task)
                 <div>
-                    <a @click="$dispatch('showTask', {{ $task->id }})">
+                    <a wire:click="showTask({{ $task->id }})">
                         <span>{{ $task->title }}</span>
                         <span>{{ $task->description }}</span>
                     </a>
@@ -24,6 +24,7 @@
                 <form wire:submit="save">
                     <input type="text" wire:model.lazy="title" placeholder="タイトルを入力">
                     <input type="text" wire:model.lazy="description" placeholder="詳細を入力">
+                    <input type="datetime-local" wire:model.lazy="deadline">
                     <button type="submit">Save</button>
                 </form>
             @endif
@@ -31,7 +32,7 @@
         <div>
             @if($taskShow)
                 <div>
-                    <h2>{{ $this->eachTask }}</h2>
+                    <h2>{{ $TaskID }}</h2>
                 </div>
             @endif
         </div>
