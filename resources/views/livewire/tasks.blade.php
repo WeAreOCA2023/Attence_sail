@@ -31,7 +31,7 @@
         <div>
             @if($taskShow)
                 <div>
-                    <h2></h2>
+                    <h2>{{ $this->eachTask }}</h2>
                 </div>
             @endif
         </div>

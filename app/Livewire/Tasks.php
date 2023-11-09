@@ -29,7 +29,8 @@ class Tasks extends Component
     {
         $this->taskCreate = false;
         $this->taskShow = true;
-        dd($taskId);
+//        $this->eachTask = Task::find($taskId);
+        $this->eachTask = $taskId;
     }
 
     public function save()
