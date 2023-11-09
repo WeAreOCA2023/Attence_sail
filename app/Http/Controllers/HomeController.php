@@ -29,7 +29,16 @@ class HomeController extends Controller
 
     public function store(Request $request)
     {
-        var_dump($request->all());
+        if ($request){
+            var_dump("no data sent");
+        }else{
+            $elapsed = $request->get('elapsedTime');
+            $break = $request->get('breakTime');
+            var_dump($elapsed);
+            var_dump($break);
+        }
+
+
 //        return ('/home');
     }
 }

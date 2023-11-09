@@ -134,14 +134,20 @@
         $("#reset").click(function() {
             //ここでredirectする前にdbにデータを入れる必要がある
             //↓ await 使ってもいいかも？
+            console.log("beforeFetch");
             fetch("{{ route('home.store') }}", {
                 method: "POST",
+                headers:{
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
                 body: JSON.stringify({
                     //この↓で送るデータを構成してる
                     elapsedTime: elapsedTime,
                     breakTime: breakTime,
-                }),
+                })
             });
+            console.log("afterFetch");
             // ↓ で/homeにredirectしてる
             // window.location.replace("/home");
         });
