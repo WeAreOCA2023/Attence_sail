@@ -22,9 +22,21 @@
         <div>
             @if($taskCreate)
                 <form wire:submit="save">
-                    <input type="text" wire:model.lazy="title" placeholder="タイトルを入力">
-                    <input type="text" wire:model.lazy="description" placeholder="詳細を入力">
-                    <input type="datetime-local" wire:model.lazy="deadline">
+                    <label>
+                        <span>タイトル</span>
+                        <input type="text" wire:model.lazy="title" placeholder="タイトルを入力">
+                        @error('title') <span>{{ $message }}</span> @enderror
+                    </label>
+                    <label>
+                        <span>詳細</span>
+                        <input type="text" wire:model.lazy="description" placeholder="詳細を入力">
+                        @error('description') <span>{{ $message }}</span> @enderror
+                    </label>
+                    <label>
+                        <span>期限</span>
+                        <input type="datetime-local" wire:model.lazy="deadline">
+                        @error('deadline') <span>{{ $message }}</span> @enderror
+                    </label>
                     <button type="submit">Save</button>
                 </form>
             @endif
@@ -32,7 +44,9 @@
         <div>
             @if($taskShow)
                 <div>
-                    <h2>{{ $TaskID }}</h2>
+                    <h2>{{ $title }}</h2>
+                    <p>{{ $description }}</p>
+                    <p>{{ $deadline }}</p>
                 </div>
             @endif
         </div>
