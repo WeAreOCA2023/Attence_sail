@@ -4,23 +4,30 @@ namespace App\Livewire;
 
 use App\Models\Task;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Rule;
 use Livewire\Component;
 
 class Tasks extends Component
 {
     public bool $taskShow = false;
     public bool $taskCreate = false;
+
+    #[Rule('required', message: 'タイトルを入力してください')]
+    #[Rule('max:50', message: 'タイトルが長すぎます')]
     public $title;
+
+    #[Rule('required', message: '説明を入力してください')]
     public $description;
+
     public $status = 0;
     public $deadline;
     public $done_at;
 
-    public $TaskID;
 
     #[On('showTaskCreate')]
     public function showTaskCreate()
     {
+        $this->reset();
         $this->taskCreate = true;
         $this->taskShow = false;
     }
@@ -29,12 +36,15 @@ class Tasks extends Component
     {
         $this->taskCreate = false;
         $this->taskShow = true;
-        $this->TaskID = $taskId;
-
+        $this->title = Task::find($taskId)->title;
+        $this->description = Task::find($taskId)->description;
+        $this->deadline = Task::find($taskId)->deadline;
     }
 
     public function save()
     {
+        $this->validate();
+
         Task::create([
             'title' => $this->title,
             'description' => $this->description,
