@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Task;
+use App\Models\Task as TaskModel;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
@@ -11,6 +11,7 @@ class Tasks extends Component
 {
     public bool $taskShow = false;
     public bool $taskCreate = false;
+    public $tasks;
 
     #[Rule('required', message: 'タイトルを入力してください')]
     #[Rule('max:50', message: 'タイトルが長すぎます')]
@@ -36,9 +37,9 @@ class Tasks extends Component
     {
         $this->taskCreate = false;
         $this->taskShow = true;
-        $this->title = Task::find($taskId)->title;
-        $this->description = Task::find($taskId)->description;
-        $this->deadline = Task::find($taskId)->deadline;
+        $this->title = TaskModel::find($taskId)->title;
+        $this->description = TaskModel::find($taskId)->description;
+        $this->deadline = TaskModel::find($taskId)->deadline;
     }
 
     public function save()
@@ -57,8 +58,9 @@ class Tasks extends Component
     }
     public function render()
     {
-        return view('livewire.tasks', [
-            'tasks' => Task::all(),
-        ]);
+        // ログインユーザーに関連づけられたタスクを取得
+        $this->tasks = TaskModel::where('assigner_id', auth()->id())->get();
+
+        return view('livewire.tasks');
     }
 }

@@ -7,16 +7,15 @@
         <div class="position-absolute plusIcon">
             <a @click="$dispatch('showTaskCreate')"><img src="{{ asset('img/plus.svg') }}" alt=""></a>
         </div>
-        <div>
+        <ul class="tasks list-unstyled">
             @foreach ($tasks as $task)
-                <div>
-                    <a wire:click="showTask({{ $task->id }})">
+                <li class="task mb-3">
+                    <a wire:click="showTask({{ $task->id }})" class="d-block h-100 text-decoration-none">
                         <span>{{ $task->title }}</span>
-                        <span>{{ $task->description }}</span>
                     </a>
-                </div>
+                </li>
             @endforeach
-        </div>
+        </ul>
     </div>
     <div class="job">
         <div>
@@ -25,7 +24,7 @@
                     <label>
                         <span>タイトル</span>
                         <input type="text" wire:model.lazy="title" placeholder="タイトルを入力">
-                        @error('title') <span>{{ $message }}</span> @enderror
+                        @error('title') <span>{{ $message }}</> @enderror
                     </label>
                     <label>
                         <span>詳細</span>
@@ -41,11 +40,13 @@
                 </form>
             @endif
         </div>
-        <div>
+        <div class="taskDetail d-flex h-100">
             @if($taskShow)
-                <div>
+                <div class="taskMain">
                     <h2>{{ $title }}</h2>
                     <p>{{ $description }}</p>
+                </div>
+                <div class="taskSidebar">
                     <p>{{ $deadline }}</p>
                 </div>
             @endif
