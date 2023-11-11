@@ -598,6 +598,20 @@ main {
             top: 2%;
             right: 4%;
         }
+        .tasks{
+            margin: 4% 0 0 4%;
+            .task{
+                width: 80%;
+                height: 4vh;
+                background-color: v.$whiteGray;
+                border-radius: v.$round-10;
+                box-shadow: 3px 3px 3px rgba(15, 20, 25, 0.25);
+                a{
+                    color: v.$black;
+                    @include m.fz(16);
+                }
+            }
+        }
     }
     .job{
         background-color: v.$white;
@@ -605,6 +619,21 @@ main {
         height: 90vh;
         border-radius: v.$round-40;
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+        .taskDetail{
+            .taskMain{
+                width: 75%;
+                padding-left: 3%;
+            }
+            h2{
+                margin: 3% 0 0 0;
+                @include m.fz(30);
+            }
+            .taskSidebar{
+                width: 25%;
+                background: v.$whiteGray;
+                border-radius: 0 40px 40px 0;
+            }
+        }
     }
 }
 .registerBoss{
