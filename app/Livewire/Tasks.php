@@ -35,6 +35,7 @@ class Tasks extends Component
     #[On('showTask')]
     public function showTask($taskId)
     {
+        $this->reset();
         $this->taskCreate = false;
         $this->taskShow = true;
         $this->title = TaskModel::find($taskId)->title;
@@ -46,7 +47,7 @@ class Tasks extends Component
     {
         $this->validate();
 
-        Task::create([
+        TaskModel::create([
             'title' => $this->title,
             'description' => $this->description,
             'status' => $this->status,
