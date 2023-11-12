@@ -18,30 +18,31 @@
         </ul>
     </div>
     <div class="job">
-        <div>
-            @if($taskCreate)
-                <form wire:submit="save">
-                    <label>
-                        <span>タイトル</span>
-                        <input type="text" wire:model.lazy="title" placeholder="タイトルを入力">
-                        @error('title') <span>{{ $message }}</> @enderror
+        @if($taskCreate)
+            <div class="createJob h-100">
+                <form wire:submit="save" class="h-100">
+                    <label class="d-block title">
+                        <input type="text" wire:model.lazy="title" placeholder="タイトルを入力" class="title">
+                        @error('title') <span>{{ $message }}</span> @enderror
                     </label>
-                    <label>
-                        <span>詳細</span>
-                        <input type="text" wire:model.lazy="description" placeholder="詳細を入力">
-                        @error('description') <span>{{ $message }}</span> @enderror
-                    </label>
-                    <label>
+                    <label class="d-block deadline">
                         <span>期限</span>
-                        <input type="datetime-local" wire:model.lazy="deadline">
+                        <input type="datetime-local" wire:model.lazy="deadline" class="ms-5">
                         @error('deadline') <span>{{ $message }}</span> @enderror
                     </label>
-                    <button type="submit">Save</button>
+                    <label class="d-block description">
+                        <span>詳細</span>
+                        @error('description') <span>{{ $message }}</span> @enderror
+                        <textarea type="text" wire:model.lazy="description" placeholder="詳細を入力" class="d-block w-100"></textarea>
+                    </label>
+                    <label class="submit d-block text-center">
+                        <button type="submit"><img src="{{ asset('img/submit.svg') }}" alt="登録"></button>
+                    </label>
                 </form>
-            @endif
-        </div>
-        <div class="taskDetail d-flex h-100">
-            @if($taskShow)
+            </div>
+        @endif
+        @if($taskShow)
+            <div class="taskDetail d-flex h-100">
                 <div class="taskMain">
                     <h2>{{ $title }}</h2>
                     <p>{{ $description }}</p>
@@ -49,7 +50,7 @@
                 <div class="taskSidebar">
                     <p>{{ $deadline }}</p>
                 </div>
-            @endif
-        </div>
+            </div>
+        @endif
     </div>
 </div>
