@@ -34,6 +34,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::resource('tasks', TaskController::class);
 
 Route::resource('profile', ProfileController::class);
+Route::post('profile/store2', [ProfileController::class, 'store2'])->name('profile.store2');
 
 
 Route::group(['middleware' => ['auth', 'can:boss']], function () {

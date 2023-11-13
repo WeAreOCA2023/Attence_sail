@@ -142,4 +142,5 @@ return [
     'url'                  => ':Attributeは、有効なURL形式で指定してください。',
     'uuid'                 => ':Attributeは、有効なUUIDである必要があります。',
     'matches_company_code_and_password' => '会社コードまたは会社パスワードが間違えています。',
+    'agreement36_and_variableWorkingHoursSystem' => '36協定と変形労働時間制は同時に選択できません。',
 ];

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
@@ -24,11 +25,29 @@ class ProfileController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 36協定の有無を保存する
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'agreement36' => ['required', 'string', 'agreement36_and_variableWorkingHoursSystem'],
+            'variableWorkingHoursSystem' => ['required', 'string'],
+        ]);
+        if ($validator->fails()) {
+            // dd($validator);
+            return redirect('/profile');
+        }
+        return redirect('/profile');
+    }
+
+    /**
+     * 会社情報を保存する
+     */
+    public function store2(Request $request)
+    {
+        $request->validate([
+            'positionName' => 'required',
+        ]);
     }
 
     /**
