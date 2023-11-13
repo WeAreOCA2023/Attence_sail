@@ -620,6 +620,20 @@ main {
             top: 2%;
             right: 4%;
         }
+        .tasks{
+            margin: 4% 0 0 4%;
+            .task{
+                width: 80%;
+                height: 4vh;
+                background-color: v.$whiteGray;
+                border-radius: v.$round-10;
+                box-shadow: 3px 3px 3px rgba(15, 20, 25, 0.25);
+                a{
+                    color: v.$black;
+                    @include m.fz(16);
+                }
+            }
+        }
     }
     .job{
         background-color: v.$white;
@@ -627,6 +641,72 @@ main {
         height: 90vh;
         border-radius: v.$round-40;
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+        .createJob{
+            padding: 2% 0 0 2%;
+            .title{
+                width: 80%;
+                height: 10%;
+                margin-bottom: 4%;
+                input{
+                    @include m.fz(30);
+                    border: none;
+                    outline: none;
+                    background-color: v.$white;
+                    border-bottom: 1px solid v.$black;
+                    padding: 5% 5%;
+                }
+            }
+            .deadline{
+                margin-bottom: 4%;
+                span{
+                    @include m.fz(20);
+                }
+                input{
+                    @include m.fz(20);
+                    border: none;
+                    outline: none;
+                    background-color: v.$white;
+                    border-bottom: 1px solid v.$black;
+                    padding: 1% 2%;
+                }
+            }
+            .description{
+                width: 90%;
+                height: 60%;
+                span{
+                    @include m.fz(20);
+                }
+                textarea{
+                    height: 90%;
+                    @include m.fz(15);
+                    background-color: v.$white;
+                    border-radius: v.$round-10;
+                    border-color: rgba(28, 28, 28, 0.3);
+                    margin-top: 1%;
+                }
+            }
+            .submit{
+                button{
+                    border: none;
+                    background-color: v.$white;
+                }
+            }
+        }
+        .taskDetail{
+            .taskMain{
+                width: 75%;
+                padding-left: 3%;
+            }
+            h2{
+                margin: 3% 0 0 0;
+                @include m.fz(30);
+            }
+            .taskSidebar{
+                width: 25%;
+                background: rgba(15, 20, 25, 0.1);
+                border-radius: 0 40px 40px 0;
+            }
+        }
     }
 }
 .registerBoss{
