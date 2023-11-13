@@ -439,7 +439,8 @@ main {
 .profile{
     gap: 0.2vh;
     .upperBox{
-        width: 95%;
+        gap: 0.2vh;
+        width: 84vw;
         height: 40%;
         border-radius: v.$round-40;
         background-color: v.$white;
@@ -448,35 +449,111 @@ main {
             width: 26%;
             height: 100%;
             border-right: 1px solid black;
+            h3{
+                @include m.fz(40);
+                font-weight: map-get(v.$font-weight, 1);
+            }
+            img{
+                width: 8vw;
+            }
+            progress {
+                width: 10vw;
+                height: 1.5vh;
+                border-radius: 15px;
+            }
+            // 角を丸くする
+            progress::-webkit-progress-bar {
+                border-radius: v.$round-15;
+            }
+            
+            progress::-webkit-progress-value {
+                border-radius: v.$round-15;            
+            }
+            progress::-moz-progress-bar {
+                border-radius: v.$round-15;
+            }
+            progress::-ms-fill {
+                border-radius: v.$round-15;            
+            }
+            // 色を変更する
+            progress {
+                appearance: none;
+            }
+            ::-webkit-progress-bar {
+                background-color: gray;
+            }
+            ::-webkit-progress-value {
+                background-color: v.$darkGray;
+            }
+            .creditScore{
+                label{
+                    @include m.fz(20);
+                }
+            }
         }
         .upperRightBox{
             width: 74%;
             height: 100%;
+            img{
+                width: 1.7vw;
+            }
+            h2{
+                @include m.fz(25);
+            }
+            .unset{
+                padding: 5px;
+                color: v.$darkRed;
+                background-color: v.$red;
+                border-radius: v.$round-10;
+                font-weight: map-get(v.$font-weight, 1);
+            }
             .upperRightTopBox{
                 width: 100%;
-                height: 33%;
-                background-color: gray;
+                height: 33.33%;
+                border-bottom: 1px solid black;
             }
             .upperRightMiddleBox{
                 width: 100%;
-                height: 33%;
-                background-color: gray;
+                height: 33.33%;
+                border-bottom: 1px solid black;
             }
             .upperRightBottomBox{
                 width: 100%;
-                height: 33%;
-                background-color: gray;
+                height: 33.33%;
             }
 
         }
     }
     .lowerBox{
-        gap: 0.2vw;
-        .law{
+        gap: 0.2vh;
+        .law, .company{
+            gap: 0.2vw;
+            width: 15vw;
+            height: 45vh;
             background-color: v.$white;
+            border-radius: v.$round-40;
+            h2{
+                @include m.fz(45);
+            }
         }
-        .company{
-            background-color: v.$white;
+        .form-select{
+            width: 5vw;
+        }
+        .saveButton{
+            button{
+                @include m.fz(30);
+                border: none;
+                outline: none;
+                color: v.$white;
+                background-color: v.$darkGray;
+                padding: 3%;
+                border-radius: v.$round-10;
+            }
+            button:hover{
+                transition: .5s;
+                color: v.$darkGray;
+                background-color: rgb(175, 173, 173);
+            }
         }
     }
 }
