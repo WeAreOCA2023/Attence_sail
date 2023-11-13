@@ -16,3 +16,13 @@ $red: #FA5B3D;
 $round-40: 40px;
 $round-10: 10px;
 $round-15: 15px;
+
+// font-weight 使用例: font-weight: map-get(v.$font-weight, 1);
+$font-weight: (
+    1: 900,
+    2: 700
+);
+
+// unset message
+$red: #e6a5ab;
+$darkRed: rgb(160, 19, 19);
