@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use JetBrains\PhpStorm\NoReturn;
 
-class HomeController extends Controller
+class testController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('home');
+        //
     }
 
     /**
@@ -26,10 +25,9 @@ class HomeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    #[NoReturn] public function store(Request $request): void
+    public function store(Request $request)
     {
-        $data = $request->json()->all();
-        dd($data);
+        //
     }
 
     /**
