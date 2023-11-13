@@ -435,6 +435,53 @@ main {
     }
 }
 
+// profile
+.profile{
+    gap: 0.2vh;
+    .upperBox{
+        width: 95%;
+        height: 40%;
+        border-radius: v.$round-40;
+        background-color: v.$white;
+        box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+        .upperLeftBox{
+            width: 26%;
+            height: 100%;
+            border-right: 1px solid black;
+        }
+        .upperRightBox{
+            width: 74%;
+            height: 100%;
+            .upperRightTopBox{
+                width: 100%;
+                height: 33%;
+                background-color: gray;
+            }
+            .upperRightMiddleBox{
+                width: 100%;
+                height: 33%;
+                background-color: gray;
+            }
+            .upperRightBottomBox{
+                width: 100%;
+                height: 33%;
+                background-color: gray;
+            }
+
+        }
+    }
+    .lowerBox{
+        gap: 0.2vw;
+        .law{
+            background-color: v.$white;
+        }
+        .company{
+            background-color: v.$white;
+        }
+    }
+}
+  
+
 
 // userManagement
 .userManagement{

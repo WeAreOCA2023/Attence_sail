@@ -44,7 +44,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
 
         // ここで指定するのは bladeテンプレート
-        View::composer(['home', 'user-management', 'my-all-tasks', 'department-management', 'position-management'], function ($view) {
+        View::composer(['home', 'user-management', 'my-all-tasks', 'department-management', 'position-management', 'profile'], function ($view) {
 
             // 現在ログイン中のユーザーのログイン情報 -> database/'migrations/create_user_login_table
             $user_login_all = Auth::user();
@@ -67,10 +67,7 @@ class AppServiceProvider extends ServiceProvider
 
         // ユーザーの入力した会社コードがcompany_tableと一致するかの判定(RegisterController.php)
         Validator::extend('matches_company_code_and_password', function ($attribute, $value, $parameters, $validator) {
-            // if (Company::where('company_code', $value)->first() == null) {
-            //     return false;
-            // }
-            // return true;
+
             $companyCode = $value;
             $inputPassword = $validator->getData()['companyPassword'];
 
@@ -79,6 +76,19 @@ class AppServiceProvider extends ServiceProvider
                 return true;
             }
             return false;
+
+        });
+
+        // ユーザーが36協定と変形時間労働制をどちらも同意した際に、profileにerror文と共にリダイレクトする
+        Validator::extend('agreement36_and_variableWorkingHoursSystem', function ($attribute, $value, $parameters, $validator) {
+
+            $agreement36 = $validator->getData()['agreement36'];
+            $variableWorkingHoursSystem = $validator->getData()['variableWorkingHoursSystem'];
+
+            if ($agreement36 == 'agreed' && $variableWorkingHoursSystem == 'agreed' || $agreement36 == 'special' && $variableWorkingHoursSystem == 'agreed') {
+                return false;
+            }
+            return true;
 
         });
     }
