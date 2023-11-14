@@ -8,19 +8,20 @@
             <div class="home-timer mx-auto">
                 <div class="position-relative circle mx-auto">
                     <svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="200" cy="200" r="195" stroke="#E8E8E8" stroke-width="10"/>
+                        <circle cx="200" cy="200" r="190" fill="#FBFCFA" stroke="#E8E8E8" stroke-width="20"/>
                     </svg>
                     <svg id="progress" class="position-absolute top-50 start-50 translate-middle" width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path id="progressPath" d="M200 5C225.608 5 250.965 10.0438 274.623 19.8435C298.282 29.6432 319.778 44.0068 337.886 62.1142C355.993 80.2216 370.357 101.718 380.157 125.377C389.956 149.035 395 174.392 395 200C395 225.608 389.956 250.965 380.156 274.623C370.357 298.282 355.993 319.778 337.886 337.886C319.778 355.993 298.282 370.357 274.623 380.157C250.965 389.956 225.608 395 200 395C174.392 395 149.035 389.956 125.377 380.156C101.718 370.357 80.2215 355.993 62.1141 337.886C44.0067 319.778 29.6431 298.282 19.8435 274.623C10.0438 250.965 4.99999 225.608 5 200C5.00001 174.392 10.0439 149.035 19.8435 125.377C29.6432 101.718 44.0068 80.2215 62.1143 62.1141C80.2217 44.0067 101.718 29.6431 125.377 19.8434C149.035 10.0438 174.392 4.99998 200 5L200 5Z" stroke="url(#paint0_linear_227_203)" stroke-width="10"/>
+                        <path id="progressPath" d="M200 10C224.951 10 249.658 14.9145 272.71 24.4629C295.762 34.0113 316.707 48.0066 334.35 65.6497C351.993 83.2929 365.989 104.238 375.537 127.29C385.086 150.342 390 175.049 390 200C390 224.951 385.085 249.658 375.537 272.71C365.989 295.762 351.993 316.707 334.35 334.35C316.707 351.993 295.762 365.989 272.71 375.537C249.658 385.086 224.951 390 200 390C175.049 390 150.342 385.085 127.29 375.537C104.238 365.989 83.2928 351.993 65.6497 334.35C48.0065 316.707 34.0112 295.762 24.4629 272.71C14.9145 249.658 9.99999 224.951 10 200C10 175.049 14.9145 150.342 24.4629 127.29C34.0113 104.238 48.0066 83.2928 65.6498 65.6496C83.2929 48.0065 104.238 34.0112 127.29 24.4628C150.342 14.9145 175.049 9.99998 200 10L200 10Z" stroke="url(#paint0_linear_567_156)" stroke-width="20"/>
                         <defs>
-                            <linearGradient id="paint0_linear_227_203" x1="200" y1="0" x2="200" y2="400" gradientUnits="userSpaceOnUse">
+                            <linearGradient id="paint0_linear_567_156" x1="200" y1="6.73532e-06" x2="313" y2="362.5" gradientUnits="userSpaceOnUse">
                                 <stop stop-color="#71FF6F"/>
-                                <stop offset="0.324447" stop-color="#C0FF5A"/>
+                                <stop offset="0.336775" stop-color="#C0FF5A"/>
                                 <stop offset="0.671875" stop-color="#FFC076"/>
                                 <stop offset="1" stop-color="#FF7D7D"/>
                             </linearGradient>
                         </defs>
                     </svg>
+
                 </div>
                 <div class="button">
                     <p id="timer" class="text-center">00:00:00</p>
@@ -71,6 +72,7 @@
         // 普通に出勤中のTimer(出勤中は定期的に呼ばれる / 多分休憩中は呼ばれてない)
         function runTimer() {
             currentTime = new Date();
+            console.log(progressBarLength)
             // ↓ここでプログレスバーを読んでる
             intervalId = setTimeout(updateProgressBar, 100); // 10ミリ秒ごとにプログレスバーを更新
             if(setTimeoutId){

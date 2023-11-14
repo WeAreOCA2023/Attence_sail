@@ -356,7 +356,7 @@ main {
             }
         }
         #progressPath {
-            stroke-dasharray: 1225.2216796875;
+            stroke-dasharray: 1193.8055419921875;
         }
     }
     .infoBox{
@@ -465,15 +465,15 @@ main {
             progress::-webkit-progress-bar {
                 border-radius: v.$round-15;
             }
-            
+
             progress::-webkit-progress-value {
-                border-radius: v.$round-15;            
+                border-radius: v.$round-15;
             }
             progress::-moz-progress-bar {
                 border-radius: v.$round-15;
             }
             progress::-ms-fill {
-                border-radius: v.$round-15;            
+                border-radius: v.$round-15;
             }
             // 色を変更する
             progress {
@@ -557,7 +557,7 @@ main {
         }
     }
 }
-  
+
 
 
 // userManagement
