@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Models\Company;
 
 class ProfileController extends Controller
 {
@@ -27,27 +31,30 @@ class ProfileController extends Controller
     /**
      * 36協定の有無を保存する
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validator = Validator::make($request->all(), [
             'agreement36' => ['required', 'string', 'agreement36_and_variableWorkingHoursSystem'],
             'variableWorkingHoursSystem' => ['required', 'string'],
         ]);
         if ($validator->fails()) {
-            // dd($validator);
-            return redirect('/profile');
+            return redirect('/profile')->withErrors($validator)->withInput();
         }
+
         return redirect('/profile');
     }
 
     /**
-     * 会社情報を保存する
+     * 会社情報を更新する
      */
-    public function store2(Request $request)
+    public function update(Request $request, string $id): RedirectResponse
     {
-        $request->validate([
-            'positionName' => 'required',
-        ]);
+        $company = Company::find($id);
+        $company->company_name = $request->get('companyName');
+        $company->post_code = $request->get('companyPostCode');
+        $company->address = $request->get('companyAddress');
+        $company->save();
+        return redirect('/profile');
     }
 
     /**
@@ -66,13 +73,6 @@ class ProfileController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.

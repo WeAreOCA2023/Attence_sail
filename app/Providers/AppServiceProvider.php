@@ -78,6 +78,7 @@ class AppServiceProvider extends ServiceProvider
             }
             $phone_number = $users->telephone;
             $user_name = $users->user_name;
+            $company_id = $company->id;
             $company_name = $company->company_name;
             $is_boss = ($users->is_boss == 1) ? 'BOSS' : 'USER';
             $agreement36 = ($users->agreement36 == 0) ? '<span class="unset">' . '未設定' . '</span>' : '有り';
@@ -88,6 +89,7 @@ class AppServiceProvider extends ServiceProvider
                 'is_boss' => $is_boss,
                 'phone_number' => $phone_number,
                 'company_name' => $company_name,
+                'company_id' => $company_id,
                 'department_name' => $department_name,
                 'position_name' => $position_name,
                 'agreement36' => $agreement36
@@ -96,10 +98,8 @@ class AppServiceProvider extends ServiceProvider
 
         // ユーザーの入力した会社コードがcompany_tableと一致するかの判定(RegisterController.php)
         Validator::extend('matches_company_code_and_password', function ($attribute, $value, $parameters, $validator) {
-
             $companyCode = $value;
             $inputPassword = $validator->getData()['companyPassword'];
-
             $company = Company::where('company_code', $companyCode)->first();
             if ($company && Hash::check($inputPassword, $company->company_password)) {
                 return true;
@@ -108,18 +108,15 @@ class AppServiceProvider extends ServiceProvider
 
         });
 
-        // ユーザーが36協定と変形時間労働制をどちらも同意した際に、profileにerror文と共にリダイレクトする
+        // ユーザーが36協定と変形時間労働制をどちらも同意した際 or どちらも未選択の際 に、profileにerror文と共にリダイレクトする
         Validator::extend('agreement36_and_variableWorkingHoursSystem', function ($attribute, $value, $parameters, $validator) {
-
             $agreement36 = $validator->getData()['agreement36'];
             $variableWorkingHoursSystem = $validator->getData()['variableWorkingHoursSystem'];
-
-            if ($agreement36 == 'agreed' && $variableWorkingHoursSystem == 'agreed' || $agreement36 == 'special' && $variableWorkingHoursSystem == 'agreed') {
+            if ($agreement36 == 'agreed' && $variableWorkingHoursSystem == 'agreed' || $agreement36 == 'special' && $variableWorkingHoursSystem == 'agreed' || $agreement36 == 'unset' && $variableWorkingHoursSystem = 'unset') {
                 return false;
             }
             return true;
-
-        });
+        }, __('36協定と変形労働時間制は同時に選択/未選択にはできません。'));
     }
 
 }

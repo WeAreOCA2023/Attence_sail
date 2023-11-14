@@ -61,30 +61,34 @@
                 <img src="{{ asset('img/contract.svg') }}" alt="Contract Setting Icon">
                 <h2>契約情報</h2>
             </div>
-            <div class="lawBoxInner  d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
+            <div class="lawBoxInner d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
                 <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.store') }}" method="POST">
                     @csrf
-                    <div class="agreement36">
-                        <label for="companyName">{{ __('36協定') }}</label>
-                        <select class="form-select" aria-label="Agreement 36" name="agreement36">
-                            <option selected value="unset">未選択</option>
-                            <option value="agreed">有り</option>
-                            <option value="special">特別条項付き36協定</option>
-                            <option value="declined">無し</option>
-                        </select>
+                    <div class="agreement36Box">
                         @error('agreement36')
-                            <span class="invalid-feedback" role="alert">
+                            <span class="error d-block" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+                        <div class="agreement36Input">
+                            <label for="companyName">{{ __('36協定') }}</label>
+                            <select class="form-select" aria-label="Agreement 36" name="agreement36">
+                                <option selected value="unset">未選択</option>
+                                <option value="agreed">有り</option>
+                                <option value="special">特別条項付き36協定</option>
+                                <option value="declined">無し</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="variableWorkingHoursSystem">
+                    <div class="variableWorkingHoursSystemBox">
                         <label for="variableWorkingHoursSystem">{{ __('変形時間労働制') }}</label>
-                        <select class="form-select" aria-label="Variable Working Hours System" name="variableWorkingHoursSystem">
-                            <option selected value="unset">未選択</option>
-                            <option value="agreed">有り</option>
-                            <option value="declined">無し</option>
-                        </select>
+                        <div class="variableWorkingHoursSystemInput">
+                            <select class="form-select" aria-label="Variable Working Hours System" name="variableWorkingHoursSystem">
+                                <option selected value="unset">未選択</option>
+                                <option value="agreed">有り</option>
+                                <option value="declined">無し</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="saveButton text-center">
                         <button type="submit">
@@ -102,8 +106,9 @@
                 <h2>会社情報</h2>
             </div>
             <div class="companyBoxInner  d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
-                <form class="d-flex flex-column align-items-center justify-content-center" action="{{ route('profile.store2') }}" method="POST">
+                <form class="d-flex flex-column align-items-center justify-content-center" action="{{ route('profile.update', $company_id) }}" method="POST">
                     @csrf
+                    @method('PATCH')
                     <div class="companyNameBox">
                         <label for="companyName">{{ __('会社名') }}</label>
                         <div class="companyNameInput">

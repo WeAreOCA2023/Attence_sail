@@ -502,7 +502,7 @@ main {
             .unset{
                 padding: 5px;
                 color: v.$darkRed;
-                background-color: v.$red;
+                background-color: v.$red2;
                 border-radius: v.$round-10;
                 font-weight: map-get(v.$font-weight, 1);
             }
@@ -554,8 +554,18 @@ main {
                 gap: 5vh;
             }
         }
+        .agreement36Input{
+            width: fit-content;
+            margin: 0 auto;
+        }
         .form-select{
             width: 5vw;
+        }
+        .error{
+            color: v.$red;
+            font-weight: map-get(v.$font-weight, 1);
+            @include m.fz(15);
+
         }
         .saveButton{
             button{
