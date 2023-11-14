@@ -135,6 +135,7 @@
             //ここでredirectする前にdbにデータを入れる必要がある
             //↓ await 使ってもいいかも？
             console.log("beforeFetch");
+            elapsedTime = startTime - Date.now();
             console.log(elapsedTime);
             console.log(breakTime);
             const data = {
