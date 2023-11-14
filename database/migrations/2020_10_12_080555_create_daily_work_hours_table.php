@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('daily_work_hours', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('user_logins');
-            $table->timestamp('worked_at');
-            $table->dateTime('worked_hours');
+            $table->date('worked_at');
+            $table->time('worked_hours');
             $table->timestamps();
         });
     }

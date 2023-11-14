@@ -135,9 +135,32 @@
         // 退勤ボタンを押した時の処理
         $("#reset").click(function() {
             //ここでredirectする前にdbにデータを入れる必要がある
-
+            //↓ await 使ってもいいかも？
+            console.log("beforeFetch");
+            elapsedTime = startTime - Date.now();
+            console.log(elapsedTime);
+            console.log(breakTime);
+            const data = {
+                'elapsed_time': elapsedTime,
+                'break_time': breakTime,
+            }
+            fetch('home', { // 第1引数に送り先
+                method: 'POST', // メソッド指定
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }, // jsonを指定
+                body: JSON.stringify(data) // json形式に変換して添付
+            })
+                .then(response => response.json()) // 返ってきたレスポンスをjsonで受け取って次のthenへ渡す
+                .then(res => {
+                    console.log(res); // 返ってきたデータ
+                    console.log("hello")
+                });
+            console.log(data);
+            console.log("afterFetch");
             // ↓ で/homeにredirectしてる
-            window.location.replace("/home");
+            // window.location.replace("/home");
         });
 
         // toggleするボタンを押した時
