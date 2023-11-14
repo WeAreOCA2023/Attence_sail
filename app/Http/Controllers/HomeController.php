@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use JetBrains\PhpStorm\NoReturn;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Models\DailyWorkHours;
 
 class HomeController extends Controller
 {
@@ -31,10 +34,24 @@ class HomeController extends Controller
         $raw = file_get_contents('php://input'); // POSTされた生のデータを受け取る
         $data = json_decode($raw); // json形式をphp変数に変換
 
-        $res = $data; // やりたい処理
-//        dd($res);
+        $currentDate = date("Y-m-d");
+        $workHours = abs($data->elapsed_time);
+
+        echo json_encode(Auth::user()->id);
+
+        // ここでデータベースに保存するなどの処理を行う
+//        $dailyWork = new DailyWorkHours([
+//            'user_id' => Auth::user()->id,
+//            'worked_at' => $currentDate,
+//            'worked_hours' => $workHours
+//        ]);
+//
+//        $dailyWork->save();
+
+
+
         // echoすると返せる
-        echo json_encode($res); // json形式にして返す
+//        echo json_encode($data); // json形式にして返す
     }
 
     /**
