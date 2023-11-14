@@ -12,87 +12,93 @@
             </div>
         </div>
         <div class="upperRightBox d-flex flex-column">
-            <div class="upperRightTopBox">
-                <div class="d-flex align-items-center mb-4">
-                    <img  class="align-top" src="{{ asset('img/user-setting.svg') }}" alt="User Setting Icon">
+            <div class="upperRightTopBox d-flex flex-column items-center justify-content-center">
+                <div class="d-flex mb-4">
+                    <img src="{{ asset('img/user-setting.svg') }}" alt="User Setting Icon">
                     <h2 class="m-0">個人設定</h2>
                 </div>
-                <div class="d-flex justify-content-around">
+                <div class="d-flex justify-content-around mt-auto mb-auto">
                     <div class="email">
-                        <h3>Eメール:<input type="email" value="{{ Auth::user()->email }}" disabled></h3>
+                        <h3 class="m-0">Eメール:<input type="email" value="{{ Auth::user()->email }}" disabled></h3>
                     </div>
                     <div class="phoneNumber">
-                        <h3>電話番号:<input type="email" value="{{ $phone_number }}" disabled></h3>
+                        <h3 class="m-0">電話番号:<input type="email" value="{{ $phone_number }}" disabled></h3>
                     </div>
                     <div class="email">
-                        <h3>パスワード:<input type="password" value="********" disabled></h3>
+                        <h3 class="m-0">パスワード:<input type="password" value="********" disabled></h3>
                     </div>
                 </div>
             </div>
-            <div class="upperRightMiddleBox">
-                <div class="d-flex align-items-center  mb-4">
+            <div class="upperRightMiddleBox d-flex flex-column items-center justify-content-center">
+                <div class="d-flex mb-4">
                     <img src="{{ asset('img/company-setting.svg') }}" alt="Company Setting Icon">
-                    <h2 class="m-0">会社情報</h2>
+                    <h2 class="m-0">会社設定</h2>
                 </div>
-                <div class="d-flex justify-content-around">
-                    <h3>会社名:{{ $company_name }}</h3>
-                    <h3>役職:{!! $position_name !!}</h3>
-                    <h3>部署:{!! $department_name !!}</h3>
-                    <h3>36協定:{!! $agreement36 !!}</h3>
-                    <h3>変形時間労働制:</h3>
+                <div class="d-flex justify-content-around mt-auto mb-auto">
+                    <h3 class="m-0">会社名:{{ $company_name }}</h3>
+                    <h3 class="m-0">役職:{!! $position_name !!}</h3>
+                    <h3 class="m-0">部署:{!! $department_name !!}</h3>
+                    <h3 class="m-0">36協定:{!! $agreement36 !!}</h3>
+                    <h3 class="m-0">変形時間労働制:</h3>
                 </div>
             </div>
-            <div class="upperRightBottomBox">
-                <div class="d-flex align-items-center mb-4">
+            <div class="upperRightBottomBox d-flex flex-column items-center justify-content-center">
+                <div class="d-flex mb-4">
                     <img src="{{ asset('img/task-setting.svg') }}" alt="Task Result Icon">
                     <h2 class="m-0">過去のタスク履歴</h2>
                 </div>
-                <div class="d-flex justify-content-around">
-                    <h3>割り当て数:</h3>
-                    <h3>期限内達成数:</h3>
-                    <h3>期限後達成数:</h3>
+                <div class="d-flex justify-content-around mt-auto mb-auto">
+                    <h3 class="m-0">割り当て数:</h3>
+                    <h3 class="m-0">期限内達成数:</h3>
+                    <h3 class="m-0">期限後達成数:</h3>
                 </div>
             </div>
         </div>
     </div>
     <div class="lowerBox d-flex">
-        <div class="law">
-            <h2 class="text-center mb-5">契約情報</h2>
-            <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.store') }}" method="POST">
-                @csrf
-                <div class="agreement36">
-                    <label for="companyName">{{ __('36協定') }}</label>
-                    <select class="form-select" aria-label="Agreement 36" name="agreement36">
-                        <option selected value="unset">未選択</option>
-                        <option value="agreed">有り</option>
-                        <option value="special">特別条項付き36協定</option>
-                        <option value="declined">無し</option>
-                    </select>
-                    @error('agreement36')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                <div class="variableWorkingHoursSystem">
-                    <label for="variableWorkingHoursSystem">{{ __('変形時間労働制') }}</label>
-                    <select class="form-select" aria-label="Variable Working Hours System" name="variableWorkingHoursSystem">
-                        <option selected value="unset">未選択</option>
-                        <option value="agreed">有り</option>
-                        <option value="declined">無し</option>
-                    </select>
-                </div>
-                <div class="saveButton text-center">
-                    <button type="submit">
-                        {{ __('保存') }}
-                    </button>
-                </div>
-            </form>
+        <div class="lawBox  d-flex flex-column align-items-center justify-content-center">
+            <div class="title d-flex align-items-center mt-5">
+                <img src="{{ asset('img/contract.svg') }}" alt="Contract Setting Icon">
+                <h2>契約情報</h2>
+            </div>
+            <div class="lawBoxInner  d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
+                <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.store') }}" method="POST">
+                    @csrf
+                    <div class="agreement36">
+                        <label for="companyName">{{ __('36協定') }}</label>
+                        <select class="form-select" aria-label="Agreement 36" name="agreement36">
+                            <option selected value="unset">未選択</option>
+                            <option value="agreed">有り</option>
+                            <option value="special">特別条項付き36協定</option>
+                            <option value="declined">無し</option>
+                        </select>
+                        @error('agreement36')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="variableWorkingHoursSystem">
+                        <label for="variableWorkingHoursSystem">{{ __('変形時間労働制') }}</label>
+                        <select class="form-select" aria-label="Variable Working Hours System" name="variableWorkingHoursSystem">
+                            <option selected value="unset">未選択</option>
+                            <option value="agreed">有り</option>
+                            <option value="declined">無し</option>
+                        </select>
+                    </div>
+                    <div class="saveButton text-center">
+                        <button type="submit">
+                            {{ __('保存') }}
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
         @can('boss')
 
         <div class="companyBox  d-flex flex-column align-items-center justify-content-center">
-            <div class="title mt-5">
+            <div class="title d-flex align-items-center mt-5">
+                <img src="{{ asset('img/company-setting.svg') }}" alt="Company Setting Icon">
                 <h2>会社情報</h2>
             </div>
             <div class="companyBoxInner  d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
