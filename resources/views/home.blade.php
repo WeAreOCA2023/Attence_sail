@@ -72,7 +72,6 @@
         // 普通に出勤中のTimer(出勤中は定期的に呼ばれる / 多分休憩中は呼ばれてない)
         function runTimer() {
             currentTime = new Date();
-            console.log(progressBarLength)
             // ↓ここでプログレスバーを読んでる
             intervalId = setTimeout(updateProgressBar, 100); // 10ミリ秒ごとにプログレスバーを更新
             if(setTimeoutId){
