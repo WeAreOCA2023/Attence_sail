@@ -5,6 +5,7 @@ namespace App\Providers;
 
 use App\Models\Company;
 use App\Models\Department;
+use App\Models\Position;
 use App\Models\User;
 use App\Models\UserLogin;
 use Illuminate\Support\ServiceProvider;
@@ -44,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
 
         // ここで指定するのは bladeテンプレート
-        View::composer(['home', 'user-management', 'my-all-tasks', 'department-management', 'position-management'], function ($view) {
+        View::composer(['home', 'user-management', 'my-all-tasks', 'department-management', 'position-management', 'profile'], function ($view) {
 
             // 現在ログイン中のユーザーのログイン情報 -> database/'migrations/create_user_login_table
             $user_login_all = Auth::user();
@@ -54,23 +55,48 @@ class AppServiceProvider extends ServiceProvider
 
             // users_table の user_id = user_login_table の id が一致する一番最初のレコード
             $users = User::where('user_id', $user_login_id)->first();
+            
+            // companies_table の company_id = users_table の company_id が一致する一番最初のレコード
+            $company = Company::where('id', $users->company_id)->first();
+           
+            // department_table の department_id = users_table の department_id が一致する一番最初のレコード
+            $department = Department::where('id', $users->department_id)->first();
 
+            // position_table の position_id = users_table の position_id が一致する一番最初のレコード
+            $position = Position::where('id', $users->position_id)->first();
+
+            if (isset($department)) {
+                $department_name = $department->department_name;
+            } else {
+                $department_name = '<span class="unset">' . '未設定' . '</span>';
+            }
+
+            if (isset($position)) {
+                $position_name = $position->position_name;
+            } else {
+                $position_name = '<span class="unset">' . '未設定' . '</span>';
+            }
+            $phone_number = $users->telephone;
             $user_name = $users->user_name;
+            $company_name = $company->company_name;
             $is_boss = ($users->is_boss == 1) ? 'BOSS' : 'USER';
+            $agreement36 = ($users->agreement36 == 0) ? '<span class="unset">' . '未設定' . '</span>' : '有り';
 
 
             $view->with([
                 'user_name' => $user_name,
                 'is_boss' => $is_boss,
+                'phone_number' => $phone_number,
+                'company_name' => $company_name,
+                'department_name' => $department_name,
+                'position_name' => $position_name,
+                'agreement36' => $agreement36
             ]);
         });
 
         // ユーザーの入力した会社コードがcompany_tableと一致するかの判定(RegisterController.php)
         Validator::extend('matches_company_code_and_password', function ($attribute, $value, $parameters, $validator) {
-            // if (Company::where('company_code', $value)->first() == null) {
-            //     return false;
-            // }
-            // return true;
+
             $companyCode = $value;
             $inputPassword = $validator->getData()['companyPassword'];
 
@@ -79,6 +105,19 @@ class AppServiceProvider extends ServiceProvider
                 return true;
             }
             return false;
+
+        });
+
+        // ユーザーが36協定と変形時間労働制をどちらも同意した際に、profileにerror文と共にリダイレクトする
+        Validator::extend('agreement36_and_variableWorkingHoursSystem', function ($attribute, $value, $parameters, $validator) {
+
+            $agreement36 = $validator->getData()['agreement36'];
+            $variableWorkingHoursSystem = $validator->getData()['variableWorkingHoursSystem'];
+
+            if ($agreement36 == 'agreed' && $variableWorkingHoursSystem == 'agreed' || $agreement36 == 'special' && $variableWorkingHoursSystem == 'agreed') {
+                return false;
+            }
+            return true;
 
         });
     }

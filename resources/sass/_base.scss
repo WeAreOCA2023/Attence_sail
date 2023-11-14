@@ -435,6 +435,130 @@ main {
     }
 }
 
+// profile
+.profile{
+    gap: 0.2vh;
+    .upperBox{
+        gap: 0.2vh;
+        width: 84vw;
+        height: 40%;
+        border-radius: v.$round-40;
+        background-color: v.$white;
+        box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+        .upperLeftBox{
+            width: 26%;
+            height: 100%;
+            border-right: 1px solid black;
+            h3{
+                @include m.fz(40);
+                font-weight: map-get(v.$font-weight, 1);
+            }
+            img{
+                width: 8vw;
+            }
+            progress {
+                width: 10vw;
+                height: 1.5vh;
+                border-radius: 15px;
+            }
+            // 角を丸くする
+            progress::-webkit-progress-bar {
+                border-radius: v.$round-15;
+            }
+            
+            progress::-webkit-progress-value {
+                border-radius: v.$round-15;            
+            }
+            progress::-moz-progress-bar {
+                border-radius: v.$round-15;
+            }
+            progress::-ms-fill {
+                border-radius: v.$round-15;            
+            }
+            // 色を変更する
+            progress {
+                appearance: none;
+            }
+            ::-webkit-progress-bar {
+                background-color: gray;
+            }
+            ::-webkit-progress-value {
+                background-color: v.$darkGray;
+            }
+            .creditScore{
+                label{
+                    @include m.fz(20);
+                }
+            }
+        }
+        .upperRightBox{
+            width: 74%;
+            height: 100%;
+            img{
+                width: 1.7vw;
+            }
+            h2{
+                @include m.fz(25);
+            }
+            .unset{
+                padding: 5px;
+                color: v.$darkRed;
+                background-color: v.$red;
+                border-radius: v.$round-10;
+                font-weight: map-get(v.$font-weight, 1);
+            }
+            .upperRightTopBox{
+                width: 100%;
+                height: 33.33%;
+                border-bottom: 1px solid black;
+            }
+            .upperRightMiddleBox{
+                width: 100%;
+                height: 33.33%;
+                border-bottom: 1px solid black;
+            }
+            .upperRightBottomBox{
+                width: 100%;
+                height: 33.33%;
+            }
+
+        }
+    }
+    .lowerBox{
+        gap: 0.2vh;
+        .law, .company{
+            gap: 0.2vw;
+            width: 15vw;
+            height: 45vh;
+            background-color: v.$white;
+            border-radius: v.$round-40;
+            h2{
+                @include m.fz(45);
+            }
+        }
+        .form-select{
+            width: 5vw;
+        }
+        .saveButton{
+            button{
+                @include m.fz(30);
+                border: none;
+                outline: none;
+                color: v.$white;
+                background-color: v.$darkGray;
+                padding: 3%;
+                border-radius: v.$round-10;
+            }
+            button:hover{
+                transition: .5s;
+                color: v.$darkGray;
+                background-color: rgb(175, 173, 173);
+            }
+        }
+    }
+}
+  
+
 
 // userManagement
 .userManagement{
@@ -598,6 +722,20 @@ main {
             top: 2%;
             right: 4%;
         }
+        .tasks{
+            margin: 4% 0 0 4%;
+            .task{
+                width: 80%;
+                height: 4vh;
+                background-color: v.$whiteGray;
+                border-radius: v.$round-10;
+                box-shadow: 3px 3px 3px rgba(15, 20, 25, 0.25);
+                a{
+                    color: v.$black;
+                    @include m.fz(16);
+                }
+            }
+        }
     }
     .job{
         background-color: v.$white;
@@ -605,6 +743,72 @@ main {
         height: 90vh;
         border-radius: v.$round-40;
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+        .createJob{
+            padding: 2% 0 0 2%;
+            .title{
+                width: 80%;
+                height: 10%;
+                margin-bottom: 4%;
+                input{
+                    @include m.fz(30);
+                    border: none;
+                    outline: none;
+                    background-color: v.$white;
+                    border-bottom: 1px solid v.$black;
+                    padding: 5% 5%;
+                }
+            }
+            .deadline{
+                margin-bottom: 4%;
+                span{
+                    @include m.fz(20);
+                }
+                input{
+                    @include m.fz(20);
+                    border: none;
+                    outline: none;
+                    background-color: v.$white;
+                    border-bottom: 1px solid v.$black;
+                    padding: 1% 2%;
+                }
+            }
+            .description{
+                width: 90%;
+                height: 60%;
+                span{
+                    @include m.fz(20);
+                }
+                textarea{
+                    height: 90%;
+                    @include m.fz(15);
+                    background-color: v.$white;
+                    border-radius: v.$round-10;
+                    border-color: rgba(28, 28, 28, 0.3);
+                    margin-top: 1%;
+                }
+            }
+            .submit{
+                button{
+                    border: none;
+                    background-color: v.$white;
+                }
+            }
+        }
+        .taskDetail{
+            .taskMain{
+                width: 75%;
+                padding-left: 3%;
+            }
+            h2{
+                margin: 3% 0 0 0;
+                @include m.fz(30);
+            }
+            .taskSidebar{
+                width: 25%;
+                background: rgba(15, 20, 25, 0.1);
+                border-radius: 0 40px 40px 0;
+            }
+        }
     }
 }
 .registerBoss{
