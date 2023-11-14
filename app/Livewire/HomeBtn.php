@@ -8,10 +8,20 @@ class HomeBtn extends Component
 {
     public $elapsedTime;
     public $breakTime;
-    public function receiveVariable()
+    protected $listeners = ['updateTimes' => 'receiveVariable'];
+
+    public function mount()
+    {
+        // デフォルト値を設定
+        $this->elapsedTime = 0;
+        $this->breakTime = 0;
+    }
+
+    public function receiveVariable($elapsedTime, $breakTime)
     {
         $this->elapsedTime = $elapsedTime;
         $this->breakTime = $breakTime;
+        echo $this->elapsedTime;
     }
     public function render()
     {

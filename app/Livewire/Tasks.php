@@ -25,14 +25,14 @@ class Tasks extends Component
     public $done_at;
 
 
-    #[On('showTaskCreate')]
+//    #[On('showTaskCreate')]
     public function showTaskCreate()
     {
         $this->reset();
         $this->taskCreate = true;
         $this->taskShow = false;
     }
-    #[On('showTask')]
+//    #[On('showTask')]
     public function showTask($taskId)
     {
         $this->reset();

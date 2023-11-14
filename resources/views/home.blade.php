@@ -126,9 +126,9 @@
         // 退勤ボタンを押した時の処理
         $("#reset").click(function() {
             //ここでredirectする前にdbにデータを入れる必要がある
-
+            Livewire.dispatch('updateTimes', elapsedTime, breakTime);
             // ↓ で/homeにredirectしてる
-            window.location.replace("/home");
+            // window.location.replace("/home");
         });
 
         // toggleするボタンを押した時
