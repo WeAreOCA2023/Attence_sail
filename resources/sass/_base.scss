@@ -439,9 +439,8 @@ main {
 .profile{
     gap: 0.2vh;
     .upperBox{
-        gap: 0.2vh;
         width: 84vw;
-        height: 40%;
+        height: 43vh;
         border-radius: v.$round-40;
         background-color: v.$white;
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
@@ -459,7 +458,7 @@ main {
             progress {
                 width: 10vw;
                 height: 1.5vh;
-                border-radius: 15px;
+                border-radius: v.$round-15;
             }
             // 角を丸くする
             progress::-webkit-progress-bar {
@@ -525,15 +524,26 @@ main {
         }
     }
     .lowerBox{
-        gap: 0.2vh;
-        .law, .company{
+        gap: 3vw;
+        .law, .companyBox{
             gap: 0.2vw;
-            width: 15vw;
+            width: 25vw;
             height: 45vh;
             background-color: v.$white;
             border-radius: v.$round-40;
             h2{
-                @include m.fz(45);
+                @include m.fz(40);
+            }
+            form{
+                gap: 3vh;
+            }
+            label{
+                @include m.fz(20);
+            }
+            input{
+                height: 3vh;
+                width: 10vw;
+                @include m.fz(20);
             }
         }
         .form-select{
@@ -541,6 +551,7 @@ main {
         }
         .saveButton{
             button{
+                width: 4.5vw;
                 @include m.fz(30);
                 border: none;
                 outline: none;
