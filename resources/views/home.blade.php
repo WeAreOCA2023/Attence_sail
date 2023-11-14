@@ -135,23 +135,25 @@
             //ここでredirectする前にdbにデータを入れる必要がある
             //↓ await 使ってもいいかも？
             console.log("beforeFetch");
+            console.log(elapsedTime);
+            console.log(breakTime);
             const data = {
                 'elapsed_time': elapsedTime,
                 'break_time': breakTime,
             }
-            fetch("home/store",{
-                method: 'post',
-                credentials: "same-origin",
+            fetch('home', { // 第1引数に送り先
+                method: 'POST', // メソッド指定
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                body: JSON.stringify(data)
+                }, // jsonを指定
+                body: JSON.stringify(data) // json形式に変換して添付
             })
-            .then(response => response.json())
-            .then(res => {
-                console.log(res);
-            })
+                .then(response => response.json()) // 返ってきたレスポンスをjsonで受け取って次のthenへ渡す
+                .then(res => {
+                    console.log(res); // 返ってきたデータ
+                    console.log("hello")
+                });
             console.log(data);
             console.log("afterFetch");
             // ↓ で/homeにredirectしてる

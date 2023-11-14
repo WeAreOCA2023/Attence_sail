@@ -26,10 +26,15 @@ class HomeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    #[NoReturn] public function store(Request $request): void
+    public function store(Request $request)
     {
-        $data = $request->json()->all();
-        dd($data);
+        $raw = file_get_contents('php://input'); // POSTされた生のデータを受け取る
+        $data = json_decode($raw); // json形式をphp変数に変換
+
+        $res = $data; // やりたい処理
+//        dd($res);
+        // echoすると返せる
+        echo json_encode($res); // json形式にして返す
     }
 
     /**
@@ -37,7 +42,7 @@ class HomeController extends Controller
      */
     public function show(string $id)
     {
-        //
+
     }
 
     /**
