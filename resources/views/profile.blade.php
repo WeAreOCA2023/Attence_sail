@@ -1,7 +1,7 @@
 @extends('layouts.fixed')
 
 @section('content')
-<div class="profile d-flex flex-column justify-content-start h-100 mx-auto py-4">
+<div class="profile d-flex flex-column justify-content-between h-100 mx-auto py-4">
     <div class="upperBox d-flex">
         <div class="upperLeftBox d-flex flex-column items-center text-center justify-content-center">
             <img class="mx-auto" src="{{ asset('img/profileIcon.svg') }}" alt="Profile Icon">
@@ -32,7 +32,7 @@
             <div class="upperRightMiddleBox">
                 <div class="d-flex align-items-center  mb-4">
                     <img src="{{ asset('img/company-setting.svg') }}" alt="Company Setting Icon">
-                    <h2 class="m-0 mb-5">会社情報</h2>
+                    <h2 class="m-0">会社情報</h2>
                 </div>
                 <div class="d-flex justify-content-around">
                     <h3>会社名:{{ $company_name }}</h3>
@@ -58,9 +58,9 @@
     <div class="lowerBox d-flex">
         <div class="law">
             <h2 class="text-center mb-5">契約情報</h2>
-            <form action="{{ route('profile.store') }}" method="POST">
+            <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.store') }}" method="POST">
                 @csrf
-                <div class="agreement36 mb-5 mx-auto">
+                <div class="agreement36">
                     <label for="companyName">{{ __('36協定') }}</label>
                     <select class="form-select" aria-label="Agreement 36" name="agreement36">
                         <option selected value="unset">未選択</option>
@@ -74,7 +74,7 @@
                         </span>
                     @enderror
                 </div>
-                <div class="variableWorkingHoursSystem mb-5 mx-auto">
+                <div class="variableWorkingHoursSystem">
                     <label for="variableWorkingHoursSystem">{{ __('変形時間労働制') }}</label>
                     <select class="form-select" aria-label="Variable Working Hours System" name="variableWorkingHoursSystem">
                         <option selected value="unset">未選択</option>
@@ -90,33 +90,41 @@
             </form>
         </div>
         @can('boss')
-        <div class="company">
-            <div class="title">
-                <h2 class="text-center mb-5">会社情報</h2>
-            </div>
-            <form action="{{ route('profile.store2') }}" method="POST">
-                @csrf
-                <div class="companyName col-md-6 mb-5 mx-auto">
-                    <label for="companyName">{{ __('会社名') }}</label>
-                    <input id="companyName" type="text" name="companyName" value="{{ old('companyName') }}" required autocomplete="companyName">
-                </div>
-                <div class="companyPostCode col-md-6 mb-5 mx-auto">
-                    <label for="companyPostCode">{{ __('会社の郵便番号') }}</label>
-                    <input id="companyPostCode" type="text" name="companyPostCode" value="{{ old('companyPostCode') }}"  required autocomplete="companyPostCode" minlength=7 maxlength=7>
-                </div>
-                <div class="companyAddress col-md-6 mb-5 mx-auto">
-                    <label for="companyAddress">{{ __('会社の住所') }}</label>
-                    <input id="companyAddress" type="text" name="companyAddress" value="{{ old('companyAddress') }}"  required autocomplete="companyAddress">
-                </div>
-                <div class="saveButton text-center">
-                    <button type="submit">
-                        {{ __('保存') }}
-                    </button>
-                </div>
-            </form>
-        </div>
-        @endcan
-    </div>
 
+        <div class="companyBox  d-flex flex-column align-items-center justify-content-center">
+            <div class="title mt-5">
+                <h2>会社情報</h2>
+            </div>
+            <div class="companyBoxInner  d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
+                <form class="d-flex flex-column align-items-center justify-content-center" action="{{ route('profile.store2') }}" method="POST">
+                    @csrf
+                    <div class="companyNameBox">
+                        <label for="companyName">{{ __('会社名') }}</label>
+                        <div class="companyNameInput">
+                            <input id="companyName" type="text"  name="companyName" value="{{ old('companyName') }}" required autocomplete="companyName">
+                        </div>
+                    </div>
+                    <div class="companyPostCodeBox">
+                        <label for="companyPostCode">{{ __('会社の郵便番号') }}</label>
+                        <div class="companyPostCodeInput">
+                            <input id="companyPostCode" type="text" name="companyPostCode" value="{{ old('companyPostCode') }}"  required autocomplete="companyPostCode" minlength=7 maxlength=7>
+                        </div>
+                    </div>
+                    <div class="companyAddressBox">
+                        <label for="companyAddress">{{ __('会社の住所') }}</label>
+                        <div class="companyAddressInput">
+                            <input id="companyAddress" type="text" name="companyAddress" value="{{ old('companyAddress') }}"  required autocomplete="companyAddress">
+                        </div>
+                    </div>
+                    <div class="saveButton text-center">
+                        <button type="submit">
+                            {{ __('保存') }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+            @endcan
+        </div>
+    </div>
 </div>
 @endsection
