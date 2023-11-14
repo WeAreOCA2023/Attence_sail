@@ -36,20 +36,21 @@ class HomeController extends Controller
 
         $currentDate = date("Y-m-d");
         $workHours = abs($data->elapsed_time);
+        $newHours = date("H:i:s", $workHours / 1000);
+        $finalHours = date('H:i:s', strtotime($newHours. ' -9 hours'));
 
-        echo json_encode(Auth::user()->id);
+
+        echo json_encode($finalHours);
 
         // ここでデータベースに保存するなどの処理を行う
-//        $dailyWork = new DailyWorkHours([
-//            'user_id' => Auth::user()->id,
-//            'worked_at' => $currentDate,
-//            'worked_hours' => $workHours
-//        ]);
-//
-//        $dailyWork->save();
+        $dailyWork = new DailyWorkHours([
+            'user_id' => Auth::user()->id,
+            'worked_at' => $currentDate,
+            'worked_hours' => $finalHours
+        ]);
+        $dailyWork->save();
 
-
-
+//        return redirect('/home');
         // echoすると返せる
 //        echo json_encode($data); // json形式にして返す
     }
