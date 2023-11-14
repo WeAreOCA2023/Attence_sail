@@ -525,7 +525,10 @@ main {
     }
     .lowerBox{
         gap: 3vw;
-        .law, .companyBox{
+        img{
+            width: 2vw;
+        }
+        .lawBox, .companyBox{
             gap: 0.2vw;
             width: 25vw;
             height: 45vh;
@@ -540,10 +543,15 @@ main {
             label{
                 @include m.fz(20);
             }
-            input{
+            input, select{
                 height: 3vh;
                 width: 10vw;
                 @include m.fz(20);
+            }
+        }
+        .lawBox{
+            form{
+                gap: 5vh;
             }
         }
         .form-select{
