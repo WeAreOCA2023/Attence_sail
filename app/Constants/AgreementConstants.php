@@ -65,7 +65,7 @@ class AgreementConstants
 
     // 1週間の労働時間の上限
     const YEALY_VARIABLE_WEEKLY_LIMIT = 52;
-    
+
 
     /**
     * 休憩時間に関して
