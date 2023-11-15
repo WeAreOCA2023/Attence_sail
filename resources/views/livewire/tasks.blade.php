@@ -26,22 +26,16 @@
                         @error('title') <span>{{ $message }}</span> @enderror
                     </label>
                     <label>
-                        <div id="search">
-                            <form>
-                                <div>
-                                    <input wire:model.live.debounce.500ms="search" id="search" name="search" placeholder="キーワード" type="search">
-                                    @if (sizeof($results) > 0)
-                                        <ul>
-                                            @foreach ($results as $result)
-                                                <li class="flex-center break-all p-4">
-                                                    <span>{{$result->full_name}}</span>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
-                                </div>
-                            </form>
-                        </div>
+                        <input wire:model.live.debounce.500ms="search" id="search" name="search" placeholder="キーワード" type="search">
+                        @if (strlen($search) > 0)
+                            <ul>
+                                @foreach ($users as $user)
+                                    <li class="flex-center break-all p-4">
+                                        <span>{{$user->full_name}}</span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
                     </label>
                     <label class="d-block deadline">
                         <span>期限</span>

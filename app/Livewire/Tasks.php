@@ -26,9 +26,8 @@ class Tasks extends Component
     public $done_at;
 
 // 検索クエリ
-    public $search = "";
-    // 検索結果
-    public $results = [];
+    public $search;
+
     #[On('showTaskCreate')]
     public function showTaskCreate()
     {
@@ -63,16 +62,14 @@ class Tasks extends Component
     }
     public function render()
     {
-        if (strlen($this->search) >= 1) {
-            $this->results = User::where(function ($query) {
-                $query->where('full_name', 'like', '%' . $this->search . '%')
-                    ->orWhere('user_name', 'like', '%' . $this->search . '%');
-            })->get();
-        }
-
         // ログインユーザーに関連づけられたタスクを取得
         $this->tasks = TaskModel::where('assigner_id', auth()->id())->get();
 
-        return view('livewire.tasks');
+        return view('livewire.tasks', [
+            'users' => User::where(function ($query) {
+                $query->where('full_name', 'like', '%' . $this->search . '%')
+                    ->orWhere('user_name', 'like', '%' . $this->search . '%');
+            })->get()
+        ]);
     }
 }
