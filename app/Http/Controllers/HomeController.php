@@ -22,7 +22,7 @@ class HomeController extends Controller
 //        dd($flag);
         if ($flag != 0){
             $allTest = DailyWorkHours::where('user_id', Auth::user()->id)->get();
-            if (date('w') == "3"){
+            if (date('w') == "2"){
                 //１週間の合計時間の初期値設定 ↓
                 $WeeklyTotalSec = 0;
                 //１週間の合計時間の計算
@@ -38,7 +38,14 @@ class HomeController extends Controller
                 //dailyWorkHoursのデータを削除↓
                 DailyWorkHours::where('user_id', Auth::user()->id)->delete();
             }
+            //月が変わった時の処理
+            $today = date("d"); //今日の日にち
+            $target_day = "15"; //
+            if (strtotime($today) === strtotime($target_day)){
+                dd("hello");
+            }
         }
+
         return view('home');
     }
 
