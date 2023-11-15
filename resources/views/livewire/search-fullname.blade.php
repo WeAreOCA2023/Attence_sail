@@ -27,7 +27,6 @@
                 </tr>
             </thead>
             <tbody>
-
             @if (count($test_users) > 0)
                 @foreach ($test_users as $test)
                 <tr>
@@ -74,8 +73,10 @@
                             </div>
                         </div>
                     </div>
+
                 @endforeach
             @endif
-        </tbody>
+            </tbody>
+        </table>
     </div>
 </div>

@@ -15,7 +15,7 @@ class DepartmentManagementController extends Controller
     public function index(): View
     {
         return view('department-management', [
-            'departments' => DB::table('department')->paginate(15)
+            'departments' => DB::table('department')->paginate(18)
         ]);
     }
 
