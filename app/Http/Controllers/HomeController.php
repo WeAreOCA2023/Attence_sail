@@ -12,74 +12,73 @@ use App\Models\AllWorkHours;
 
 class HomeController extends Controller
 {
+    //１週間の合計時間を計算する関数
+    function getWeeklyHours(){
+        $allTest = DailyWorkHours::where('user_id', Auth::user()->id)->get();
+        //１週間の合計時間の初期値設定 ↓
+        $WeeklyTotalSec = 0;
+        //１週間の合計時間の計算
+        foreach ($allTest as $test){
+            $WeeklyTotalSec += $test->worked_hours;
+        }
+        return ($WeeklyTotalSec);
+    }
+
+    // 週が終わった時の処理 ↓
+    function weeklyProcess(int $WeeklyTotalSec){
+        // AllWorkHoursを取得
+        $userAllWork = AllWorkHours::where('user_id', Auth::user()->id)->get();
+        //allWorkHoursがなかった時にのデータを追加 ↓
+        if (count($userAllWork) == 0){
+            $allUpdate = new AllWorkHours([
+                'user_id' => Auth::user()->id,
+                'weekly_total_work_hours' => $WeeklyTotalSec,
+                'monthly_total_work_hours' => $WeeklyTotalSec,
+            ]);
+            $allUpdate->save();
+            DailyWorkHours::where('user_id', Auth::user()->id)->delete();
+        }else{
+            //現在の月の合計時間を取得&加算 ↓
+            $currentMonthHour = $userAllWork[0]->monthly_total_work_hours;
+            $newMonthHour = $currentMonthHour + $WeeklyTotalSec;
+            //この下でallWorkHoursにデータを追加↓
+            $allUpdate = AllWorkHours::where('user_id', Auth::user()->id)->first();
+            $allUpdate->weekly_total_work_hours = $WeeklyTotalSec;
+            $allUpdate->monthly_total_work_hours = $newMonthHour;
+            $allUpdate->save();
+            //dailyWorkHoursのデータを削除↓
+            DailyWorkHours::where('user_id', Auth::user()->id)->delete();
+        }
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //週が変わったら行う処理 ↓
         $flag = count(DailyWorkHours::where('user_id', Auth::user()->id)->get());
-//        dd($flag);
-        if ($flag != 0){
-            $allTest = DailyWorkHours::where('user_id', Auth::user()->id)->get();
-            if (date('w') == "3"){
-                //１週間の合計時間の初期値設定 ↓
-                $WeeklyTotalSec = 0;
-                //１週間の合計時間の計算
-                foreach ($allTest as $test){
-                    $WeeklyTotalSec += $test->worked_hours;
-                }
-                $userAllWork = AllWorkHours::where('user_id', Auth::user()->id)->get();
-                if (count($userAllWork) == 0){
-                    $allUpdate = new AllWorkHours([
-                        'user_id' => Auth::user()->id,
-                        'weekly_total_work_hours' => $WeeklyTotalSec,
-                        'monthly_total_work_hours' => $WeeklyTotalSec,
-                    ]);
-                    $allUpdate->save();
-                    DailyWorkHours::where('user_id', Auth::user()->id)->delete();
-                }else{
-//                    dd($userAllWork);
-                    $currentMonthHour = $userAllWork[0]->monthly_total_work_hours;
-//                    dd($userAllWork[0]);
-                    $newMonthHour = $currentMonthHour + $WeeklyTotalSec;
-                    //この下でallWorkHoursにデータを追加↓
-                    $allUpdate = AllWorkHours::where('user_id', Auth::user()->id)->first();
-                    $allUpdate->weekly_total_work_hours = $WeeklyTotalSec;
-                    $allUpdate->monthly_total_work_hours = $newMonthHour;
-                    $allUpdate->save();
-                    //dailyWorkHoursのデータを削除↓
-                    DailyWorkHours::where('user_id', Auth::user()->id)->delete();
-                }
-
-            }
-//            $flag2 = count(AllWorkHours::where('user_id', Auth::user()->id)->get());
-//            // allworkhoursのテーブルがからじゃなかった場合
-//            if ($flag2 != 0){
-//                $allWorkData = AllWorkHours::where('user_id', Auth::user()->id)->get();
-//                //月が変わった時の処理
-//                $today = date("d"); //今日の日にち
-//                $target_day = "15"; //
-//                if (strtotime($today) === strtotime($target_day)){
-//                    //１ヶ月の合計時間の初期値設定 ↓
-//                    $MonthlyTotalSec = 0;
-//                    //１ヶ月の合計時間の計算
-//                    foreach ($allWorkData as $singleData){
-//                        $MonthlyTotalSec += $singleData->weekly_total_work_hours;
-//                    }
-//                    //この下でallWorkHoursにデータを追加↓
-//                    $allUpdate = new AllWorkHours([
-//                        'user_id' => Auth::user()->id,
-//                        'monthly_total_work_hours' => $MonthlyTotalSec,
-//                    ]);
-//                    $allUpdate->save();
-//                    //dailyWorkHoursのデータを削除↓
-//                }
-//            }
+        if ($flag == 0){return view('home');} //カラムがあるかどうかのチェック
+        // 関数呼び出し ↓
+        $WeeklyTotalSec = $this->getWeeklyHours();
+        if (date('w') == "3"){
+            // 関数呼び出し ↓
+            $this->weeklyProcess($WeeklyTotalSec);
         }
-
+        //ここから ↓ に月が変わった時の処理を書く
+//        if (date('d') == "01"){
+//            //一年の初期値を決める
+//            $yearlyTotalSec = 0;
+//            $userAllWork = AllWorkHours::where('user_id', Auth::user()->id)->get();
+//            if(count($userAllWork) == 0){
+//
+//            }else{
+//
+//            }
+//        }
         return view('home');
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -149,4 +148,6 @@ class HomeController extends Controller
     {
         //
     }
+
+
 }
