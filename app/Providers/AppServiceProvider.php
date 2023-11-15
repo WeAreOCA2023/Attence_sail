@@ -81,9 +81,8 @@ class AppServiceProvider extends ServiceProvider
             $company_id = $company->id;
             $company_name = $company->company_name;
             $is_boss = ($users->is_boss == 1) ? 'BOSS' : 'USER';
-            $agreement36 = ($users->agreement36 == 0) ? '<span class="unset">' . '未設定' . '</span>' : '有り';
-
-
+            $agreement36 = ($users->agreement_36 == 0) ? '<span class="unset">' . '未設定' . '</span>' : '<span>' . '有り' . '</span>';
+            $variable_working_hours_system = ($users->variable_working_hours_system == 0) ? '<span class="unset">' . '未設定' . '</span>' : '<span>' . '有り' . '</span>';
             $view->with([
                 'user_name' => $user_name,
                 'is_boss' => $is_boss,
@@ -92,7 +91,8 @@ class AppServiceProvider extends ServiceProvider
                 'company_id' => $company_id,
                 'department_name' => $department_name,
                 'position_name' => $position_name,
-                'agreement36' => $agreement36
+                'agreement36' => $agreement36,
+                'variable_working_hours_system' => $variable_working_hours_system
             ]);
         });
 
@@ -112,7 +112,7 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('agreement36_and_variableWorkingHoursSystem', function ($attribute, $value, $parameters, $validator) {
             $agreement36 = $validator->getData()['agreement36'];
             $variableWorkingHoursSystem = $validator->getData()['variableWorkingHoursSystem'];
-            if ($agreement36 == 'agreed' && $variableWorkingHoursSystem == 'agreed' || $agreement36 == 'special' && $variableWorkingHoursSystem == 'agreed' || $agreement36 == 'unset' && $variableWorkingHoursSystem = 'unset') {
+            if ($agreement36 == 0 || $variableWorkingHoursSystem == 0  || $agreement36 == 1 && $variableWorkingHoursSystem == 1 || $agreement36 == 2 && $variableWorkingHoursSystem == 1 || $agreement36 == 0 && $variableWorkingHoursSystem == 0) {
                 return false;
             }
             return true;

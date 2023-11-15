@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    // eloquentもでるはidカラムを参照するが、このテーブルのuser_idは既に一意制が保たれている。主キーを明示的に指定する必要がある
+    protected $primaryKey = 'user_id';
 
     /**
      * The attributes that are mass assignable.

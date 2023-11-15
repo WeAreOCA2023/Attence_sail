@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Company;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -44,7 +45,10 @@ class ProfileController extends Controller
         if ($validator->fails()) {
             return redirect('/profile')->withErrors($validator)->withInput();
         }
-
+        $user = User::where('user_id', Auth::user()->id)->first();
+        $user->agreement_36 = $request->get('agreement36');
+        $user->variable_working_hours_system = $request->get('variableWorkingHoursSystem');
+        $user->save();
         return redirect('/profile');
     }
 
@@ -57,7 +61,7 @@ class ProfileController extends Controller
         $company->company_name = $request->get('companyName');
         $company->post_code = $request->get('companyPostCode');
         $company->address = $request->get('companyAddress');
-        $company->save();
+        $company->update();
         return redirect('/profile');
     }
 
