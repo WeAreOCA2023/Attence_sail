@@ -81,8 +81,16 @@ class AppServiceProvider extends ServiceProvider
             $company_id = $company->id;
             $company_name = $company->company_name;
             $is_boss = ($users->is_boss == 1) ? 'BOSS' : 'USER';
-            $agreement36 = ($users->agreement_36 == 0) ? '<span class="unset">' . '未設定' . '</span>' : '<span>' . '有り' . '</span>';
-            $variable_working_hours_system = ($users->variable_working_hours_system == 0) ? '<span class="unset">' . '未設定' . '</span>' : '<span>' . '有り' . '</span>';
+            if ($users->agreement_36 == 1) {
+                $agreement36 = '<span>' . '有り' . '</span>';
+            } elseif ($users->agreement_36 == 2) {
+                $agreement36 = '<span>' . '無し' . '</span>';
+            } 
+            if ($users->variable_working_hours_system == 1) {
+                $variable_working_hours_system = '<span>' . '有り' . '</span>';
+            } elseif ($users->variable_working_hours_system == 2) {
+                $variable_working_hours_system = '<span>' . '無し' . '</span>';
+            }
             $view->with([
                 'user_name' => $user_name,
                 'is_boss' => $is_boss,
@@ -112,7 +120,7 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('agreement36_and_variableWorkingHoursSystem', function ($attribute, $value, $parameters, $validator) {
             $agreement36 = $validator->getData()['agreement36'];
             $variableWorkingHoursSystem = $validator->getData()['variableWorkingHoursSystem'];
-            if ($agreement36 == 0 || $variableWorkingHoursSystem == 0  || $agreement36 == 1 && $variableWorkingHoursSystem == 1 || $agreement36 == 2 && $variableWorkingHoursSystem == 1 || $agreement36 == 0 && $variableWorkingHoursSystem == 0) {
+            if ($agreement36 == 0 || $variableWorkingHoursSystem == 0  || $agreement36 == 1 && $variableWorkingHoursSystem == 1 || $agreement36 == 2 && $variableWorkingHoursSystem == 1) {
                 return false;
             }
             return true;
