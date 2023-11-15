@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Position;
 use App\Models\User;
@@ -15,15 +16,27 @@ class PositionManagementController extends Controller
     public function index(): View
     {
         return view('position-management', [
-            'positions' => DB::table('positions')->paginate(15)
+            'positions' => DB::table('positions')->paginate(14)
         ]);
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'positionName' => 'required',
+        $validator = Validator::make($request->all(), [
+            'positionName' => ['required', 'string', 'max:255', 'unique:positions,position_name'],
+            'rank' => ['required', 'numeric', 'between:0,100'],
+        ], [
+            'positionName.required' => '役職名は必須です。',
+            'positionName.string' => '役職名は文字列で入力してください。',
+            'positionName.max' => '役職名は255文字以内で入力してください。',
+            'positionName.unique' => 'その役職名は既に登録されています。',
+            'rank.required' => '権威レベルは必須です。',
+            'rank.numeric' => '数字で入力してください。',
+            'rank.between' => '0から100の範囲で入力してください。',
         ]);
+        if ($validator->fails()) {
+            return redirect('/position-management')->withErrors($validator)->withInput();
+        }
 
         $user = User::where('user_id', Auth::user()->id)->first();
 
@@ -33,7 +46,7 @@ class PositionManagementController extends Controller
             'company_id' => $user->company_id
         ]);
         $position->save();
-        return redirect('/position-management');
+        return redirect('/position-management')->with('success', '役職を作成しました。');
     }
 
     public function destroy($id, Request $request): RedirectResponse

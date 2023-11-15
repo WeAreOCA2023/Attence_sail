@@ -74,7 +74,7 @@
             
             <livewire:SearchName2 />
 
-            <div class="createButton text-center">
+            <div class="createButton d-block text-center">
                 <button type="submit">
                     {{ __('作成') }}
                 </button>
