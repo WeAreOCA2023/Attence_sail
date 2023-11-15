@@ -3,22 +3,30 @@
 @section('content')
 <div class="positionManagement d-flex justify-content-center h-100 mx-auto py-4">
     <div class="allPositionsBox">
-        <div class="title d-flex">
+        <div class="title d-flex justify-content-between mb-4">
             <img src="{{ asset('img/position.svg') }}" alt="department icon">
-            <h2>役職</h2>
+            <h2 class="m-0">役職</h2>
         </div>
-        @foreach ($positions as $position)
-        <div class="position d-flex justify-content-around">
-            <h3>{{ $position->position_name }}</h3>
-            <h3>権威レベル:{{ $position->rank }}</h3>
-                <div class="edit-delete">
-                    <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
-                    <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $position->id }}" style="border: none; background: none;">
-                        <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
-                    </button>
+        <div class="positionOuterBox d-flex flex-column justify-content-between">
+            @foreach ($positions as $position)
+            <div class="positionBox d-flex justify-content-center">
+                <div class="positionInnerBox d-flex align-items-center">
+                    <div class="drag me-auto">
+                        <img src="{{ asset('img/drag-handle.svg') }}" alt="drag handle icon">
+                    </div>
+                    <div class="content d-flex justify-content-around">
+                        <h3 class="m-0">{{ $position->position_name }}</h3>
+                        <h3 class="m-0">権威レベル:{{ $position->rank }}</h3>
+                        <div class="edit-delete ">
+                            <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
+                            <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $position->id }}" style="border: none; background: none;">
+                                <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
+                
             <div class="modal fade" id="confirmDeleteModal{{ $position->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-dialog">
@@ -42,11 +50,12 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+            @endforeach
+        </div>
         {{ $positions->links() }}
     </div>
-    <div class="addPositionsBox">
-        <form method="POST" action="{{ route('position-management.store') }}">
+    <div class="addPositionsBox d-flex justify-content-center align-items-center">
+        <form class="d-flex flex-column justify-content-between" method="POST" action="{{ route('position-management.store') }}">
             @csrf
             <div class="position">
                 <label for="positionName">{{ __('役職名') }}</label>
@@ -56,7 +65,7 @@
                 <label for="rank">{{__('権威レベル')}}</label>
                 <input id="rank" type="number" name="rank" value="{{ old('rank') }}" required>
             </div>
-            <div class="createButton">
+            <div class="createButton text-center">
                 <button type="submit">
                     {{ __('作成') }}
                 </button>

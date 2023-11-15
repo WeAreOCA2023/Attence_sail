@@ -390,11 +390,12 @@ main {
         background-color: v.$white;
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
         .title{
+            width: 6.3vw;
             margin-top: 5px;
             margin-left: 13px;
             h2{
-                @include m.fz(30);
-                margin-left: 4px;
+                @include m.fz(35);
+                margin-left: 8px;
                 vertical-align: middle;
             }
         }
@@ -459,13 +460,41 @@ main {
         border-radius: v.$round-40;
         background-color: v.$white;
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+
         .title{
+            width: 6.3vw;
+            margin-top: 5px;
+            margin-left: 13px;
             h2{
-                @include m.fz(30);
-                margin-left: 4px;
+                @include m.fz(35);
+                margin-left: 8px;
                 vertical-align: middle;
             }
+            img{
+                width: 2vw;
+            }
         }
+
+        .positionOuterBox{
+            gap: 1.5vh;
+            .positionInnerBox{
+                width: 80%;
+                height: 4vh;
+                background-color: v.$whiteGray;
+                border-radius: v.$round-10;
+                box-shadow: 3px 3px 3px rgba(15, 20, 25, 0.25);
+                h3{
+                    @include m.fz(20);
+                }
+                .drag img{
+                    width: 2.2vw;
+                }
+                .content{
+                    width: 40vw;
+                }
+            }
+        }
+
         .deleteBtn{
             cursor: pointer;
         }
@@ -475,6 +504,41 @@ main {
         border-radius: v.$round-40;
         background-color: v.$white;
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+        form{
+            height: 60vh;
+        }
+        .position, .rank{
+            width: fit-content;
+            height: 10vh;
+            label{
+                @include m.fz(20);
+            }
+            input{
+                @include m.fz(25);
+                border: none;
+                outline: none;
+                background-color: v.$white;
+                border-bottom: 1px solid v.$black;
+                padding: 5% 5%;
+            }
+        }
+        .createButton{
+            button{
+                width: 4.5vw;
+                @include m.fz(30);
+                border: none;
+                outline: none;
+                color: v.$white;
+                background-color: v.$darkGray;
+                padding: 3%;
+                border-radius: v.$round-10;
+            }
+            button:hover{
+                transition: .5s;
+                color: v.$darkGray;
+                background-color: rgb(175, 173, 173);
+            }
+        }
     }
 }
 
