@@ -12,6 +12,18 @@ use App\Models\AllWorkHours;
 
 class HomeController extends Controller
 {
+    function defaultCheck(){
+        if (count(AllWorkHours::where('user_id', Auth::user()->id)->get()) == 0){
+            $allUpdate = new AllWorkHours([
+                'user_id' => Auth::user()->id,
+                'weekly_total_work_hours' => 0,
+                'monthly_total_work_hours' => 0,
+                'yearly_total_work_hours' => 0,
+                'total_over_work_hours' => 0,
+            ]);
+            $allUpdate->save();
+        }
+    }
     //１週間の合計時間を計算する関数
     function getWeeklyHours(){
         $allTest = DailyWorkHours::where('user_id', Auth::user()->id)->get();
@@ -27,28 +39,28 @@ class HomeController extends Controller
     // 週が終わった時の処理 ↓
     function weeklyProcess(int $WeeklyTotalSec){
         // AllWorkHoursを取得
-        $userAllWork = AllWorkHours::where('user_id', Auth::user()->id)->get();
-        //allWorkHoursがなかった時にのデータを追加 ↓
-        if (count($userAllWork) == 0){
-            $allUpdate = new AllWorkHours([
-                'user_id' => Auth::user()->id,
-                'weekly_total_work_hours' => $WeeklyTotalSec,
-                'monthly_total_work_hours' => $WeeklyTotalSec,
-            ]);
-            $allUpdate->save();
-            DailyWorkHours::where('user_id', Auth::user()->id)->delete();
-        }else{
-            //現在の月の合計時間を取得&加算 ↓
-            $currentMonthHour = $userAllWork[0]->monthly_total_work_hours;
-            $newMonthHour = $currentMonthHour + $WeeklyTotalSec;
-            //この下でallWorkHoursにデータを追加↓
-            $allUpdate = AllWorkHours::where('user_id', Auth::user()->id)->first();
-            $allUpdate->weekly_total_work_hours = $WeeklyTotalSec;
-            $allUpdate->monthly_total_work_hours = $newMonthHour;
-            $allUpdate->save();
-            //dailyWorkHoursのデータを削除↓
-            DailyWorkHours::where('user_id', Auth::user()->id)->delete();
-        }
+        $userAllWork = AllWorkHours::where('user_id', Auth::user()->id)->first();
+        //現在の月の合計時間を取得&加算 ↓
+        $currentMonthHour = $userAllWork->monthly_total_work_hours;
+        $newMonthHour = $currentMonthHour + $WeeklyTotalSec;
+        //この下でallWorkHoursにデータを追加↓
+//        $allUpdate = AllWorkHours::where('user_id', Auth::user()->id)->first();
+        $userAllWork->weekly_total_work_hours = $WeeklyTotalSec;
+        $userAllWork->monthly_total_work_hours = $newMonthHour;
+        $userAllWork->save();
+        //dailyWorkHoursのデータを削除↓
+        DailyWorkHours::where('user_id', Auth::user()->id)->delete();
+    }
+
+    //一ヶ月が終わった時の処理
+    function monthlyProcess(){
+        $userAllWork = AllWorkHours::where('user_id', Auth::user()->id)->first();
+        // 今年の合計時間を更新
+        $currentYearHour = $userAllWork->yearly_total_work_hours;
+        $newYearHour = $currentYearHour + $userAllWork->monthly_total_work_hours;
+        $userAllWork->monthly_total_work_hours = 0;
+        $userAllWork->yearly_total_work_hours = $newYearHour;
+        $userAllWork->save();
     }
 
     /**
@@ -56,25 +68,17 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $this->defaultCheck(); //関数呼び出し(初期チェック)
         $flag = count(DailyWorkHours::where('user_id', Auth::user()->id)->get());
         if ($flag == 0){return view('home');} //カラムがあるかどうかのチェック
-        // 関数呼び出し ↓
-        $WeeklyTotalSec = $this->getWeeklyHours();
-        if (date('w') == "3"){
-            // 関数呼び出し ↓
-            $this->weeklyProcess($WeeklyTotalSec);
+        $WeeklyTotalSec = $this->getWeeklyHours(); // 関数呼び出し
+        //特定の曜日だった時の処理 ↓
+        if (date('w') == "2"){
+            $this->weeklyProcess($WeeklyTotalSec); //関数呼び出し
         }
-        //ここから ↓ に月が変わった時の処理を書く
-//        if (date('d') == "01"){
-//            //一年の初期値を決める
-//            $yearlyTotalSec = 0;
-//            $userAllWork = AllWorkHours::where('user_id', Auth::user()->id)->get();
-//            if(count($userAllWork) == 0){
-//
-//            }else{
-//
-//            }
-//        }
+        if (date('d' ) == "15"){
+            $this->monthlyProcess(); //関数呼び出し
+        }
         return view('home');
     }
 
