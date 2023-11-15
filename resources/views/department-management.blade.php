@@ -3,7 +3,7 @@
 @section('content')
 <div class="departmentManagement d-flex justify-content-center h-100 mx-auto py-4">
     <div class="allDepartmentsBox">
-        <div class="title d-flex mb-4">
+        <div class="title d-flex justify-content-between mb-4">
             <img src="{{ asset('img/department.svg') }}" alt="department icon">
             <h2 class="m-0">部署</h2>
         </div>
@@ -64,7 +64,7 @@
     </table>
         {{ $departments->links() }}
     </div>
-    <div class="addDepartmentsBox d-flex justify-content-center align-items-center ">
+    <div class="addDepartmentsBox d-flex justify-content-center align-items-center">
         <form class="d-flex flex-column justify-content-between" method="POST" action="{{ route('department-management.store') }}">
             @csrf
             <div class="department">
