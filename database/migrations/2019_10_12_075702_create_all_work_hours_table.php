@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('all_work_hours', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('user_logins');
-            $table->dateTime('weekly_total_work_hours');
-            $table->dateTime('monthly_total_work_hours');
-            $table->dateTime('yearly_total_work_hours');
-            $table->dateTime('total_over_work_hours');
+            $table->integer('weekly_total_work_hours');
+            $table->integer('monthly_total_work_hours');
+            $table->integer('yearly_total_work_hours');
+            $table->integer('total_over_work_hours');
             $table->timestamps();
         });
     }
