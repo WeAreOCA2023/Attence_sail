@@ -39,7 +39,7 @@
                     <h3 class="m-0">役職:{!! $position_name !!}</h3>
                     <h3 class="m-0">部署:{!! $department_name !!}</h3>
                     <h3 class="m-0">36協定:{!! $agreement36 !!}</h3>
-                    <h3 class="m-0">変形時間労働制:</h3>
+                    <h3 class="m-0">変形時間労働制:{!! $variable_working_hours_system !!}</h3>
                 </div>
             </div>
             <div class="upperRightBottomBox d-flex flex-column items-center justify-content-center">
@@ -73,10 +73,10 @@
                         <div class="agreement36Input">
                             <label for="companyName">{{ __('36協定') }}</label>
                             <select class="form-select" aria-label="Agreement 36" name="agreement36">
-                                <option selected value="unset">未選択</option>
-                                <option value="agreed">有り</option>
-                                <option value="special">特別条項付き36協定</option>
-                                <option value="declined">無し</option>
+                                <option selected value="0">未選択</option>
+                                <option value="1">有り</option>
+                                <option value="2">特別条項付き36協定</option>
+                                <option value="3">無し</option>
                             </select>
                         </div>
                     </div>
@@ -84,9 +84,9 @@
                         <label for="variableWorkingHoursSystem">{{ __('変形時間労働制') }}</label>
                         <div class="variableWorkingHoursSystemInput">
                             <select class="form-select" aria-label="Variable Working Hours System" name="variableWorkingHoursSystem">
-                                <option selected value="unset">未選択</option>
-                                <option value="agreed">有り</option>
-                                <option value="declined">無し</option>
+                                <option selected value="0">未選択</option>
+                                <option value="1">有り</option>
+                                <option value="2">無し</option>
                             </select>
                         </div>
                     </div>
