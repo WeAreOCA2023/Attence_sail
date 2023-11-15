@@ -8,6 +8,7 @@ use JetBrains\PhpStorm\NoReturn;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\DailyWorkHours;
+use App\Models\AllWorkHours;
 
 class HomeController extends Controller
 {
@@ -16,18 +17,29 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $allTest = DailyWorkHours::where('user_id', Auth::user()->id)->get();
-
-        $totalSec = 0;
-        foreach ($allTest as $test){
-            $totalSec += $test->worked_hours;
+        //週が変わったら行う処理 ↓
+        $flag = count(DailyWorkHours::where('user_id', Auth::user()->id)->get());
+//        dd($flag);
+        if ($flag != 0){
+            $allTest = DailyWorkHours::where('user_id', Auth::user()->id)->get();
+            if (date('w') == "3"){
+                //１週間の合計時間の初期値設定 ↓
+                $WeeklyTotalSec = 0;
+                //１週間の合計時間の計算
+                foreach ($allTest as $test){
+                    $WeeklyTotalSec += $test->worked_hours;
+                }
+                //この下でallWorkHoursにデータを追加↓
+                $allUpdate = new AllWorkHours([
+                    'user_id' => Auth::user()->id,
+                    'weekly_total_work_hours' => $WeeklyTotalSec,
+                ]);
+                $allUpdate->save();
+                //dailyWorkHoursのデータを削除↓
+                DailyWorkHours::where('user_id', Auth::user()->id)->delete();
+            }
         }
-        $totalHours = date('H:i:s', $totalSec / 1000);
-        $test = date('H:i:s', strtotime($totalHours. ' -9 hours'));
-//        dd($test);
-        return view('home',[
-            'finalHours' => $test
-        ]);
+        return view('home');
     }
 
     /**
