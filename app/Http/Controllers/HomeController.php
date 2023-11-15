@@ -18,28 +18,15 @@ class HomeController extends Controller
     {
         $allTest = DailyWorkHours::where('user_id', Auth::user()->id)->get();
 
-        $Date = date("Y-m-d");
-        $InTime = $Date." 10:00:00";
-        $OutTime = $Date." 18:00:00";
-
-        $WorkTime = (strtotime($OutTime) - strtotime($InTime))/3600;
-
-        $base = date("H:i:s", strtotime("00:00:00"));
-//        $base = "00:00:00" . $format;
-//        dd(gettype($format));
-        $testList = [];
+        $totalSec = 0;
         foreach ($allTest as $test){
-            $getData = $test->worked_hours;
-//            $testList[] = $getData;
-            $base = strtotime($base) + strtotime($getData);
-//            $base = date("H:i:s", $base);
-            $base = date($base, strtotime('-9 hours'));
-            $testList[] = $base;
+            $totalSec += $test->worked_hours;
         }
-        dd($testList);
-        $base = date("H:i:s", $base);
+        $totalHours = date('H:i:s', $totalSec / 1000);
+        $test = date('H:i:s', strtotime($totalHours. ' -9 hours'));
+//        dd($test);
         return view('home',[
-            'finalHours' => $base
+            'finalHours' => $test
         ]);
     }
 
@@ -61,17 +48,17 @@ class HomeController extends Controller
 
         $currentDate = date("Y-m-d");
         $workHours = abs($data->elapsed_time);
-        $newHours = date("H:i:s", $workHours / 1000);
-        $finalHours = date('H:i:s', strtotime($newHours. ' -9 hours'));
+//        $newHours = date("H:i:s", $workHours / 1000);
+//        $finalHours = date('H:i:s', strtotime($newHours. ' -9 hours'));
 
 
-        echo json_encode($finalHours);
+        echo json_encode($workHours);
 
         // ここでデータベースに保存するなどの処理を行う
         $dailyWork = new DailyWorkHours([
             'user_id' => Auth::user()->id,
             'worked_at' => $currentDate,
-            'worked_hours' => $finalHours
+            'worked_hours' => $workHours
         ]);
         $dailyWork->save();
 
