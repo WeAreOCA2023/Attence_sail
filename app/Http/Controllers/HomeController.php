@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use JetBrains\PhpStorm\NoReturn;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,31 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $allTest = DailyWorkHours::where('user_id', Auth::user()->id)->get();
+
+        $Date = date("Y-m-d");
+        $InTime = $Date." 10:00:00";
+        $OutTime = $Date." 18:00:00";
+
+        $WorkTime = (strtotime($OutTime) - strtotime($InTime))/3600;
+
+        $base = date("H:i:s", strtotime("00:00:00"));
+//        $base = "00:00:00" . $format;
+//        dd(gettype($format));
+        $testList = [];
+        foreach ($allTest as $test){
+            $getData = $test->worked_hours;
+//            $testList[] = $getData;
+            $base = strtotime($base) + strtotime($getData);
+//            $base = date("H:i:s", $base);
+            $base = date($base, strtotime('-9 hours'));
+            $testList[] = $base;
+        }
+        dd($testList);
+        $base = date("H:i:s", $base);
+        return view('home',[
+            'finalHours' => $base
+        ]);
     }
 
     /**
