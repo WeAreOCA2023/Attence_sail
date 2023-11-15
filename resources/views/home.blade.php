@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="extraWorkList bg-white">
-                <h1>{{ $finalHours }}</h1>
+{{--                <h1>{{ $finalHours }}</h1>--}}
             </div>
             <div class="workHourList bg-white">
 
