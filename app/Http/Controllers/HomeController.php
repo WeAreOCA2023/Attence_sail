@@ -12,6 +12,11 @@ use App\Models\AllWorkHours;
 
 class HomeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     function defaultCheck(){
         if (count(AllWorkHours::where('user_id', Auth::user()->id)->get()) == 0){
             $allUpdate = new AllWorkHours([
