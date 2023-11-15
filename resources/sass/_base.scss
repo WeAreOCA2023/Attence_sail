@@ -434,7 +434,8 @@ main {
         }
         .createButton{
             button{
-                width: 4.5vw;
+                width: 8vw;
+                padding: 10%;
                 @include m.fz(30);
                 border: none;
                 outline: none;
@@ -507,8 +508,19 @@ main {
         form{
             height: 60vh;
         }
+        .success{
+            color: v.$green;
+            font-weight: map-get(v.$font-weight, 1);
+            @include m.fz(18);
+        }
+        .error{
+            color: v.$red;
+            font-weight: map-get(v.$font-weight, 1);
+            @include m.fz(18);
+        }
         .position, .rank{
             width: fit-content;
+            margin: 0 auto;
             height: 10vh;
             label{
                 @include m.fz(20);
@@ -524,7 +536,8 @@ main {
         }
         .createButton{
             button{
-                width: 4.5vw;
+                width: 8vw;
+                padding: 10%;
                 @include m.fz(30);
                 border: none;
                 outline: none;
@@ -672,7 +685,6 @@ main {
             color: v.$red;
             font-weight: map-get(v.$font-weight, 1);
             @include m.fz(15);
-
         }
         .saveButton{
             button{

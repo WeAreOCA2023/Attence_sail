@@ -51,21 +51,37 @@
                 </div>
             </div>
             @endforeach
+            {{ $positions->links() }}
         </div>
-        {{ $positions->links() }}
     </div>
     <div class="addPositionsBox d-flex justify-content-center align-items-center">
         <form class="d-flex flex-column justify-content-between" method="POST" action="{{ route('position-management.store') }}">
             @csrf
             <div class="position">
-                <label for="positionName">{{ __('役職名') }}</label>
+                @if(session('success'))
+                    <div class="success d-block text-center">
+                        <strong>{{ session('success') }}</strong>
+                    </div>
+                @endif
+                <label class="d-block" for="positionName">{{ __('役職名') }}</label>
                 <input id="positionName" type="text" name="positionName" value="{{ old('positionName') }}" required autocomplete="positionName" autofocus>
+                @error ('positionName')
+                    <span class="error d-block text-center" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
+
             <div class="rank">
-                <label for="rank">{{__('権威レベル')}}</label>
-                <input id="rank" type="number" name="rank" value="{{ old('rank') }}" required>
+                <label class="d-block" for="rank">{{ __('権威レベル (0~100の範囲)') }}</label>
+                <input id="rank" type="text" name="rank" value="{{ old('rank') }}" required>
+                @error ('rank')
+                    <span class="error d-block text-center" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
-            <div class="createButton text-center">
+            <div class="createButton d-block text-center">
                 <button type="submit">
                     {{ __('作成') }}
                 </button>
