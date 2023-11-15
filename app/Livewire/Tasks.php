@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Task as TaskModel;
+use App\Models\User;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
@@ -24,7 +25,10 @@ class Tasks extends Component
     public $deadline;
     public $done_at;
 
-
+// 検索クエリ
+    public $search = "";
+    // 検索結果
+    public $results = [];
     #[On('showTaskCreate')]
     public function showTaskCreate()
     {
@@ -59,6 +63,13 @@ class Tasks extends Component
     }
     public function render()
     {
+        if (strlen($this->search) >= 1) {
+            $this->results = User::where(function ($query) {
+                $query->where('full_name', 'like', '%' . $this->search . '%')
+                    ->orWhere('user_name', 'like', '%' . $this->search . '%');
+            })->get();
+        }
+
         // ログインユーザーに関連づけられたタスクを取得
         $this->tasks = TaskModel::where('assigner_id', auth()->id())->get();
 
