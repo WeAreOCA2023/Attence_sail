@@ -86,11 +86,15 @@ class AppServiceProvider extends ServiceProvider
                 $agreement36 = '<span>' . '有り' . '</span>';
             } elseif ($users->agreement_36 == 2) {
                 $agreement36 = '<span>' . '無し' . '</span>';
-            } 
+            } else {
+                $agreement36 = '<span class="unset">' . '未設定' . '</span>';
+            }
             if ($users->variable_working_hours_system == 1) {
                 $variable_working_hours_system = '<span>' . '有り' . '</span>';
             } elseif ($users->variable_working_hours_system == 2) {
                 $variable_working_hours_system = '<span>' . '無し' . '</span>';
+            } else {
+                $variable_working_hours_system = '<span class="unset">' . '未設定' . '</span>';
             }
             $view->with([
                 'user_name' => $user_name,
