@@ -6,17 +6,21 @@ use Livewire\Component;
 use App\Models\Transaction;
 use Livewire\WithPagination;
 use App\Models\User;
-use App\Models\UserLogin;
+use App\Models\Department;
 
 class SearchName2 extends Component
 {
-    use WithPagination;
-    public $search_user = '';
+    // 検索クエリ
+    public $search = "";
     // 検索結果
+    public $results = [];
 
-   
     public function render()
     {
+        if (strlen($this->search)) {
+            $this->results = User::where('full_name', 'like', '%' . $this->search . '%')->get();
+        } 
 
+        return view('livewire.search-fullname2');
     }
 }
