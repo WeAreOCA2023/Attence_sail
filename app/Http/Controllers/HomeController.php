@@ -38,7 +38,9 @@ class HomeController extends Controller
         foreach ($allTest as $test){
             $WeeklyTotalSec += $test->worked_hours;
         }
-        return ($WeeklyTotalSec);
+
+        $allWork = AllWorkHours::where('user_id', Auth::user()->id)->first();
+        $totalWeekHour = $allWork->weekly_total_work_hours;
     }
 
     // 週が終わった時の処理 ↓
