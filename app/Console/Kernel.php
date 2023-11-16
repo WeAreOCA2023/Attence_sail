@@ -3,8 +3,11 @@
 namespace App\Console;
 
 use App\Http\Controllers\HomeController;
+use App\Models\AllWorkHours;
+use App\Models\WeeklyWorkHours;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Auth;
 
 class Kernel extends ConsoleKernel
 {
@@ -14,8 +17,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('inspire')->everyFiveSeconds();
-        $schedule->call(fn () => HomeController::testFunc())->everyFiveSeconds();
-        $schedule->call(fn () => HomeController::weeklyProcess())->weeklyOn(4, '15:57');
+//        $schedule->call(fn () => HomeController::testFunc())->everyFiveSeconds();
+        $schedule->call(fn () => HomeController::weeklyProcess())->weeklyOn(4, '17:48');
+//        $schedule->call('App\Http\Controllers\HomeController@weeklyProcess')->weeklyOn(4, '17:35');
+
     }
 
     /**
