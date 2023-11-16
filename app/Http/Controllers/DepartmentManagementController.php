@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\UserLogin;
 use App\Models\Department;
 
 
@@ -21,16 +23,32 @@ class DepartmentManagementController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'departmentName' => 'required',
-            'bossName' => 'required'
+        $validator = Validator::make($request->all(), [
+            'departmentName' => ['required', 'max:128', 'unique:department,department_name'],
+            'bossEmail' => ['required']
+        ], [
+            'departmentName.required' => '部署名は必須です。',
+            'departmentName.max' => '部署名は128文字以内で入力してください。',
+            'departmentName.unique' => 'その部署名は既に登録されています。',
+            'bossEmail.required' => '責任者メールアドレスは必須です。',
         ]);
-        // Userテーブルからフルネームが一致するレコードを取得
-        $users = User::where('full_name', $request->get('bossName'))->first();
 
-        if (!$users) {
+        if ($validator->fails()) {
+            return redirect('/department-management')->withErrors($validator)->withInput();
+        }
+        // UserLoginテーブルからEmailが一致するレコードを取得
+        $user_logins = UserLogin::where('email', $request->get('bossEmail'))->first();
+        if ($user_logins == null) {
             return redirect('/department-management')->with('error', 'You are not responsible for this department!');
         }
+        $boss_id = $user_logins->id;
+        $boss_email = $user_logins->email;
+
+        // Usersテーブルからuser_idが一致するレコードを取得
+        $users = User::where('user_id', $boss_id)->first();
+        $boss_full_name = $users->full_name;
+
+
 
         $department = new Department ([
             'department_name' => $request->get('departmentName'),

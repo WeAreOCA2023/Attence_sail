@@ -417,6 +417,16 @@ main {
         form{
             height: 60vh;
         }
+        .success{
+            color: v.$green;
+            font-weight: map-get(v.$font-weight, 1);
+            @include m.fz(18);
+        }
+        .error{
+            color: v.$red;
+            font-weight: map-get(v.$font-weight, 1);
+            @include m.fz(18);
+        }
         .department, .responsible{
             width: fit-content;
             height: 10vh;
@@ -430,6 +440,22 @@ main {
                 background-color: v.$white;
                 border-bottom: 1px solid v.$black;
                 padding: 5% 5%;
+            }
+            .responsibleInput{
+                ul{
+                    width: 100%;
+                    li{
+                        @include m.fz(20);
+                        background-color: v.$white;
+                        color: v.$black;
+                    }
+                    li:hover{
+                        cursor: pointer;
+                        transition: .5s;
+                        background-color: v.$black;
+                        color: v.$white;
+                    }
+                }
             }
         }
         .createButton{

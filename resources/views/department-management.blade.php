@@ -17,11 +17,11 @@
                 </tr>
             </thead>
             <tbody>
-        @foreach ($departments as $department)
+            @foreach ($departments as $department)
                 @php
                     $users_table = DB::table('users')->where('user_id', $department->boss_id)->first();
                     $user_logins_table = DB::table('user_logins')->where('id', $users_table->user_id)->first();
-                @endphp
+            @endphp
             </tbody>
                 <tr>
                     <td>{{ $department->department_name }}</td>
@@ -68,11 +68,21 @@
         <form class="d-flex flex-column justify-content-between" method="POST" action="{{ route('department-management.store') }}">
             @csrf
             <div class="department">
-                <label for="departmentName">{{ __('部署名') }}</label>
-                <input id="departmentName" type="text" name="departmentName" value="{{ old('departmentName') }}" required autocomplete="departmentName" autofocus>
+                <label class="d-block" for="departmentName">{{ __('部署名') }}</label>
+                <input id="departmentName" type="text" name="departmentName" value="{{ old('departmentName') }}" autocomplete="departmentName" autofocus>
+                @error ('departmentName')
+                    <span class="error d-block text-center" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             
             <livewire:SearchName2 />
+                @error ('bossEmail')
+                    <span class="error d-block text-center" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
 
             <div class="createButton d-block text-center">
                 <button type="submit">
@@ -82,4 +92,6 @@
         </form>
     </div>
 </div>
+
+
 @endsection
