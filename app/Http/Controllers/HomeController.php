@@ -16,7 +16,7 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     function defaultCheck(){
         if (count(AllWorkHours::where('user_id', Auth::user()->id)->get()) == 0){
             $allUpdate = new AllWorkHours([
@@ -74,16 +74,6 @@ class HomeController extends Controller
     public function index()
     {
         $this->defaultCheck(); //関数呼び出し(初期チェック)
-        $flag = count(DailyWorkHours::where('user_id', Auth::user()->id)->get());
-        if ($flag == 0){return view('home');} //カラムがあるかどうかのチェック
-        $WeeklyTotalSec = $this->getWeeklyHours(); // 関数呼び出し
-        //特定の曜日だった時の処理 ↓
-        if (date('w') == "2"){
-            $this->weeklyProcess($WeeklyTotalSec); //関数呼び出し
-        }
-        if (date('d' ) == "15"){
-            $this->monthlyProcess(); //関数呼び出し
-        }
         return view('home');
     }
 
@@ -113,6 +103,19 @@ class HomeController extends Controller
 
         echo json_encode($workHours);
 
+        $userAllWork = AllWorkHours::where('user_id', Auth::user()->id)->first();
+        // 今年の合計時間を更新
+        $currentWeeklyHour = $userAllWork->weekly_total_work_hours;
+        $currentMonthlyHour = $userAllWork->monthly_total_work_hours;
+        $currentYearlyHour = $userAllWork->yearly_total_work_hours;
+        $newWeeklyHour = $currentWeeklyHour + $workHours;
+        $newMonthlyHour = $currentMonthlyHour + $workHours;
+        $newYearlyHour = $currentYearlyHour + $workHours;
+        $userAllWork->weekly_total_work_hours = $newWeeklyHour;
+        $userAllWork->monthly_total_work_hours = $newMonthlyHour;
+        $userAllWork->yearly_total_work_hours = $newYearlyHour;
+        $userAllWork->save();
+
         // ここでデータベースに保存するなどの処理を行う
         $dailyWork = new DailyWorkHours([
             'user_id' => Auth::user()->id,
@@ -120,6 +123,7 @@ class HomeController extends Controller
             'worked_hours' => $workHours
         ]);
         $dailyWork->save();
+
 
 //        return redirect('/home');
         // echoすると返せる
