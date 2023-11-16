@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use JetBrains\PhpStorm\NoReturn;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\DailyWorkHours;
-use App\Models\AllWorkHours;
 
 class HomeController extends Controller
 {
@@ -16,18 +16,10 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
-    
-    function defaultCheck(){
-        if (count(AllWorkHours::where('user_id', Auth::user()->id)->get()) == 0){
-            $allUpdate = new AllWorkHours([
-                'user_id' => Auth::user()->id,
-                'weekly_total_work_hours' => 0,
-                'monthly_total_work_hours' => 0,
-                'yearly_total_work_hours' => 0,
-                'total_over_work_hours' => 0,
-            ]);
-            $allUpdate->save();
-        }
+
+    public static function testFunc(): void
+    {
+        echo 'testFuncが呼ばれた！';
     }
     //１週間の合計時間を計算する関数
     function getWeeklyHours(){
@@ -40,50 +32,11 @@ class HomeController extends Controller
         }
         return ($WeeklyTotalSec);
     }
-
-    // 週が終わった時の処理 ↓
-    function weeklyProcess(int $WeeklyTotalSec){
-        // AllWorkHoursを取得
-        $userAllWork = AllWorkHours::where('user_id', Auth::user()->id)->first();
-        //現在の月の合計時間を取得&加算 ↓
-        $currentMonthHour = $userAllWork->monthly_total_work_hours;
-        $newMonthHour = $currentMonthHour + $WeeklyTotalSec;
-        //この下でallWorkHoursにデータを追加↓
-//        $allUpdate = AllWorkHours::where('user_id', Auth::user()->id)->first();
-        $userAllWork->weekly_total_work_hours = $WeeklyTotalSec;
-        $userAllWork->monthly_total_work_hours = $newMonthHour;
-        $userAllWork->save();
-        //dailyWorkHoursのデータを削除↓
-        DailyWorkHours::where('user_id', Auth::user()->id)->delete();
-    }
-
-    //一ヶ月が終わった時の処理
-    function monthlyProcess(){
-        $userAllWork = AllWorkHours::where('user_id', Auth::user()->id)->first();
-        // 今年の合計時間を更新
-        $currentYearHour = $userAllWork->yearly_total_work_hours;
-        $newYearHour = $currentYearHour + $userAllWork->monthly_total_work_hours;
-        $userAllWork->monthly_total_work_hours = 0;
-        $userAllWork->yearly_total_work_hours = $newYearHour;
-        $userAllWork->save();
-    }
-
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $this->defaultCheck(); //関数呼び出し(初期チェック)
-        $flag = count(DailyWorkHours::where('user_id', Auth::user()->id)->get());
-        if ($flag == 0){return view('home');} //カラムがあるかどうかのチェック
-        $WeeklyTotalSec = $this->getWeeklyHours(); // 関数呼び出し
-        //特定の曜日だった時の処理 ↓
-        if (date('w') == "2"){
-            $this->weeklyProcess($WeeklyTotalSec); //関数呼び出し
-        }
-        if (date('d' ) == "15"){
-            $this->monthlyProcess(); //関数呼び出し
-        }
         return view('home');
     }
 
