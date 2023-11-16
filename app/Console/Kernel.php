@@ -14,8 +14,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('inspire')->everyFiveSeconds();
-//        $schedule->call(fn () => HomeController::testFunc())->everyFiveSeconds();
-        $schedule->call(fn () => HomeController::weeklyProcess())->weeklyOn(4, '15:51');
+        $schedule->call(fn () => HomeController::testFunc())->everyFiveSeconds();
+        $schedule->call(fn () => HomeController::weeklyProcess())->weeklyOn(4, '15:57');
     }
 
     /**

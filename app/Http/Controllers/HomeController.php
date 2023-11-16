@@ -18,7 +18,12 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    function defaultCheck(){
+    public static function testFunc():void
+    {
+        echo "testFuncが呼ばれたよ！";
+    }
+
+    function defaultCheck(): void{
         if (count(AllWorkHours::where('user_id', Auth::user()->id)->get()) == 0){
             $allUpdate = new AllWorkHours([
                 'user_id' => Auth::user()->id,
@@ -46,6 +51,22 @@ class HomeController extends Controller
         $weeklyWork->save();
     }
 
+//    function testWeekly(): void
+//    {
+//        $allWork = AllWorkHours::where('user_id', Auth::user()->id)->first();
+//        $totalWeekHour = $allWork->weekly_total_work_hours;
+//        $allWork->weekly_total_work_hours = 0;
+//        $allWork->save();
+//
+//        $weeklyWork = new WeeklyWorkHours([
+//            'user_id' => Auth::user()->id,
+//            'weekly_at' => date("Y-m-d"),
+//            'worked_hours' => $totalWeekHour,
+//        ]);
+//        $weeklyWork->save();
+//        echo 'success';
+//    }
+
 
 
     //一ヶ月が終わった時の処理
@@ -65,6 +86,7 @@ class HomeController extends Controller
     public function index()
     {
         $this->defaultCheck(); //関数呼び出し(初期チェック)
+//        $this->testWeekly();
         return view('home');
     }
 
