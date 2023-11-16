@@ -8,46 +8,49 @@ class AgreementConstants
     * 36協定も変形時間労働制も合意していない、法定労働時間(労働基準法第32条)
     */
     // 1日の上限は40時間
-    const DEFAULT_DAILY_LIMIT = 8;
+    const DEFAULT_DAILY_LIMIT = 8; //働いてる時間limit
 
     // 1週間の上限は40時間
-    const DEFAULT_WEEKLY_LIMIT = 40;
+    const DEFAULT_WEEKLY_LIMIT = 40; //働いてる時間limit
 
 
     /**
     * 36協定を締結している場合
     */
     // 月の時間外労働の合計上限時間
-    const MONTHLY_OVERTIME_LIMIT = 45;
+    const MONTHLY_OVERTIME_LIMIT = 45; //overworkのlimit
 
     // 年の時間外労働の合計上限時間
-    const YEARLY_OVERTIME_LIMIT = 360;
+    const YEARLY_OVERTIME_LIMIT = 360; //overworkのlimit
 
 
     /**
     * 特別条項付き36協定を締結している場合
     */
     // 年の時間外労働の合計上限時間
-    const SPECIAL_YEARLY_OVERTIME_LIMIT = 720;
-    
+    const SPECIAL_YEARLY_OVERTIME_LIMIT = 720; //overworkのlimit
+
     // 「時間外労働+休日労働」の合計が1ヵ月100時間未満
-    const SPECIAL_MONTHLY_TOTAL_LIMIT = 100;
+    const SPECIAL_MONTHLY_TOTAL_LIMIT = 100;  //overworkのlimit
 
     // 時間外労働が月45時間を超えられる上限回数
-    const OVERTIME_EXCEEDANCE_LIMIT = 6;
+    const OVERTIME_EXCEEDANCE_LIMIT = 6; //破った回数
 
     // 「時間外労働+休日労働」の合計が「2ヵ月」「3ヵ月」「4ヵ月」「5ヵ月」「6ヵ月」のどこの平均をとってもすべて1ヵ月当たり80時間以内
-    const AVERAGE_TOTAL_LIMIT = 80;
+    const AVERAGE_TOTAL_LIMIT = 80; //overworkの平均
 
+    // ------------------------------------------------------------------------------
 
     /**
     * 1週間単位の変形時間労働制を締結している場合
     */
     // 1日の労働時間の上限
-    const WEEKLY_VARIABLE_DAILY_LIMIT = 10;
+    const WEEKLY_VARIABLE_DAILY_LIMIT = 10; //働いてる時間limit
 
     // 1週間の労働時間の上限
-    const WEEKLY_VARIABLE_WEEKLY_LIMIT = 40;
+    const WEEKLY_VARIABLE_WEEKLY_LIMIT = 40; //働いてる時間limit
+
+
 
 
     /**
@@ -59,7 +62,7 @@ class AgreementConstants
 
     /**
     * 1年単位の変形時間労働制を締結している場合
-    */  
+    */
     // 1日の労働時間の上限
     const YEALY_VARIABLE_DAILY_LIMIT = 10;
 
