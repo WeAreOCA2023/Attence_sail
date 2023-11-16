@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\WeeklyWorkHours;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use JetBrains\PhpStorm\NoReturn;
@@ -29,35 +30,23 @@ class HomeController extends Controller
             $allUpdate->save();
         }
     }
-    //１週間の合計時間を計算する関数
-    function getWeeklyHours(){
-        $allTest = DailyWorkHours::where('user_id', Auth::user()->id)->get();
-        //１週間の合計時間の初期値設定 ↓
-        $WeeklyTotalSec = 0;
-        //１週間の合計時間の計算
-        foreach ($allTest as $test){
-            $WeeklyTotalSec += $test->worked_hours;
-        }
-
+    // 週が終わった時の処理 ↓
+    public static function weeklyProcess(): void
+    {
         $allWork = AllWorkHours::where('user_id', Auth::user()->id)->first();
         $totalWeekHour = $allWork->weekly_total_work_hours;
+        $allWork->weekly_total_work_hours = 0;
+        $allWork->save();
+
+        $weeklyWork = new WeeklyWorkHours([
+            'user_id' => Auth::user()->id,
+            'weekly_at' => date("Y-m-d"),
+            'worked_hours' => $totalWeekHour,
+        ]);
+        $weeklyWork->save();
     }
 
-    // 週が終わった時の処理 ↓
-    function weeklyProcess(int $WeeklyTotalSec){
-        // AllWorkHoursを取得
-        $userAllWork = AllWorkHours::where('user_id', Auth::user()->id)->first();
-        //現在の月の合計時間を取得&加算 ↓
-        $currentMonthHour = $userAllWork->monthly_total_work_hours;
-        $newMonthHour = $currentMonthHour + $WeeklyTotalSec;
-        //この下でallWorkHoursにデータを追加↓
-//        $allUpdate = AllWorkHours::where('user_id', Auth::user()->id)->first();
-        $userAllWork->weekly_total_work_hours = $WeeklyTotalSec;
-        $userAllWork->monthly_total_work_hours = $newMonthHour;
-        $userAllWork->save();
-        //dailyWorkHoursのデータを削除↓
-        DailyWorkHours::where('user_id', Auth::user()->id)->delete();
-    }
+
 
     //一ヶ月が終わった時の処理
     function monthlyProcess(){
