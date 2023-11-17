@@ -26,16 +26,11 @@
                         @error('title') <span>{{ $message }}</span> @enderror
                     </label>
                     <label>
-                        <input wire:model.live.debounce.500ms="search" id="search" name="search" placeholder="キーワード" type="search">
-                        @if (strlen($search) > 0)
-                            <ul>
-                                @foreach ($users as $user)
-                                    <li class="flex-center break-all p-4">
-                                        <span>{{$user->full_name}}</span>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @endif
+                        <select class="userSelect" name="users[]" multiple="multiple">
+                            @foreach($users as $user)
+                                <option value="">{{ $user->full_name }}</option>
+                            @endforeach
+                        </select>
                     </label>
                     <label class="d-block deadline">
                         <span>期限</span>
@@ -66,3 +61,12 @@
         @endif
     </div>
 </div>
+<script>
+    document.addEventListener('livewire:initialized', () => {
+        Livewire.on('buttonClicked', () => {
+            $(document).ready(function() {
+                $('.userSelect').select2();
+            });
+        })
+    })
+</script>
