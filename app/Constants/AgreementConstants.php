@@ -4,6 +4,12 @@ namespace App\Constants;
 
 class AgreementConstants
 {
+
+    public static function miliCalc($hour): float|int
+    {
+        $hour = $hour * 60 * 60 * 1000;
+        return $hour;
+    }
     /**
     * 36協定も変形時間労働制も合意していない、法定労働時間(労働基準法第32条)
     */
@@ -29,7 +35,7 @@ class AgreementConstants
     */
     // 年の時間外労働の合計上限時間
     const SPECIAL_YEARLY_OVERTIME_LIMIT = 720;
-    
+
     // 「時間外労働+休日労働」の合計が1ヵ月100時間未満
     const SPECIAL_MONTHLY_TOTAL_LIMIT = 100;
 
@@ -59,7 +65,7 @@ class AgreementConstants
 
     /**
     * 1年単位の変形時間労働制を締結している場合
-    */  
+    */
     // 1日の労働時間の上限
     const YEALY_VARIABLE_DAILY_LIMIT = 10;
 

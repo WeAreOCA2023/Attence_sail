@@ -13,5 +13,6 @@ class MonthlyWorkHours extends Model
         'user_id',
         'monthly_at',
         'worked_hours',
+        'overwork'
     ];
 }

@@ -13,5 +13,6 @@ class WeeklyWorkHours extends Model
         'user_id',
         'weekly_at',
         'worked_hours',
+        'overwork'
     ];
 }

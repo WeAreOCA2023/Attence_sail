@@ -13,5 +13,6 @@ class DailyWorkHours extends Model
         'user_id',
         'worked_at',
         'worked_hours',
+        'overwork'
     ];
 }

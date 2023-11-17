@@ -13,5 +13,6 @@ class YearlyWorkHours extends Model
         'user_id',
         'yearly_at',
         'worked_hours',
+        'overwork'
     ];
 }

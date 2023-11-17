@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\AgreementConstants;
 use App\Models\MonthlyWorkHours;
 use App\Models\WeeklyWorkHours;
 use App\Models\YearlyWorkHours;
@@ -45,6 +46,14 @@ class HomeController extends Controller
             $totalWeekHour = $eachWork->weekly_total_work_hours;
             $eachWork->weekly_total_work_hours = 0;
             $eachWork->save();
+
+            //普通の人の判定処理
+            $defaultWeekly = AgreementConstants::miliCalc(AgreementConstants::DEFAULT_WEEKLY_LIMIT);
+            if ( $totalWeekHour > $defaultWeekly){
+                $overWork = $totalWeekHour - $defaultWeekly;
+                $eachWork->total_over_work_hours = $eachWork->total_over_work_hours + $overWork;
+                $eachWork->save();
+            }
 
             $weeklyWork = new WeeklyWorkHours([
                 'user_id' => $eachWork->user_id,
