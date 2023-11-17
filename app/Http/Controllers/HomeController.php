@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MonthlyWorkHours;
 use App\Models\WeeklyWorkHours;
+use App\Models\YearlyWorkHours;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use JetBrains\PhpStorm\NoReturn;
@@ -73,7 +74,19 @@ class HomeController extends Controller
     }
 
     public static function yearlyProcess(): void{
+        $allWork = AllWorkHours::all();
+        foreach ($allWork as $eachWork){
+            $totalYearHour = $eachWork->yearly_total_work_hours;
+            $eachWork->yearly_total_work_hours = 0;
+            $eachWork->save();
 
+            $yearlyWork = new YearlyWorkHours([
+                'user_id' => $eachWork->user_id,
+                'yearly_at' => date("Y-m-d"),
+                'worked_hours' => $totalYearHour,
+            ]);
+            $yearlyWork->save();
+        }
     }
     /**
      * Display a listing of the resource.

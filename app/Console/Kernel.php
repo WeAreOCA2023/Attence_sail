@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
 //        $schedule->command('inspire')->everyFiveSeconds();
         $schedule->call(fn () => HomeController::weeklyProcess())->weeklyOn(5, '17:34');
         $schedule->call(fn () => HomeController::monthlyProcess())->weeklyOn(5, '17:58');
+        $schedule->call(fn () => HomeController::yearlyProcess())->weeklyOn(5, '18:04');
     }
 
     /**
