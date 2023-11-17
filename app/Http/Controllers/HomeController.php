@@ -38,33 +38,30 @@ class HomeController extends Controller
     // 週が終わった時の処理 ↓
     public static function weeklyProcess(): void
     {
-        $allWork = AllWorkHours::where('user_id', Auth::user()->id)->first();
-        $totalWeekHour = $allWork->weekly_total_work_hours;
-        $allWork->weekly_total_work_hours = 0;
-        $allWork->save();
+        $allWork = AllWorkHours::all();
+        foreach ($allWork as $eachWork){
+            $totalWeekHour = $eachWork->weekly_total_work_hours;
+            $eachWork->weekly_total_work_hours = 0;
+            $eachWork->save();
 
-        $weeklyWork = new WeeklyWorkHours([
-            'user_id' => Auth::user()->id,
-            'weekly_at' => date("Y-m-d"),
-            'worked_hours' => $totalWeekHour,
-        ]);
-        $weeklyWork->save();
+            $weeklyWork = new WeeklyWorkHours([
+                'user_id' => $eachWork->user_id,
+                'weekly_at' => date("Y-m-d"),
+                'worked_hours' => $totalWeekHour,
+            ]);
+            $weeklyWork->save();
+        }
+
     }
 
 //    function testWeekly(): void
 //    {
-//        $allWork = AllWorkHours::where('user_id', Auth::user()->id)->first();
-//        $totalWeekHour = $allWork->weekly_total_work_hours;
-//        $allWork->weekly_total_work_hours = 0;
-//        $allWork->save();
-//
-//        $weeklyWork = new WeeklyWorkHours([
-//            'user_id' => Auth::user()->id,
-//            'weekly_at' => date("Y-m-d"),
-//            'worked_hours' => $totalWeekHour,
-//        ]);
-//        $weeklyWork->save();
-//        echo 'success';
+//        $allWork = AllWorkHours::all();
+//        foreach ($allWork as $eachWork){
+//            $eachWork->weekly_total_work_hours = 0;
+//            $eachWork->save();
+//        }
+//        dd($allWork);
 //    }
 
 
