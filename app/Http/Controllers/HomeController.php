@@ -54,18 +54,6 @@ class HomeController extends Controller
 
     }
 
-//    function testWeekly(): void
-//    {
-//        $allWork = AllWorkHours::all();
-//        foreach ($allWork as $eachWork){
-//            $eachWork->weekly_total_work_hours = 0;
-//            $eachWork->save();
-//        }
-//        dd($allWork);
-//    }
-
-
-
     //一ヶ月が終わった時の処理
     function monthlyProcess(){
         $userAllWork = AllWorkHours::where('user_id', Auth::user()->id)->first();
