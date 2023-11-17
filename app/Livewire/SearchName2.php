@@ -14,6 +14,11 @@ class SearchName2 extends Component
     // 検索クエリ
     public $search;
 
+    public function selectedData($boss_email)
+    {
+        $this->search = $boss_email;
+    }
+
     public function render()
     {
         return view('livewire.search-fullname2', [
