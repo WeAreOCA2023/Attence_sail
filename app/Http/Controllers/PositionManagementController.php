@@ -46,7 +46,7 @@ class PositionManagementController extends Controller
             'company_id' => $user->company_id
         ]);
         $position->save();
-        return redirect('/position-management')->with('success', '役職を作成しました。');
+        return redirect('/position-management')->with('successPosition', '役職を作成しました。');
     }
 
     public function destroy($id, Request $request): RedirectResponse

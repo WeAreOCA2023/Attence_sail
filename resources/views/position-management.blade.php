@@ -58,9 +58,9 @@
         <form class="d-flex flex-column justify-content-between" method="POST" action="{{ route('position-management.store') }}">
             @csrf
             <div class="position">
-                @if(session('success'))
+                @if(session('successPosition'))
                     <div class="success d-block text-center">
-                        <strong>{{ session('success') }}</strong>
+                        <strong>{{ session('successPosition') }}</strong>
                     </div>
                 @endif
                 <label class="d-block" for="positionName">{{ __('役職名') }}</label>
