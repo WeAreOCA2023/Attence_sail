@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Task as TaskModel;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
@@ -62,13 +63,20 @@ class Tasks extends Component
     }
     public function render()
     {
+        $user_id = Auth::user()->id;
+        $company_id = User::where('user_id', $user_id)->value('company_id');
         // ログインユーザーに関連づけられたタスクを取得
         $this->tasks = TaskModel::where('assigner_id', auth()->id())->get();
 
         return view('livewire.tasks', [
-            'users' => User::where(function ($query) {
+//            'users' => User::where(function ($query) {
+//                $query->where('full_name', 'like', '%' . $this->search . '%')
+//                    ->orWhere('user_name', 'like', '%' . $this->search . '%');
+//            })->get()
+            'users' => User::where(function ($query) use ($company_id) {
                 $query->where('full_name', 'like', '%' . $this->search . '%')
-                    ->orWhere('user_name', 'like', '%' . $this->search . '%');
+                    ->Where('user_name', 'like', '%' . $this->search . '%')
+                    ->where('company_id', '=', $company_id); // 会社IDが一致するユーザーを取得
             })->get()
         ]);
     }

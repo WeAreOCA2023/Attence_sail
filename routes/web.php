@@ -35,7 +35,6 @@ Route::resource('home', HomeController::class, ['only' => ['index', 'store']]);
 //Route::post('/insert', 'HomeController@insert')->name('home.insert');
 
 Route::resource('tasks', TaskController::class);
-
 Route::resource('profile', ProfileController::class);
 Route::post('profile/store2', [ProfileController::class, 'store2'])->name('profile.store2');
 
