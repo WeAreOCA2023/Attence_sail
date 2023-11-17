@@ -2,6 +2,7 @@
 
 namespace App\Constants;
 
+use App\Models\MonthlyWorkHours;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\WeeklyWorkHours;
@@ -41,13 +42,28 @@ class CheckConstants
         }
     }
 
-    //月チェック
-    public static function defaultOverCheck(){
-        if (CheckConstants::defaultAgreement()){
+    // 月デフォチェック
+    public static function weeklyDefaultOverCheck(): void
+    {
+        if (self::defaultAgreement()){
             $baseData = WeeklyWorkHours::where('user_id', Auth::user()->id)->get();
             $latestData = $baseData->sortByDesc('id')->first();
             $weekHours = $latestData->worked_hours;
             if ($weekHours > 10000){
+                $user = User::where('user_id', Auth::user()->id)->first();
+                $user->over_work = 1;
+                $user->save();
+            }
+        }
+    }
+
+    public static function monthlyThreeOverCheck(): void
+    {
+        if (self::threeCheck()){
+            $baseData = MonthlyWorkHours::where('user_id', Auth::user()->id)->get();
+            $latestData = $baseData->sortByDesc('id')->first();
+            $monthHours = $latestData->overwork;
+            if ($monthHours > 10000){
                 $user = User::where('user_id', Auth::user()->id)->first();
                 $user->over_work = 1;
                 $user->save();
