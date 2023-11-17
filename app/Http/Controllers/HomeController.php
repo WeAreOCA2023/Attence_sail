@@ -57,7 +57,9 @@ class HomeController extends Controller
             ]);
             $weeklyWork->save();
         }
-        CheckConstants::defaultOverCheck();
+        CheckConstants::weeklyDefaultOverCheck(); // デフォの週チェック(労働:週-40h)
+        CheckConstants::monthlyThreeOverCheck(); // 36協定の週チェック(残業:月-45h)
+
     }
 
     //一ヶ月が終わった時の処理
@@ -99,7 +101,7 @@ class HomeController extends Controller
     public function index()
     {
         $this->defaultCheck(); //関数呼び出し(初期チェック)
-        $this->weeklyProcess();
+//        $this->weeklyProcess();
         return view('home');
     }
 
