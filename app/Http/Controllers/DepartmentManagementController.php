@@ -16,8 +16,22 @@ class DepartmentManagementController extends Controller
 {
     public function index(): View
     {
+        $departments_info = [];
+        $department_table_pagination =  DB::table('department')->paginate(18);
+        foreach ($department_table_pagination as $department_pagination) {
+            $department = Department::where('id', $department_pagination->id)->first();
+            $user = User::where('user_id', $department->boss_id)->first();
+            $user_login = UserLogin::where('id', $user->user_id)->first();
+            $department_id = $user->department_id;
+            $departments_info[$department_id] = [
+                'department_id' => $department_id,
+                'boss_name' => $user->full_name,
+                'email' => $user_login->email
+            ];
+        }
         return view('department-management', [
-            'departments' => DB::table('department')->paginate(18)
+            'departments' => $department_table_pagination,
+            'departments_info' => $departments_info
         ]);
     }
 

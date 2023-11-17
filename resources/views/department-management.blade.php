@@ -18,47 +18,44 @@
             </thead>
             <tbody>
             @foreach ($departments as $department)
-                @php
-                    $users_table = DB::table('users')->where('user_id', $department->boss_id)->first();
-                    $user_logins_table = DB::table('user_logins')->where('id', $users_table->user_id)->first();
-            @endphp
-            </tbody>
-                <tr>
-                    <td>{{ $department->department_name }}</td>
-                    <td>{{ $users_table->full_name }}</td>
-                    <td>{{ $user_logins_table->email }}</td>
-                    <td>
-                        <div class="edit-delete">
-                            <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
-                            <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $department->id }}" style="border: none; background: none;">
-                                <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
-                            </button>
-                        </div>
-                    </td>
-                </tr>   
-                <div class="modal fade" id="confirmDeleteModal{{ $department->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">本当に削除しますか？</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>「{{ $department->department_name }}」を削除すると、元には戻せません</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-                                    <form class="delete" method="POST" action="{{ route('department-management.destroy',$department->id) }}">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-primary">削除</button>
-                                    </form>
+                @foreach ($departments_info as $department_info)
+                    <tr>
+                        <td>{{ $department->department_name }}</td>
+                        <td>{{ $department_info['boss_name'] }}</td>
+                        <td>{{ $department_info['email'] }}</td>
+                        <td>
+                            <div class="edit-delete">
+                                <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
+                                <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $department->id }}" style="border: none; background: none;">
+                                    <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
+                                </button>
+                            </div>
+                        </td>
+                    </tr>   
+                    <div class="modal fade" id="confirmDeleteModal{{ $department->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">本当に削除しますか？</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>「{{ $department->department_name }}」を削除すると、元には戻せません</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                                        <form class="delete" method="POST" action="{{ route('department-management.destroy',$department->id) }}">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-primary">削除</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
         @endforeach
         </tbody>
     </table>
