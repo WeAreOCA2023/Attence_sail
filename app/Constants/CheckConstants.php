@@ -42,7 +42,7 @@ class CheckConstants
         }
     }
 
-    // 月デフォチェック
+    // 週デフォチェック(隔週)
     public static function weeklyDefaultOverCheck(): void
     {
         if (self::defaultAgreement()){
@@ -57,6 +57,7 @@ class CheckConstants
         }
     }
 
+    // 月の36チェック(隔週)
     public static function monthlyThreeOverCheck(): void
     {
         if (self::threeCheck()){
