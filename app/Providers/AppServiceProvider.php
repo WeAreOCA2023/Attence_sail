@@ -99,13 +99,13 @@ class AppServiceProvider extends ServiceProvider
             $view->with([
                 'user_name' => $user_name,
                 'is_boss' => $is_boss,
-                'phone_number' => $phone_number,
-                'company_name' => $company_name,
-                'company_id' => $company_id,
-                'department_name' => $department_name,
-                'position_name' => $position_name,
-                'agreement36' => $agreement36,
-                'variable_working_hours_system' => $variable_working_hours_system
+                // 'phone_number' => $phone_number,
+                // 'company_name' => $company_name,
+                // 'company_id' => $company_id,
+                // 'department_name' => $department_name,
+                // 'position_name' => $position_name,
+                // 'agreement36' => $agreement36,
+                // 'variable_working_hours_system' => $variable_working_hours_system
             ]);
         });
 
