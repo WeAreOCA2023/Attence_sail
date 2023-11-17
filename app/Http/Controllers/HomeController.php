@@ -64,6 +64,13 @@ class HomeController extends Controller
         $allWork = AllWorkHours::all();
         foreach ($allWork as $eachWork){
             $totalMonthHour = $eachWork->monthly_total_work_hours;
+            $overWork = 0;
+            if (CheckConstants::threeCheck()){
+//                $limit = AgreementConstants::miliCalc(AgreementConstants::DEFAULT_DAILY_LIMIT);
+                if ($totalMonthHour > 5000){
+                    $overWork = $totalMonthHour - 5000;
+                }
+            }
             $eachWork->monthly_total_work_hours = 0;
             $eachWork->save();
 
@@ -122,19 +129,13 @@ class HomeController extends Controller
         $currentDate = date("Y-m-d");
         $workHours = abs($data->elapsed_time);
 
-        // 普通の規定の人ようovertime計算
+        // overtimeチェック
         $overWork = 0; //overworkの初期値
-        if (CheckConstants::defaultAgreement()){ //デフォ規定かチェック
-//            $limit = AgreementConstants::miliCalc(AgreementConstants::DEFAULT_DAILY_LIMIT);
-            if ($workHours > 5000){
-                $overWork = $workHours - 5000;
-            }
+        if ($workHours > 5000){
+            $overWork = $workHours - 5000;
         }
 
-        // 一日のoverwork判定処理
-
         echo json_encode($workHours);
-
         $userAllWork = AllWorkHours::where('user_id', Auth::user()->id)->first();
         // 今年の合計時間を更新
         $currentWeeklyHour = $userAllWork->weekly_total_work_hours;
