@@ -7,8 +7,8 @@ class AgreementConstants
 
     public static function miliCalc($hour): float|int
     {
-        $hour = $hour * 60 * 60 * 1000;
-        return $hour;
+        $newHour = $hour * 60 * 60 * 1000;
+        return $newHour;
     }
     /**
     * 36協定も変形時間労働制も合意していない、法定労働時間(労働基準法第32条)

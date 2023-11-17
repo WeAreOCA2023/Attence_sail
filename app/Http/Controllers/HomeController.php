@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Constants\AgreementConstants;
+use App\Constants\CheckConstants;
 use App\Models\MonthlyWorkHours;
+use App\Models\User;
 use App\Models\WeeklyWorkHours;
 use App\Models\YearlyWorkHours;
 use Illuminate\Http\Request;
@@ -48,12 +50,12 @@ class HomeController extends Controller
             $eachWork->save();
 
             //普通の人の判定処理
-            $defaultWeekly = AgreementConstants::miliCalc(AgreementConstants::DEFAULT_WEEKLY_LIMIT);
-            if ( $totalWeekHour > $defaultWeekly){
-                $overWork = $totalWeekHour - $defaultWeekly;
-                $eachWork->total_over_work_hours = $eachWork->total_over_work_hours + $overWork;
-                $eachWork->save();
-            }
+//            $defaultWeekly = AgreementConstants::miliCalc(AgreementConstants::DEFAULT_WEEKLY_LIMIT);
+//            if ( $totalWeekHour > $defaultWeekly){
+//                $overWork = $totalWeekHour - $defaultWeekly;
+//                $eachWork->total_over_work_hours = $eachWork->total_over_work_hours + $overWork;
+//                $eachWork->save();
+//            }
 
             $weeklyWork = new WeeklyWorkHours([
                 'user_id' => $eachWork->user_id,
@@ -127,8 +129,17 @@ class HomeController extends Controller
 
         $currentDate = date("Y-m-d");
         $workHours = abs($data->elapsed_time);
-//        $newHours = date("H:i:s", $workHours / 1000);
-//        $finalHours = date('H:i:s', strtotime($newHours. ' -9 hours'));
+
+        // 普通の規定の人ようovertime計算
+        $overWork = 0; //overworkの初期値
+        if (CheckConstants::defaultAgreement()){ //デフォ規定かチェック
+//            $limit = AgreementConstants::miliCalc(AgreementConstants::DEFAULT_DAILY_LIMIT);
+            if ($workHours > 5000){
+                $overWork = $workHours - 5000;
+            }
+        }
+
+        // 一日のoverwork判定処理
 
 
         echo json_encode($workHours);
@@ -138,23 +149,25 @@ class HomeController extends Controller
         $currentWeeklyHour = $userAllWork->weekly_total_work_hours;
         $currentMonthlyHour = $userAllWork->monthly_total_work_hours;
         $currentYearlyHour = $userAllWork->yearly_total_work_hours;
+        $currentOverTime = $userAllWork->total_over_work_hours;
         $newWeeklyHour = $currentWeeklyHour + $workHours;
         $newMonthlyHour = $currentMonthlyHour + $workHours;
         $newYearlyHour = $currentYearlyHour + $workHours;
+        $newOverTime = $currentOverTime + $overWork;
         $userAllWork->weekly_total_work_hours = $newWeeklyHour;
         $userAllWork->monthly_total_work_hours = $newMonthlyHour;
         $userAllWork->yearly_total_work_hours = $newYearlyHour;
+        $userAllWork->total_over_work_hours = $newOverTime;
         $userAllWork->save();
 
         // ここでデータベースに保存するなどの処理を行う
         $dailyWork = new DailyWorkHours([
             'user_id' => Auth::user()->id,
             'worked_at' => $currentDate,
-            'worked_hours' => $workHours
+            'worked_hours' => $workHours,
+            'overwork' => $overWork,
         ]);
         $dailyWork->save();
-
-
 //        return redirect('/home');
         // echoすると返せる
 //        echo json_encode($data); // json形式にして返す
