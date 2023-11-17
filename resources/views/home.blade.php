@@ -159,7 +159,7 @@
             console.log(data);
             console.log("afterFetch");
             // ↓ で/homeにredirectしてる
-            // window.location.replace("/home");
+            window.location.replace("/home");
         });
 
         // toggleするボタンを押した時

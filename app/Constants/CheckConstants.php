@@ -44,7 +44,9 @@ class CheckConstants
     //月チェック
     public static function defaultOverCheck(){
         if (CheckConstants::defaultAgreement()){
-            $weekHours = WeeklyWorkHours::where('user_id', Auth::user()->id)->last()->worked_hours;
+            $baseData = WeeklyWorkHours::where('user_id', Auth::user()->id)->get();
+            $latestData = $baseData->sortByDesc('id')->first();
+            $weekHours = $latestData->worked_hours;
             if ($weekHours > 10000){
                 $user = User::where('user_id', Auth::user()->id)->first();
                 $user->over_work = 1;
