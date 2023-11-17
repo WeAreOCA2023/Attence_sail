@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MonthlyWorkHours;
 use App\Models\WeeklyWorkHours;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -51,32 +52,29 @@ class HomeController extends Controller
             ]);
             $weeklyWork->save();
         }
-
     }
-
-//    function testWeekly(): void
-//    {
-//        $allWork = AllWorkHours::all();
-//        foreach ($allWork as $eachWork){
-//            $eachWork->weekly_total_work_hours = 0;
-//            $eachWork->save();
-//        }
-//        dd($allWork);
-//    }
-
-
 
     //一ヶ月が終わった時の処理
-    function monthlyProcess(){
-        $userAllWork = AllWorkHours::where('user_id', Auth::user()->id)->first();
-        // 今年の合計時間を更新
-        $currentYearHour = $userAllWork->yearly_total_work_hours;
-        $newYearHour = $currentYearHour + $userAllWork->monthly_total_work_hours;
-        $userAllWork->monthly_total_work_hours = 0;
-        $userAllWork->yearly_total_work_hours = $newYearHour;
-        $userAllWork->save();
+    public static function monthlyProcess(): void
+    {
+        $allWork = AllWorkHours::all();
+        foreach ($allWork as $eachWork){
+            $totalMonthHour = $eachWork->monthly_total_work_hours;
+            $eachWork->monthly_total_work_hours = 0;
+            $eachWork->save();
+
+            $monthlyWork = new MonthlyWorkHours([
+                'user_id' => $eachWork->user_id,
+                'monthly_at' => date("Y-m-d"),
+                'worked_hours' => $totalMonthHour,
+            ]);
+            $monthlyWork->save();
+        }
     }
 
+    public static function yearlyProcess(): void{
+
+    }
     /**
      * Display a listing of the resource.
      */
