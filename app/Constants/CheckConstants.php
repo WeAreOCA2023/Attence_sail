@@ -18,5 +18,25 @@ class CheckConstants
             return false;
         }
     }
-
+    //36チェック
+    public static function threeCheck(): bool
+    {
+        $user = User::where('user_id', Auth::user()->id)->first();
+        $agreement = $user->agreement_36;
+        if ($agreement == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    //特別36チェック
+    public static function specialCheck(): bool{
+        $user = User::where('user_id', Auth::user()->id)->first();
+        $agreement = $user->agreement_36;
+        if ($agreement == 2){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
