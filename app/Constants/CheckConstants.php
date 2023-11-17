@@ -4,6 +4,7 @@ namespace App\Constants;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\WeeklyWorkHours;
 
 class CheckConstants
 {
@@ -37,6 +38,18 @@ class CheckConstants
             return true;
         }else{
             return false;
+        }
+    }
+
+    //月チェック
+    public static function defaultOverCheck(){
+        if (CheckConstants::defaultAgreement()){
+            $weekHours = WeeklyWorkHours::where('user_id', Auth::user()->id)->last()->worked_hours;
+            if ($weekHours > 10000){
+                $user = User::where('user_id', Auth::user()->id)->first();
+                $user->over_work = 1;
+                $user->save();
+            }
         }
     }
 }

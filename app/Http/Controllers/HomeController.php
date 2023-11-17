@@ -53,9 +53,11 @@ class HomeController extends Controller
                 'user_id' => $eachWork->user_id,
                 'weekly_at' => date("Y-m-d"),
                 'worked_hours' => $totalWeekHour,
+                'overwork' => 0
             ]);
             $weeklyWork->save();
         }
+        CheckConstants::defaultOverCheck();
     }
 
     //一ヶ月が終わった時の処理
@@ -64,13 +66,6 @@ class HomeController extends Controller
         $allWork = AllWorkHours::all();
         foreach ($allWork as $eachWork){
             $totalMonthHour = $eachWork->monthly_total_work_hours;
-            $overWork = 0;
-            if (CheckConstants::threeCheck()){
-//                $limit = AgreementConstants::miliCalc(AgreementConstants::DEFAULT_DAILY_LIMIT);
-                if ($totalMonthHour > 5000){
-                    $overWork = $totalMonthHour - 5000;
-                }
-            }
             $eachWork->monthly_total_work_hours = 0;
             $eachWork->save();
 
@@ -104,7 +99,7 @@ class HomeController extends Controller
     public function index()
     {
         $this->defaultCheck(); //関数呼び出し(初期チェック)
-//        $this->testWeekly();
+        $this->weeklyProcess();
         return view('home');
     }
 
