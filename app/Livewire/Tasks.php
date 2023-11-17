@@ -24,7 +24,6 @@ class Tasks extends Component
     public $status = 0;
     public $deadline;
     public $done_at;
-
 // 検索クエリ
     public $search;
 
@@ -34,6 +33,7 @@ class Tasks extends Component
         $this->reset();
         $this->taskCreate = true;
         $this->taskShow = false;
+        $this->dispatch('buttonClicked');
     }
     #[On('showTask')]
     public function showTask($taskId)
