@@ -14,23 +14,7 @@ class UserManagementController extends Controller
 {
     public function index(): View
     {
-        $users = DB::table('users')->paginate(15);
-        $userLoginlData = [];
-        foreach ($users as $user) {
-            $userLoginlData[$user->user_id] = UserLogin::query()->where('id', $user->user_id)->first();
-            $department = Department::query()->where('id', $user->department_id)->first();
-            if ($user->department_id == null) {
-                $department = '未設定';
-            } else {
-                $department = $department->department_name;
-            }
-        }
-
-        return view('user-management', [
-            // 'users' => DB::table('users')->paginate(15),
-            // 'userLoginData' => $userLoginlData,
-            // 'department' => $department
-        ]);
+        return view('user-management');
     }
 
     public function destroy($id)
