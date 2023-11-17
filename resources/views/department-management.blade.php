@@ -68,6 +68,11 @@
         <form class="d-flex flex-column justify-content-between" method="POST" action="{{ route('department-management.store') }}">
             @csrf
             <div class="department">
+                @if(session('successDepartment'))
+                    <div class="success d-block text-center">
+                        <strong>{{ session('successDepartment') }}</strong>
+                    </div>
+                @endif
                 <label class="d-block" for="departmentName">{{ __('部署名') }}</label>
                 <input id="departmentName" type="text" name="departmentName" value="{{ old('departmentName') }}" autocomplete="departmentName" autofocus>
                 @error ('departmentName')
@@ -76,13 +81,15 @@
                     </span>
                 @enderror
             </div>
-            
-            <livewire:SearchName2 />
+            <div class="responsible">
+                <label class="d-block" for="bossName">{{ __('責任者名') }}</label>
+                <livewire:SearchName2 />
                 @error ('bossEmail')
                     <span class="error d-block text-center" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
+            </div>
 
             <div class="createButton d-block text-center">
                 <button type="submit">
