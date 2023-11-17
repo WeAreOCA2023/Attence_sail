@@ -768,6 +768,13 @@ main {
             th, td{
                 font-size: 1.3rem;
                 padding: 10px;
+                .unset{
+                    padding: 5px;
+                    color: v.$darkRed;
+                    background-color: v.$red2;
+                    border-radius: v.$round-10;
+                    font-weight: map-get(v.$font-weight, 1);
+                }
             }
         }
     }
