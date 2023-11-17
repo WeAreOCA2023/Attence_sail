@@ -51,7 +51,6 @@ class HomeController extends Controller
             ]);
             $weeklyWork->save();
         }
-
     }
 
     //一ヶ月が終わった時の処理
