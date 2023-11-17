@@ -25,10 +25,10 @@
                         <input type="text" wire:model.lazy="title" placeholder="タイトルを入力" class="title">
                         @error('title') <span>{{ $message }}</span> @enderror
                     </label>
-                    <label>
+                    <label class="d-block assign">
                         <select class="userSelect" name="users[]" multiple="multiple">
                             @foreach($users as $user)
-                                <option value="">{{ $user->full_name }}</option>
+                                <option>{{ $user->full_name }}</option>
                             @endforeach
                         </select>
                     </label>
