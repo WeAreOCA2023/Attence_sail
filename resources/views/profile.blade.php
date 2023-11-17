@@ -38,7 +38,7 @@
                     <h3 class="m-0">会社名:{{ $company_name }}</h3>
                     <h3 class="m-0">役職:{!! $position_name !!}</h3>
                     <h3 class="m-0">部署:{!! $department_name !!}</h3>
-                    <h3 class="m-0">36協定:{!! $agreement36 !!}</h3>
+                    <h3 class="m-0">36協定:{!! $agreement_36 !!}</h3>
                     <h3 class="m-0">変形時間労働制:{!! $variable_working_hours_system !!}</h3>
                 </div>
             </div>
