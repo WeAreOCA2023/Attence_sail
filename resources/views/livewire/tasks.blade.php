@@ -16,13 +16,6 @@
                 </li>
             @endforeach
         </ul>
-{{--        <div class="selectUsers">--}}
-{{--            <select class="userSelect" name="users[]" multiple="multiple">--}}
-{{--                @foreach($users as $user)--}}
-{{--                    <option value="">{{ $user->full_name }}</option>--}}
-{{--                @endforeach--}}
-{{--            </select>--}}
-{{--        </div>--}}
     </div>
     <div class="job">
         @if($taskCreate)
@@ -32,25 +25,13 @@
                         <input type="text" wire:model.lazy="title" placeholder="タイトルを入力" class="title">
                         @error('title') <span>{{ $message }}</span> @enderror
                     </label>
-{{--                    <label>--}}
-{{--                        <input wire:model.live.debounce.500ms="search" id="search" name="search" placeholder="キーワード" type="search">--}}
-{{--                        @if (strlen($search) > 0)--}}
-{{--                            <ul>--}}
-{{--                                @foreach ($users as $user)--}}
-{{--                                    <li class="flex-center break-all p-4">--}}
-{{--                                        <span>{{$user->full_name}}</span>--}}
-{{--                                    </li>--}}
-{{--                                @endforeach--}}
-{{--                            </ul>--}}
-{{--                        @endif--}}
-{{--                    </label>--}}
-                    <div>
+                    <label>
                         <select class="userSelect" name="users[]" multiple="multiple">
                             @foreach($users as $user)
                                 <option value="">{{ $user->full_name }}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </label>
                     <label class="d-block deadline">
                         <span>期限</span>
                         <input type="datetime-local" wire:model.lazy="deadline" class="ms-5">
