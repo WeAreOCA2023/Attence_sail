@@ -58,7 +58,7 @@ class HomeController extends Controller
             $weeklyWork->save();
         }
         CheckConstants::weeklyDefaultOverCheck(); // デフォの週チェック(労働:週-40h)
-        CheckConstants::monthlyThreeOverCheck(); // 36協定の週チェック(残業:月-45h)
+//        CheckConstants::monthlyThreeOverCheck(); // 36協定の週チェック(残業:月-45h)
 
     }
 
