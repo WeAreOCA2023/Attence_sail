@@ -14,9 +14,11 @@
                     <div class="content d-flex justify-content-around">
                         <h3 class="m-0">{{ $position->position_name }}</h3>
                         <h3 class="m-0">権威レベル:{{ $position->rank }}</h3>
-                        <div class="edit-delete ">
-                            <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
-                            <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $position->id }}" style="border: none; background: none;">
+                        <div class="edit-delete d-flex justify-content-between">
+                            <button wire:click="edit({{ $position->id }})" class="editBtn btn-primary">
+                                <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
+                            </button>
+                            <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $position->id }}">
                                 <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
                             </button>
                         </div>
@@ -52,6 +54,46 @@
         </div>
     </div>
     <div class="addPositionsBox d-flex justify-content-center align-items-center">
+        @if ($editing == true)
+        <form wire:submit="update" class="d-flex flex-column justify-content-between">
+            @csrf
+            <div class="position">
+                @if(session('successPosition'))
+                    <div class="success d-block text-center">
+                        <strong>{{ session('successPosition') }}</strong>
+                    </div>
+                @endif
+                <label class="d-block" for="positionName">{{ __('役職名') }}</label>
+                <input id="positionName" type="text" wire:model='position_name' value="{{ old('positionName') }}" autocomplete="positionName" autofocus>
+                @error ('position_name')
+                    <span class="error d-block text-center" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="rank">
+                <label class="d-block" for="rank">{{ __('権威レベル (0~100の範囲)') }}</label>
+                <input id="rank" type="text" wire:model="rank" value="{{ old('rank') }}">
+                @error ('rank')
+                    <span class="error d-block text-center" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="BtnGroup d-flex justify-content-between align-items-center">
+                <div class="cancelButton">
+                    <button wire:click="$set('editing', false)">
+                        {{ __('キャンセル') }}
+                    </button>
+                </div>
+                <div class="createButton">
+                    <button type="submit">
+                        {{ __('保存') }}
+                    </button>
+                </div>
+            </div>
+        @else
         <form wire:submit="save" class="d-flex flex-column justify-content-between">
             @csrf
             <div class="position">
@@ -84,5 +126,6 @@
                 </button>
             </div>
         </form>
+        @endif
     </div>
 </div>

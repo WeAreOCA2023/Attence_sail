@@ -28,6 +28,9 @@ class PositionManagement extends Component
     #[Rule('between:0,100', message: '0から100の範囲で入力してください')]
     public $rank;
 
+    public $editPositionId;
+    public $editing = false;
+
     public function render()
     {
         return view('livewire.position-management', [
@@ -53,7 +56,19 @@ class PositionManagement extends Component
 
     public function edit($id)
     {
+        $this->editing = true;
+        $this->editPositionId = $id;
+    }
 
+    public function update()
+    {
+        $this->validate();
+        $position = Position::where('id', $this->editPositionId)->first();
+        $position->position_name = $this->position_name;
+        $position->rank = $this->rank;
+        $position->save();
+        session()->flash('successPosition', '役職を更新しました。');
+        return redirect('/position-management');
     }
 
 }

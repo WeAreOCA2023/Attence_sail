@@ -481,8 +481,8 @@ main {
             gap: 3vw;
             .createButton, .cancelButton{
                 button{
-                    width: 8vw;
-                    @include m.fz(20);
+                    width: 10vw;
+                    @include m.fz(30);
                     border: none;
                     outline: none;
                     color: v.$white;
@@ -499,8 +499,8 @@ main {
         }
         .createButton{
             button{
-                width: 8vw;
-                @include m.fz(20);
+                width: 10vw;
+                @include m.fz(30);
                 border: none;
                 outline: none;
                 color: v.$white;
@@ -556,13 +556,14 @@ main {
                 }
                 .content{
                     width: 40vw;
+                    button{
+                        border: none;
+                        background: none;
+                    }
                 }
             }
         }
 
-        .deleteBtn{
-            cursor: pointer;
-        }
     }
     .addPositionsBox{
         width: 41vw;
@@ -595,19 +596,19 @@ main {
                 outline: none;
                 background-color: v.$white;
                 border-bottom: 1px solid v.$black;
-                padding: 5% 5%;
+                padding: 8px;
             }
         }
         .createButton{
             button{
-                width: 8vw;
-                padding: 10%;
+                width: 10vw;
+                padding: 8px;
                 @include m.fz(30);
                 border: none;
                 outline: none;
                 color: v.$white;
                 background-color: v.$darkGray;
-                padding: 3%;
+                padding: 8px;
                 border-radius: v.$round-10;
             }
             button:hover{
@@ -615,6 +616,26 @@ main {
                 color: v.$darkGray;
                 background-color: rgb(175, 173, 173);
             }
+        }
+        .BtnGroup{
+            gap: 3vw;
+            .createButton, .cancelButton{
+                button{
+                    width: 10vw;
+                    @include m.fz(30);
+                    border: none;
+                    outline: none;
+                    color: v.$white;
+                    background-color: v.$darkGray;
+                    padding: 8px;
+                    border-radius: v.$round-10;
+                }
+                button:hover{
+                    transition: .5s;
+                    color: v.$darkGray;
+                    background-color: rgb(175, 173, 173);
+                }
+            }   
         }
     }
 }
