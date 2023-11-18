@@ -411,7 +411,7 @@ main {
 
         .table{
             .editing-row {
-                background-color: gray !important;
+                background-color: gray;
             }
             th, tr{
                 @include m.fz(22);
@@ -824,17 +824,41 @@ main {
         .table{
             width: 75vw;
             margin: 20px auto 18px;
-            th, td{
-                font-size: 1.3rem;
-                padding: 10px;
-                .unset{
-                    padding: 5px;
-                    color: v.$darkRed;
-                    background-color: v.$red2;
-                    border-radius: v.$round-10;
-                    font-weight: map-get(v.$font-weight, 1);
+            tr, th{
+                @include m.fz(22);
+                th, td{
+                    padding: 10px;
+                    .unset{
+                        padding: 5px;
+                        color: v.$darkRed;
+                        background-color: v.$red2;
+                        border-radius: v.$round-10;
+                        font-weight: map-get(v.$font-weight, 1);
+                    }
+                    .edit-delete{
+                        img{
+                            width: 2vw;
+                        }
+                        button{
+                            border: none;
+                            background: none;
+                        }
+                    }
+                    .save-cancel{
+                        .saveImg{
+                            width: 2.2vw;
+                        }
+                        .cancelImg{
+                            width: 1.5vw;
+                        }
+                        button{
+                            border: none;
+                            background: none;
+                        }
+                    }
                 }
             }
+
         }
     }
 }
