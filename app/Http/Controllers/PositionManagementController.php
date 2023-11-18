@@ -15,9 +15,7 @@ class PositionManagementController extends Controller
 {
     public function index(): View
     {
-        return view('position-management', [
-            'positions' => DB::table('positions')->paginate(14)
-        ]);
+        return view('position-management');
     }
 
     public function store(Request $request)
