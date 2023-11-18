@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\UserLogin;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -17,12 +19,19 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        define(UserLogin::class, function (Faker\Generator $faker) {
+            return [
+                "email" => $faker->unique()->safeEmail,
+                "password" => 'yIXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            ];
+        });
+        $userLogin = factory(UserLogin::class)->create();
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'user_id' => $userLogin->id,
+            'user_name' => fake()->name(),
+            'full_name' => fake()->name(),
+            'telephone' => fake()->phoneNumber(),
+            'company_id' => 1,
         ];
     }
 

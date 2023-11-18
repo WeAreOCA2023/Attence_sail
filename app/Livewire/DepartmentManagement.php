@@ -38,7 +38,7 @@ class DepartmentManagement extends Component
     {
         $departments_info = [];
         $company_id = User::where('user_id', Auth::user()->id)->first()->company_id;
-        $departments_table_pagination = Department::where('company_id', $company_id)->paginate(18);
+        $departments_table_pagination = Department::where('company_id', $company_id)->paginate(17);
         foreach ($departments_table_pagination as $department_pagination) {
             $department = Department::where('id', $department_pagination->id)->first();
             $user = User::where('user_id', $department->boss_id)->first();

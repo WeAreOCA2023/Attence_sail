@@ -50,7 +50,9 @@
                 </div>
             </div>
             @endforeach
-            {{ $positions->links() }}
+            <div class="text-center">
+                {{ $positions->links() }}
+            </div>
         </div>
     </div>
     <div class="addPositionsBox d-flex justify-content-center align-items-center">

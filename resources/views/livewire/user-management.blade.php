@@ -27,29 +27,53 @@
                 </tr>
             </thead>
             <tbody>
-            @if (count($search_users) > 0)
-                @foreach ($search_users as $search_user)
-                    @foreach ($users_info as $user_info)
+            @if (strlen($search_users) > 0)
+                @foreach ($users_info as $user_info)
+                    @if ($editing == true && $editUserId === $user_info['user_id'])
                     <tr>
-                        <th scope="row">{{ $search_user['user_id'] }}</th>
-                        <td>{{ $search_user['full_name'] }}</td>
+                        <th scope="row">{{ $user_info['user_id'] }}</th>
+                        <td>{{ $user_info['full_name'] }}</td>
                         <td>{{ $user_info['email'] }}</td>
                         <td>{!! $user_info['department_name'] !!}</td>
                         <td>{!! $user_info['position_name'] !!}</td>
                         <td>{!! $user_info['agreement_36'] !!}</td>
                         <td>{!! $user_info['variable_working_hours_system'] !!}</td>
-                        <td></td>
-                        <td></td>
+                        <td>{!! $user_info['status'] !!}</td>
+                        <td>{!! $user_info['over_work'] !!}</td>
+                        <td>
+                            <div class="save-cancel d-flex justify-content-between align-items-center">
+                                <button wire:click="update({{ $user_info['user_id'] }})">
+                                    <img class="saveImg" src="{{ asset('img/save.svg') }}" alt="saving icon">
+                                </button>
+                                <button wire:click="$set('editing', false)" class="cancelBtn btn-primary">
+                                    <img class="cancelImg" src="{{ asset('img/cancel.svg') }}" alt="canceling icon">
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    @else
+                    <tr>
+                        <th scope="row">{{ $user_info['user_id'] }}</th>
+                        <td>{{ $user_info['full_name'] }}</td>
+                        <td>{{ $user_info['email'] }}</td>
+                        <td>{!! $user_info['department_name'] !!}</td>
+                        <td>{!! $user_info['position_name'] !!}</td>
+                        <td>{!! $user_info['agreement_36'] !!}</td>
+                        <td>{!! $user_info['variable_working_hours_system'] !!}</td>
+                        <td>{!! $user_info['status'] !!}</td>
+                        <td>{!! $user_info['over_work'] !!}</td>
                         <td>
                             <div class="edit-delete">
-                                <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
-                                <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $search_user['user_id'] }}" style="border: none; background: none;">
+                                <button wire:click="edit({{ $user_info['user_id'] }})">
+                                    <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
+                                </button>                                
+                                <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $user_info['user_id'] }}">
                                     <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
                                 </button>
                             </div>
                         </td>
                     </tr>
-                    <div class="modal fade" id="confirmDeleteModal{{ $search_user['user_id'] }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="confirmDeleteModal{{ $user_info['user_id'] }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -59,12 +83,12 @@
                                         </div>
                                         <div class="modal-body">
                                             <p>メールアドレス: {{ $user_info['email'] }}</p>
-                                            <p>名前: {{ $search_user['full_name'] }}</p>
+                                            <p>名前: {{ $user_info['full_name'] }}</p>
                                             <p>を削除すると、元には戻せません</p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-                                            <form class="delete" method="POST" action="{{ route('user-management.destroy',$search_user['user_id']) }}">
+                                            <form class="delete" method="POST" action="{{ route('user-management.destroy',$user_info['user_id']) }}">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="btn btn-primary">削除</button>
@@ -74,10 +98,15 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @endif
+
+                    
                 @endforeach
             @endif
             </tbody>
         </table>
+        <div class="text-center">
+            {{ $search_users->links() }}
+        </div>
     </div>
 </div>
