@@ -33,8 +33,9 @@ class PositionManagement extends Component
 
     public function render()
     {
+        $company_id = User::where('user_id', Auth::user()->id)->first()->company_id;
         return view('livewire.position-management', [
-            'positions' => Position::paginate(14)
+            'positions' => Position::where('company_id', $company_id)->paginate(14)
         ]);
     }
 

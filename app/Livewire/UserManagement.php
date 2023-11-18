@@ -10,7 +10,7 @@ use App\Models\UserLogin;
 use App\Models\Department;
 use App\Models\Position;
 
-class SearchName extends Component
+class UserManagement extends Component
 {
     use WithPagination;
     public $search_user = '';
