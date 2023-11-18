@@ -3,7 +3,9 @@
 namespace App\Livewire;
 
 use App\Models\Task as TaskModel;
+use App\Models\AllTasksAssign;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
@@ -27,6 +29,7 @@ class Tasks extends Component
     public $done_at;
 // 検索クエリ
     public $search;
+    public $assignUsers = [];
 
     #[On('showTaskCreate')]
     public function showTaskCreate()
@@ -34,7 +37,6 @@ class Tasks extends Component
         $this->reset();
         $this->taskCreate = true;
         $this->taskShow = false;
-        $this->dispatch('buttonClicked');
     }
     #[On('showTask')]
     public function showTask($taskId)
@@ -50,7 +52,6 @@ class Tasks extends Component
     public function save()
     {
         $this->validate();
-
         TaskModel::create([
             'title' => $this->title,
             'description' => $this->description,
@@ -58,7 +59,14 @@ class Tasks extends Component
             'deadline' => $this->deadline,
             'done_at' => $this->done_at,
         ]);
-
+        foreach ($this->assignUsers as $assignUser) {
+            $assignee_id = User::where('user_name', $assignUser)->value('user_id');
+            AllTasksAssign::create([
+                'assignee_id' => $assignee_id,
+                'task_id' => TaskModel::latest()->first()->id,
+                'assigned_at' => now(),
+            ]);
+        }
         return $this->redirect('/tasks');
     }
     public function render()
@@ -67,12 +75,8 @@ class Tasks extends Component
         $company_id = User::where('user_id', $user_id)->value('company_id');
         // ログインユーザーに関連づけられたタスクを取得
         $this->tasks = TaskModel::where('assigner_id', auth()->id())->get();
-
+        $this->dispatch('buttonClicked');
         return view('livewire.tasks', [
-//            'users' => User::where(function ($query) {
-//                $query->where('full_name', 'like', '%' . $this->search . '%')
-//                    ->orWhere('user_name', 'like', '%' . $this->search . '%');
-//            })->get()
             'users' => User::where(function ($query) use ($company_id) {
                 $query->where('full_name', 'like', '%' . $this->search . '%')
                     ->Where('user_name', 'like', '%' . $this->search . '%')

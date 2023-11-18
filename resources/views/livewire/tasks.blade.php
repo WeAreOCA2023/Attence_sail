@@ -25,10 +25,10 @@
                         <input type="text" wire:model.lazy="title" placeholder="タイトルを入力" class="title">
                         @error('title') <span>{{ $message }}</span> @enderror
                     </label>
-                    <label class="d-block assign">
-                        <select class="userSelect" name="users[]" multiple="multiple">
+                    <label class="d-block assign" wire:ignore>
+                        <select class="userSelect" multiple="multiple" wire:model="assignUsers">
                             @foreach($users as $user)
-                                <option>{{ $user->full_name }}</option>
+                                <option>{{ $user->user_name }}</option>
                             @endforeach
                         </select>
                     </label>
@@ -64,6 +64,10 @@
 <script>
     document.addEventListener('livewire:initialized', () => {
         Livewire.on('buttonClicked', () => {
+            $('.userSelect').on('change', function (e) {
+                let data = $(this).val();
+                @this.set('assignUsers', data);
+            });
             $(document).ready(function() {
                 $('.userSelect').select2();
             });
