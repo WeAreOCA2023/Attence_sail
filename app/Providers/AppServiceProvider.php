@@ -46,66 +46,21 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
 
         // ここで指定するのは bladeテンプレート
-        View::composer(['home', 'user-management', 'my-all-tasks', 'department-management', 'position-management', 'profile'], function ($view) {
+        View::composer(['home', 'user-management', 'my-all-tasks', 'department-management', 'department-management-edit' , 'position-management', 'profile'], function ($view) {
 
-            // 現在ログイン中のユーザーのログイン情報 -> database/'migrations/create_user_login_table
-            $user_login_all = Auth::user();
 
             // user_login_table の id の取得
-            $user_login_id = $user_login_all->id;
+            $user_login_id = Auth::user()->id;
 
             // users_table の user_id = user_login_table の id が一致する一番最初のレコード
             $users = User::where('user_id', $user_login_id)->first();
             
             // companies_table の company_id = users_table の company_id が一致する一番最初のレコード
             $company = Company::where('id', $users->company_id)->first();
-           
-            // department_table の department_id = users_table の department_id が一致する一番最初のレコード
-            $department = Department::where('id', $users->department_id)->first();
 
-            // position_table の position_id = users_table の position_id が一致する一番最初のレコード
-            $position = Position::where('id', $users->position_id)->first();
-
-            if (isset($department)) {
-                $department_name = $department->department_name;
-            } else {
-                $department_name = '<span class="unset">' . '未設定' . '</span>';
-            }
-
-            if (isset($position)) {
-                $position_name = $position->position_name;
-            } else {
-                $position_name = '<span class="unset">' . '未設定' . '</span>';
-            }
-            $phone_number = $users->telephone;
-            $user_name = $users->user_name;
-            $company_id = $company->id;
-            $company_name = $company->company_name;
-            $is_boss = ($users->is_boss == 1) ? 'BOSS' : 'USER';
-            if ($users->agreement_36 == 1) {
-                $agreement36 = '<span>' . '有り' . '</span>';
-            } elseif ($users->agreement_36 == 2) {
-                $agreement36 = '<span>' . '無し' . '</span>';
-            } else {
-                $agreement36 = '<span class="unset">' . '未設定' . '</span>';
-            }
-            if ($users->variable_working_hours_system == 1) {
-                $variable_working_hours_system = '<span>' . '有り' . '</span>';
-            } elseif ($users->variable_working_hours_system == 2) {
-                $variable_working_hours_system = '<span>' . '無し' . '</span>';
-            } else {
-                $variable_working_hours_system = '<span class="unset">' . '未設定' . '</span>';
-            }
             $view->with([
-                'user_name' => $user_name,
-                'is_boss' => $is_boss,
-                // 'phone_number' => $phone_number,
-                // 'company_name' => $company_name,
-                // 'company_id' => $company_id,
-                // 'department_name' => $department_name,
-                // 'position_name' => $position_name,
-                // 'agreement36' => $agreement36,
-                // 'variable_working_hours_system' => $variable_working_hours_system
+                'user_name' => $users->user_name,
+                'is_boss' => $users->is_boss,
             ]);
         });
 

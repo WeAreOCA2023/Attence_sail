@@ -399,13 +399,32 @@ main {
                 vertical-align: middle;
             }
         }
-        .deleteBtn{
-            cursor: pointer;
+        .edit-delete{
+            button{
+                border: none;
+                background: none;
+            }
+            .deleteBtn{
+                cursor: pointer;
+            }
         }
+
         .table{
+            .editing-row {
+                background-color: gray !important;
+            }
             th, tr{
                 @include m.fz(22);
                 padding: 1%;
+            }
+            td{
+                .editable{
+                    @include m.fz(8);
+                    border: none;
+                    background: none;
+                    width: 90%;
+                    border-bottom: 1px solid v.$black;
+                }
             }
         }
     }
@@ -439,13 +458,13 @@ main {
                 outline: none;
                 background-color: v.$white;
                 border-bottom: 1px solid v.$black;
-                padding: 5% 5%;
+                padding: 6px;
             }
             .responsibleInput{
                 ul{
                     width: 100%;
                     li{
-                        @include m.fz(20);
+                        @include m.fz(25);
                         background-color: v.$white;
                         color: v.$black;
                     }
@@ -458,23 +477,42 @@ main {
                 }
             }
         }
+        .BtnGroup{
+            gap: 3vw;
+            .createButton, .cancelButton{
+                button{
+                    width: 8vw;
+                    @include m.fz(20);
+                    border: none;
+                    outline: none;
+                    color: v.$white;
+                    background-color: v.$darkGray;
+                    padding: 8px;
+                    border-radius: v.$round-10;
+                }
+                button:hover{
+                    transition: .5s;
+                    color: v.$darkGray;
+                    background-color: rgb(175, 173, 173);
+                }
+            }   
+        }
         .createButton{
             button{
                 width: 8vw;
-                padding: 10%;
-                @include m.fz(30);
+                @include m.fz(20);
                 border: none;
                 outline: none;
                 color: v.$white;
                 background-color: v.$darkGray;
-                padding: 3%;
+                padding: 8px;
                 border-radius: v.$round-10;
             }
             button:hover{
                 transition: .5s;
                 color: v.$darkGray;
                 background-color: rgb(175, 173, 173);
-            }
+            } 
         }
     }
 }
