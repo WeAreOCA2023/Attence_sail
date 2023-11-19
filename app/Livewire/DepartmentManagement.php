@@ -10,7 +10,6 @@ use Livewire\WithPagination;
 use App\Models\User;
 use App\Models\UserLogin;
 use App\Models\Department;
-use App\Models\Position;
 
 class DepartmentManagement extends Component
 {
