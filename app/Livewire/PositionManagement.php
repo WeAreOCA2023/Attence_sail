@@ -21,7 +21,9 @@ class PositionManagement extends Component
     #[Rule('required', message: '役職名を入力してください')]
     #[Rule('max:128', message: '役職名が長すぎます')]
     #[Rule('unique:positions,position_name', message: 'その役職名は既に登録されています')]
-    public $position_name;
+    public $save_position_name;
+
+    public $update_position_name;
 
     #[Rule('required', message: '権威レベルを入力してください')]
     #[Rule('numeric', message: '数字で入力してください')]
@@ -35,7 +37,7 @@ class PositionManagement extends Component
     {
         $company_id = User::where('user_id', Auth::user()->id)->first()->company_id;
         return view('livewire.position-management', [
-            'positions' => Position::where('company_id', $company_id)->paginate(14)
+            'positions' => Position::where('company_id', $company_id)->orderBy('rank', 'desc')->paginate(14)
         ]);
     }
 
@@ -45,7 +47,7 @@ class PositionManagement extends Component
         $user = User::where('user_id', Auth::user()->id)->first();
 
         $position = Position::create([
-            'position_name' => $this->position_name,
+            'position_name' => $this->save_position_name,
             'company_id' => $user->company_id,
             'rank' => $this->rank
         ]);
@@ -63,11 +65,15 @@ class PositionManagement extends Component
 
     public function update()
     {
-        $this->validate();
         $position = Position::where('id', $this->editPositionId)->first();
-        $position->position_name = $this->position_name;
-        $position->rank = $this->rank;
-        $position->save();
+        if ($position->position_name == $this->update_position_name) {
+            $position->rank = $this->rank;
+            $position->save();
+        } else {
+            $position->position_name = $this->update_position_name;
+            $position->rank = $this->rank;
+            $position->save();
+        }
         session()->flash('successPosition', '役職を更新しました。');
         return redirect('/position-management');
     }
