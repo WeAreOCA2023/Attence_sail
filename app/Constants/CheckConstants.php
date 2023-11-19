@@ -42,6 +42,7 @@ class CheckConstants
         }
     }
 
+//----------------------チェック---------------------
     // 週デフォチェック(隔週)
     public static function weeklyDefaultOverCheck(): void
     {
