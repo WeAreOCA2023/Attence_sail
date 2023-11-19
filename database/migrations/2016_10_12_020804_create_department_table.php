@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('department_name')->unique();
             $table->foreignId('company_id')->references('id')->on('companies')->onDelete('cascade');
-            $table->foreignId('boss_id')->references('id')->on('user_logins')->constrained();
+            $table->foreignId('boss_id')->references('id')->on('user_logins');
             $table->timestamps();
         });
     }
