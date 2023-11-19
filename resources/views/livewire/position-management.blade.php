@@ -12,16 +12,23 @@
                         <img src="{{ asset('img/drag-handle.svg') }}" alt="drag handle icon">
                     </div>
                     <div class="content d-flex justify-content-around">
-                        <h3 class="m-0">{{ $position->position_name }}</h3>
-                        <h3 class="m-0">権威レベル:{{ $position->rank }}</h3>
-                        <div class="edit-delete d-flex justify-content-between">
-                            <button wire:click="edit({{ $position->id }})" class="editBtn btn-primary">
-                                <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
-                            </button>
-                            <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $position->id }}">
-                                <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
-                            </button>
+                        <h3 class="m-0 d-flex align-items-center">{{ $position->position_name }}</h3>
+                        <h3 class="m-0 d-flex align-items-center">権威レベル:{{ $position->rank }}</h3>
+                        @if ($editing == true && $editPositionId == $position->id)
+                        <div class="editing d-flex align-items-center">
+                            <h3 class="m-0">編集中</h3>
                         </div>
+                        @else
+                            <div class="edit-delete d-flex justify-content-between">
+                                <button wire:click="edit({{ $position->id }})" class="editBtn btn-primary">
+                                    <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
+                                </button>
+                                <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $position->id }}">
+                                    <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
+                                </button>
+                            </div>
+                        @endif
+
                     </div>
                 </div>
             </div>
