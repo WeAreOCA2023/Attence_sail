@@ -158,9 +158,6 @@ class HomeController extends Controller
             'overwork' => $overWork,
         ]);
         $dailyWork->save();
-//        return redirect('/home');
-        // echoすると返せる
-//        echo json_encode($data); // json形式にして返す
     }
 
     /**
