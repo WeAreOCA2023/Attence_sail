@@ -10,6 +10,7 @@ class AgreementConstants
         $newHour = $hour * 60 * 60 * 1000;
         return $newHour;
     }
+    const TEST_NUM = 5000;
     /**
     * 36協定も変形時間労働制も合意していない、法定労働時間(労働基準法第32条)
     */
