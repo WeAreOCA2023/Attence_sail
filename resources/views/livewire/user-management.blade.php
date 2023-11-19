@@ -11,6 +11,16 @@
             <p>部署</p>
             <p>役職</p>
         </div>
+        @if(session('unselect'))
+            <div class="error d-block text-center">
+                <strong>{{ session('unselect') }}</strong>
+            </div>
+        @endif
+        @if(session('successUser'))
+            <div class="success d-block text-center">
+                <strong>{{ session('successUser') }}</strong>
+            </div>
+        @endif
         <table class="table table-hover">
             <thead class="table-dark">
                 <tr>
@@ -34,8 +44,21 @@
                         <th scope="row">{{ $user_info['user_id'] }}</th>
                         <td>{{ $user_info['full_name'] }}</td>
                         <td>{{ $user_info['email'] }}</td>
-                        <td>{!! $user_info['department_name'] !!}</td>
-                        <td>{!! $user_info['position_name'] !!}</td>
+                        <td>
+                            <select wire:model="assignDepartmentId" class="form-select" aria-label="assignable departments">
+                                <option selected>{!! $user_info['department_name'] !!}</option>
+                                @foreach ($user_info['assignable_departments'] as $assignable_department)
+                                    <option value="{{ $assignable_department->id }}">{{ $assignable_department->department_name }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <select wire:model="assignPositionId" class="form-select" aria-label="asignable positions">
+                                <option selected>{!! $user_info['position_name'] !!}</option>
+                                @foreach ($user_info['assignable_positions'] as $assignable_position)
+                                    <option value="{{ $assignable_position->id }}">{{ $assignable_position->position_name }}</option>
+                                @endforeach
+                        </td>
                         <td>{!! $user_info['agreement_36'] !!}</td>
                         <td>{!! $user_info['variable_working_hours_system'] !!}</td>
                         <td>{!! $user_info['status'] !!}</td>

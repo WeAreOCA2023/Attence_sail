@@ -832,11 +832,24 @@ main {
         .table{
             width: 75vw;
             margin: 20px auto 18px;
+            .error{
+                color: v.$red;
+                font-weight: map-get(v.$font-weight, 1);
+                @include m.fz(15);
+            }
+            .success{
+                color: v.$green;
+                font-weight: map-get(v.$font-weight, 1);
+                @include m.fz(15);
+            }
             tr, th{
                 @include m.fz(22);
                 th, td{
                     padding: 10px;
-                    .unset{
+                    .form-select{
+                        width: 4vw;
+                    }
+                    .unset, .status-overwork{
                         padding: 5px;
                         color: v.$darkRed;
                         background-color: v.$red2;
@@ -852,7 +865,15 @@ main {
                             background: none;
                         }
                     }
+                    .status-unoverwork{
+                        padding: 5px;
+                        color: darkgreen;
+                        background-color: rgb(205, 237, 205);
+                        border-radius: v.$round-10;
+                        font-weight: map-get(v.$font-weight, 1);
+                    }
                     .save-cancel{
+                        width: 5.3vw;
                         .saveImg{
                             width: 2.2vw;
                         }

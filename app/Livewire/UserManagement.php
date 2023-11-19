@@ -19,9 +19,14 @@ class UserManagement extends Component
     public $editUserId;
     public $editing = false;
 
+    public $assignDepartmentId;
+    public $assignPositionId;
+
    
     public function render()
     {
+        $assinable_departments = Department::select('id', 'department_name')->get();
+        $assignable_positions = Position::select('id', 'position_name')->get();
         $users_info = [];
         $company_id = User::where('user_id', Auth::user()->id)->first()->company_id;
         $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->paginate(12);
@@ -86,7 +91,9 @@ class UserManagement extends Component
                 'agreement_36' => $agreement_36,
                 'variable_working_hours_system' => $variable_working_hours_system,
                 'status' => $status,
-                'over_work' => $over_work
+                'over_work' => $over_work,
+                'assignable_departments' => $assinable_departments,
+                'assignable_positions' => $assignable_positions
             ];      
         }
     
@@ -97,9 +104,35 @@ class UserManagement extends Component
         ]);
     }
 
+    public function setAssignDepartmentId($id)
+    {
+        dd($id);
+        $this->assingDepartmentId = $id;
+    }
+    public function setAssignPositionId($id)
+    {
+        dd($id);
+        $this->assingPositionId = $id;
+    }
+
     public function edit($id)
     {
         $this->editing = true;
         $this->editUserId = $id;
+    }
+
+    public function update()
+    {
+        if ($this->assignDepartmentId == null or $this->assignPositionId == null) {
+            session()->flash('unselect', '部署と役職を選択してください。');
+            return redirect('/user-management');
+        }
+        $user = User::find($this->editUserId)->first();
+        dd($user->full_name);
+        $user->department_id = $this->assignDepartmentId;
+        $user->position_id = $this->assignPositionId;
+        $user->save();
+        session()->flash('successUser', 'ユーザー情報を更新しました。');
+        return redirect('/user-management');
     }
 }
