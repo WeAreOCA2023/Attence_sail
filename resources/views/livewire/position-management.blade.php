@@ -73,7 +73,7 @@
                     </div>
                 @endif
                 <label class="d-block" for="positionName">{{ __('役職名') }}</label>
-                <input id="positionName" type="text" wire:model='position_name' value="{{ old('positionName') }}" autocomplete="positionName" autofocus>
+                <input id="positionName" type="text" wire:model='update_position_name' value="{{ old('positionName') }}" autocomplete="positionName" autofocus>
                 @error ('position_name')
                     <span class="error d-block text-center" role="alert">
                         <strong>{{ $message }}</strong>
@@ -112,7 +112,7 @@
                     </div>
                 @endif
                 <label class="d-block" for="positionName">{{ __('役職名') }}</label>
-                <input id="positionName" type="text" wire:model='position_name' value="{{ old('positionName') }}" autocomplete="positionName" autofocus>
+                <input id="positionName" type="text" wire:model='save_position_name' value="{{ old('positionName') }}" autocomplete="positionName" autofocus>
                 @error ('position_name')
                     <span class="error d-block text-center" role="alert">
                         <strong>{{ $message }}</strong>
