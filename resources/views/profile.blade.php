@@ -39,7 +39,7 @@
                     <h3 class="m-0">役職:{!! $position_name !!}</h3>
                     <h3 class="m-0">部署:{!! $department_name !!}</h3>
                     <h3 class="m-0">36協定:{!! $agreement_36 !!}</h3>
-                    <h3 class="m-0">変形時間労働制:{!! $variable_working_hours_system !!}</h3>
+                    <h3 class="m-0">変形労働時間制:{!! $variable_working_hours_system !!}</h3>
                 </div>
             </div>
             <div class="upperRightBottomBox d-flex flex-column items-center justify-content-center">
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                     <div class="variableWorkingHoursSystemBox">
-                        <label for="variableWorkingHoursSystem">{{ __('変形時間労働制') }}</label>
+                        <label for="variableWorkingHoursSystem">{{ __('変形労働時間制') }}</label>
                         <div class="variableWorkingHoursSystemInput">
                             <select class="form-select" aria-label="Variable Working Hours System" name="variableWorkingHoursSystem">
                                 <option selected value="0">未選択</option>

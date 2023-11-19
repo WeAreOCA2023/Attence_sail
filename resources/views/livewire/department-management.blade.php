@@ -4,6 +4,11 @@
             <img src="{{ asset('img/department.svg') }}" alt="department icon">
             <h2 class="m-0">部署</h2>
         </div>
+        @if(session('userExistsOnDepartment'))
+            <div class="error d-block text-center">
+                <strong>{{ session('userExistsOnDepartment') }}</strong>
+            </div>
+        @endif
         <table class="table table-hover">
             <thead class="table-dark">
                 <tr>

@@ -50,6 +50,7 @@ class DepartmentManagement extends Component
                 'boss_name' => $user->full_name,
                 'email' => $user_login->email
             ];
+            
         }
         return view('livewire.department-management', [
             'departments' => $departments_table_pagination,
