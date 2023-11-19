@@ -418,12 +418,11 @@ main {
                 padding: 1%;
             }
             td{
-                .editable{
-                    @include m.fz(8);
-                    border: none;
-                    background: none;
-                    width: 90%;
-                    border-bottom: 1px solid v.$black;
+                .editing{
+                    padding: .7%;
+                    color: v.$white;
+                    background-color: v.$black;
+                    border-radius: v.$round-10;
                 }
             }
         }
@@ -560,6 +559,12 @@ main {
                         border: none;
                         background: none;
                     }
+                }
+                .editing{
+                    padding: .7%;
+                    color: v.$white;
+                    background-color: v.$black;
+                    border-radius: v.$round-10;
                 }
             }
         }

@@ -21,14 +21,20 @@
                         <td>{{ $department_info['boss_name'] }}</td>
                         <td>{{ $department_info['email'] }}</td>
                         <td>
-                            <div class="edit-delete d-flex">
-                            <button  wire:click="edit({{ $department->id }})" class="editBtn btn-primary">
-                                <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
-                            </button>
-                                <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $department->id }}">
-                                    <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
-                                </button>
+                            @if ($editing == true && $editDepartmentId == $department->id)
+                            <div class="editing d-flex align-items-center">
+                                <h3 class="m-0">編集中</h3>
                             </div>
+                            @else
+                                <div class="edit-delete d-flex">
+                                    <button  wire:click="edit({{ $department->id }})" class="editBtn btn-primary">
+                                        <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
+                                    </button>
+                                    <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $department->id }}">
+                                        <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
+                                    </button>
+                                </div>
+                            @endif
                         </td>
                     </tr>   
                     <div class="modal fade" id="confirmDeleteModal{{ $department->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
