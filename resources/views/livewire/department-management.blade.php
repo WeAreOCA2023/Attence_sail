@@ -22,7 +22,7 @@
                         <td>{{ $department_info['email'] }}</td>
                         <td>
                             @if ($editing == true && $editDepartmentId == $department->id)
-                            <div class="editing d-flex align-items-center">
+                            <div class="editing d-flex justify-content-center align-items-center">
                                 <h3 class="m-0">編集中</h3>
                             </div>
                             @else

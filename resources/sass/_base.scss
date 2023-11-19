@@ -419,7 +419,8 @@ main {
             }
             td{
                 .editing{
-                    padding: .7%;
+                    width: 4vw;
+                    padding: 6px;
                     color: v.$white;
                     background-color: v.$black;
                     border-radius: v.$round-10;
@@ -561,7 +562,8 @@ main {
                     }
                 }
                 .editing{
-                    padding: .7%;
+                    width: 4vw;
+                    padding: 6px;
                     color: v.$white;
                     background-color: v.$black;
                     border-radius: v.$round-10;
