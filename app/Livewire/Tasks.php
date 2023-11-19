@@ -74,7 +74,12 @@ class Tasks extends Component
         $user_id = Auth::user()->id;
         $company_id = User::where('user_id', $user_id)->value('company_id');
         // ログインユーザーに関連づけられたタスクを取得
-        $this->tasks = TaskModel::where('assigner_id', auth()->id())->get();
+        $tasks1 = TaskModel::where('assigner_id', auth()->id())->get();
+        $tasks2Id = AllTasksAssign::where('assignee_id', auth()->id())->pluck('task_id')->toArray();
+        $tasks2 = TaskModel::whereIn('id', $tasks2Id)->get();
+
+        $this->tasks = $tasks1->merge($tasks2)->unique();
+
         $this->dispatch('buttonClicked');
         return view('livewire.tasks', [
             'users' => User::where(function ($query) use ($company_id) {
