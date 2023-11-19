@@ -98,6 +98,24 @@ class HomeController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    function storeSetUp(int $workHours, int $overWork): void{
+        $userAllWork = AllWorkHours::where('user_id', Auth::user()->id)->first();
+        // 今年の合計時間を更新
+        $currentWeeklyHour = $userAllWork->weekly_total_work_hours;
+        $currentMonthlyHour = $userAllWork->monthly_total_work_hours;
+        $currentYearlyHour = $userAllWork->yearly_total_work_hours;
+        $currentOverTime = $userAllWork->total_over_work_hours;
+        $newWeeklyHour = $currentWeeklyHour + $workHours;
+        $newMonthlyHour = $currentMonthlyHour + $workHours;
+        $newYearlyHour = $currentYearlyHour + $workHours;
+        $newOverTime = $currentOverTime + $overWork;
+        $userAllWork->weekly_total_work_hours = $newWeeklyHour;
+        $userAllWork->monthly_total_work_hours = $newMonthlyHour;
+        $userAllWork->yearly_total_work_hours = $newYearlyHour;
+        $userAllWork->total_over_work_hours = $newOverTime;
+        $userAllWork->save();
+    }
     public function index()
     {
         $this->defaultCheck(); //関数呼び出し(初期チェック)
@@ -133,21 +151,9 @@ class HomeController extends Controller
         }
 
         echo json_encode($workHours);
-        $userAllWork = AllWorkHours::where('user_id', Auth::user()->id)->first();
-        // 今年の合計時間を更新
-        $currentWeeklyHour = $userAllWork->weekly_total_work_hours;
-        $currentMonthlyHour = $userAllWork->monthly_total_work_hours;
-        $currentYearlyHour = $userAllWork->yearly_total_work_hours;
-        $currentOverTime = $userAllWork->total_over_work_hours;
-        $newWeeklyHour = $currentWeeklyHour + $workHours;
-        $newMonthlyHour = $currentMonthlyHour + $workHours;
-        $newYearlyHour = $currentYearlyHour + $workHours;
-        $newOverTime = $currentOverTime + $overWork;
-        $userAllWork->weekly_total_work_hours = $newWeeklyHour;
-        $userAllWork->monthly_total_work_hours = $newMonthlyHour;
-        $userAllWork->yearly_total_work_hours = $newYearlyHour;
-        $userAllWork->total_over_work_hours = $newOverTime;
-        $userAllWork->save();
+
+        CheckConstants::dailyDefaultOverCheck($workHours); // デフォの日チェック(労働:日-8h)
+        $this->storeSetUp($workHours, $overWork); // allWorkTableの合計時間の更新
 
         // ここでデータベースに保存するなどの処理を行う
         $dailyWork = new DailyWorkHours([

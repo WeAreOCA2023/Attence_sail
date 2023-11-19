@@ -43,6 +43,15 @@ class CheckConstants
     }
 
 //----------------------チェック---------------------
+    // 日デフォチェック(毎日)
+    public static function dailyDefaultOverCheck(int $time): void{
+        if ($time > 5000){
+            $user = User::where('user_id', Auth::user()->id)->first();
+            $user->over_work = 1;
+            $user->save();
+        }
+    }
+
     // 週デフォチェック(隔週)
     public static function weeklyDefaultOverCheck(): void
     {
