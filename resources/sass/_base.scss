@@ -462,8 +462,9 @@ main {
             }
             .responsibleInput{
                 ul{
-                    width: 100%;
+                    height: 30vh;
                     li{
+                        width: 100%;
                         @include m.fz(25);
                         background-color: v.$white;
                         color: v.$black;

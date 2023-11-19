@@ -147,7 +147,7 @@
                 <div class="responsibleInput d-flex flex-column">
                     <input wire:model.live.debounce.500ms="search" type="text" name="bossEmail" value="{{ old('bossEmail') }}">
                     @if (strlen($search) > 0)
-                        <ul class="list-group d-flex flex-column justify-content-center align-items-center">
+                        <ul class="list-group d-flex flex-column justify-content-center align-items-center overflow-auto mt-2">
                             @foreach($boss_users as $boss_user)
                                 @php 
                                     $boss_email = DB::table('user_logins')->where('id', $boss_user->user_id)->get()[0]->email 
