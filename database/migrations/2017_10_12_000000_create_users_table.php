@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('agreement_36')->default(0);
             $table->integer('variable_working_hours_system')->default(0);
             $table->boolean('over_work')->default(0);
+            $table->integer('over_work_count')->default(0);
 //            $table->foreignId('position_id')->references('id')->on('positions')->nullable();
             $table->integer('position_id')->default(0);
             $table->timestamps();
