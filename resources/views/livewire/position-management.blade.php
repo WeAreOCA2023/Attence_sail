@@ -4,6 +4,11 @@
             <img src="{{ asset('img/position.svg') }}" alt="department icon">
             <h2 class="m-0">役職</h2>
         </div>
+        @if(session('userExistsOnPosition'))
+            <div class="error d-block text-center">
+                <strong>{{ session('userExistsOnPosition') }}</strong>
+            </div>
+        @endif
         <div class="positionOuterBox d-flex flex-column justify-content-between">
             @foreach ($positions as $position)
             <div class="positionBox d-flex justify-content-center">

@@ -389,6 +389,11 @@ main {
         border-radius: v.$round-40;
         background-color: v.$white;
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+        .error{
+            color: v.$red;
+            font-weight: map-get(v.$font-weight, 1);
+            @include m.fz(18);
+        }
         .title{
             width: 6.3vw;
             margin-top: 5px;
@@ -526,7 +531,11 @@ main {
         border-radius: v.$round-40;
         background-color: v.$white;
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
-
+        .error{
+            color: v.$red;
+            font-weight: map-get(v.$font-weight, 1);
+            @include m.fz(18);
+        }
         .title{
             width: 6.3vw;
             margin-top: 5px;
@@ -809,6 +818,16 @@ main {
         background-color: v.$white;
         border-radius: v.$round-40;
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+        .error{
+            color: v.$red;
+            font-weight: map-get(v.$font-weight, 1);
+            @include m.fz(20);
+        }
+        .success{
+            color: v.$green;
+            font-weight: map-get(v.$font-weight, 1);
+            @include m.fz(20);
+        }
         .input-group{
             width: 26vw;
             margin: 1% auto;
@@ -832,19 +851,18 @@ main {
         .table{
             width: 75vw;
             margin: 20px auto 18px;
-            .error{
-                color: v.$red;
-                font-weight: map-get(v.$font-weight, 1);
-                @include m.fz(15);
-            }
-            .success{
-                color: v.$green;
-                font-weight: map-get(v.$font-weight, 1);
-                @include m.fz(15);
-            }
+            overflow-x: scroll;
             tr, th{
+                width: fit-content;
                 @include m.fz(22);
-                th, td{
+                .td-department, .td-position, .td-email, .td-fullName, .th-agreement36, .th-variable_working_hours_system, .th-status, .th-overwork{
+                    white-space: nowrap;
+                }
+                .td-Btn{
+                    width: 1vw;
+                }
+                td{
+                    width: fit-content;
                     padding: 10px;
                     .form-select{
                         width: 4vw;
@@ -869,6 +887,27 @@ main {
                         padding: 5px;
                         color: darkgreen;
                         background-color: rgb(205, 237, 205);
+                        border-radius: v.$round-10;
+                        font-weight: map-get(v.$font-weight, 1);
+                    }
+                    .status-online{
+                        padding: 5px;
+                        color: rgb(0, 38, 100);
+                        background-color: rgb(205, 209, 237);
+                        border-radius: v.$round-10;
+                        font-weight: map-get(v.$font-weight, 1);
+                    }
+                    .status-break{
+                        padding: 5px;
+                        color: rgb(237, 237, 237);
+                        background-color: rgb(110, 110, 110);
+                        border-radius: v.$round-10;
+                        font-weight: map-get(v.$font-weight, 1);
+                    }
+                    .status-offboarding{
+                        padding: 5px;
+                        color: rgb(208, 206, 206);
+                        background-color: v.$black;
                         border-radius: v.$round-10;
                         font-weight: map-get(v.$font-weight, 1);
                     }

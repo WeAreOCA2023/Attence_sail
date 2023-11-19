@@ -73,13 +73,13 @@ class UserManagement extends Component
             } elseif ($status == 3) {
                 $status = '<span class="status-leave">' . '休職中' . '</span>';
             } else {
-                $status = '<span class="status-offboarding">' . '退職済み' . '</span>';
+                $status = '<span class="status-offboarding">' . '退職済' . '</span>';
             }
             $over_work = $user->over_work;
             if ($over_work == 0) {
                 $over_work = '<span class="status-unoverwork">' . '正常' . '</span>';
             } else {
-                $over_work = '<span class="status-overwork">' . '過労警告' . '</span>';
+                $over_work = '<span class="status-overwork">' . '警告' . '</span>';
             }
             // user-managementで使用するデータ
             $users_info[$user->user_id] = [
@@ -104,17 +104,6 @@ class UserManagement extends Component
         ]);
     }
 
-    public function setAssignDepartmentId($id)
-    {
-        dd($id);
-        $this->assingDepartmentId = $id;
-    }
-    public function setAssignPositionId($id)
-    {
-        dd($id);
-        $this->assingPositionId = $id;
-    }
-
     public function edit($id)
     {
         $this->editing = true;
@@ -127,8 +116,7 @@ class UserManagement extends Component
             session()->flash('unselect', '部署と役職を選択してください。');
             return redirect('/user-management');
         }
-        $user = User::find($this->editUserId)->first();
-        dd($user->full_name);
+        $user = User::where('user_id', $this->editUserId)->first();
         $user->department_id = $this->assignDepartmentId;
         $user->position_id = $this->assignPositionId;
         $user->save();
