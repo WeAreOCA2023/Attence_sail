@@ -6,6 +6,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Position;
+use App\Models\Department;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -42,6 +43,52 @@ class DatabaseSeeder extends Seeder
             Position::factory()->create([
                 'position_name' => $position_name,
                 'rank' => $rank,
+            ]);
+        }
+
+        $departments = [
+            '営業部' => [
+                'company_id' => '1',
+                'boss_id' => '1'
+            ],
+            '開発部' => [
+                'company_id' => '1',
+                'boss_id' => '1'
+            ],
+            '情報システム部' => [
+                'company_id' => '1',
+                'boss_id' => '1'
+            ],
+            '経理部' => [
+                'company_id' => '1',
+                'boss_id' => '1'
+            ],
+            '総務部' => [
+                'company_id' => '1',
+                'boss_id' => '1'
+            ],
+            '法務部' => [
+                'company_id' => '1',
+                'boss_id' => '1'
+            ],
+            'CS部' => [
+                'company_id' => '1',
+                'boss_id' => '1'
+            ],
+            'マーケティング' => [
+                'company_id' => '1',
+                'boss_id' => '1'
+            ],
+            '技術部' => [
+                'company_id' => '1',
+                'boss_id' => '1'
+            ]
+        ];
+        foreach ($departments as $department => $department_info) {
+            Department::factory()->create([
+                'department_name' => $department,
+                'company_id' => $department_info['company_id'],
+                'boss_id' => $department_info['boss_id']
             ]);
         }
     }

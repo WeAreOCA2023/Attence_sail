@@ -83,7 +83,7 @@
                     </div>
                 @endif
                 <label class="d-block" for="departmentName">{{ __('部署名') }}</label>
-                <input id="departmentName" type="text" wire:model="update_department_name" value="{{ old('departmentName') }}" autocomplete="departmentName" autofocus>
+                <input id="departmentName" type="text" wire:model="update_department_name" value="{{ old('departmentName') }}" autocomplete="off" autofocus>
                 @error ('update_department_name')
                     <span class="error d-flex justify-content-center" role="alert">
                         <strong>{{ $message }}</strong>
@@ -93,7 +93,7 @@
             <div class="responsible mx-auto">
                 <label class="d-block" for="bossName">{{ __('責任者名') }}</label>
                 <div class="responsibleInput d-flex flex-column">
-                    <input wire:model.live.debounce.500ms="search" type="text" name="bossEmail" value="{{ old('bossEmail') }}">
+                    <input wire:model.live.debounce.500ms="search" type="text" name="bossEmail" value="{{ old('bossEmail') }}" autocomplete="off">
                     @if (strlen($search) > 0)
                         <ul class="list-group d-flex flex-column justify-content-center align-items-center">
                             @foreach($boss_users as $boss_user)
@@ -140,7 +140,7 @@
                     </div>
                 @endif
                 <label class="d-block" for="departmentName">{{ __('部署名') }}</label>
-                <input id="departmentName" type="text" wire:model="save_department_name" value="{{ old('departmentName') }}" autocomplete="departmentName" autofocus>
+                <input id="departmentName" type="text" wire:model="save_department_name" value="{{ old('departmentName') }}" autocomplete="off" autofocus>
                 @error ('save_department_name')
                     <span class="error d-flex justify-content-center" role="alert">
                         <strong>{{ $message }}</strong>
@@ -150,7 +150,7 @@
             <div class="responsible mx-auto">
                 <label class="d-block" for="bossName">{{ __('責任者名') }}</label>
                 <div class="responsibleInput d-flex flex-column">
-                    <input wire:model.live.debounce.500ms="search" type="text" name="bossEmail" value="{{ old('bossEmail') }}">
+                    <input wire:model.live.debounce.500ms="search" type="text" name="bossEmail" value="{{ old('bossEmail') }}" autocomplete="off">
                     @if (strlen($search) > 0)
                         <ul class="list-group d-flex flex-column justify-content-center align-items-center overflow-auto mt-2">
                             @foreach($boss_users as $boss_user)
