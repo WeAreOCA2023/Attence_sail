@@ -14,7 +14,7 @@ body {
     user-select: none;
     min-height: 100vh;
     min-height: -webkit-fill-available;
-}
+}   
 
 .header{
     height: 7vh;
@@ -882,8 +882,8 @@ main {
                     }
                     .unset, .status-overwork{
                         padding: 5px;
-                        color: v.$darkRed;
-                        background-color: v.$red2;
+                        color: rgb(205, 32, 32);
+                        background-color: rgb(245, 209, 209);
                         border-radius: v.$round-10;
                         font-weight: map-get(v.$font-weight, 1);
                     }
@@ -901,13 +901,13 @@ main {
                     }
                     .status-unoverwork{
                         padding: 5px;
-                        color: rgb(0, 8, 100);
-                        background-color: rgb(205, 207, 237);
+                        color: v.$status-blue;
+                        background-color: rgb(205, 215, 237);
                         border-radius: v.$round-10;
                         font-weight: map-get(v.$font-weight, 1);
                     }
                     .status-online{
-                        color: darkblue;
+                        color: v.$status-blue;
                         font-weight: map-get(v.$font-weight, 1);
                     }
                     .status-offline{
@@ -915,7 +915,7 @@ main {
                         font-weight: map-get(v.$font-weight, 1);
                     }
                     .status-break{
-                        color: rgb(0, 100, 8);
+                        color: rgb(67, 169, 39);
                         font-weight: map-get(v.$font-weight, 1);
                     }
                     .status-leave{
