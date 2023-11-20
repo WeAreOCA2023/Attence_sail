@@ -13,6 +13,8 @@ use App\Models\Position;
 class UserManagement extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+
     public $search_user = '';
     // 検索結果
 
@@ -21,6 +23,9 @@ class UserManagement extends Component
 
     public $assignDepartmentId;
     public $assignPositionId;
+
+    public $fileterDepartmentId;
+    public $filterPositionId;
 
    
     public function render()
@@ -36,6 +41,8 @@ class UserManagement extends Component
             $department_id = $user->department_id;
             if ($department_id == 0) {
                 $department_name = '<span class="unset">' . '未設定' . '</span>';
+            } elseif($department_id == -1){
+                $department_name = '<span class="unaffliated">' . '無し' . '</span>';
             } else {
                 $department_name = Department::where('id', $department_id)->first()->department_name;
             }
@@ -122,5 +129,10 @@ class UserManagement extends Component
         $user->save();
         session()->flash('successUser', 'ユーザー情報を更新しました。');
         return redirect('/user-management');
+    }
+
+    public function filterDepartment($id)
+    {
+        $this->filterDepartmentId = $id;
     }
 }

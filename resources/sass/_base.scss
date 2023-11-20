@@ -823,6 +823,14 @@ main {
         background-color: v.$white;
         border-radius: v.$round-40;
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+        .filter-group{
+            gap: 2vw;
+            .filter-position, .filter-department, .filter-status, .filter-overwork{
+                a{
+                    @include m.fz(20);
+                }
+            }
+        }
         .error{
             color: v.$red;
             font-weight: map-get(v.$font-weight, 1);
@@ -879,6 +887,9 @@ main {
                         border-radius: v.$round-10;
                         font-weight: map-get(v.$font-weight, 1);
                     }
+                    .unaffliated{
+                        color: v.$black;
+                    }
                     .edit-delete{
                         img{
                             width: 2vw;
@@ -890,30 +901,34 @@ main {
                     }
                     .status-unoverwork{
                         padding: 5px;
-                        color: darkgreen;
-                        background-color: rgb(205, 237, 205);
+                        color: rgb(0, 8, 100);
+                        background-color: rgb(205, 207, 237);
                         border-radius: v.$round-10;
                         font-weight: map-get(v.$font-weight, 1);
                     }
                     .status-online{
-                        padding: 5px;
-                        color: rgb(0, 38, 100);
-                        background-color: rgb(205, 209, 237);
-                        border-radius: v.$round-10;
+                        color: darkblue;
+                        font-weight: map-get(v.$font-weight, 1);
+                    }
+                    .status-offline{
+                        color: v.$red;
                         font-weight: map-get(v.$font-weight, 1);
                     }
                     .status-break{
-                        padding: 5px;
-                        color: rgb(237, 237, 237);
-                        background-color: rgb(110, 110, 110);
-                        border-radius: v.$round-10;
+                        color: rgb(0, 100, 8);
+                        font-weight: map-get(v.$font-weight, 1);
+                    }
+                    .status-leave{
+                        color: rgb(225, 225, 225);
                         font-weight: map-get(v.$font-weight, 1);
                     }
                     .status-offboarding{
                         padding: 5px;
-                        color: rgb(208, 206, 206);
-                        background-color: v.$black;
-                        border-radius: v.$round-10;
+                        // color: rgb(208, 206, 206);
+                        // background-color: v.$black;
+                        // border-radius: v.$round-10;
+                        // font-weight: map-get(v.$font-weight, 1);
+                        color: v.$black;
                         font-weight: map-get(v.$font-weight, 1);
                     }
                     .save-cancel{

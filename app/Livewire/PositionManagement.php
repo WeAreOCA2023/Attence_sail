@@ -17,6 +17,7 @@ use App\Models\Position;
 class PositionManagement extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     #[Rule('required', message: '役職名を入力してください')]
     #[Rule('max:128', message: '役職名が長すぎます')]

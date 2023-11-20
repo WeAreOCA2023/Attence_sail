@@ -14,6 +14,7 @@ use App\Models\Department;
 class DepartmentManagement extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     #[Rule('required', message: '部署名を入力してください')]
     #[Rule('max:128', message: '部署名が長すぎます')]

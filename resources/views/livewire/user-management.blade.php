@@ -6,11 +6,54 @@
                 <input type="text" wire:model.live.debounce.250ms="search_user" placeholder="名前を入力して検索" >
             </span>
         </div>
-        <div class="filterOptions d-flex justify-content-around mx-auto">
-            <p>フィルター</p>
-            <p>部署</p>
-            <p>役職</p>
+        <div class="filter-group d-flex justify-content-center align-items-center">
+            <div class="filter-position dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    部署
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+            </div>
+            <div class="filter-department dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    役職
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+            </div>
+            <div class="filter-status dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    ステータス
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">未出勤</a></li>
+                    <li><a class="dropdown-item" href="#">出勤中</a></li>
+                    <li><a class="dropdown-item" href="#">休憩中</a></li>
+                    <li><a class="dropdown-item" href="#">休職中</a></li>
+                    <li><a class="dropdown-item" href="#">退職済</a></li>
+                </ul>
+            </div>
+            <div class="filter-overwork dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    超過労働
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">正常</a></li>
+                    <li><a class="dropdown-item" href="#">警告</a></li>
+                </ul>
+            </div>
         </div>
+
+
         @if(session('unselect'))
             <div class="error d-block text-center">
                 <strong>{{ session('unselect') }}</strong>
@@ -57,6 +100,7 @@
                         <td class="td-department">
                             <select wire:model="assignDepartmentId" class="form-select" aria-label="assignable departments">
                                 <option selected>選択してください</option>
+                                <option value="1">無し</option>
                                 @foreach ($user_info['assignable_departments'] as $assignable_department)
                                     <option value="{{ $assignable_department->id }}">{{ $assignable_department->department_name }}</option>
                                 @endforeach
@@ -138,7 +182,7 @@
             @endif
             </tbody>
         </table>
-        <div class="text-center">
+        <div class="d-flex justify-content-center align-items-center">
             {{ $search_users->links() }}
         </div>
     </div>
