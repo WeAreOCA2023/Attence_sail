@@ -75,7 +75,8 @@ class HomeController extends Controller
                 'worked_hours' => $totalMonthHour,
             ]);
             $monthlyWork->save();
-//            CheckConstants::monthlyThreeOverCheck(); // 36協定の週チェック(残業:月-45h)
+            CheckConstants::monthlyThreeOverCheck(); // 36協定の週チェック(残業:月45h)
+            CheckConstants::monthlySpecialOverCheck(); // 特別36協定の週チェック(残業:月80h)
         }
     }
 
@@ -92,6 +93,7 @@ class HomeController extends Controller
                 'worked_hours' => $totalYearHour,
             ]);
             $yearlyWork->save();
+            CheckConstants::yearlyThreeOverCheck(); // 36協定の週チェック(残業:年360h)
         }
     }
     /**
