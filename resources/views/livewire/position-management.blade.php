@@ -20,7 +20,7 @@
                         <h3 class="m-0 d-flex align-items-center">{{ $position->position_name }}</h3>
                         <h3 class="m-0 d-flex align-items-center">権威レベル:{{ $position->rank }}</h3>
                         @if ($editing == true && $editPositionId == $position->id)
-                        <div class="editing d-flex align-items-center">
+                        <div class="editing d-flex justify-content-center align-items-center text-center">
                             <h3 class="m-0">編集中</h3>
                         </div>
                         @else
