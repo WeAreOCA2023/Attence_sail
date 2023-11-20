@@ -65,6 +65,13 @@ class PositionManagement extends Component
 
     public function update()
     {
+        if ($this->editing == false) {
+            return;
+        }
+        if ($this->update_position_name == null || $this->update_position_name == null) {
+            $this->editing = false;
+            return;
+        }
         $position = Position::where('id', $this->editPositionId)->first();
         if ($position->position_name == $this->update_position_name) {
             $position->rank = $this->rank;

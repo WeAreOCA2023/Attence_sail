@@ -86,6 +86,13 @@ class DepartmentManagement extends Component
 
     public function update()
     {
+        if ($this->editing == false) {
+            return;
+        }
+        if ($this->update_department_name == null || $this->update_department_name == null) {
+            $this->editing = false;
+            return;
+        }
         $user = User::where('user_id', Auth::user()->id)->first();
         $boss_id = UserLogin::where('email', $this->search)->first();
         if ($boss_id == null) {
