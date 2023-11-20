@@ -93,7 +93,8 @@ class HomeController extends Controller
                 'worked_hours' => $totalYearHour,
             ]);
             $yearlyWork->save();
-            CheckConstants::yearlyThreeOverCheck(); // 36協定の週チェック(残業:年360h)
+            CheckConstants::yearlyThreeOverCheck(); // 36協定の年チェック(残業:年360h)
+            CheckConstants::yearlySpecialOverCheck(); // 特別36の年チェック(残業:年720h)
         }
     }
     /**

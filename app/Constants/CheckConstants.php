@@ -118,5 +118,18 @@ class CheckConstants
         }
     }
 
-    // 年の特別36チェック
+    // 年の特別36チェック(各年)
+    public static function yearlySpecialOverCheck(): void
+    {
+        if (self::specialCheck()){
+            $baseData = YearlyWorkHours::where('user_id', Auth::user()->id)->get();
+            $latestData = $baseData->sortByDesc('id')->first();
+            $yearHours = $latestData->overwork;
+            if ($yearHours > 10000){
+                $user = User::where('user_id', Auth::user()->id)->first();
+                $user->over_work = 1;
+                $user->save();
+            }
+        }
+    }
 }
