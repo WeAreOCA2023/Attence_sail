@@ -16,6 +16,16 @@
                 <strong>{{ session('unselect') }}</strong>
             </div>
         @endif
+        @if(session('errorBossDepartment'))
+            <div class="error d-block text-center">
+                <strong>{{ session('errorBossDepartment') }}</strong>
+            </div>
+        @endif
+        @if(session('successDeleteUser'))
+            <div class="success d-block text-center">
+                <strong>{{ session('successUser') }}</strong>
+            </div>
+        @endif
         @if(session('successUser'))
             <div class="success d-block text-center">
                 <strong>{{ session('successUser') }}</strong>
