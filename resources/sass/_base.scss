@@ -755,7 +755,7 @@ main {
         img{
             width: 2vw;
         }
-        .lawBox, .companyBox{
+        .lawBox, .companyBox, .accountBox{
             gap: 0.2vw;
             width: 25vw;
             height: 45vh;
@@ -779,6 +779,11 @@ main {
         .lawBox{
             form{
                 gap: 5vh;
+            }
+        }
+        .accountBox{
+            form{
+                gap: 1vh;
             }
         }
         .agreement36Input{

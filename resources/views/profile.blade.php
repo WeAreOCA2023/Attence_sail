@@ -19,13 +19,13 @@
                 </div>
                 <div class="d-flex justify-content-around mt-auto mb-auto">
                     <div class="email">
-                        <h3 class="m-0">Eメール:<input type="email" value="{{ Auth::user()->email }}" disabled></h3>
+                        <h3 class="m-0">Eメール:{{ Auth::user()->email }}</h3>
                     </div>
                     <div class="phoneNumber">
-                        <h3 class="m-0">電話番号:<input type="email" value="{{ $phone_number }}" disabled></h3>
+                        <h3 class="m-0">電話番号:{{ $phone_number }}</h3>
                     </div>
-                    <div class="email">
-                        <h3 class="m-0">パスワード:<input type="password" value="********" disabled></h3>
+                    <div class="password">
+                        <h3 class="m-0">パスワード:******</h3>
                     </div>
                 </div>
             </div>
@@ -98,6 +98,51 @@
                 </form>
             </div>
         </div>
+
+        <div class="accountBox d-flex">
+            <div class="accountBox  d-flex flex-column align-items-center justify-content-center">
+                <div class="title d-flex align-items-center mt-5">
+                    <img src="{{ asset('img/contract.svg') }}" alt="Contract Setting Icon">
+                    <h2>アカウント情報</h2>
+                </div>
+                <div class="accountBoxInner d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
+                    <form class="d-flex flex-column align-items-center justify-content-between" action="" method="POST">
+                        @csrf
+                        <div class="fullNameBox">
+                            <label for="fullName">{{ __('名前') }}</label>
+                            <div class="fullNameInput">
+                                <input id="fullName" type="text"  name="fullName" value="{{ old('fullName') }}" required autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="userNameBox">
+                            <label for="userName">{{ __('ユーザー名') }}</label>
+                            <div class="userNameInput">
+                                <input id="userName" type="text"  name="userName" value="{{ old('userName') }}" required autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="emailBox">
+                            <label for="email">{{ __('Eメール') }}</label>
+                            <div class="emailInput">
+                                <input id="email" type="email"  name="email" value="{{ old('email') }}" required autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="phoneNumberBox">
+                            <label for="phoneNumber">{{ __('電話番号') }}</label>
+                            <div class="phoneNumberInput">
+                                <input id="phoneNumber" type="tel"  name="phoneNumber" value="{{ old('phoneNumber') }}" required autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="saveButton text-center">
+                            <button type="submit">
+                                {{ __('保存') }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
         @can('boss')
 
         <div class="companyBox  d-flex flex-column align-items-center justify-content-center">
