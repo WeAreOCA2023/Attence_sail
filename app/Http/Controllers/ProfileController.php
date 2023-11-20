@@ -28,7 +28,7 @@ class ProfileController extends Controller
         $company = Company::where('id', $user->company_id)->first();
         $position = Position::where('id', $user->position_id)->first();
         $department = Department::where('id', $user->department_id)->first();
-        $phone_number = $user->phone_number;
+        $phone_number = $user->telephone;
         $company_name = $company->company_name;
         $company_id = $company->id;
 
@@ -42,6 +42,8 @@ class ProfileController extends Controller
         $department_id = $user->department_id;
         if ($department_id == 0) {
             $department_name = '<span class="unset">' . '未設定' . '</span>';
+        } elseif($department_id == -1){
+            $department_name = '<span class=>' . '無し' . '</span>';
         } else {
             $department_name = $department->department_name;
         }
