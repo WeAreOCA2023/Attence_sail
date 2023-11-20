@@ -66,8 +66,13 @@ class DepartmentManagementController extends Controller
 
     public function destroy($id)
     {
-        $department = Department::find($id);
-        $department->delete();
-        return redirect('/department-management');
+        $match = User::where('department_id', $id)->first();
+        if ($match == null) {
+            $department = Department::find($id);
+            $department->delete();
+            return redirect('/department-management');
+        }
+        return redirect('/department-management')->with('userExistsOnDepartment', 'この部署に所属するユーザーがいるため削除できません。');
+
     }
 }

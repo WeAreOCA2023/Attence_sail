@@ -49,10 +49,13 @@ class PositionManagementController extends Controller
 
     public function destroy($id, Request $request): RedirectResponse
     {
-        $position = Position::find($id);
-        $position->delete();
-        $currentPage = $request->input('page', 1);
-        $redirectTo = '/position-management?page=' . $currentPage;
-        return redirect($redirectTo);
+        $match = User::where('position_id', $id)->first();
+        if ($match == null) {
+            $position = Position::find($id);
+            $position->delete();
+            return redirect('/position-management');
+        }
+        return redirect('/position-management')->with('userExistsOnPosition', 'この役職を持つユーザーがいるため削除できません。');
+
     }
 }

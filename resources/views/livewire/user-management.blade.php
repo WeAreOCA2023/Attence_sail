@@ -11,6 +11,26 @@
             <p>部署</p>
             <p>役職</p>
         </div>
+        @if(session('unselect'))
+            <div class="error d-block text-center">
+                <strong>{{ session('unselect') }}</strong>
+            </div>
+        @endif
+        @if(session('errorBossDepartment'))
+            <div class="error d-block text-center">
+                <strong>{{ session('errorBossDepartment') }}</strong>
+            </div>
+        @endif
+        @if(session('successDeleteUser'))
+            <div class="success d-block text-center">
+                <strong>{{ session('successUser') }}</strong>
+            </div>
+        @endif
+        @if(session('successUser'))
+            <div class="success d-block text-center">
+                <strong>{{ session('successUser') }}</strong>
+            </div>
+        @endif
         <table class="table table-hover">
             <thead class="table-dark">
                 <tr>
@@ -19,10 +39,10 @@
                     <th>メールアドレス</th>
                     <th>部署</th>
                     <th>役職</th>
-                    <th>36協定</th>
-                    <th>変形時間労働制</th>
-                    <th>ステータス</th>
-                    <th>オーバーワーク</th>
+                    <th class="th-agreement36">36協定</th>
+                    <th class="th-variable_working_hours_system">変形労働時間制</th>
+                    <th class="th-status">ステータス</th>
+                    <th class="th-overwork">超過労働</th>
                     <th></th>
                 </tr>
             </thead>
@@ -34,8 +54,21 @@
                         <th scope="row">{{ $user_info['user_id'] }}</th>
                         <td>{{ $user_info['full_name'] }}</td>
                         <td>{{ $user_info['email'] }}</td>
-                        <td>{!! $user_info['department_name'] !!}</td>
-                        <td>{!! $user_info['position_name'] !!}</td>
+                        <td class="td-department">
+                            <select wire:model="assignDepartmentId" class="form-select" aria-label="assignable departments">
+                                <option selected>選択してください</option>
+                                @foreach ($user_info['assignable_departments'] as $assignable_department)
+                                    <option value="{{ $assignable_department->id }}">{{ $assignable_department->department_name }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <select wire:model="assignPositionId" class="form-select" aria-label="asignable positions">
+                                <option selected>選択してください</option>
+                                @foreach ($user_info['assignable_positions'] as $assignable_position)
+                                    <option value="{{ $assignable_position->id }}">{{ $assignable_position->position_name }}</option>
+                                @endforeach
+                        </td>
                         <td>{!! $user_info['agreement_36'] !!}</td>
                         <td>{!! $user_info['variable_working_hours_system'] !!}</td>
                         <td>{!! $user_info['status'] !!}</td>
@@ -54,16 +87,16 @@
                     @else
                     <tr>
                         <th scope="row">{{ $user_info['user_id'] }}</th>
-                        <td>{{ $user_info['full_name'] }}</td>
-                        <td>{{ $user_info['email'] }}</td>
-                        <td>{!! $user_info['department_name'] !!}</td>
-                        <td>{!! $user_info['position_name'] !!}</td>
+                        <td class="td-fullName">{{ $user_info['full_name'] }}</td>
+                        <td class="td-email">{{ $user_info['email'] }}</td>
+                        <td class="td-department">{!! $user_info['department_name'] !!}</td>
+                        <td  class="td-position">{!! $user_info['position_name'] !!}</td>
                         <td>{!! $user_info['agreement_36'] !!}</td>
                         <td>{!! $user_info['variable_working_hours_system'] !!}</td>
                         <td>{!! $user_info['status'] !!}</td>
                         <td>{!! $user_info['over_work'] !!}</td>
-                        <td>
-                            <div class="edit-delete">
+                        <td class="td-Btn">
+                            <div class="edit-delete d-flex justify-content-between align-items-center">
                                 <button wire:click="edit({{ $user_info['user_id'] }})">
                                     <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
                                 </button>                                

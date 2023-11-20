@@ -4,6 +4,11 @@
             <img src="{{ asset('img/department.svg') }}" alt="department icon">
             <h2 class="m-0">部署</h2>
         </div>
+        @if(session('userExistsOnDepartment'))
+            <div class="error d-block text-center">
+                <strong>{{ session('userExistsOnDepartment') }}</strong>
+            </div>
+        @endif
         <table class="table table-hover">
             <thead class="table-dark">
                 <tr>
@@ -14,30 +19,30 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach ($departments as $department)
+            
                 @foreach ($departments_info as $department_info)
-                    <tr class="{{ $editDepartmentId === $department->id ? 'editing-row' : '' }}">
-                        <td>{{ $department->department_name }}</td>
+                    <tr>
+                        <td>{{ $department_info['department_name'] }}</td>
                         <td>{{ $department_info['boss_name'] }}</td>
                         <td>{{ $department_info['email'] }}</td>
                         <td>
-                            @if ($editing == true && $editDepartmentId == $department->id)
+                            @if ($editing == true && $editDepartmentId == $department_info['department_id'])
                             <div class="editing d-flex justify-content-center align-items-center">
                                 <h3 class="m-0">編集中</h3>
                             </div>
                             @else
                                 <div class="edit-delete d-flex">
-                                    <button  wire:click="edit({{ $department->id }})" class="editBtn btn-primary">
+                                    <button  wire:click="edit({{ $department_info['department_id'] }})" class="editBtn btn-primary">
                                         <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
                                     </button>
-                                    <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $department->id }}">
+                                    <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $department_info['department_id'] }}">
                                         <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
                                     </button>
                                 </div>
                             @endif
                         </td>
                     </tr>   
-                    <div class="modal fade" id="confirmDeleteModal{{ $department->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="confirmDeleteModal{{ $department_info['department_id'] }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -46,11 +51,11 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>「{{ $department->department_name }}」を削除すると、元には戻せません</p>
+                                        <p>「{{ $department_info['department_name'] }}」を削除すると、元には戻せません</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-                                        <form class="delete" method="POST" action="{{ route('department-management.destroy',$department->id) }}">
+                                        <form class="delete" method="POST" action="{{ route('department-management.destroy',$department_info['department_id']) }}">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="btn btn-primary">削除</button>
@@ -61,7 +66,6 @@
                         </div>
                     </div>
                 @endforeach
-        @endforeach
         </tbody>
     </table>
     <div class="mt-4 text-center">
@@ -79,8 +83,8 @@
                     </div>
                 @endif
                 <label class="d-block" for="departmentName">{{ __('部署名') }}</label>
-                <input id="departmentName" type="text" wire:model="department_name" value="{{ old('departmentName') }}" autocomplete="departmentName" autofocus>
-                @error ('department_name')
+                <input id="departmentName" type="text" wire:model="update_department_name" value="{{ old('departmentName') }}" autocomplete="departmentName" autofocus>
+                @error ('update_department_name')
                     <span class="error d-flex justify-content-center" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -136,8 +140,8 @@
                     </div>
                 @endif
                 <label class="d-block" for="departmentName">{{ __('部署名') }}</label>
-                <input id="departmentName" type="text" wire:model="department_name" value="{{ old('departmentName') }}" autocomplete="departmentName" autofocus>
-                @error ('department_name')
+                <input id="departmentName" type="text" wire:model="save_department_name" value="{{ old('departmentName') }}" autocomplete="departmentName" autofocus>
+                @error ('save_department_name')
                     <span class="error d-flex justify-content-center" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -148,7 +152,7 @@
                 <div class="responsibleInput d-flex flex-column">
                     <input wire:model.live.debounce.500ms="search" type="text" name="bossEmail" value="{{ old('bossEmail') }}">
                     @if (strlen($search) > 0)
-                        <ul class="list-group d-flex flex-column justify-content-center align-items-center">
+                        <ul class="list-group d-flex flex-column justify-content-center align-items-center overflow-auto mt-2">
                             @foreach($boss_users as $boss_user)
                                 @php 
                                     $boss_email = DB::table('user_logins')->where('id', $boss_user->user_id)->get()[0]->email 

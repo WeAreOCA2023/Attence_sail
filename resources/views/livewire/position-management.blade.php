@@ -4,6 +4,11 @@
             <img src="{{ asset('img/position.svg') }}" alt="department icon">
             <h2 class="m-0">役職</h2>
         </div>
+        @if(session('userExistsOnPosition'))
+            <div class="error d-block text-center">
+                <strong>{{ session('userExistsOnPosition') }}</strong>
+            </div>
+        @endif
         <div class="positionOuterBox d-flex flex-column justify-content-between">
             @foreach ($positions as $position)
             <div class="positionBox d-flex justify-content-center">
@@ -73,7 +78,7 @@
                     </div>
                 @endif
                 <label class="d-block" for="positionName">{{ __('役職名') }}</label>
-                <input id="positionName" type="text" wire:model='position_name' value="{{ old('positionName') }}" autocomplete="positionName" autofocus>
+                <input id="positionName" type="text" wire:model='update_position_name' value="{{ old('positionName') }}" autocomplete="positionName" autofocus>
                 @error ('position_name')
                     <span class="error d-block text-center" role="alert">
                         <strong>{{ $message }}</strong>
@@ -112,7 +117,7 @@
                     </div>
                 @endif
                 <label class="d-block" for="positionName">{{ __('役職名') }}</label>
-                <input id="positionName" type="text" wire:model='position_name' value="{{ old('positionName') }}" autocomplete="positionName" autofocus>
+                <input id="positionName" type="text" wire:model='save_position_name' value="{{ old('positionName') }}" autocomplete="positionName" autofocus>
                 @error ('position_name')
                     <span class="error d-block text-center" role="alert">
                         <strong>{{ $message }}</strong>

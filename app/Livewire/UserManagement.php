@@ -19,9 +19,14 @@ class UserManagement extends Component
     public $editUserId;
     public $editing = false;
 
+    public $assignDepartmentId;
+    public $assignPositionId;
+
    
     public function render()
     {
+        $assinable_departments = Department::select('id', 'department_name')->get();
+        $assignable_positions = Position::select('id', 'position_name')->get();
         $users_info = [];
         $company_id = User::where('user_id', Auth::user()->id)->first()->company_id;
         $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->paginate(12);
@@ -68,13 +73,13 @@ class UserManagement extends Component
             } elseif ($status == 3) {
                 $status = '<span class="status-leave">' . '休職中' . '</span>';
             } else {
-                $status = '<span class="status-offboarding">' . '退職済み' . '</span>';
+                $status = '<span class="status-offboarding">' . '退職済' . '</span>';
             }
             $over_work = $user->over_work;
             if ($over_work == 0) {
                 $over_work = '<span class="status-unoverwork">' . '正常' . '</span>';
             } else {
-                $over_work = '<span class="status-overwork">' . '過労警告' . '</span>';
+                $over_work = '<span class="status-overwork">' . '警告' . '</span>';
             }
             // user-managementで使用するデータ
             $users_info[$user->user_id] = [
@@ -86,7 +91,9 @@ class UserManagement extends Component
                 'agreement_36' => $agreement_36,
                 'variable_working_hours_system' => $variable_working_hours_system,
                 'status' => $status,
-                'over_work' => $over_work
+                'over_work' => $over_work,
+                'assignable_departments' => $assinable_departments,
+                'assignable_positions' => $assignable_positions
             ];      
         }
     
@@ -101,5 +108,19 @@ class UserManagement extends Component
     {
         $this->editing = true;
         $this->editUserId = $id;
+    }
+
+    public function update()
+    {
+        if ($this->assignDepartmentId == null or $this->assignPositionId == null) {
+            session()->flash('unselect', '部署と役職を選択してください。');
+            return redirect('/user-management');
+        }
+        $user = User::where('user_id', $this->editUserId)->first();
+        $user->department_id = $this->assignDepartmentId;
+        $user->position_id = $this->assignPositionId;
+        $user->save();
+        session()->flash('successUser', 'ユーザー情報を更新しました。');
+        return redirect('/user-management');
     }
 }

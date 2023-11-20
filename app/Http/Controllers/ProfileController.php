@@ -43,7 +43,7 @@ class ProfileController extends Controller
         if ($department_id == 0) {
             $department_name = '<span class="unset">' . '未設定' . '</span>';
         } else {
-            $deparmtent_name = $department->department_name;
+            $department_name = $department->department_name;
         }
 
 
