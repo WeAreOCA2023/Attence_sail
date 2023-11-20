@@ -58,8 +58,6 @@ class HomeController extends Controller
             $weeklyWork->save();
         }
         CheckConstants::weeklyDefaultOverCheck(); // デフォの週チェック(労働:週-40h)
-//        CheckConstants::monthlyThreeOverCheck(); // 36協定の週チェック(残業:月-45h)
-
     }
 
     //一ヶ月が終わった時の処理
@@ -77,6 +75,8 @@ class HomeController extends Controller
                 'worked_hours' => $totalMonthHour,
             ]);
             $monthlyWork->save();
+            CheckConstants::monthlyThreeOverCheck(); // 36協定の週チェック(残業:月45h)
+            CheckConstants::monthlySpecialOverCheck(); // 特別36協定の週チェック(残業:月80h)
         }
     }
 
@@ -93,6 +93,8 @@ class HomeController extends Controller
                 'worked_hours' => $totalYearHour,
             ]);
             $yearlyWork->save();
+            CheckConstants::yearlyThreeOverCheck(); // 36協定の年チェック(残業:年360h)
+            CheckConstants::yearlySpecialOverCheck(); // 特別36の年チェック(残業:年720h)
         }
     }
     /**
@@ -140,17 +142,13 @@ class HomeController extends Controller
     {
         $raw = file_get_contents('php://input'); // POSTされた生のデータを受け取る
         $data = json_decode($raw); // json形式をphp変数に変換
-
-        $currentDate = date("Y-m-d");
+        $currentDate = date("Y-m-d");//今の日付を取得
         $workHours = abs($data->elapsed_time);
-
         // overtimeチェック
         $overWork = 0; //overworkの初期値
         if ($workHours > 5000){
             $overWork = $workHours - 5000;
         }
-
-        echo json_encode($workHours);
 
         CheckConstants::dailyDefaultOverCheck($workHours); // デフォの日チェック(労働:日-8h)
         $this->storeSetUp($workHours, $overWork); // allWorkTableの合計時間の更新
@@ -163,9 +161,6 @@ class HomeController extends Controller
             'overwork' => $overWork,
         ]);
         $dailyWork->save();
-//        return redirect('/home');
-        // echoすると返せる
-//        echo json_encode($data); // json形式にして返す
     }
 
     /**

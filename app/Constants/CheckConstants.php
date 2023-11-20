@@ -4,6 +4,7 @@ namespace App\Constants;
 
 use App\Models\MonthlyWorkHours;
 use App\Models\User;
+use App\Models\YearlyWorkHours;
 use Illuminate\Support\Facades\Auth;
 use App\Models\WeeklyWorkHours;
 
@@ -75,6 +76,56 @@ class CheckConstants
             $latestData = $baseData->sortByDesc('id')->first();
             $monthHours = $latestData->overwork;
             if ($monthHours > 10000){
+                $user = User::where('user_id', Auth::user()->id)->first();
+                $user->over_work = 1;
+                $user->save();
+            }
+        }
+    }
+
+    // 月の36チェック(各年)
+    public static function yearlyThreeOverCheck(): void
+    {
+        if (self::threeCheck()){
+            $baseData = YearlyWorkHours::where('user_id', Auth::user()->id)->get();
+            $latestData = $baseData->sortByDesc('id')->first();
+            $yearHours = $latestData->overwork;
+            if ($yearHours > 10000){
+                $user = User::where('user_id', Auth::user()->id)->first();
+                $user->over_work = 1;
+                $user->save();
+            }
+        }
+    }
+
+    // 月の特別36チェック(隔週)
+    public static function monthlySpecialOverCheck(): void
+    {
+        if (self::specialCheck()){
+            $baseData = WeeklyWorkHours::where('user_id', Auth::user()->id)->get();
+            $latestData = $baseData->sortByDesc('id')->first();
+            $weekHours = $latestData->worked_hours;
+            $user = User::where('user_id', Auth::user()->id)->first();
+            if ($weekHours > 10000){
+                $user->over_work_count += 1;
+                $user->save();
+            }
+            $count = $user->over_work_count;
+            if ($count >= 6){
+                $user->over_work = 1;
+                $user->save();
+            }
+        }
+    }
+
+    // 年の特別36チェック(各年)
+    public static function yearlySpecialOverCheck(): void
+    {
+        if (self::specialCheck()){
+            $baseData = YearlyWorkHours::where('user_id', Auth::user()->id)->get();
+            $latestData = $baseData->sortByDesc('id')->first();
+            $yearHours = $latestData->overwork;
+            if ($yearHours > 10000){
                 $user = User::where('user_id', Auth::user()->id)->first();
                 $user->over_work = 1;
                 $user->save();
