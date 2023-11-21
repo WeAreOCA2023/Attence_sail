@@ -35,16 +35,11 @@ Route::resource('home', HomeController::class, ['only' => ['index', 'store']]);
 //Route::post('/insert', 'HomeController@insert')->name('home.insert');
 
 Route::resource('tasks', TaskController::class);
-Route::resource('profile', ProfileController::class);
-Route::post('profile/store2', [ProfileController::class, 'store2'])->name('profile.store2');
 
-
-Route::group(['middleware' => ['auth', 'can:boss']], function () {
-    Route::resource('department-management', DepartmentManagementController::class);
-    Route::resource('position-management', PositionManagementController::class);
-    Route::resource('user-management', UserManagementController::class);
-});
-
-//Route::get('/tasks', CreateTask::class)->name('tasks');
-
-//Route::get('/counter', Counter::class);
+Route::resource('profile', ProfileController::class, ['only' => ['index']]);
+Route::put('profile/update-contract/{user}', [ProfileController::class, 'updateContract'])->name('profile.updateContract');
+Route::put('profile/updateCompany/{company}', [ProfileController::class, 'updateCompany'])->name('profile.updateCompany');
+Route::put('profile/updateFullName/{user}', [ProfileController::class, 'updateFullName'])->name('profile.updateFullName');
+Route::put('profile/updateUserName/{user}', [ProfileController::class, 'updateUserName'])->name('profile.updateUserName');
+Route::put('profile/updateEmail/{user_logins}', [ProfileController::class, 'updateEmail'])->name('profile.updateEmail');
+Route::put('profile/updateTelephone/{user}', [ProfileController::class, 'updateTelephone'])->name('profile.updateTelephone');
