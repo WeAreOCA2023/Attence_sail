@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('all_tasks_assigns', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('assignee_id')->references('id')->on('user_logins');
             $table->foreignId('task_id')->references('id')->on('tasks');
             $table->dateTime('assigned_at');
