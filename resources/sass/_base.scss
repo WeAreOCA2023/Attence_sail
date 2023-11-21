@@ -535,7 +535,7 @@ main {
     }
 }
 
-// departmentManagement
+// department-management
 .departmentManagement{
     gap: 0 2vw;
     .allDepartmentsBox{
@@ -586,6 +586,14 @@ main {
                     h3{
                         font-weight: map-get(v.$font-weight, 1);
                     }
+                }
+            }
+        }
+        .pagination-link{
+            .pagination{
+                .page-link {
+                    background-color: var(--bs-anti-main-color);
+                    color: var(--bs-main-color);
                 }
             }
         }
@@ -680,7 +688,7 @@ main {
     }
 }
 
-// positionManagement
+// position-management
 .positionManagement{
     gap: 0 2vw;
     .allPositionsBox{
@@ -709,6 +717,14 @@ main {
 
         .positionOuterBox{
             gap: 1.5vh;
+            .pagination-link{
+                .pagination{
+                    .page-link {
+                        background-color: var(--bs-anti-main-color);
+                        color: var(--bs-main-color);
+                    }
+                }
+            }
             .positionInnerBox{
                 width: 80%;
                 height: 4vh;
@@ -983,7 +999,7 @@ main {
 
 
 
-// userManagement
+// user-management
 .userManagement{
     gap: 0.2vw;
     .whiteBox{
@@ -994,6 +1010,9 @@ main {
         .filter-group{
             gap: 2vw;
             .filter-position, .filter-department, .filter-status, .filter-overwork{
+                li + li{
+                    border-top: 1px solid var(--bs-anti-main-color);
+                }
                 a{
                     @include m.fz(20);
                 }
@@ -1115,6 +1134,14 @@ main {
                 }
             }
 
+        }
+        .pagination-link{
+            .pagination{
+                .page-link {
+                    background-color: var(--bs-anti-main-color);
+                    color: var(--bs-main-color);
+                }
+            }
         }
     }
 }

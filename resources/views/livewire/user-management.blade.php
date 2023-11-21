@@ -12,9 +12,10 @@
                     部署
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li><a class="dropdown-item" wire:click="filterDepartment(0)">取り消す</a></li>
+                    @foreach ($all_departments as $department)
+                        <li><a class="dropdown-item" wire:click="filterDepartment({{ $department->id }})">{{ $department->department_name }}</a></li>
+                    @endforeach
                 </ul>
             </div>
             <div class="filter-department dropdown">
@@ -23,9 +24,9 @@
                 </a>
 
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    @foreach ($all_positions as $position)
+                        <li><a class="dropdown-item" href="#">{{ $position->position_name }}</a></li>
+                    @endforeach
                 </ul>
             </div>
             <div class="filter-status dropdown">
@@ -98,7 +99,7 @@
                         <td>{{ $user_info['full_name'] }}</td>
                         <td>{{ $user_info['email'] }}</td>
                         <td class="td-department">
-                            <select wire:model="assignDepartmentId" class="form-select" aria-label="assignable departments">
+                            <select wire:click="filterDepartment({{ $user_info['department_id'] }})" class="form-select" aria-label="assignable departments">
                                 <option selected>選択してください</option>
                                 <option value="1">無し</option>
                                 @foreach ($user_info['assignable_departments'] as $assignable_department)
@@ -182,7 +183,7 @@
             @endif
             </tbody>
         </table>
-        <div class="d-flex justify-content-center align-items-center">
+        <div class="pagination-link d-flex justify-content-center align-items-center">
             {{ $search_users->links() }}
         </div>
     </div>

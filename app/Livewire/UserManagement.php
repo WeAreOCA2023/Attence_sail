@@ -15,26 +15,44 @@ class UserManagement extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
+    // 検索用
     public $search_user = '';
-    // 検索結果
-
+    
+    // 編集用
     public $editUserId;
     public $editing = false;
 
+    // 部署・役職割り当て用
     public $assignDepartmentId;
     public $assignPositionId;
 
-    public $fileterDepartmentId;
-    public $filterPositionId;
+    // フィルター用
+    public $filterDepartmentId = null;
+    public $filterPositionId = null;
 
-   
+
     public function render()
     {
         $assinable_departments = Department::select('id', 'department_name')->get();
         $assignable_positions = Position::select('id', 'position_name')->get();
         $users_info = [];
         $company_id = User::where('user_id', Auth::user()->id)->first()->company_id;
-        $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->paginate(12);
+        if ($this->filterDepartmentId != null) {
+            if (strlen($this->search_user >= 0)) {
+                $users_table_pagination = User::where('company_id', $company_id)
+                ->where('department_id', $this->filterDepartmentId)
+                ->search('full_name', $this->search_user)
+                ->orderBy('user_id', 'asc')
+                ->paginate(12);
+            } else{
+                $users_table_pagination = User::where('company_id', $company_id)
+                ->where('department_id', $this->filterDepartmentId)
+                ->orderBy('user_id', 'asc')
+                ->paginate(12);
+            }
+        } else {
+            $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->paginate(12); 
+        }
         foreach ($users_table_pagination as $user_pagination) {
             $user = User::where('user_id', $user_pagination->user_id)->first();
             $user_login = UserLogin::where('id', $user->user_id)->first();
@@ -100,14 +118,19 @@ class UserManagement extends Component
                 'status' => $status,
                 'over_work' => $over_work,
                 'assignable_departments' => $assinable_departments,
-                'assignable_positions' => $assignable_positions
+                'assignable_positions' => $assignable_positions,
             ];      
         }
-    
-
+        // if ($this->filterDepartmentId != null) {
+        //     dd($users_info);
+        // }
+        $all_departments = Department::select('id', 'department_name')->get();
+        $all_positions = Position::select('id', 'position_name')->get();
         return view('livewire.user-management', [
             'search_users' => $users_table_pagination,
-            'users_info' => $users_info
+            'users_info' => $users_info,
+            'all_departments' => $all_departments,
+            'all_positions' => $all_positions,
         ]);
     }
 
@@ -133,6 +156,11 @@ class UserManagement extends Component
 
     public function filterDepartment($id)
     {
+        if ($id == 0) {
+            $this->filterDepartmentId = null;
+        }
         $this->filterDepartmentId = $id;
     }
+
+
 }

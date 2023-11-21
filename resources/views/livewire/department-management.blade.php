@@ -66,11 +66,11 @@
                         </div>
                     </div>
                 @endforeach
-        </tbody>
-    </table>
-    <div class="mt-4 text-center">
-        {{ $departments->links() }}
-    </div>
+            </tbody>
+        </table>
+        <div class="pagination-link d-flex justify-content-center align-items-center">
+            {{ $departments->links() }}
+        </div>
     </div>
     <div class="addDepartmentsBox d-flex justify-content-center align-items-center">
         @if ($editing == true)
