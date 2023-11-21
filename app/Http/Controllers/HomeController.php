@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Constants\AgreementConstants;
 use App\Constants\CheckConstants;
+use App\Models\AllTasksAssign;
 use App\Models\MonthlyWorkHours;
+use App\Models\Task;
 use App\Models\User;
 use App\Models\WeeklyWorkHours;
 use App\Models\YearlyWorkHours;
@@ -120,9 +122,21 @@ class HomeController extends Controller
     }
     public function index()
     {
+        $giveTask = [];
+        //taskを持ってくる↓
+//        $allTask = AllTasksAssign::where('assignee_id', Auth::user()->id);
+        $allTask = AllTasksAssign::where('assignee_id', Auth::user()->id)->orderBy('created_at', 'asc')->paginate(3);
+        foreach ($allTask as $eachTask){
+            $task = Task::where('id', $eachTask->task_id)->first();
+            $giveTask[$task->title] = $task->deadline;
+        }
+//        dd($giveTask);
+
         $this->defaultCheck(); //関数呼び出し(初期チェック)
 //        $this->weeklyProcess();
-        return view('home');
+        return view('home', [
+            'tasks' => $giveTask,
+        ]);
     }
 
 

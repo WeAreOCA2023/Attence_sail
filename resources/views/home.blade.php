@@ -40,9 +40,9 @@
                     <h3>今日中に終わらせなければいけないタスク</h3>
                 </div>
                 <div class="taskListTasks">
-                    <p>タスク名    ----  期限(時間)</p>
-                    <p>タスク名    ----  期限(時間)</p>
-                    <p>タスク名    ----  期限(時間)</p>
+                    @foreach ($tasks as $taskName => $deadLine)
+                        <p>{{$taskName}} ---- {{$deadLine}}</p>
+                    @endforeach
                 </div>
             </div>
             <div class="extraWorkList bg-white">
