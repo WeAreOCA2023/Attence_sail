@@ -137,10 +137,14 @@ class HomeController extends Controller
         $allTask = AllTasksAssign::where('assignee_id', Auth::user()->id)->orderBy('created_at', 'asc')->paginate(3);
         foreach ($allTask as $eachTask){
             $task = Task::where('id', $eachTask->task_id)->first();
-            $giveTask[$task->title] = $task->deadline;
+            $time = strtotime($task->deadline);
+            $newTime = date("Y-m-d h:i", $time);
+//            dd($newTime);
+            $giveTask[$task->title] = $newTime;
         }
         return $giveTask;
     }
+
     function getWorkData()
     {
         if (!is_null(AllWorkHours::where('user_id', Auth::user()->id)->first()->weekly_total_work_hours)){
