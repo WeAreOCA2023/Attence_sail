@@ -39,5 +39,7 @@ Route::resource('tasks', TaskController::class);
 Route::resource('profile', ProfileController::class, ['only' => ['index']]);
 Route::put('profile/update-contract/{user}', [ProfileController::class, 'updateContract'])->name('profile.updateContract');
 Route::put('profile/updateCompany/{company}', [ProfileController::class, 'updateCompany'])->name('profile.updateCompany');
-Route::put('profile/updateAccount/{user}', [ProfileController::class, 'updateAccount'])->name('profile.updateAccount');
-
+Route::put('profile/updateFullName/{user}', [ProfileController::class, 'updateFullName'])->name('profile.updateFullName');
+Route::put('profile/updateUserName/{user}', [ProfileController::class, 'updateUserName'])->name('profile.updateUserName');
+Route::put('profile/updateEmail/{user_logins}', [ProfileController::class, 'updateEmail'])->name('profile.updateEmail');
+Route::put('profile/updateTelephone/{user}', [ProfileController::class, 'updateTelephone'])->name('profile.updateTelephone');

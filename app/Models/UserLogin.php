@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class UserLogin extends Authenticatable
 {
     use HasFactory, HasFactory, Notifiable;
+    protected $table = 'user_logins';
 
     protected $fillable = [
         'user_id',

@@ -5,7 +5,7 @@
     <div class="upperBox d-flex">
         <div class="upperLeftBox d-flex flex-column items-center text-center justify-content-center">
             <img class="mx-auto" src="{{ asset('img/profileIcon.svg') }}" alt="Profile Icon">
-            <h3>Anderson Jennifer</h3>
+            <h3>{{ $full_name }}</h3>
             <div class="creditScore d-flex flex-column w-fit-content">
                 <label class="text-left" for="creditScore">信頼スコア</label>
                 <progress class="mx-auto" id="creditScore" value="88" max="100">88%</progress>
@@ -105,54 +105,103 @@
             </div>
         </div>
 
-        <div class="accountBox d-flex">
+        <div class="accountOuterBox d-flex">
             <div class="accountBox  d-flex flex-column align-items-center justify-content-center">
                 <div class="title d-flex align-items-center mt-5">
                     <img src="{{ asset('img/contract.svg') }}" alt="Contract Setting Icon">
                     <h2 class="m-0">アカウント情報</h2>
                 </div>
-                @if (session('successAccount'))
+                @if (session('successFullName'))
                     <div class="success d-block text-center">
-                        <strong>{{ session('successAccount') }}</strong>
+                        <strong>{{ session('successFullName') }}</strong>
                     </div>
                 @endif
-                @if (session('errorAccount'))
-                    <div class="error d-block text-center">
-                        <strong>{{ session('errorAccount') }}</strong>
+                @if (session('successUserName'))
+                    <div class="success d-block text-center">
+                        <strong>{{ session('successUserName') }}</strong>
                     </div>
                 @endif
-                <div class="accountBoxInner d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
-                    <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateAccount', Auth::user()->id) }}" method="POST">
+                @if (session('successEmail'))
+                    <div class="success d-block text-center">
+                        <strong>{{ session('successEmail') }}</strong>
+                    </div>
+                @endif
+                @if (session('successTelephone'))
+                    <div class="success d-block text-center">
+                        <strong>{{ session('successTelephone') }}</strong>
+                    </div>
+                @endif
+                <div class="accountInnerBox d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
+                    <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateFullName', Auth::user()->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <div class="fullNameBox">
+                        <div class="fullNameBox d-flex flex-column">
                             <label for="fullName">{{ __('名前') }}</label>
-                            <div class="fullNameInput">
+                            <div class="fullNameInput d-flex">
                                 <input id="fullName" type="text"  name="fullName" value="{{ old('fullName') }}" autocomplete="off">
+                                <button class="saveButton" type="submit">
+                                    {{ __('保存') }}
+                                </button>
                             </div>
+                            @error('fullName')
+                                <span class="error d-block text-center" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
+                    </form>
+                    <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateUserName', Auth::user()->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
                         <div class="userNameBox">
                             <label for="userName">{{ __('ユーザー名') }}</label>
                             <div class="userNameInput">
                                 <input id="userName" type="text"  name="userName" value="{{ old('userName') }}" autocomplete="off">
+                                <button class="saveButton" type="submit">
+                                    {{ __('保存') }}
+                                </button>
                             </div>
+                            @error('userName')
+                                <span class="error d-block text-center" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
+                    </form>
+                    <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateEmail', Auth::user()->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
                         <div class="emailBox">
                             <label for="email">{{ __('Eメール') }}</label>
                             <div class="emailInput">
-                                <input id="email" type="email"  name="email" value="{{ old('email') }}" autocomplete="off">
+                                <input id="email" type="text"  name="email" value="{{ old('email') }}" autocomplete="off">
+                                <button class="saveButton" type="submit">
+                                    {{ __('保存') }}
+                                </button>
                             </div>
+                            @error('email')
+                                <span class="error d-block text-center" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-                        <div class="phoneNumberBox">
-                            <label for="phoneNumber">{{ __('電話番号') }}</label>
-                            <div class="phoneNumberInput">
-                                <input id="phoneNumber" type="tel"  name="phoneNumber" value="{{ old('phoneNumber') }}" autocomplete="off">
+                    </form>
+                    <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateTelephone', Auth::user()->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="telephoneBox">
+                            <label for="telephone">{{ __('電話番号') }}</label>
+                            <div class="telephoneInput">
+                                <input id="telephone" type="tel"  name="telephone" value="{{ old('telephone') }}" autocomplete="off">
+                                <button class="saveButton" type="submit">
+                                    {{ __('保存') }}
+                                </button>
                             </div>
-                        </div>
-                        <div class="saveButton text-center">
-                            <button type="submit">
-                                {{ __('保存') }}
-                            </button>
+                            @error('telephone')
+                                <span class="error d-block text-center" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </form>
                 </div>

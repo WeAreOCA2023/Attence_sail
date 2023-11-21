@@ -822,9 +822,23 @@ main {
                 gap: 5vh;
             }
         }
-        .accountBox{
+        .accountOuterBox{
+            .accountBox
             form{
-                gap: 1vh;
+                gap: 1.3vh;
+                button{
+                    width: 3vw;
+                    @include m.fz(20);
+                    border: none;
+                    outline: none;
+                    color: var(--bs-main-color);
+                    background-color: v.$black;
+                    padding: 3px;
+                    border-radius: v.$round-10;
+                }
+            }
+            .accountInnerBox{
+                gap: 1.3vh;
             }
         }
         .agreement36Input{
@@ -849,11 +863,6 @@ main {
                 background-color: v.$darkGray;
                 padding: 3%;
                 border-radius: v.$round-10;
-            }
-            button:hover{
-                transition: .5s;
-                color: v.$darkGray;
-                background-color: rgb(175, 173, 173);
             }
         }
     }
