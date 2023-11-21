@@ -37,12 +37,15 @@
             <div class="taskList bg-white d-flex flex-column justify-content-around">
                 <div class="taskListTitle d-flex">
                     <img src="{{ asset('img/newsLogo.svg') }}" alt="" class="player-timer-btn" />
-                    <h3>今日中に終わらせなければいけないタスク</h3>
+                    <h3>期限が迫ってるタスク</h3>
                 </div>
                 <div class="taskListTasks">
                     @foreach ($tasks as $taskName => $deadLine)
                         <p>{{$taskName}} ---- {{$deadLine}}</p>
                     @endforeach
+                </div>
+                <div class="taskListButton d-flex justify-content-center">
+                    <a href="/tasks"><button class="btn btn-primary">一覧をみる</button></a>
                 </div>
             </div>
             <div class="extraWorkList bg-white">

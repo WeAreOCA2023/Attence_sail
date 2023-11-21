@@ -14,7 +14,7 @@ body {
     user-select: none;
     min-height: 100vh;
     min-height: -webkit-fill-available;
-}   
+}
 
 .header{
     height: 7vh;
@@ -367,6 +367,26 @@ main {
             padding-left: 2vw;
             border-radius: v.$round-40;
             box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+            .taskListTitle{
+                margin-left: 1.5vw;
+                h3{
+                    margin-left: 1vw;
+                    @include m.fz(35)
+                }
+            }
+            .taskListTasks{
+                margin-left: 1.5vw;
+                @include m.fz(25)
+            }
+            .taskListButton{
+                button{
+                    @include m.fz(15);
+                    background-color: v.$black;
+                    color: v.$white;
+                    width: 8vw;
+                    height: 4vh;
+                }
+            }
         }
         .extraWorkList{
             height: 28vh;
@@ -499,7 +519,7 @@ main {
                     padding: 8px;
                     border-radius: v.$round-10;
                 }
-            }   
+            }
             .cancelButton{
                 button{
                     background-color: v.$red;
@@ -647,7 +667,7 @@ main {
                     padding: 8px;
                     border-radius: v.$round-10;
                 }
-            }   
+            }
             .cancelButton{
                 button{
                     background-color: v.$red;
