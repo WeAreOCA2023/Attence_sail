@@ -153,12 +153,12 @@ class HomeController extends Controller
         }else{
             $monthWorkTime = 0;
         }
-        if (!is_null(WeeklyWorkHours::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->overwork)){
+        if (!is_null(WeeklyWorkHours::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first())){
             $weekOverTime = WeeklyWorkHours::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->overwork;
         }else{
             $weekOverTime = 0;
         }
-        if (!is_null(MonthlyWorkHours::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->overwork)){
+        if (!is_null(MonthlyWorkHours::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first())){
             $monthOverTime = MonthlyWorkHours::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->overwork;
         }else{
             $monthOverTime = 0;
