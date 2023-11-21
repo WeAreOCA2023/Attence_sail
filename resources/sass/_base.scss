@@ -14,11 +14,11 @@ body {
     user-select: none;
     min-height: 100vh;
     min-height: -webkit-fill-available;
-}   
+}
 
 .header{
     height: 7vh;
-    background-color: v.$white;
+    background-color: var(--bs-main-color);
     .user {
         padding: 8px;
         margin: 0 1vw 0 auto;
@@ -40,7 +40,7 @@ body {
             margin-right: 5%;
         }
         span{
-            color: v.$black;
+            color: var(--bs-anti-main-color);
             @include m.fz(30);
         }
         .dropdown-toggle { outline: 0; }
@@ -52,7 +52,7 @@ main {
     max-height: 100vh;
     overflow-x: auto;
     overflow-y: hidden;
-    background-color: v.$whiteGray;
+    background-color: var(--bs-second-color);
 
 }
 
@@ -66,7 +66,7 @@ main {
 
 #auth {
     height: 100vh;
-    background-color: v.$black;
+    background-color: var(--bs-anti-main-color);
 }
 
 .title{
@@ -113,7 +113,7 @@ main {
         height: 45vh;
         border-radius: v.$round-15;
         h1{
-            color: v.$white;
+            color: var(--bs-main-color);
             @include m.fz(36);
         }
         .loginBoxInner{
@@ -124,7 +124,7 @@ main {
             }
             .emailBox{
                 label{
-                    color: v.$white;
+                    color: var(--bs-main-color);
                     @include m.fz(15);
                 }
                 .emailInput{
@@ -133,8 +133,8 @@ main {
                         height: 2vw;
                         border-radius: v.$round-15;
                         background-color: v.$darkGray;
-                        border: 1px solid v.$white;
-                        color: v.$white;
+                        border: 1px solid var(--bs-main-color);
+                        color: var(--bs-main-color);
                         @include m.fz(15);
                     }
                     input:focus{
@@ -144,7 +144,7 @@ main {
             }
             .passwordBox{
                 label{
-                    color: v.$white;
+                    color: var(--bs-main-color);
                     @include m.fz(15);
                 }
                 .passwordInput{
@@ -153,8 +153,8 @@ main {
                         height: 2vw;
                         border-radius: v.$round-15;
                         background-color: v.$darkGray;
-                        border: 1px solid v.$white;
-                        color: v.$white;
+                        border: 1px solid var(--bs-main-color);
+                        color: var(--bs-main-color);
                         @include m.fz(15);
                     }
                     input:focus{
@@ -169,7 +169,7 @@ main {
                     margin-right: 7px;
                 }
                 label{
-                    color: v.$white;
+                    color: var(--bs-main-color);
                     background-color: v.$darkGray;
                     @include m.fz(15);
                 }
@@ -179,7 +179,7 @@ main {
             }
             .loginButton{
                 button{
-                    color: v.$white;
+                    color: var(--bs-main-color);
                     @include m.fz(20);
                     width: 16vw;
                     height: 2vw;
@@ -190,7 +190,7 @@ main {
             }
             .forgotPass{
                 a{
-                    color: v.$white;
+                    color: var(--bs-main-color);
                     @include m.fz(18);
                 }
 
@@ -210,7 +210,7 @@ main {
         height: 70vh;
         border-radius: v.$round-15;
         h1 {
-            color: v.$white;
+            color: var(--bs-main-color);
             @include m.fz(36);
         }
         .registerBoxInner {
@@ -220,19 +220,19 @@ main {
                     height: 2vw;
                     border-radius: v.$round-15;
                     background-color: v.$darkGray;
-                    border: 1px solid v.$white;
-                    color: v.$white;
+                    border: 1px solid var(--bs-main-color);
+                    color: var(--bs-main-color);
                     @include m.fz(15);
                 }
                 label{
-                    color: v.$white;
+                    color: var(--bs-main-color);
                     @include m.fz(15);
                 }
             }
             .RegisterButton {
                 margin-top: 2vh;
                 button {
-                    color: v.$white;
+                    color: var(--bs-main-color);
                     @include m.fz(20);
                     width: 16vw;
                     height: 2vw;
@@ -255,7 +255,7 @@ main {
         height: 85vh;
         border-radius: v.$round-15;
         h1 {
-            color: v.$white;
+            color: var(--bs-main-color);
             @include m.fz(36);
         }
         .registerBoxInner {
@@ -265,19 +265,19 @@ main {
                     height: 2vw;
                     border-radius: v.$round-15;
                     background-color: v.$darkGray;
-                    border: 1px solid v.$white;
-                    color: v.$white;
+                    border: 1px solid var(--bs-main-color);
+                    color: var(--bs-main-color);
                     @include m.fz(15);
                 }
                 label{
-                    color: v.$white;
+                    color: var(--bs-main-color);
                     @include m.fz(15);
                 }
             }
             .RegisterButton {
                 margin-top: 2vh;
                 button {
-                    color: v.$white;
+                    color: var(--bs-main-color);
                     @include m.fz(20);
                     width: 16vw;
                     height: 2vw;
@@ -293,16 +293,16 @@ main {
 // index
 
 .sidebar {
-    background-color: v.$white;
+    background-color: var(--bs-main-color);
     a{
-        color: v.$black;
+        color: var(--bs-anti-main-color);
         @include m.fz(18);
     }
     .selected{
         font-weight: bold;
     }
     a:hover{
-        color: v.$black;
+        color: var(--bs-anti-main-color);
         background-color: rgb(15, 20, 25, 0.1)
     }
 }
@@ -312,12 +312,12 @@ main {
     .stopWatch {
         width: 37vw;
         border-radius: v.$round-40;
-        background-color: v.$white;
+        background-color: var(--bs-main-color);
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
         h1{
             @include m.fz(50);
-            color: v.$white;
-            background-color: v.$black;
+            color: var(--bs-main-color);
+            background-color: var(--bs-anti-main-color);
             width: 40%;
             height: 8%;
             border-radius: v.$round-10;
@@ -364,17 +364,20 @@ main {
         height: 100%;
         .taskList{
             height: 28vh;
+            background-color: var(--bs-main-color);
             padding-left: 2vw;
             border-radius: v.$round-40;
             box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
         }
         .extraWorkList{
             height: 28vh;
+            background-color: var(--bs-main-color);
             border-radius: v.$round-40;
             box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
         }
         .workHourList{
             height: 28vh;
+            background-color: var(--bs-main-color);
             border-radius: v.$round-40;
             box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
         }
@@ -387,7 +390,7 @@ main {
     .allDepartmentsBox{
         width: 41vw;
         border-radius: v.$round-40;
-        background-color: v.$white;
+        background-color: var(--bs-main-color);
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
         .error{
             color: v.$red;
@@ -426,7 +429,7 @@ main {
                 .editing{
                     width: 4vw;
                     padding: 6px;
-                    color: v.$black;
+                    color: var(--bs-anti-main-color);
                     background-color: #FFC076;
                     border-radius: v.$round-10;
                     h3{
@@ -439,7 +442,7 @@ main {
     .addDepartmentsBox{
         width: 41vw;
         border-radius: v.$round-40;
-        background-color: v.$white;
+        background-color: var(--bs-main-color);
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
         form{
             height: 60vh;
@@ -464,8 +467,8 @@ main {
                 @include m.fz(25);
                 border: none;
                 outline: none;
-                background-color: v.$white;
-                border-bottom: 1px solid v.$black;
+                background-color: var(--bs-main-color);
+                border-bottom: 1px solid var(--bs-anti-main-color);
                 padding: 6px;
             }
             .responsibleInput{
@@ -475,14 +478,14 @@ main {
                     li{
                         width: 100%;
                         @include m.fz(25);
-                        background-color: v.$white;
-                        color: v.$black;
+                        background-color: var(--bs-main-color);
+                        color: var(--bs-anti-main-color);
                     }
                     li:hover{
                         cursor: pointer;
                         transition: .5s;
-                        background-color: v.$black;
-                        color: v.$white;
+                        background-color: var(--bs-anti-main-color);
+                        color: var(--bs-main-color);
                     }
                 }
             }
@@ -495,11 +498,11 @@ main {
                     @include m.fz(30);
                     border: none;
                     outline: none;
-                    color: v.$white;
+                    color: var(--bs-main-color);
                     padding: 8px;
                     border-radius: v.$round-10;
                 }
-            }   
+            }
             .cancelButton{
                 button{
                     background-color: v.$red;
@@ -517,7 +520,7 @@ main {
                 @include m.fz(30);
                 border: none;
                 outline: none;
-                color: v.$white;
+                color: var(--bs-main-color);
                 background-color: v.$green;
                 padding: 8px;
                 border-radius: v.$round-10;
@@ -532,7 +535,7 @@ main {
     .allPositionsBox{
         width: 41vw;
         border-radius: v.$round-40;
-        background-color: v.$white;
+        background-color: var(--bs-main-color);
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
         .error{
             color: v.$red;
@@ -558,7 +561,7 @@ main {
             .positionInnerBox{
                 width: 80%;
                 height: 4vh;
-                background-color: v.$whiteGray;
+                background-color: var(--bs-main-color)Gray;
                 border-radius: v.$round-10;
                 box-shadow: 3px 3px 3px rgba(15, 20, 25, 0.25);
                 h3{
@@ -577,7 +580,7 @@ main {
                 .editing{
                     width: 4vw;
                     padding: 6px;
-                    color: v.$black;
+                    color: var(--bs-anti-main-color);
                     background-color: #FFC076;
                     border-radius: v.$round-10;
                     h3{
@@ -591,7 +594,7 @@ main {
     .addPositionsBox{
         width: 41vw;
         border-radius: v.$round-40;
-        background-color: v.$white;
+        background-color: var(--bs-main-color);
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
         form{
             height: 60vh;
@@ -617,8 +620,8 @@ main {
                 @include m.fz(25);
                 border: none;
                 outline: none;
-                background-color: v.$white;
-                border-bottom: 1px solid v.$black;
+                background-color: var(--bs-main-color);
+                border-bottom: 1px solid var(--bs-anti-main-color);
                 padding: 8px;
             }
         }
@@ -629,7 +632,7 @@ main {
                 @include m.fz(30);
                 border: none;
                 outline: none;
-                color: v.$white;
+                color: var(--bs-main-color);
                 background-color: v.$green;
                 padding: 8px;
                 border-radius: v.$round-10;
@@ -643,11 +646,11 @@ main {
                     @include m.fz(30);
                     border: none;
                     outline: none;
-                    color: v.$white;
+                    color: var(--bs-main-color);
                     padding: 8px;
                     border-radius: v.$round-10;
                 }
-            }   
+            }
             .cancelButton{
                 button{
                     background-color: v.$red;
@@ -669,7 +672,7 @@ main {
         width: 84vw;
         height: 43vh;
         border-radius: v.$round-40;
-        background-color: v.$white;
+        background-color: var(--bs-main-color);
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
         .upperLeftBox{
             width: 26%;
@@ -759,7 +762,7 @@ main {
             gap: 0.2vw;
             width: 25vw;
             height: 45vh;
-            background-color: v.$white;
+            background-color: var(--bs-main-color);
             border-radius: v.$round-40;
             h2{
                 @include m.fz(40);
@@ -804,7 +807,7 @@ main {
                 @include m.fz(30);
                 border: none;
                 outline: none;
-                color: v.$white;
+                color: var(--bs-main-color);
                 background-color: v.$darkGray;
                 padding: 3%;
                 border-radius: v.$round-10;
@@ -825,7 +828,7 @@ main {
     gap: 0.2vw;
     .whiteBox{
         width: 80vw;
-        background-color: v.$white;
+        background-color: var(--bs-main-color);
         border-radius: v.$round-40;
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
         .filter-group{
@@ -860,8 +863,8 @@ main {
                 padding: 10px;
                 font-size: 1.2rem;
                 width: 5vw;
-                color: v.$white;
-                background-color: v.$black;
+                color: var(--bs-main-color);
+                background-color: var(--bs-anti-main-color);
                 text-align: center;
             }
 
@@ -893,7 +896,7 @@ main {
                         font-weight: map-get(v.$font-weight, 1);
                     }
                     .unaffliated{
-                        color: v.$black;
+                        color: var(--bs-anti-main-color);
                     }
                     .edit-delete{
                         img{
@@ -930,10 +933,10 @@ main {
                     .status-offboarding{
                         padding: 5px;
                         // color: rgb(208, 206, 206);
-                        // background-color: v.$black;
+                        // background-color: var(--bs-anti-main-color);
                         // border-radius: v.$round-10;
                         // font-weight: map-get(v.$font-weight, 1);
-                        color: v.$black;
+                        color: var(--bs-anti-main-color);
                         font-weight: map-get(v.$font-weight, 1);
                     }
                     .save-cancel{
@@ -962,14 +965,14 @@ main {
     background-size: cover;
     header{
         height: 7.5vh;
-        background-color: v.$black;
+        background-color: var(--bs-anti-main-color);
         img{
             height: 80%;
             margin-left: 2vw;
         }
         h1{
             @include m.fz(45);
-            color: v.$white;
+            color: var(--bs-main-color);
             font-weight: bold;
             margin-left: 0.5vw;
         }
@@ -981,7 +984,7 @@ main {
                 font-family: 'Sawarabi Gothic', sans-serif;
                 font-weight: bold;
                 @include m.fz(90);
-                color: v.$white;
+                color: var(--bs-main-color);
                 width: 100vw;
 
                 span{
@@ -1003,7 +1006,7 @@ main {
                 //width: 9vw;
                 a{
                     @include m.fz(25);
-                    color: v.$white;
+                    color: var(--bs-main-color);
                     z-index: 99;
                 }
             }
@@ -1063,7 +1066,7 @@ main {
 .myAllTasks{
     gap: 0 2vw;
     .jobList{
-        background-color: v.$white;
+        background-color: var(--bs-main-color);
         width: 37vw;
         height: 90vh;
         border-radius: v.$round-40;
@@ -1084,18 +1087,18 @@ main {
             .task{
                 width: 80%;
                 height: 4vh;
-                background-color: v.$whiteGray;
+                background-color: var(--bs-main-color)Gray;
                 border-radius: v.$round-10;
                 box-shadow: 3px 3px 3px rgba(15, 20, 25, 0.25);
                 a{
-                    color: v.$black;
+                    color: var(--bs-anti-main-color);
                     @include m.fz(16);
                 }
             }
         }
     }
     .job{
-        background-color: v.$white;
+        background-color: var(--bs-main-color);
         width: 45vw;
         height: 90vh;
         border-radius: v.$round-40;
@@ -1110,8 +1113,8 @@ main {
                     @include m.fz(30);
                     border: none;
                     outline: none;
-                    background-color: v.$white;
-                    border-bottom: 1px solid v.$black;
+                    background-color: var(--bs-main-color);
+                    border-bottom: 1px solid var(--bs-anti-main-color);
                     padding: 5% 5%;
                 }
             }
@@ -1130,8 +1133,8 @@ main {
                     @include m.fz(20);
                     border: none;
                     outline: none;
-                    background-color: v.$white;
-                    border-bottom: 1px solid v.$black;
+                    background-color: var(--bs-main-color);
+                    border-bottom: 1px solid var(--bs-anti-main-color);
                     padding: 1% 2%;
                 }
             }
@@ -1144,7 +1147,7 @@ main {
                 textarea{
                     height: 90%;
                     @include m.fz(15);
-                    background-color: v.$white;
+                    background-color: var(--bs-main-color);
                     border-radius: v.$round-10;
                     border-color: rgba(28, 28, 28, 0.3);
                     margin-top: 1%;
@@ -1153,7 +1156,7 @@ main {
             .submit{
                 button{
                     border: none;
-                    background-color: v.$white;
+                    background-color: var(--bs-main-color);
                 }
             }
         }
