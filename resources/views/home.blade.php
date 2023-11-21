@@ -49,23 +49,39 @@
                 </div>
             </div>
             <div class="workHourList d-flex justify-content-around">
-                <div class="weekWorkTime w-100">
+                <div class="weekWorkTime w-100 d-flex flex-column align-items-center justify-content-around">
                     <h1>総労働時間(今週)</h1>
-                    <h2>{{$weekWorkTime}}時間</h2>
+                    <div class="showTime d-flex w-100 justify-content-around">
+                        <h2>現在:{{$weekWorkTime}}時間</h2>
+                        <h2>上限: 40時間</h2>
+                    </div>
+                    <progress class="mx-auto" id="creditScore" value="88" max="100">88%</progress>
                 </div>
-                <div class="monthWorkTime w-100">
-                    <h1>総労働時間(今月)</h1>
-                    <h2>{{$monthWorkTime}}時間</h2>
+                <div class="monthWorkTime w-100 d-flex flex-column align-items-center justify-content-around">
+                    <h1>総労働時間(今週)</h1>
+                    <div class="showTime d-flex w-100 justify-content-around">
+                        <h2>現在:{{$monthWorkTime}}時間</h2>
+                        <h2>上限: ??時間</h2>
+                    </div>
+                    <progress class="mx-auto" id="creditScore" value="88" max="100">88%</progress>
                 </div>
             </div>
             <div class="extraWorkList d-flex justify-content-around">
-                <div class="weekOverTime w-100">
+                <div class="weekOverTime w-100 d-flex flex-column align-items-center justify-content-around">
                     <h1>総残業時間(先週)</h1>
-                    <h2>{{$weekOverTime}}時間</h2>
+                    <div class="showTime d-flex w-100 justify-content-around">
+                        <h2>{{$weekOverTime}}時間</h2>
+                        <h2>上限: ??時間</h2>
+                    </div>
+                    <progress class="mx-auto" id="creditScore" value="88" max="100">88%</progress>
                 </div>
-                <div class="monthOverTime w-100">
+                <div class="monthOverTime w-100 d-flex flex-column align-items-center justify-content-around">
                     <h1>総残業時間(先月)</h1>
-                    <h2>{{$monthOverTime}}時間</h2>
+                    <div class="showTime d-flex w-100 justify-content-around">
+                        <h2>{{$monthOverTime}}時間</h2>
+                        <h2>上限: ??時間</h2>
+                    </div>
+                    <progress class="mx-auto" id="creditScore" value="88" max="100">88%</progress>
                 </div>
             <div class="extraWorkList ">
                 {{--                <h1>{{ $finalHours }}</h1>--}}
