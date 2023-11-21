@@ -62,7 +62,7 @@
                 </div>
             </div>
             @endforeach
-            <div class="text-center">
+            <div class="pagination-link d-flex justify-content-center align-items-center">
                 {{ $positions->links() }}
             </div>
         </div>

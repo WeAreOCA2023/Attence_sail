@@ -36,6 +36,11 @@ Route::resource('home', HomeController::class, ['only' => ['index', 'store']]);
 
 Route::resource('tasks', TaskController::class);
 
+Route::resource('user-management', UserManagementController::class);
+
+Route::resource('department-management', DepartmentManagementController::class);
+Route::resource('position-management', PositionManagementController::class);
+
 Route::resource('profile', ProfileController::class, ['only' => ['index']]);
 Route::put('profile/update-contract/{user}', [ProfileController::class, 'updateContract'])->name('profile.updateContract');
 Route::put('profile/updateCompany/{company}', [ProfileController::class, 'updateCompany'])->name('profile.updateCompany');
