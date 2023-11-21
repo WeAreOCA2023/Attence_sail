@@ -388,15 +388,28 @@ main {
                 }
             }
         }
-        .extraWorkList{
-            height: 28vh;
-            border-radius: v.$round-40;
-            box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
-        }
         .workHourList{
             height: 28vh;
             border-radius: v.$round-40;
             box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+            .weekWorkTime{
+                border-right: 1px solid v.$black;
+            }
+            .monthWorkTime{
+
+            }
+        }
+        .extraWorkList{
+            height: 28vh;
+            border-radius: v.$round-40;
+            box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+            .weekOverTime{
+                border-right: 1px solid v.$black;
+
+            }
+            .monthOverTime{
+
+            }
         }
     }
 }

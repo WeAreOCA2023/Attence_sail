@@ -48,11 +48,25 @@
                     <a href="/tasks"><button class="btn btn-primary">一覧をみる</button></a>
                 </div>
             </div>
-            <div class="extraWorkList bg-white">
-{{--                <h1>{{ $finalHours }}</h1>--}}
+            <div class="workHourList bg-white d-flex justify-content-around">
+                <div class="weekWorkTime w-100">
+                    <h1>総労働時間(今週)</h1>
+                    <h2>{{$weekWorkTime}}時間</h2>
+                </div>
+                <div class="monthWorkTime w-100">
+                    <h1>総労働時間(今月)</h1>
+                    <h2>{{$monthWorkTime}}時間</h2>
+                </div>
             </div>
-            <div class="workHourList bg-white">
-
+            <div class="extraWorkList bg-white d-flex justify-content-around">
+                <div class="weekOverTime w-100">
+                    <h1>総残業時間(先週)</h1>
+                    <h2>{{$weekOverTime}}時間</h2>
+                </div>
+                <div class="monthOverTime w-100">
+                    <h1>総残業時間(先月)</h1>
+                    <h2>{{$monthOverTime}}時間</h2>
+                </div>
             </div>
         </div>
     </div>

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\DailyWorkHours;
 use App\Models\AllWorkHours;
+use PHPUnit\Runner\Exception;
 
 class HomeController extends Controller
 {
@@ -30,6 +31,10 @@ class HomeController extends Controller
         echo "testFuncが呼ばれたよ！";
     }
 
+    function hourCalc(int $num){
+        $num = $num / 3600000;
+        return $num;
+    }
     function defaultCheck(): void{
         if (count(AllWorkHours::where('user_id', Auth::user()->id)->get()) == 0){
             $allUpdate = new AllWorkHours([
@@ -130,12 +135,29 @@ class HomeController extends Controller
             $task = Task::where('id', $eachTask->task_id)->first();
             $giveTask[$task->title] = $task->deadline;
         }
-//        dd($giveTask);
+
+        try{
+            $weekWorkTime = AllWorkHours::where('user_id', Auth::user()->id)->first()->weekly_total_work_hours;
+            $monthWorkTime = AllWorkHours::where('user_id', Auth::user()->id)->first()->monthly_total_work_hours;
+            $weekOverTime = WeeklyWorkHours::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->overwork;
+            $monthOverTime = MonthlyWorkHours::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->overwork;
+        } catch(NullPointerException $e) {
+            $weekOverTime= 0;
+            $monthWorkTime = 0;
+            $weekWorkTime = 0;
+            $monthOverTime = 0;
+        }
+
+
 
         $this->defaultCheck(); //関数呼び出し(初期チェック)
 //        $this->weeklyProcess();
         return view('home', [
             'tasks' => $giveTask,
+            'weekWorkTime' => $this->hourCalc($weekWorkTime),
+            'monthWorkTime' => $this->hourCalc($monthWorkTime),
+            'weekOverTime' => $this->hourCalc($weekOverTime),
+            'monthOverTime' => $this->hourCalc($monthOverTime),
         ]);
     }
 
