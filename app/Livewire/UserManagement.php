@@ -149,7 +149,7 @@ class UserManagement extends Component
         // Add the department filter to the query
         $users_table_pagination = User::where('company_id', $company_id)
             ->search('full_name', $this->search_user)
-            ->where('department_id', $this->filterDepartmentId)->orderBy('user_id', 'asc')->paginate(12);
+            ->where('department_id', $this->fileterDepartmentId)->orderBy('user_id', 'asc')->paginate(12);
         $this->resetPage();
         // Rest of your existing code to populate $users_info
         foreach ($users_table_pagination as $user_pagination) {

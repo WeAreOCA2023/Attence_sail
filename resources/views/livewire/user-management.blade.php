@@ -202,8 +202,8 @@
                 <tbody>
                     <tr>
                         @foreach ($all_departments as $department)
-                        <td>{{ $department }}</td>
-                        @endoforeach
+                        <td>{{ $department->department_name }}</td>
+                        @endforeach
                     </tr>
             </table>
         @endif
