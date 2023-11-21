@@ -35,19 +35,9 @@ Route::resource('home', HomeController::class, ['only' => ['index', 'store']]);
 //Route::post('/insert', 'HomeController@insert')->name('home.insert');
 
 Route::resource('tasks', TaskController::class);
+
 Route::resource('profile', ProfileController::class, ['only' => ['index']]);
-Route::put('profile/update-company/{id}', [ProfileController::class, 'updateCompany'])->name('profile.updateCompany');
-Route::put('profile/update-contract', [ProfileController::class, 'updateContract'])->name('profile.updateContract');
+Route::put('profile/update-contract/{user}', [ProfileController::class, 'updateContract'])->name('profile.updateContract');
+Route::put('profile/updateCompany/{company}', [ProfileController::class, 'updateCompany'])->name('profile.updateCompany');
+Route::put('profile/updateAccount/{user}', [ProfileController::class, 'updateAccount'])->name('profile.updateAccount');
 
-// Route::post('profile/updateContract', [ProfileController::class, 'updateContract'])->name('profile.updateContract');
-// Route::put('profile/updateCompany', [ProfileController::class, 'updateCompany'])->name('profile.updateCompany');
-// Route::post('profile/updateCompany', [ProfileController::class, 'updateCompany'])->name('profile.updateCompany');
-
-
-// Route::post('profile/update-contract', [ProfileController::class, 'updateContract'])->name('profile.updateContract');
-// Route::post('profile/update', [ProfileController::class, 'updateContract'])->name('profile.updateCompany');
-
-
-//Route::get('/tasks', CreateTask::class)->name('tasks');
-
-//Route::get('/counter', Counter::class);

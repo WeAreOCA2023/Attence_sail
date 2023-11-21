@@ -51,7 +51,6 @@ class DepartmentManagement extends Component
                 'boss_name' => $user->full_name,
                 'email' => $user_login->email
             ];
-            
         }
         return view('livewire.department-management', [
             'departments' => $departments_table_pagination,
@@ -75,7 +74,7 @@ class DepartmentManagement extends Component
             session()->flash('errorDepartment', '責任者が見つかりませんでした。');
             return redirect('/department-management');
         }
-        session()->forget('errorDepartment'); 
+        session()->forget('errorDepartment');
         Department::create([
             'department_name' => $this->save_department_name,
             'company_id' => $user->company_id,
@@ -100,7 +99,7 @@ class DepartmentManagement extends Component
             session()->flash('errorDepartment', '責任者が見つかりませんでした。');
             return redirect('/department-management');
         }
-        session()->forget('errorDepartment'); 
+        session()->forget('errorDepartment');
         $department = Department::find($this->editDepartmentId);
         if ($department->department_name == $this->update_department_name) {
             $department->boss_id = $boss_id->id;

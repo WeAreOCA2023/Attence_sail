@@ -90,7 +90,7 @@ class ProfileController extends Controller
     /**
      * 36協定の有無を保存する
      */
-    public function updateContract(Request $request): RedirectResponse
+    public function updateContract(Request $request, User $user): RedirectResponse
     {
         $validator = Validator::make($request->all(), [
             'agreement36' => ['required', 'string', 'agreement36_and_variableWorkingHoursSystem'],
@@ -99,7 +99,6 @@ class ProfileController extends Controller
         if ($validator->fails()) {
             return redirect('/profile')->withErrors($validator)->withInput();
         }
-        $user = User::where('user_id', Auth::user()->id)->first();
         $user->agreement_36 = $request->get('agreement36');
         $user->variable_working_hours_system = $request->get('variableWorkingHoursSystem');
         $user->save();
@@ -109,7 +108,7 @@ class ProfileController extends Controller
     /**
      * 会社情報を更新する
      */
-    public function updateCompany(Request $request, string $id): RedirectResponse
+    public function updateCompany(Request $request, Company $company): RedirectResponse
     {
         $validator = Validator::make($request->all(), [
             'companyName' => ['required', 'string'],
@@ -127,12 +126,44 @@ class ProfileController extends Controller
         if ($validator->fails()) {
             return redirect('/profile')->withErrors($validator)->withInput();
         }
-        $company = Company::find($id);
         $company->company_name = $request->get('companyName');
         $company->post_code = $request->get('companyPostCode');
         $company->address = $request->get('companyAddress');
         $company->update();
         return redirect('/profile')->with('successCompany', '会社情報を更新しました。');
+    }
+    /**
+     * アカウント情報を更新する
+     */
+    public function updateAccount(Request $request, User $user): RedirectResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'fullName' => ['required'],
+            'userName' => ['required'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:user_logins'],
+            'phoneNumber' => ['required', 'numeric', 'digits_between:10,11'],
+        ], [
+            'fullName.required' => '氏名は必須です。',
+            'userName.required' => 'ユーザー名は必須です。',
+            'email.required' => 'メールアドレスは必須です。',
+            'email.string' => 'メールアドレスは文字列で入力してください。',
+            'email.email' => 'メールアドレスの形式で入力してください。',
+            'email.max' => 'メールアドレスは255文字以内で入力してください。',
+            'email.unique' => 'このメールアドレスは既に登録されています。',
+            'phoneNumber.required' => '電話番号は必須です。',
+            'phoneNumber.numeric' => '電話番号は数字で入力してください。',
+            'phoneNumber.digits_between' => '電話番号は10桁か11桁で入力してください。',
+        ]);
+        if ($validator->fails()) {
+            return redirect('/profile')->withErrors($validator)->withInput();
+        }
+        $user->full_name = $request->get('fullName');
+        $user->user_name = $request->get('userName');
+        $user->email = $request->get('email');
+        $user->telephone = $request->get('phoneNumber');
+        $user->update();
+        return redirect('/profile')->with('successAccount', 'アカウント情報を更新しました。');
+
     }
 
 

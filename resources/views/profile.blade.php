@@ -62,9 +62,9 @@
                 <h2 class="m-0">契約情報</h2>
             </div>
             <div class="lawBoxInner d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
-                <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateContract') }}" method="POST">
+                <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateContract', Auth::user()->id) }}" method="POST">
                     @csrf
-                    @method('PATCH')
+                    @method('PUT')
                     @if (session('successAgreement'))
                         <div class="success d-block text-center">
                             <strong>{{ session('successAgreement') }}</strong>
@@ -111,9 +111,20 @@
                     <img src="{{ asset('img/contract.svg') }}" alt="Contract Setting Icon">
                     <h2 class="m-0">アカウント情報</h2>
                 </div>
+                @if (session('successAccount'))
+                    <div class="success d-block text-center">
+                        <strong>{{ session('successAccount') }}</strong>
+                    </div>
+                @endif
+                @if (session('errorAccount'))
+                    <div class="error d-block text-center">
+                        <strong>{{ session('errorAccount') }}</strong>
+                    </div>
+                @endif
                 <div class="accountBoxInner d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
-                    <form class="d-flex flex-column align-items-center justify-content-between" action="" method="POST">
+                    <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateAccount', Auth::user()->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
                         <div class="fullNameBox">
                             <label for="fullName">{{ __('名前') }}</label>
                             <div class="fullNameInput">
@@ -159,6 +170,7 @@
             <div class="companyBoxInner  d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
                 <form class="d-flex flex-column align-items-center justify-content-center" action="{{ route('profile.updateCompany', $company_id) }}" method="POST">
                     @csrf
+                    @method('PUT')
                     @if (session('successCompany'))
                         <div class="success d-block text-center">
                             <strong>{{ session('successCompany') }}</strong>
