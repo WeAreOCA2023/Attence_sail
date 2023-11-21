@@ -37,19 +37,44 @@
             <div class="taskList  d-flex flex-column justify-content-around">
                 <div class="taskListTitle d-flex">
                     <img src="{{ asset('img/newsLogo.svg') }}" alt="" class="player-timer-btn" />
-                    <h3>今日中に終わらせなければいけないタスク</h3>
+                    <h3>期限が迫ってるタスク</h3>
                 </div>
                 <div class="taskListTasks">
-                    <p>タスク名    ----  期限(時間)</p>
-                    <p>タスク名    ----  期限(時間)</p>
-                    <p>タスク名    ----  期限(時間)</p>
+                    @foreach ($tasks as $taskName => $deadLine)
+                        <p>{{$taskName}} ---- {{$deadLine}}</p>
+                    @endforeach
+                </div>
+                <div class="taskListButton d-flex justify-content-center">
+                    <a href="/tasks"><button class="btn btn-primary">一覧をみる</button></a>
                 </div>
             </div>
+<<<<<<< HEAD
+            <div class="workHourList bg-white d-flex justify-content-around">
+                <div class="weekWorkTime w-100">
+                    <h1>総労働時間(今週)</h1>
+                    <h2>{{$weekWorkTime}}時間</h2>
+                </div>
+                <div class="monthWorkTime w-100">
+                    <h1>総労働時間(今月)</h1>
+                    <h2>{{$monthWorkTime}}時間</h2>
+                </div>
+            </div>
+            <div class="extraWorkList bg-white d-flex justify-content-around">
+                <div class="weekOverTime w-100">
+                    <h1>総残業時間(先週)</h1>
+                    <h2>{{$weekOverTime}}時間</h2>
+                </div>
+                <div class="monthOverTime w-100">
+                    <h1>総残業時間(先月)</h1>
+                    <h2>{{$monthOverTime}}時間</h2>
+                </div>
+=======
             <div class="extraWorkList ">
                 {{--                <h1>{{ $finalHours }}</h1>--}}
             </div>
             <div class="workHourList ">
 
+>>>>>>> main
             </div>
         </div>
     </div>

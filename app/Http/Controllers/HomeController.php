@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Constants\AgreementConstants;
 use App\Constants\CheckConstants;
+use App\Models\AllTasksAssign;
 use App\Models\MonthlyWorkHours;
+use App\Models\Task;
 use App\Models\User;
 use App\Models\WeeklyWorkHours;
 use App\Models\YearlyWorkHours;
@@ -15,6 +17,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\DailyWorkHours;
 use App\Models\AllWorkHours;
+use PHPUnit\Runner\Exception;
+use function Faker\Provider\pt_BR\check_digit;
 
 class HomeController extends Controller
 {
@@ -28,6 +32,13 @@ class HomeController extends Controller
         echo "testFuncが呼ばれたよ！";
     }
 
+    function hourCalc(int $num){
+        $num = $num / 3600000;
+        $newNum = round($num, 2);
+//        $newNum = floor($num);
+//        return $num;
+        return $newNum;
+    }
     function defaultCheck(): void{
         if (count(AllWorkHours::where('user_id', Auth::user()->id)->get()) == 0){
             $allUpdate = new AllWorkHours([
@@ -118,11 +129,62 @@ class HomeController extends Controller
         $userAllWork->total_over_work_hours = $newOverTime;
         $userAllWork->save();
     }
+    function getTaskData()
+    {
+        $giveTask = [];
+        //taskを持ってくる↓
+//        $allTask = AllTasksAssign::where('assignee_id', Auth::user()->id);
+        $allTask = AllTasksAssign::where('assignee_id', Auth::user()->id)->orderBy('created_at', 'asc')->paginate(3);
+        foreach ($allTask as $eachTask){
+            $task = Task::where('id', $eachTask->task_id)->first();
+            $giveTask[$task->title] = $task->deadline;
+        }
+        return $giveTask;
+    }
+    function getWorkData()
+    {
+        if (!is_null(AllWorkHours::where('user_id', Auth::user()->id)->first()->weekly_total_work_hours)){
+            $weekWorkTime = AllWorkHours::where('user_id', Auth::user()->id)->first()->weekly_total_work_hours;
+        }else{
+            $weekWorkTime = 0;
+        }
+        if (!is_null(AllWorkHours::where('user_id', Auth::user()->id)->first()->monthly_total_work_hours)){
+            $monthWorkTime = AllWorkHours::where('user_id', Auth::user()->id)->first()->monthly_total_work_hours;
+        }else{
+            $monthWorkTime = 0;
+        }
+        if (!is_null(WeeklyWorkHours::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->overwork)){
+            $weekOverTime = WeeklyWorkHours::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->overwork;
+        }else{
+            $weekOverTime = 0;
+        }
+        if (!is_null(MonthlyWorkHours::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->overwork)){
+            $monthOverTime = MonthlyWorkHours::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->overwork;
+        }else{
+            $monthOverTime = 0;
+        }
+
+        return [$weekWorkTime, $monthWorkTime, $weekOverTime, $monthOverTime];
+    }
     public function index()
     {
         $this->defaultCheck(); //関数呼び出し(初期チェック)
+
+        $giveTask = $this->getTaskData();
+
+        $weekWorkTime = $this->getWorkData()[0];
+        $monthWorkTime = $this->getWorkData()[1];
+        $weekOverTime = $this->getWorkData()[2];
+        $monthOverTime = $this->getWorkData()[3];
+
 //        $this->weeklyProcess();
-        return view('home');
+        return view('home', [
+            'tasks' => $giveTask,
+            'weekWorkTime' => $this->hourCalc($weekWorkTime),
+            'monthWorkTime' => $this->hourCalc($monthWorkTime),
+            'weekOverTime' => $this->hourCalc($weekOverTime),
+            'monthOverTime' => $this->hourCalc($monthOverTime),
+        ]);
     }
 
 

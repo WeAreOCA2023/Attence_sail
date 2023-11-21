@@ -368,18 +368,59 @@ main {
             padding-left: 2vw;
             border-radius: v.$round-40;
             box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+<<<<<<< HEAD
+            .taskListTitle{
+                margin-left: 1.5vw;
+                h3{
+                    margin-left: 1vw;
+                    @include m.fz(35)
+                }
+            }
+            .taskListTasks{
+                margin-left: 1.5vw;
+                @include m.fz(25)
+            }
+            .taskListButton{
+                button{
+                    @include m.fz(15);
+                    background-color: v.$black;
+                    color: v.$white;
+                    width: 8vw;
+                    height: 4vh;
+                }
+            }
+=======
         }
         .extraWorkList{
             height: 28vh;
             background-color: var(--bs-main-color);
             border-radius: v.$round-40;
             box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+>>>>>>> main
         }
         .workHourList{
             height: 28vh;
             background-color: var(--bs-main-color);
             border-radius: v.$round-40;
             box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+            .weekWorkTime{
+                border-right: 1px solid v.$black;
+            }
+            .monthWorkTime{
+
+            }
+        }
+        .extraWorkList{
+            height: 28vh;
+            border-radius: v.$round-40;
+            box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+            .weekOverTime{
+                border-right: 1px solid v.$black;
+
+            }
+            .monthOverTime{
+
+            }
         }
     }
 }
