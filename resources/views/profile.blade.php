@@ -55,15 +55,21 @@
             </div>
         </div>
     </div>
-    <div class="lowerBox d-flex">
+    <div class="lowerBox d-flex justify-content-around">
         <div class="lawBox  d-flex flex-column align-items-center justify-content-center">
             <div class="title d-flex align-items-center mt-5">
                 <img src="{{ asset('img/contract.svg') }}" alt="Contract Setting Icon">
-                <h2>契約情報</h2>
+                <h2 class="m-0">契約情報</h2>
             </div>
             <div class="lawBoxInner d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
-                <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.store') }}" method="POST">
+                <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateContract') }}" method="POST">
                     @csrf
+                    @method('PATCH')
+                    @if (session('successAgreement'))
+                        <div class="success d-block text-center">
+                            <strong>{{ session('successAgreement') }}</strong>
+                        </div>
+                    @endif
                     <div class="agreement36Box">
                         @error('agreement36')
                             <span class="error d-block" role="alert">
@@ -103,7 +109,7 @@
             <div class="accountBox  d-flex flex-column align-items-center justify-content-center">
                 <div class="title d-flex align-items-center mt-5">
                     <img src="{{ asset('img/contract.svg') }}" alt="Contract Setting Icon">
-                    <h2>アカウント情報</h2>
+                    <h2 class="m-0">アカウント情報</h2>
                 </div>
                 <div class="accountBoxInner d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
                     <form class="d-flex flex-column align-items-center justify-content-between" action="" method="POST">
@@ -111,25 +117,25 @@
                         <div class="fullNameBox">
                             <label for="fullName">{{ __('名前') }}</label>
                             <div class="fullNameInput">
-                                <input id="fullName" type="text"  name="fullName" value="{{ old('fullName') }}" required autocomplete="off">
+                                <input id="fullName" type="text"  name="fullName" value="{{ old('fullName') }}" autocomplete="off">
                             </div>
                         </div>
                         <div class="userNameBox">
                             <label for="userName">{{ __('ユーザー名') }}</label>
                             <div class="userNameInput">
-                                <input id="userName" type="text"  name="userName" value="{{ old('userName') }}" required autocomplete="off">
+                                <input id="userName" type="text"  name="userName" value="{{ old('userName') }}" autocomplete="off">
                             </div>
                         </div>
                         <div class="emailBox">
                             <label for="email">{{ __('Eメール') }}</label>
                             <div class="emailInput">
-                                <input id="email" type="email"  name="email" value="{{ old('email') }}" required autocomplete="off">
+                                <input id="email" type="email"  name="email" value="{{ old('email') }}" autocomplete="off">
                             </div>
                         </div>
                         <div class="phoneNumberBox">
                             <label for="phoneNumber">{{ __('電話番号') }}</label>
                             <div class="phoneNumberInput">
-                                <input id="phoneNumber" type="tel"  name="phoneNumber" value="{{ old('phoneNumber') }}" required autocomplete="off">
+                                <input id="phoneNumber" type="tel"  name="phoneNumber" value="{{ old('phoneNumber') }}" autocomplete="off">
                             </div>
                         </div>
                         <div class="saveButton text-center">
@@ -148,28 +154,48 @@
         <div class="companyBox  d-flex flex-column align-items-center justify-content-center">
             <div class="title d-flex align-items-center mt-5">
                 <img src="{{ asset('img/company-setting.svg') }}" alt="Company Setting Icon">
-                <h2>会社情報</h2>
+                <h2 class="m-0">会社情報</h2>
             </div>
             <div class="companyBoxInner  d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
-                <form class="d-flex flex-column align-items-center justify-content-center" action="{{ route('profile.update', $company_id) }}" method="POST">
+                <form class="d-flex flex-column align-items-center justify-content-center" action="{{ route('profile.updateCompany', $company_id) }}" method="POST">
                     @csrf
-                    @method('PATCH')
+                    @if (session('successCompany'))
+                        <div class="success d-block text-center">
+                            <strong>{{ session('successCompany') }}</strong>
+                        </div>
+                    @endif
                     <div class="companyNameBox">
                         <label for="companyName">{{ __('会社名') }}</label>
                         <div class="companyNameInput">
-                            <input id="companyName" type="text"  name="companyName" value="{{ old('companyName') }}" required autocomplete="companyName">
+                            <input id="companyName" type="text"  name="companyName" value="{{ old('companyName') }}" autocomplete="companyName">
+                            @error('companyName')
+                                <span class="error d-block text-center" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
-                    <div class="companyPostCodeBox">
-                        <label for="companyPostCode">{{ __('会社の郵便番号') }}</label>
+                    
+                    <div class="companyPostCodeBox mx-auto">
+                        <label class="d-block" for="companyPostCode">{{ __('会社の郵便番号') }}</label>
                         <div class="companyPostCodeInput">
-                            <input id="companyPostCode" type="text" name="companyPostCode" value="{{ old('companyPostCode') }}"  required autocomplete="companyPostCode" minlength=7 maxlength=7>
+                            <input id="companyPostCode" type="text" name="companyPostCode" value="{{ old('companyPostCode') }}" autocomplete="companyPostCode" >
                         </div>
+                        @error('companyPostCode')
+                            <span class="error d-flex justify-content-center" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="companyAddressBox">
                         <label for="companyAddress">{{ __('会社の住所') }}</label>
                         <div class="companyAddressInput">
-                            <input id="companyAddress" type="text" name="companyAddress" value="{{ old('companyAddress') }}"  required autocomplete="companyAddress">
+                            <input id="companyAddress" type="text" name="companyAddress" value="{{ old('companyAddress') }}" autocomplete="companyAddress">
+                            @error('companyAddress')
+                                <span class="error d-block text-center" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="saveButton text-center">

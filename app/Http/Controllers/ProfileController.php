@@ -90,7 +90,7 @@ class ProfileController extends Controller
     /**
      * 36協定の有無を保存する
      */
-    public function store(Request $request): RedirectResponse
+    public function updateContract(Request $request): RedirectResponse
     {
         $validator = Validator::make($request->all(), [
             'agreement36' => ['required', 'string', 'agreement36_and_variableWorkingHoursSystem'],
@@ -103,36 +103,36 @@ class ProfileController extends Controller
         $user->agreement_36 = $request->get('agreement36');
         $user->variable_working_hours_system = $request->get('variableWorkingHoursSystem');
         $user->save();
-        return redirect('/profile');
+        return redirect('/profile')->with('successAgreement', '契約情報を更新しました。');
     }
 
     /**
      * 会社情報を更新する
      */
-    public function update(Request $request, string $id): RedirectResponse
+    public function updateCompany(Request $request, string $id): RedirectResponse
     {
+        $validator = Validator::make($request->all(), [
+            'companyName' => ['required', 'string'],
+            'companyPostCode' => ['required', 'numeric','digits:7'],
+            'companyAddress' => ['required', 'max:255'],
+        ], [
+            'companyName.required' => '会社名は必須です。',
+            'companyName.string' => '会社名は文字列で入力してください。',
+            'companyPostCode.required' => '郵便番号は必須です。',
+            'companyPostCode.numeric' => '郵便番号は数字で入力してください。',
+            'companyPostCode.digits' => '郵便番号は7桁で入力してください。',
+            'companyAddress.required' => '住所は必須です。',
+            'companyAddress.max' => '住所は255文字以内で入力してください。'
+        ]);
+        if ($validator->fails()) {
+            return redirect('/profile')->withErrors($validator)->withInput();
+        }
         $company = Company::find($id);
         $company->company_name = $request->get('companyName');
         $company->post_code = $request->get('companyPostCode');
         $company->address = $request->get('companyAddress');
         $company->update();
-        return redirect('/profile');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        return redirect('/profile')->with('successCompany', '会社情報を更新しました。');
     }
 
 
