@@ -133,7 +133,6 @@ class HomeController extends Controller
     {
         $giveTask = [];
         //taskを持ってくる↓
-//        $allTask = AllTasksAssign::where('assignee_id', Auth::user()->id);
         $allTask = AllTasksAssign::where('assignee_id', Auth::user()->id)->orderBy('created_at', 'asc')->paginate(3);
         foreach ($allTask as $eachTask){
             $task = Task::where('id', $eachTask->task_id)->first();
