@@ -11,62 +11,114 @@
             @if (is_null($filterDepartmentId))
             <div class="filter-position dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    部署
+                    部署{{ $filterDepartmentId }}
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" wire:click="filterDepartment(0)">取り消す</a></li>
+                    <li><a class="dropdown-item" wire:click="filterDepartment(-2)">取り消す</a></li>
+                    <li><a class="dropdown-item" wire:click="filterDepartment(-1)">無し</a></li>
                     @foreach ($all_departments as $department)
                         <li><a class="dropdown-item" wire:click="filterDepartment({{ $department->id }})">{{ $department->department_name }}</a></li>
                     @endforeach
                 </ul>
             </div>
             @else
-            <div class="filter-on-department dropdown">
+            <div class="filter-on dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    部署
+                    部署{{ $filterDepartmentId }}
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" wire:click="filterDepartment(0)">取り消す</a></li>
+                    <li><a class="dropdown-item" wire:click="filterDepartment(-2)">取り消す</a></li>
+                    <li><a class="dropdown-item" wire:click="filterDepartment(-1)">無し</a></li>
                     @foreach ($all_departments as $department)
                         <li><a class="dropdown-item" wire:click="filterDepartment({{ $department->id }})">{{ $department->department_name }}</a></li>
                     @endforeach
                 </ul>
             </div>
             @endif
-            <div class="filter-department dropdown">
+            @if (is_null($filterPositionId))
+            <div class="filter-position dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    役職
+                    役職{{ $filterPositionId }}
                 </a>
 
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" wire:click="filterPosition(0)">取り消す</a></li>
+                    <li><a class="dropdown-item" wire:click="filterPosition(-2)">取り消す</a></li>
                     @foreach ($all_positions as $position)
                         <li><a class="dropdown-item" wire:click="filterPosition({{ $position->id }})">{{ $position->position_name }}</a></li>
                     @endforeach
                 </ul>
             </div>
-            <div class="filter-status dropdown">
+            @else
+            <div class="filter-on dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    ステータス
+                    役職{{ $filterPositionId }}
                 </a>
 
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">未出勤</a></li>
-                    <li><a class="dropdown-item" href="#">出勤中</a></li>
-                    <li><a class="dropdown-item" href="#">休憩中</a></li>
-                    <li><a class="dropdown-item" href="#">休職中</a></li>
-                    <li><a class="dropdown-item" href="#">退職済</a></li>
+                    <li><a class="dropdown-item" wire:click="filterPosition(-2)">取り消す</a></li>
+                    @foreach ($all_positions as $position)
+                        <li><a class="dropdown-item" wire:click="filterPosition({{ $position->id }})">{{ $position->position_name }}</a></li>
+                    @endforeach
                 </ul>
             </div>
-            <div class="filter-overwork dropdown">
+            @endif
+            @if (is_null($filterStatusId))
+            <div class="filter-status dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    超過労働
+                    ステータス{{ $filterStatusId }}
                 </a>
 
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">正常</a></li>
-                    <li><a class="dropdown-item" href="#">警告</a></li>
+                    <li><a class="dropdown-item" wire:click="filterStatus(-2)">取り消す</a></li>
+                    <li><a class="dropdown-item" wire:click="filterStatus(1)">出勤中</a></li>
+                    <li><a class="dropdown-item" wire:click="filterStatus(2)">休憩中</a></li>
+                    <li><a class="dropdown-item" wire:click="filterStatus(3)">休職中</a></li>
+                    <li><a class="dropdown-item" wire:click="filterStatus(4)">退職済</a></li>
                 </ul>
+            </div>
+            @else
+            <div class="filter-on dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    ステータス{{ $filterStatusId }}
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" wire:click="filterStatus(-2)">取り消す</a></li>
+                    <li><a class="dropdown-item" wire:click="filterStatus(1)">出勤中</a></li>
+                    <li><a class="dropdown-item" wire:click="filterStatus(2)">休憩中</a></li>
+                    <li><a class="dropdown-item" wire:click="filterStatus(3)">休職中</a></li>
+                    <li><a class="dropdown-item" wire:click="filterStatus(4)">退職済</a></li>
+                </ul>
+            </div>
+            @endif
+            @if (is_null($filterOverWorkId))
+            <div class="filter-overwork dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    超過労働{{ $filterOverWorkId}}
+                </a>
+                <ul class="dropdown-menu">
+                <li><a class="dropdown-item" wire:click="filterOverWork(-2)">取り消す</a></li>
+                    <li><a class="dropdown-item" wire:click="filterOverWork(0)">正常</a></li>
+                    <li><a class="dropdown-item" wire:click="filterOverWork(1)">警告</a></li>
+                </ul>
+            </div>
+            @else
+            <div class="filter-on dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    超過労働{{ $filterOverWorkId}}
+                </a>
+                <ul class="dropdown-menu">
+                <li><a class="dropdown-item" wire:click="filterOverWork(-2)">取り消す</a></li>
+                    <li><a class="dropdown-item" wire:click="filterOverWork(0)">正常</a></li>
+                    <li><a class="dropdown-item" wire:click="filterOverWork(1)">警告</a></li>
+                </ul>
+            </div>
+            @endif
+            <div class="filter-unset">
+                <button wire:click="unsetFilter" class="btn btn-primary">未設定</button>
+            </div>
+            <div class="clear-filter">
+                <button wire:click="clearFilter" class="btn btn-primary">クリア</button>
             </div>
         </div>
 

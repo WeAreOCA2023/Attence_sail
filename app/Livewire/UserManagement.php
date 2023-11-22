@@ -31,32 +31,11 @@ class UserManagement extends Component
     public $filter = false;
     public $filterDepartmentId = null;
     public $filterPositionId = null;
+    public $filterStatusId = null;
+    public $filterOverWorkId = null;
+    public $filterUnset = false;
 
 
-    public function mount(){
-        $this->filter = false;
-        $this->filterDepartmentId = null;
-        $this->filterPositionId = null;
-    }
-    public function departmentFilter(int $company_id){
-        if (!is_null($this->filterDepartmentId)){
-            $filteredDepartment = User::where('company_id', $company_id)
-                ->search('full_name', $this->search_user)
-                ->where('department_id', $this->filterDepartmentId)
-                ->orderBy('user_id', 'asc')->get();
-            return $filteredDepartment;
-        }
-        $noFilter = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->get();
-        return  $noFilter;
-    }
-
-    public function positionFilter(object $filteredDepartment){
-        if (!is_null($this->filterPositionId)) {
-            $filteredPosition  = $filteredDepartment->where('position_id', $this->filterPositionId);
-            return $filteredPosition;
-        }   
-        return $filteredDepartment;
-    }
 
     public function render()
     {
@@ -67,7 +46,9 @@ class UserManagement extends Component
         if ($this->filter == true) {
             $filteredDepartment = $this->departmentFilter($company_id);
             $filteredPosition = $this->positionFilter($filteredDepartment);
-            $users_table_pagination = $filteredPosition;    
+            $filteredStatus = $this->statusFilter($filteredPosition);
+            $filteredOverWork = $this->overWorkFilter($filteredStatus);
+            $users_table_pagination = $filteredOverWork;    
         } else {
             $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->get();
         }
@@ -140,6 +121,14 @@ class UserManagement extends Component
                 'assignable_positions' => $assignable_positions,
             ];      
         }  
+        if ($this->filterUnset == true) {
+            foreach ($users_info as $user_info) {
+                if ($user_info['department_name'] == '<span class="unset">未設定</span>' || $user_info['position_name'] == '<span class="unset">未設定</span>' || $user_info['agreement_36'] == '<span class="unset">未設定</span>' || $user_info['variable_working_hours_system'] == '<span class="unset">未設定</span>' ) {
+                    continue;
+                } 
+                unset($users_info[$user_info['user_id']]);
+            }
+        }
 
         $all_departments = Department::select('id', 'department_name')->get();
         $all_positions = Position::select('id', 'position_name')->get();
@@ -151,15 +140,22 @@ class UserManagement extends Component
         ]);
     }
 
-    public function edit(int $id)
+    /**
+     * ユーザーを編集する
+     */
+    public function edit(int $id): void
     {
         $this->editing = true;
         $this->editUserId = $id;
     }
 
+    /**
+     * 部署・役職を更新する
+     */
     public function update()
     {
-        if ($this->assignDepartmentId == null || $this->assignPositionId == null) {
+        if ($this->assignDepartmentId == null || $this->assignPositionId == null) 
+        {
             session()->flash('unselect', '部署と役職を選択してください。');
             return redirect('/user-management');
         }
@@ -171,13 +167,16 @@ class UserManagement extends Component
         return redirect('/user-management');
     }
 
-
-    public function filterPosition(int $id){
+    /**
+     * 役職でフィルターをかける
+     */
+    public function filterPosition(int $id): void
+    {
         $this->filterPositionId = $id;
-        if ($this->filter == true && $this->filterPositionId == null && $this->filterDepartmentId == null) {
+        if ($this->filter == true && $this->filterPositionId == null && $this->filterDepartmentId == null && $this->filterStatusId == null && $this->filterOverWorkId == null) {
             $this->filterPositionId = null;
             $this->filter = false;
-        } elseif (($this->filter == false && $this->filterPositionId == 0 || ($this->filter == true && $this->filterPositionId == 0 && !is_null($this->filterDepartmentId)))) {
+        } elseif (($this->filter == false && $this->filterPositionId == -2) || ($this->filter == true && $this->filterPositionId == -2)) {
             $this->filterPositionId = null;
         } else {
             $this->filter = true;
@@ -185,17 +184,126 @@ class UserManagement extends Component
         }
     }
 
-    public function filterDepartment(int $id){
+    /**
+     * 役職でフィルターをかける際に使用する関数
+     */
+    public function positionFilter(object $filteredDepartment): object
+    {
+        if (!is_null($this->filterPositionId)) {
+            $filteredPosition  = $filteredDepartment->where('position_id', $this->filterPositionId);
+            return $filteredPosition;
+        }   
+        return $filteredDepartment;
+    }
+    /**
+     * 部署でフィルターをかける
+     */
+    public function filterDepartment(int $id): void
+    {
         $this->filterDepartmentId = $id;
-        if ($this->filter == true && $this->filterPositionId == null && $this->filterDepartmentId == null) {
+        if ($this->filter == true && $this->filterPositionId == null && $this->filterDepartmentId == null && $this->filterStatusId == null && $this->filterOverWorkId == null) {
             $this->filterDepartmentId = null;
             $this->filter = false;
-        } elseif (($this->filter == false && $this->filterDepartmentId == 0) || ($this->filter == true && $this->filterDepartmentId == 0 && !is_null($this->filterPositionId))) {
+        } elseif (($this->filter == false && $this->filterDepartmentId == -2) || ($this->filter == true && $this->filterDepartmentId == -2)) {
             $this->filterDepartmentId = null;
         } else {
             $this->filter = true;
             $this->filterDepartmentId = $id;
         }
+    }
+
+    /**
+     * 部署でフィルターをかける際に使用する関数
+     */
+    public function departmentFilter(int $company_id): object
+    {
+        if (!is_null($this->filterDepartmentId)){
+            $filteredDepartment = User::where('company_id', $company_id)
+                ->search('full_name', $this->search_user)
+                ->where('department_id', $this->filterDepartmentId)
+                ->orderBy('user_id', 'asc')->get();
+            return $filteredDepartment;
+        }
+        $noFilter = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->get();
+        return  $noFilter;
+    }
+
+    /**
+     * ステータスでフィルターをかける
+     */
+    public function filterStatus(int $id): void
+    {
+        $this->filterStatusId = $id;
+        if ($this->filter == true && $this->filterPositionId == null && $this->filterDepartmentId == null && $this->filterStatusId == null && $this->filterOverWorkId == null) {
+            $this->filterStatusId = null;
+            $this->filter = false;
+        } elseif (($this->filter == false && $this->filterStatusId == -2) || ($this->filter == true && $this->filterStatusId == -2)) {
+            $this->filterStatusId = null;
+        } else {
+            $this->filter = true;
+            $this->filterStatusId = $id;
+        }
+    }
+
+    /**
+     * ステータスでフィルターをかける際に使用する関数
+    */
+    public function statusFilter($filteredPosition): object
+    {
+        if (!is_null($this->filterStatusId)) {
+            $filteredStatus = $filteredPosition->where('status', $this->filterStatusId);
+            return $filteredStatus;
+        }
+        return $filteredPosition;
+    }
+
+    /**
+     * 超過労働でフィルターをかける
+     */
+    public function filterOverWork(int $id): void
+    {
+        $this->filterOverWorkId = $id;
+        if ($this->filter == true && $this->filterPositionId == null && $this->filterDepartmentId == null && $this->filterStatusId == null && $this->filterOverWorkId == null) {
+            $this->filterOverWorkId = null;
+            $this->filter = false;
+        } elseif (($this->filter == false && $this->filterOverWorkId == -2) || ($this->filter == true && $this->filterOverWorkId == -2)) {
+            $this->filterOverWorkId = null;
+        } else {
+            $this->filter = true;
+            $this->filterOverWorkId = $id;
+        }
+    }
+    /**
+     * 超過労働でフィルターをかける際に使用する関数
+     */
+    public function overWorkFilter($filteredStatus): object
+    {
+        if (!is_null($this->filterOverWorkId)) {
+            $filteredOverWork = $filteredStatus->where('over_work', $this->filterOverWorkId);
+            return $filteredOverWork;
+        }
+        return $filteredStatus;
+    }
+
+    /**
+     * 未設定に対してフィルターをかける
+     */
+    public function unsetFilter(): void
+    {
+        $this->filterUnset = true;
+    }
+
+    /**
+     * フィルターをクリアする
+     */
+    public function clearFilter(): void
+    {
+        $this->filter = false;
+        $this->filterDepartmentId = null;
+        $this->filterPositionId = null;
+        $this->filterStatusId = null;
+        $this->filterOverWorkId = null;
+        $this->filterUnset = false;
     }
 
 
