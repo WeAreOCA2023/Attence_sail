@@ -1026,7 +1026,7 @@ main {
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
         .filter-group{
             gap: 2vw;
-            .filter-position, .filter-department, .filter-status, .filter-overwork, .filter-on-department{
+            .filter-position, .filter-department, .filter-status, .filter-overwork, .filter-on{
                 li + li{
                     border-top: 1px solid var(--bs-anti-main-color);
                 }
@@ -1034,11 +1034,20 @@ main {
                     @include m.fz(20);
                 }
             }
-            .filter-on-department{
+            .filter-on{
                 .btn{
                     background-color: v.$green ;
                     border: none;
                 }
+            }
+            .clear-filter, .filter-unset{
+                button{
+                    background-color: #6C757D;
+                    border: none;
+                    color: var(--bs-btn-hover-color);
+                    @include m.fz(20);
+                }
+            
             }
         }
         .error{
