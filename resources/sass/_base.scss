@@ -19,6 +19,11 @@ body {
 .header{
     height: 7vh;
     background-color: var(--bs-main-color);
+    .logo {
+        width: 65px;
+        height: 65px;
+        background-image: var(--bs-logo);
+    }
     .user {
         padding: 8px;
         margin: 0 1vw 0 auto;
@@ -337,6 +342,17 @@ main {
                 display: flex;
                 list-style:none;
                 padding: 0;
+
+                #toggleBtn{
+                    width: 259px;
+                    height: 123px;
+                    background-image: var(--bs-start);
+                }
+                #reset{
+                    width: 259px;
+                    height: 123px;
+                    background-image: var(--bs-stop);
+                }
             }
             .btn-item{
                 padding: 5px;
