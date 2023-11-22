@@ -6,27 +6,42 @@
                 <input type="text" wire:model.live.debounce.250ms="search_user" placeholder="名前を入力して検索" >
             </span>
         </div>
+        
         <div class="filter-group d-flex justify-content-center align-items-center">
+            @if (is_null($filterDepartmentId))
             <div class="filter-position dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     部署
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" wire:click="isClickedDepartment(0)">取り消す</a></li>
+                    <li><a class="dropdown-item" wire:click="filterDepartment(0)">取り消す</a></li>
                     @foreach ($all_departments as $department)
-                        <li><a class="dropdown-item" wire:click="isClickedDepartment({{ $department->id }})">{{ $department->department_name }}</a></li>
+                        <li><a class="dropdown-item" wire:click="filterDepartment({{ $department->id }})">{{ $department->department_name }}</a></li>
                     @endforeach
                 </ul>
             </div>
+            @else
+            <div class="filter-on-department dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    部署
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" wire:click="filterDepartment(0)">取り消す</a></li>
+                    @foreach ($all_departments as $department)
+                        <li><a class="dropdown-item" wire:click="filterDepartment({{ $department->id }})">{{ $department->department_name }}</a></li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             <div class="filter-department dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     役職
                 </a>
 
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" wire:click="isClickedPosition(0)">取り消す</a></li>
+                    <li><a class="dropdown-item" wire:click="filterPosition(0)">取り消す</a></li>
                     @foreach ($all_positions as $position)
-                        <li><a class="dropdown-item" wire:click="isClickedPosition({{ $position->id }})">{{ $position->position_name }}</a></li>
+                        <li><a class="dropdown-item" wire:click="filterPosition({{ $position->id }})">{{ $position->position_name }}</a></li>
                     @endforeach
                 </ul>
             </div>
@@ -52,11 +67,6 @@
                     <li><a class="dropdown-item" href="#">正常</a></li>
                     <li><a class="dropdown-item" href="#">警告</a></li>
                 </ul>
-            </div>
-            <div class="">
-                <h3>filter:{{ $this->filter }}</h3>
-                <h3>filterDepartment:{{ $this->filterDepartmentId }}</h3>
-                <h3>filterPosition:{{ $this->filterPositionId }}</h3>
             </div>
         </div>
 
@@ -105,7 +115,7 @@
                         <td>{{ $user_info['full_name'] }}</td>
                         <td>{{ $user_info['email'] }}</td>
                         <td class="td-department">
-                            <select wire:click="filterDepartment({{ $user_info['department_id'] }})" class="form-select" aria-label="assignable departments">
+                            <select wire:model="assignDepartmentId" class="form-select" aria-label="assignable departments">
                                 <option selected>選択してください</option>
                                 <option value="1">無し</option>
                                 @foreach ($user_info['assignable_departments'] as $assignable_department)

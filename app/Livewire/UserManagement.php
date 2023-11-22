@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\UserLogin;
 use App\Models\Department;
 use App\Models\Position;
+use Illuminate\Http\Request;
 
 class UserManagement extends Component
 {
@@ -32,35 +33,29 @@ class UserManagement extends Component
     public $filterPositionId = null;
 
 
+    public function mount(){
+        $this->filter = false;
+        $this->filterDepartmentId = null;
+        $this->filterPositionId = null;
+    }
     public function departmentFilter(int $company_id){
         if (!is_null($this->filterDepartmentId)){
-            $users_table_pagination = User::where('company_id', $company_id)
+            $filteredDepartment = User::where('company_id', $company_id)
                 ->search('full_name', $this->search_user)
                 ->where('department_id', $this->filterDepartmentId)
                 ->orderBy('user_id', 'asc')->get();
-            return $users_table_pagination;
+            return $filteredDepartment;
         }
-        $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->get();
-        // dd($users_table_pagination);
-        return  $users_table_pagination;
+        $noFilter = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->get();
+        return  $noFilter;
     }
 
-    public function positionFilter(object $test){
+    public function positionFilter(object $filteredDepartment){
         if (!is_null($this->filterPositionId)) {
-            $new  = $test->where('position_id', $this->filterPositionId);
-            return $new;
+            $filteredPosition  = $filteredDepartment->where('position_id', $this->filterPositionId);
+            return $filteredPosition;
         }   
-        return $test;
-        // if (!is_null($this->filterDepartmentId) && is_null($this->filterPositionId)) {
-        //     // dd('department_filter');
-        //     return $test;
-        // } elseif (is_null($this->filterDepartmentId) && !is_null($this->filterPositionId)){  
-        //     // dd('position_filter');
-        //     return User::where('company_id', $company_id)->where('position_id', $this->filterPositionId)->orderBy('user_id', 'asc')->get();
-        // } else {
-        //     // dd('department_position_filter');
-        //     return $test;
-        // }
+        return $filteredDepartment;
     }
 
     public function render()
@@ -70,22 +65,12 @@ class UserManagement extends Component
         $users_info = [];
         $company_id = User::where('user_id', Auth::user()->id)->first()->company_id;
         if ($this->filter == true) {
-            $obj = $this->departmentFilter($company_id);
-            $obj2 = $this->positionFilter($obj);
-            $users_table_pagination = $obj2;    
-            // if (is_null($this->filterDepartmentId) && is_null($this->filterPositionId)) {
-            //     dd('filter-false');
-            //     $this->filter = false;
-            // } else {
-            // }
+            $filteredDepartment = $this->departmentFilter($company_id);
+            $filteredPosition = $this->positionFilter($filteredDepartment);
+            $users_table_pagination = $filteredPosition;    
         } else {
             $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->get();
         }
-        // $this->filterPosionId = null;
-        // $this->filterDepartmentId = null;
-        // unset($this->filterDepartmentId);
-        // unset($this->filterPositionId);
-
         foreach ($users_table_pagination as $user_pagination) {
             $user = User::where('user_id', $user_pagination->user_id)->first();
             $user_login = UserLogin::where('id', $user->user_id)->first();
@@ -144,6 +129,7 @@ class UserManagement extends Component
                 'user_id' => $user->user_id,
                 'full_name' => $user->full_name,
                 'email' => $user_login->email,
+                'department_id' => $department_id, 
                 'department_name' => $department_name,
                 'position_name' => $position_name,
                 'agreement_36' => $agreement_36,
@@ -153,24 +139,19 @@ class UserManagement extends Component
                 'assignable_departments' => $assinable_departments,
                 'assignable_positions' => $assignable_positions,
             ];      
-        }
-        // if ($this->filterDepartmentId != null) {
-        //     dd($users_info);
-        // }
+        }  
+
         $all_departments = Department::select('id', 'department_name')->get();
         $all_positions = Position::select('id', 'position_name')->get();
         return view('livewire.user-management', [
             'search_users' => $users_table_pagination,
             'users_info' => $users_info,
             'all_departments' => $all_departments,
-            'all_positions' => $all_positions,
-            'debug_filter' => $this->filter,
-            // 'debug_department' => $this->filterDepartmentId ? $this->filterDepartmentId : '未セット',
-            // 'debug_position' => $this->filterPositionId ? $this->filterPositionId : '未セット',
+            'all_positions' => $all_positions
         ]);
     }
 
-    public function edit($id)
+    public function edit(int $id)
     {
         $this->editing = true;
         $this->editUserId = $id;
@@ -178,7 +159,7 @@ class UserManagement extends Component
 
     public function update()
     {
-        if ($this->assignDepartmentId == null or $this->assignPositionId == null) {
+        if ($this->assignDepartmentId == null || $this->assignPositionId == null) {
             session()->flash('unselect', '部署と役職を選択してください。');
             return redirect('/user-management');
         }
@@ -190,28 +171,13 @@ class UserManagement extends Component
         return redirect('/user-management');
     }
 
-    // public function filterDepartment($id)
-    // {
-    //     $this->filterDepartmentId = null;
-    //     if ($id != 0) {
-    //         $this->filter = true;
-    //         $this->filterDepartmentId = $id;
-    //     }
-    // }
 
-    // public function filterPosition($id)
-    // {
-    //     $this->filterPositionId = null;
-    //     if ($id != 0) {
-    //         $this->filter = true;
-    //         $this->filterPositionId = $id;
-    //     }
-
-
-    public function isClickedPosition($id){
-        if ($this->filter == true && is_null($this->filterPositionId) && is_null($this->filterDepartmentId)) {
+    public function filterPosition(int $id){
+        $this->filterPositionId = $id;
+        if ($this->filter == true && $this->filterPositionId == null && $this->filterDepartmentId == null) {
+            $this->filterPositionId = null;
             $this->filter = false;
-        } elseif ($this->filter == true && $id = 0) {
+        } elseif (($this->filter == false && $this->filterPositionId == 0 || ($this->filter == true && $this->filterPositionId == 0 && !is_null($this->filterDepartmentId)))) {
             $this->filterPositionId = null;
         } else {
             $this->filter = true;
@@ -219,11 +185,12 @@ class UserManagement extends Component
         }
     }
 
-    public function isClickedDepartment($id){
+    public function filterDepartment(int $id){
         $this->filterDepartmentId = $id;
-        if ($this->filter == true && is_null($this->filterPositionId) && is_null($this->filterDepartmentId)) {
+        if ($this->filter == true && $this->filterPositionId == null && $this->filterDepartmentId == null) {
+            $this->filterDepartmentId = null;
             $this->filter = false;
-        } elseif (($this->filter == true && $id = 0) || $this->filterDepartmentId == 0) {
+        } elseif (($this->filter == false && $this->filterDepartmentId == 0) || ($this->filter == true && $this->filterDepartmentId == 0 && !is_null($this->filterPositionId))) {
             $this->filterDepartmentId = null;
         } else {
             $this->filter = true;
