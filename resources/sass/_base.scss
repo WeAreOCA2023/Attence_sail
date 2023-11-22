@@ -19,6 +19,11 @@ body {
 .header{
     height: 7vh;
     background-color: var(--bs-main-color);
+    .logo {
+        width: 65px;
+        height: 65px;
+        background-image: var(--bs-logo);
+    }
     .user {
         padding: 8px;
         margin: 0 1vw 0 auto;

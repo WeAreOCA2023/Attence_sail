@@ -22,8 +22,7 @@
 <body>
 <div id="index" class="d-flex vh-100 flex-column">
     <div class="header d-flex align-items-center">
-        <a href="#">
-            <img src="{{ asset('img/logo-black.svg') }}" alt="ロゴ"/>
+        <a href="#" class="logo">
         </a>
         <div class="dropdown user">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
