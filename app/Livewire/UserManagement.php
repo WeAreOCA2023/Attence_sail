@@ -32,7 +32,6 @@ class UserManagement extends Component
     public $filterPositionId = null;
 
 
-
     public function departmentFilter(int $company_id){
         if (!is_null($this->filterDepartmentId)){
             $users_table_pagination = User::where('company_id', $company_id)
@@ -84,8 +83,8 @@ class UserManagement extends Component
         }
         // $this->filterPosionId = null;
         // $this->filterDepartmentId = null;
-        unset($this->filterDepartmentId);
-        unset($this->filterPositionId);
+        // unset($this->filterDepartmentId);
+        // unset($this->filterPositionId);
 
         foreach ($users_table_pagination as $user_pagination) {
             $user = User::where('user_id', $user_pagination->user_id)->first();
@@ -165,6 +164,9 @@ class UserManagement extends Component
             'users_info' => $users_info,
             'all_departments' => $all_departments,
             'all_positions' => $all_positions,
+            'debug_filter' => $this->filter,
+            // 'debug_department' => $this->filterDepartmentId ? $this->filterDepartmentId : '未セット',
+            // 'debug_position' => $this->filterPositionId ? $this->filterPositionId : '未セット',
         ]);
     }
 
@@ -204,40 +206,27 @@ class UserManagement extends Component
     //         $this->filter = true;
     //         $this->filterPositionId = $id;
     //     }
-    // }
-    // public function isClicked($id){
-    //     $this->filterPositionId = null;
-    //     $this->filterDepartmentId = null;
-    //     if (!is_null[$id['position']]) {
-    //         if ($id['position'] != 0) {
-    //             $this->filter = true;
-    //             $this->filterPositionId = $id;
-    //         }        
-    //     }
-    //     if (!is_null[$id['department']]) {
-    //         if ($id['department'] != 0) {
-    //             $this->filter = true;
-    //             $this->filterDepartmentId = $id;
-    //         }
-    //     }
-    // }
+
 
     public function isClickedPosition($id){
-        if (is_null($this->filterPositionId) && is_null($this->filterDepartmentId)) {
+        if ($this->filter == true && is_null($this->filterPositionId) && is_null($this->filterDepartmentId)) {
             $this->filter = false;
         } elseif ($this->filter == true && $id = 0) {
             $this->filterPositionId = null;
         } else {
+            $this->filter = true;
             $this->filterPositionId = $id;
         }
     }
 
     public function isClickedDepartment($id){
-        if (is_null($this->filterPositionId) && is_null($this->filterDepartmentId)) {
+        $this->filterDepartmentId = $id;
+        if ($this->filter == true && is_null($this->filterPositionId) && is_null($this->filterDepartmentId)) {
             $this->filter = false;
-        } elseif ($this->filter == true && $id = 0) {
+        } elseif (($this->filter == true && $id = 0) || $this->filterDepartmentId == 0) {
             $this->filterDepartmentId = null;
         } else {
+            $this->filter = true;
             $this->filterDepartmentId = $id;
         }
     }

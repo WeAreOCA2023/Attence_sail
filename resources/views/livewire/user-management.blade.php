@@ -53,6 +53,11 @@
                     <li><a class="dropdown-item" href="#">警告</a></li>
                 </ul>
             </div>
+            <div class="">
+                <h3>filter:{{ $this->filter }}</h3>
+                <h3>filterDepartment:{{ $this->filterDepartmentId }}</h3>
+                <h3>filterPosition:{{ $this->filterPositionId }}</h3>
+            </div>
         </div>
 
 
