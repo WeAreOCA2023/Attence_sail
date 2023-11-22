@@ -24,8 +24,9 @@
                 </a>
 
                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" wire:click="filterPosition(0)">取り消す</a></li>
                     @foreach ($all_positions as $position)
-                        <li><a class="dropdown-item" href="#">{{ $position->position_name }}</a></li>
+                        <li><a class="dropdown-item" wire:click="filterPosition({{ $position->id }})">{{ $position->position_name }}</a></li>
                     @endforeach
                 </ul>
             </div>
@@ -183,8 +184,6 @@
             @endif
             </tbody>
         </table>
-        <div class="pagination-link d-flex justify-content-center align-items-center">
-            {{ $search_users->links() }}
-        </div>
+
     </div>
 </div>
