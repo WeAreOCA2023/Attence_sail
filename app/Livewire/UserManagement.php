@@ -36,16 +36,25 @@ class UserManagement extends Component
                 ->search('full_name', $this->search_user)
                 ->where('department_id', $this->filterDepartmentId)
                 // ->where('position_id', $this->filterPositionId)
-                ->orderBy('user_id', 'asc');
+                ->orderBy('user_id', 'asc')->get();
                 // ->paginate(12);
+        // dd(gettype($users_table_pagination));
+        // dd(count($users_table_pagination));
         return $users_table_pagination;
     }
 
     function positionFilter(object $test){
         if (!is_null($this->filterPositionId)){
-            // dd(gettype($test));
-            $test2 = $test->where('position_id', $this->filterPositionId);
-            // dd ($test2);
+            // dd($test);
+            // foreach ($test as $yay){
+            //     $count++;
+            // }
+            // dd($count);
+            foreach ($test as $yay){
+                $test2 = $yay->where('position_id', $this->filterPositionId)->get();
+                dd($test2);
+            }
+            dd ($test2);
             return $test2;
         }
         return $test;
@@ -63,6 +72,7 @@ class UserManagement extends Component
                 // dd(gettype($obj));
                 $obj2 = $this->positionFilter($obj);
                 $users_table_pagination = $obj2;
+                dd($users_table_pagination);
             } else {
                 $this->filter = false;
                 $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->paginate(12);
