@@ -342,6 +342,17 @@ main {
                 display: flex;
                 list-style:none;
                 padding: 0;
+
+                #toggleBtn{
+                    width: 259px;
+                    height: 123px;
+                    background-image: var(--bs-start);
+                }
+                #reset{
+                    width: 259px;
+                    height: 123px;
+                    background-image: var(--bs-stop);
+                }
             }
             .btn-item{
                 padding: 5px;
