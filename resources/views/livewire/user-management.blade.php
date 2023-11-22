@@ -12,9 +12,9 @@
                     部署
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" wire:click="filterDepartment(0)">取り消す</a></li>
+                    <li><a class="dropdown-item" wire:click="isClickedDepartment(0)">取り消す</a></li>
                     @foreach ($all_departments as $department)
-                        <li><a class="dropdown-item" wire:click="filterDepartment({{ $department->id }})">{{ $department->department_name }}</a></li>
+                        <li><a class="dropdown-item" wire:click="isClickedDepartment({{ $department->id }})">{{ $department->department_name }}</a></li>
                     @endforeach
                 </ul>
             </div>
@@ -24,9 +24,9 @@
                 </a>
 
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" wire:click="filterPosition(0)">取り消す</a></li>
+                    <li><a class="dropdown-item" wire:click="isClickedPosition(0)">取り消す</a></li>
                     @foreach ($all_positions as $position)
-                        <li><a class="dropdown-item" wire:click="filterPosition({{ $position->id }})">{{ $position->position_name }}</a></li>
+                        <li><a class="dropdown-item" wire:click="isClickedPosition({{ $position->id }})">{{ $position->position_name }}</a></li>
                     @endforeach
                 </ul>
             </div>

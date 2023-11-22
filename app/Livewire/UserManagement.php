@@ -28,36 +28,40 @@ class UserManagement extends Component
 
     // フィルター用
     public $filter = false;
-    public $filterDepartmentId = '';
-    public $filterPositionId = '';
+    public $filterDepartmentId = null;
+    public $filterPositionId = null;
 
-    function departmentFilter(int $company_id){
-        $users_table_pagination = User::where('company_id', $company_id)
+
+
+    public function departmentFilter(int $company_id){
+        if (!is_null($this->filterDepartmentId)){
+            $users_table_pagination = User::where('company_id', $company_id)
                 ->search('full_name', $this->search_user)
                 ->where('department_id', $this->filterDepartmentId)
-                // ->where('position_id', $this->filterPositionId)
                 ->orderBy('user_id', 'asc')->get();
-                // ->paginate(12);
-        // dd(gettype($users_table_pagination));
-        // dd(count($users_table_pagination));
-        return $users_table_pagination;
+            return $users_table_pagination;
+        }
+        $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->get();
+        // dd($users_table_pagination);
+        return  $users_table_pagination;
     }
 
-    function positionFilter(object $test){
-        if (!is_null($this->filterPositionId)){
-            // dd($test);
-            // foreach ($test as $yay){
-            //     $count++;
-            // }
-            // dd($count);
-            foreach ($test as $yay){
-                $test2 = $yay->where('position_id', $this->filterPositionId)->get();
-                dd($test2);
-            }
-            dd ($test2);
-            return $test2;
-        }
+    public function positionFilter(object $test){
+        if (!is_null($this->filterPositionId)) {
+            $new  = $test->where('position_id', $this->filterPositionId);
+            return $new;
+        }   
         return $test;
+        // if (!is_null($this->filterDepartmentId) && is_null($this->filterPositionId)) {
+        //     // dd('department_filter');
+        //     return $test;
+        // } elseif (is_null($this->filterDepartmentId) && !is_null($this->filterPositionId)){  
+        //     // dd('position_filter');
+        //     return User::where('company_id', $company_id)->where('position_id', $this->filterPositionId)->orderBy('user_id', 'asc')->get();
+        // } else {
+        //     // dd('department_position_filter');
+        //     return $test;
+        // }
     }
 
     public function render()
@@ -67,110 +71,21 @@ class UserManagement extends Component
         $users_info = [];
         $company_id = User::where('user_id', Auth::user()->id)->first()->company_id;
         if ($this->filter == true) {
-            if (!is_null($this->filterDepartmentId) || !is_null($this->filterPositionId)) {
-                $obj = $this->departmentFilter($company_id);
-                // dd(gettype($obj));
-                $obj2 = $this->positionFilter($obj);
-                $users_table_pagination = $obj2;
-                dd($users_table_pagination);
-            } else {
-                $this->filter = false;
-                $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->paginate(12);
-
-            }
+            $obj = $this->departmentFilter($company_id);
+            $obj2 = $this->positionFilter($obj);
+            $users_table_pagination = $obj2;    
+            // if (is_null($this->filterDepartmentId) && is_null($this->filterPositionId)) {
+            //     dd('filter-false');
+            //     $this->filter = false;
+            // } else {
+            // }
         } else {
-            $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->paginate(12);
+            $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->get();
         }
-        // if ($this->filter == true) {
-        //     if ($this->filterDepartmentId == null && $this->filterPositionId == null) {
-        //         $this->filter = false;
-        //     } else {
-        //         if ($this->filterPositionId != null) {
-        //             if (strlen($this->search_user >= 0)) {
-        //                 $users_table_pagination = User::where('company_id', $company_id)
-        //                 ->where('position_id', $this->filterPositionId)
-        //                 ->search('full_name', $this->search_user)
-        //                 ->orderBy('user_id', 'asc')
-        //                 ->paginate(12);
-        //             } else{
-        //                 $users_table_pagination = User::where('company_id', $company_id)
-        //                 ->where('position_id', $this->filterPositionId)
-        //                 ->orderBy('user_id', 'asc')
-        //                 ->paginate(12);
-        //             }
-        //         } else {
-        //             $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->paginate(12);
-        //         }
-        //         if ($this->filterDepartmentId != null) {
-        //             if ($this->filterPositionId != null) {
-        //                 if (strlen($this->search_user >= 0)) {
-        //                     $users_table_pagination = User::where('company_id', $company_id)
-        //                     ->where('department_id', $this->filterDepartmentId)
-        //                     ->where('position_id', $this->filterPositionId)
-        //                     ->search('full_name', $this->search_user)
-        //                     ->orderBy('user_id', 'asc')
-        //                     ->paginate(12);
-        //                 } else{
-        //                     $users_table_pagination = User::where('company_id', $company_id)
-        //                     ->where('department_id', $this->filterDepartmentId)
-        //                     ->where('position_id', $this->filterPositionId)
-        //                     ->orderBy('user_id', 'asc')
-        //                     ->paginate(12);
-        //                 }
-        //             } else {
-        //                 if (strlen($this->search_user >= 0)) {
-        //                     $users_table_pagination = User::where('company_id', $company_id)
-        //                     ->where('department_id', $this->filterDepartmentId)
-        //                     ->search('full_name', $this->search_user)
-        //                     ->orderBy('user_id', 'asc')
-        //                     ->paginate(12);
-        //                 } else{
-        //                     $users_table_pagination = User::where('company_id', $company_id)
-        //                     ->where('department_id', $this->filterDepartmentId)
-        //                     ->orderBy('user_id', 'asc')
-        //                     ->paginate(12);
-        //                 }                        
-        //             }
-        //         } else {
-        //             $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->paginate(12); 
-        //         }
-
-
-        //     }
-        // } else {
-        //     $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->paginate(12);
-        // }
-        // if ($this->filter == true){
-        //     if ($this->filterDepartmentId == null && $this->filterPositionId == null) {
-        //         $this->filter = false;
-        //         $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->paginate(12);
-
-        //     } else {
-        //         if ($this->filterDepartmentId != null && $this->filterPositinoId) {
-
-        //         }
-        //         if ($this->filterDepartmentId != null) {
-        //             if (strlen($this->search_user >= 0)) {
-        //                 $users_table_pagination = User::where('company_id', $company_id)
-        //                 ->where('department_id', $this->filterDepartmentId)
-        //                 ->search('full_name', $this->search_user)
-        //                 ->orderBy('user_id', 'asc')
-        //                 ->paginate(12);
-        //             } else{
-        //                 $users_table_pagination = User::where('company_id', $company_id)
-        //                 ->where('department_id', $this->filterDepartmentId)
-        //                 ->orderBy('user_id', 'asc')
-        //                 ->paginate(12);
-        //             }
-        //         } else {
-        //             $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->paginate(12);
-        //         }
-
-
-        //     }
-        // } else {
-        //     $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->paginate(12);
-        // }
+        // $this->filterPosionId = null;
+        // $this->filterDepartmentId = null;
+        unset($this->filterDepartmentId);
+        unset($this->filterPositionId);
 
         foreach ($users_table_pagination as $user_pagination) {
             $user = User::where('user_id', $user_pagination->user_id)->first();
@@ -273,26 +188,59 @@ class UserManagement extends Component
         return redirect('/user-management');
     }
 
-    public function filterDepartment($id)
-    {
-        if ($id == 0) {
-            $this->filterDepartmentId = '';
+    // public function filterDepartment($id)
+    // {
+    //     $this->filterDepartmentId = null;
+    //     if ($id != 0) {
+    //         $this->filter = true;
+    //         $this->filterDepartmentId = $id;
+    //     }
+    // }
+
+    // public function filterPosition($id)
+    // {
+    //     $this->filterPositionId = null;
+    //     if ($id != 0) {
+    //         $this->filter = true;
+    //         $this->filterPositionId = $id;
+    //     }
+    // }
+    // public function isClicked($id){
+    //     $this->filterPositionId = null;
+    //     $this->filterDepartmentId = null;
+    //     if (!is_null[$id['position']]) {
+    //         if ($id['position'] != 0) {
+    //             $this->filter = true;
+    //             $this->filterPositionId = $id;
+    //         }        
+    //     }
+    //     if (!is_null[$id['department']]) {
+    //         if ($id['department'] != 0) {
+    //             $this->filter = true;
+    //             $this->filterDepartmentId = $id;
+    //         }
+    //     }
+    // }
+
+    public function isClickedPosition($id){
+        if (is_null($this->filterPositionId) && is_null($this->filterDepartmentId)) {
+            $this->filter = false;
+        } elseif ($this->filter == true && $id = 0) {
+            $this->filterPositionId = null;
+        } else {
+            $this->filterPositionId = $id;
         }
-        $this->filter = true;
-        $this->filterDepartmentId = $id;
     }
 
-    public function filterPosition($id)
-    {
-        if ($id == 0) {
-            $this->filterPositionId = '';
+    public function isClickedDepartment($id){
+        if (is_null($this->filterPositionId) && is_null($this->filterDepartmentId)) {
+            $this->filter = false;
+        } elseif ($this->filter == true && $id = 0) {
+            $this->filterDepartmentId = null;
+        } else {
+            $this->filterDepartmentId = $id;
         }
-        $this->filter = true;
-        $this->filterPositionId = $id;
     }
 
-    public function filterDepartmentPagination()
-    {
-        return a;
-    }
+
 }
