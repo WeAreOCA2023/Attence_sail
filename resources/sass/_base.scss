@@ -1417,7 +1417,7 @@ main {
                     @include m.fz(15);
                     background-color: var(--bs-main-color);
                     border-radius: v.$round-10;
-                    border-color: rgba(28, 28, 28, 0.3);
+                    border-color: var(--bs-description);
                     margin-top: 1%;
                 }
             }
