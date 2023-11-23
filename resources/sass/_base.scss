@@ -320,20 +320,31 @@ main {
         background-color: var(--bs-main-color);
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
         h1{
+            margin: 10% 0 10% 0;
             @include m.fz(50);
-            color: var(--bs-main-color);
-            background-color: var(--bs-anti-main-color);
-            width: 40%;
+            color: v.$black;
+            background-color: var(--bs-anti-second-color2);
+            width: 50%;
             height: 8%;
             border-radius: v.$round-10;
-
+            border: 5px solid v.$red;
+        }
+        .start {
+            border: 5px solid #3CB043;
+        }
+        .break {
+            border: 5px solid #DF943B;
+        }
+        h2{
+            margin: 0 0 10% 0;
+            @include m.fz(40);
         }
         .circle{
             width: 400px;
             height: 400px;
+            margin: 0 0 15% 0;
         }
         #timer{
-            margin: 30px auto;
             @include m.fz(30);
             letter-spacing: 5px;
         }
@@ -343,15 +354,25 @@ main {
                 list-style:none;
                 padding: 0;
 
-                #toggleBtn{
+                .toggleButton{
                     width: 259px;
                     height: 123px;
                     background-image: var(--bs-start);
                 }
-                #reset{
+                .resetButton{
                     width: 259px;
                     height: 123px;
                     background-image: var(--bs-stop);
+                }
+                .pauseButton{
+                    width: 259px;
+                    height: 123px;
+                    background-image: var(--bs-pause);
+                }
+                .restartButton{
+                    width: 259px;
+                    height: 123px;
+                    background-image: var(--bs-restart);
                 }
             }
             .btn-item{
@@ -1047,7 +1068,7 @@ main {
                     color: var(--bs-btn-hover-color);
                     @include m.fz(20);
                 }
-            
+
             }
         }
         .error{
