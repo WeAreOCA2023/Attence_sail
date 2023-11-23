@@ -41,7 +41,6 @@ class Themebutton extends Component
         $this->mode !=$this->mode;
         if ($this->mode) {
             $this->type = 'Dark';
-
         } else {
             $this->type = 'Light';
         }

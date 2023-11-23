@@ -77,9 +77,6 @@ main {
 .title{
     position: relative;
 
-    img {
-        filter: brightness(50%);
-    }
 
     h1{
         position: absolute;
@@ -323,7 +320,7 @@ main {
             margin: 10% 0 10% 0;
             @include m.fz(50);
             color: v.$black;
-            background-color: var(--bs-anti-second-color2);
+            background-color: #E8E8E8;
             width: 50%;
             height: 8%;
             border-radius: v.$round-10;
@@ -438,7 +435,7 @@ main {
             border-radius: v.$round-40;
             box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
             .weekWorkTime{
-                border-right: 1px solid v.$black;
+                border-right: 1px solid var(--bs-anti-main-color);
                 progress {
                     width: 10vw;
                     height: 1.5vh;
@@ -506,7 +503,7 @@ main {
             border-radius: v.$round-40;
             box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
             .weekOverTime{
-                border-right: 1px solid v.$black;
+                border-right: 1px solid var(--bs-anti-main-color);
                 progress {
                     width: 10vw;
                     height: 1.5vh;
@@ -1314,6 +1311,12 @@ main {
         .title{
             margin: 4% 0 0 4%;
             gap: 0 1%;
+            .icon{
+                background-image: var(--bs-onprogress);
+                background-size: contain; /* または contain など、適切な値を指定 */
+                background-repeat: no-repeat;
+                width: 4%;
+            }
             h2{
                 margin: 0;
             }
@@ -1321,18 +1324,43 @@ main {
         .plusIcon{
             top: 2%;
             right: 4%;
+            width: 8.5%;
+            height: 5.2%;
+            div{
+                background-image: var(--bs-plus);
+                background-size: contain; /* または contain など、適切な値を指定 */
+                background-repeat: no-repeat;
+                width: 100%;
+                height: 100%;
+            }
         }
         .tasks{
             margin: 4% 0 0 4%;
             .task{
                 width: 80%;
                 height: 4vh;
-                background-color: var(--bs-main-color)Gray;
+                background-color: var(--bs-anti-second-color2);
                 border-radius: v.$round-10;
                 box-shadow: 3px 3px 3px rgba(15, 20, 25, 0.25);
-                a{
-                    color: var(--bs-anti-main-color);
-                    @include m.fz(16);
+                color: var(--bs-anti-main-color);
+                @include m.fz(16);
+                .check{
+                    background-image: var(--bs-check);
+                    background-size: contain; /* または contain など、適切な値を指定 */
+                    background-repeat: no-repeat;
+                    width: 4%;
+                    margin-left: 3%;
+                }
+                .checked{
+                    background-image: var(--bs-checked);
+                    background-size: contain; /* または contain など、適切な値を指定 */
+                    background-repeat: no-repeat;
+                    width: 4%;
+                    margin-left: 3%;
+                }
+                span{
+                    @include m.fz(20);
+                    padding-left: 4%;
                 }
             }
         }

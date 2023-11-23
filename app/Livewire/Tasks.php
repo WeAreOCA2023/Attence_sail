@@ -39,14 +39,27 @@ class Tasks extends Component
         $this->taskShow = false;
     }
     #[On('showTask')]
-    public function showTask($taskId)
+    public function showTask(int $taskId)
     {
+        dd($taskId);
         $this->reset();
         $this->taskCreate = false;
         $this->taskShow = true;
         $this->title = TaskModel::find($taskId)->title;
         $this->description = TaskModel::find($taskId)->description;
         $this->deadline = TaskModel::find($taskId)->deadline;
+    }
+
+    #[On('doneTask')]
+    public function doneTask($taskId)
+    {
+
+        $this->reset();
+        $this->done_at = now();
+        TaskModel::where('id', $taskId)->update([
+            'status' => 1,
+            'done_at' => $this->done_at,
+        ]);
     }
 
     public function save()
@@ -74,9 +87,13 @@ class Tasks extends Component
         $user_id = Auth::user()->id;
         $company_id = User::where('user_id', $user_id)->value('company_id');
         // ログインユーザーに関連づけられたタスクを取得
-        $tasks1 = TaskModel::where('assigner_id', auth()->id())->get();
+        $tasks1 = TaskModel::where('assigner_id', auth()->id())
+            ->where('status', 0)
+            ->get();
         $tasks2Id = AllTasksAssign::where('assignee_id', auth()->id())->pluck('task_id')->toArray();
-        $tasks2 = TaskModel::whereIn('id', $tasks2Id)->get();
+        $tasks2 = TaskModel::whereIn('id', $tasks2Id)
+            ->where('status', 0)
+            ->get();
 
         $this->tasks = $tasks1->merge($tasks2)->unique();
 

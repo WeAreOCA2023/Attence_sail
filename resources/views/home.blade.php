@@ -161,10 +161,6 @@
                 progressBar.style.display = 'none';
             }
 
-            // function stopInterval() {
-            //     console.log("999999999999999999999");
-            //     clearInterval(intervalId);
-            // }
 
             // 退勤ボタンを押した時の処理
             $("#reset").click(function() {
