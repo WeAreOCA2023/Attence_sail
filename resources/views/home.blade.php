@@ -3,7 +3,7 @@
 @section('content')
     <div class="home d-flex justify-content-center h-100 mx-auto py-4">
         <div class="stopWatch">
-            <h1 class="mx-auto text-center d-flex align-items-center justify-content-center">休憩中</h1>
+            <h1 class="mx-auto text-center d-flex align-items-center justify-content-center status" id="status">勤務時間外</h1>
             <h2 class="text-center">2023/8/30</h2>
             <div class="home-timer mx-auto">
                 <div class="position-relative circle mx-auto">
@@ -21,10 +21,9 @@
                             </linearGradient>
                         </defs>
                     </svg>
-
+                    <p id="timer" class="text-center position-absolute top-50 start-50 translate-middle">00:00:00</p>
                 </div>
                 <div class="button">
-                    <p id="timer" class="text-center">00:00:00</p>
                     <ul id="btn" class="d-flex justify-content-around">
                         <li class="btn-item toggleButton" id="toggleBtn"></li>
                         <li class="btn-item disabled resetButton" id="reset" ></li>
@@ -214,6 +213,9 @@
                     runBreakTimer(); // 休憩タイマーの変数を読んでる
                     $("#toggleBtn").removeClass("pauseButton");
                     $("#toggleBtn").addClass("restartButton");
+                    $("#status").text("休憩中");
+                    $("#status").removeClass("start");
+                    $("#status").addClass("break");
                 } else {
                     // この中はボタンが押された時が休憩中もしくは出勤してないだった時の処理
                     if (breakStartTime !== 0){
@@ -223,12 +225,15 @@
                     runTimer(); // 普通の出勤タイマーを起動してる
                     $("#reset").removeClass("disabled"); // リセットボタンが機能するようにしてる
                     $("#toggleBtn").removeClass("toggleButton");
-                    if ($("#toggleBtn").hasClass("restartButton")) {
+                    $("#status").text("勤務中");
+                    $("#status").addClass("start");
+                    $("#toggleBtn").addClass("pauseButton");
+                    if ($("#toggleBtn").hasClass("restartButton")){
                         $("#toggleBtn").removeClass("restartButton");
                         $("#toggleBtn").addClass("pauseButton");
-                    } else {
-                        $("#toggleBtn").removeClass("restartButton");
-                        $("#toggleBtn").addClass("pauseButton");
+                        $("#status").text("勤務中");
+                        $("#status").removeClass("break");
+                        $("#status").addClass("start");
                     }
                 }
                 isRunning = !isRunning; // フラグを反転(なんで反転させてる？)
