@@ -1,18 +1,17 @@
 <div class="myAllTasks d-flex w-100 justify-content-center align-items-center">
     <div class="jobList position-relative">
         <div class="title d-flex">
-            <img src="{{ asset('img/Onprogress.svg') }}" alt="">
+            <div class="icon"></div>
             <h2>未完了</h2>
         </div>
         <div class="position-absolute plusIcon">
-            <a @click="$dispatch('showTaskCreate')"><img src="{{ asset('img/plus.svg') }}" alt=""></a>
+            <div @click="$dispatch('showTaskCreate')"></div>
         </div>
         <ul class="tasks list-unstyled">
             @foreach ($tasks as $task)
-                <li class="task mb-3">
-                    <a wire:click="showTask({{ $task->id }})" class="d-block h-100 text-decoration-none">
-                        <span>{{ $task->title }}</span>
-                    </a>
+                <li class="task mb-3 d-flex align-items-center" data-task-id="{{ $task->id }}">
+                    <div class="check d-flex h-50"></div>
+                    <span wire:click="showTask({{ $task->id }})" class="d-flex h-100 w-100 align-items-center">{{ $task->title }}</span>
                 </li>
             @endforeach
         </ul>
@@ -72,5 +71,12 @@
                 $('.userSelect').select2();
             });
         })
+        $('.check').on('click', function (e) {
+            $(this).toggleClass('checked');
+            var taskId = $(this).closest('li').data('task-id');
+            window.setTimeout(function(){
+                Livewire.dispatch('doneTask', {taskId: taskId});
+            }, 500);
+        });
     })
 </script>
