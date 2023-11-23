@@ -343,15 +343,25 @@ main {
                 list-style:none;
                 padding: 0;
 
-                #toggleBtn{
+                .toggleButton{
                     width: 259px;
                     height: 123px;
                     background-image: var(--bs-start);
                 }
-                #reset{
+                .resetButton{
                     width: 259px;
                     height: 123px;
                     background-image: var(--bs-stop);
+                }
+                .pauseButton{
+                    width: 259px;
+                    height: 123px;
+                    background-image: var(--bs-pause);
+                }
+                .restartButton{
+                    width: 259px;
+                    height: 123px;
+                    background-image: var(--bs-restart);
                 }
             }
             .btn-item{
@@ -1047,7 +1057,7 @@ main {
                     color: var(--bs-btn-hover-color);
                     @include m.fz(20);
                 }
-            
+
             }
         }
         .error{
