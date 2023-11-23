@@ -1,6 +1,6 @@
 /.phpunit.cache
 /node_modules
-!/node_modules/bootstrap/scss/_root.scss
+!_root.scss
 /public/build
 /public/hot
 /public/storage
