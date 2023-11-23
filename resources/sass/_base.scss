@@ -322,8 +322,8 @@ main {
         h1{
             margin: 10% 0 10% 0;
             @include m.fz(50);
-            color: var(--bs-main-color);
-            background-color: var(--bs-anti-main-color);
+            color: v.$black;
+            background-color: var(--bs-anti-second-color2);
             width: 50%;
             height: 8%;
             border-radius: v.$round-10;
