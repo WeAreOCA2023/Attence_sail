@@ -41,7 +41,6 @@ class Tasks extends Component
     #[On('showTask')]
     public function showTask(int $taskId)
     {
-        dd($taskId);
         $this->reset();
         $this->taskCreate = false;
         $this->taskShow = true;
