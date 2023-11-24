@@ -116,7 +116,7 @@ class UserManagement extends Component
             } else {
                 $over_work = '<span class="status-overwork">' . '警告' . '</span>';
             }
-            if ($this->filterUnset == true && $unsetCount > 0) {
+            if ($this->filterUnset == true && !$unsetCount > 0) {
                 continue;
             }
             // user-managementで使用するデータ
@@ -135,6 +135,7 @@ class UserManagement extends Component
                 'assignable_positions' => $assignable_positions,
             ];      
         }  
+        // dd($users_info);
 
 
         $all_departments = Department::select('id', 'department_name')->get();

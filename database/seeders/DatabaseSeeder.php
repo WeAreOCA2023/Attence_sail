@@ -80,8 +80,6 @@ class DatabaseSeeder extends Seeder
             ]
         ];
 
-        User::factory(20)->create();
-
         foreach ($positions as $position_name => $rank) {
             Position::factory()->create([
                 'position_name' => $position_name,
@@ -96,5 +94,9 @@ class DatabaseSeeder extends Seeder
                 'boss_id' => $department_info['boss_id']
             ]);
         }
+
+        User::factory(20)->create();
+
+
     }
 }
