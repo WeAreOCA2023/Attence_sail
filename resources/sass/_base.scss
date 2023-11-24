@@ -1037,11 +1037,15 @@ main {
 .userManagement{
     gap: 0.2vw;
     .whiteBox{
-        height: fit-content;
+        max-height: 90vh;
+        overflow-y: scroll;
         width: 80vw;
         background-color: var(--bs-main-color);
         border-radius: v.$round-40;
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+        .sticky-top{
+            background-color: var(--bs-main-color);
+        }
         .filter-group{
             gap: 2vw;
             .filter-position, .filter-department, .filter-status, .filter-overwork, .filter-on{

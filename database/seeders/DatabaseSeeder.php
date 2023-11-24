@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Position;
 use App\Models\Department;
+use App\Models\User;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -39,12 +40,6 @@ class DatabaseSeeder extends Seeder
             '派遣社員(A株式会社)' => 1,
             '業務委託先(B株式会社)' => 1
         ];
-        foreach ($positions as $position_name => $rank) {
-            Position::factory()->create([
-                'position_name' => $position_name,
-                'rank' => $rank,
-            ]);
-        }
 
         $departments = [
             '営業部' => [
@@ -84,6 +79,16 @@ class DatabaseSeeder extends Seeder
                 'boss_id' => '1'
             ]
         ];
+
+        User::factory(20)->create();
+
+        foreach ($positions as $position_name => $rank) {
+            Position::factory()->create([
+                'position_name' => $position_name,
+                'rank' => $rank,
+            ]);
+        }
+        
         foreach ($departments as $department => $department_info) {
             Department::factory()->create([
                 'department_name' => $department,

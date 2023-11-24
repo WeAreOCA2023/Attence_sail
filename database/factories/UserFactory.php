@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
-
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\UserLogin;
+use App\Models\User;
+use App\Models\AllWorkHours;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -19,21 +20,36 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        define(UserLogin::class, function (Faker\Generator $faker) {
-            return [
-                "email" => $faker->unique()->safeEmail,
-                "password" => 'yIXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            ];
-        });
-        $userLogin = factory(UserLogin::class)->create();
+        $faker = \Faker\Factory::create();
+
+        // Insert data into UserLoginTable
+        $userLogin = UserLogin::create([
+            "email" => $faker->unique()->safeEmail,
+            "password" => 'yIXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+        ]);
+
+        $allWorkHours = AllWorkHours::create([
+            'user_id' => $userLogin->id,
+            'weekly_total_work_hours' => 0,
+            'monthly_total_work_hours' => 0,
+            'yearly_total_work_hours' => 0,
+            'total_over_work_hours' => 0,
+
+        ]);
+
+        // Insert data into UsersTable
         return [
             'user_id' => $userLogin->id,
-            'user_name' => fake()->name(),
-            'full_name' => fake()->name(),
-            'telephone' => fake()->phoneNumber(),
+            'user_name' => $faker->name(),
+            'full_name' => $faker->name(),
+            'telephone' => $faker->phoneNumber(),
             'company_id' => 1,
         ];
     }
+
+
+        
+    
 
     /**
      * Indicate that the model's email address should be unverified.
