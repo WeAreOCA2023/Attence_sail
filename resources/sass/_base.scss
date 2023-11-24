@@ -1048,7 +1048,7 @@ main {
                 li + li{
                     border-top: 1px solid var(--bs-anti-main-color);
                 }
-                a{
+                a, button{
                     @include m.fz(20);
                 }
             }

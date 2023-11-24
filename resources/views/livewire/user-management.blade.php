@@ -11,7 +11,7 @@
             @if (is_null($filterDepartmentId))
             <div class="filter-position dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    部署{{ $filterDepartmentId }}
+                    部署
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" wire:click="filterDepartment(-2)">取り消す</a></li>
@@ -24,7 +24,7 @@
             @else
             <div class="filter-on dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    部署{{ $filterDepartmentId }}
+                    {{ $filterDepartmentName }}
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" wire:click="filterDepartment(-2)">取り消す</a></li>
@@ -38,7 +38,7 @@
             @if (is_null($filterPositionId))
             <div class="filter-position dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    役職{{ $filterPositionId }}
+                    役職
                 </a>
 
                 <ul class="dropdown-menu">
@@ -51,7 +51,7 @@
             @else
             <div class="filter-on dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    役職{{ $filterPositionId }}
+                    {{ $filterPositionName }}
                 </a>
 
                 <ul class="dropdown-menu">
@@ -65,11 +65,12 @@
             @if (is_null($filterStatusId))
             <div class="filter-status dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    ステータス{{ $filterStatusId }}
+                    ステータス
                 </a>
 
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" wire:click="filterStatus(-2)">取り消す</a></li>
+                    <li><a class="dropdown-item" wire:click="filterStatus(0)">未勤中</a></li>
                     <li><a class="dropdown-item" wire:click="filterStatus(1)">出勤中</a></li>
                     <li><a class="dropdown-item" wire:click="filterStatus(2)">休憩中</a></li>
                     <li><a class="dropdown-item" wire:click="filterStatus(3)">休職中</a></li>
@@ -79,11 +80,12 @@
             @else
             <div class="filter-on dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    ステータス{{ $filterStatusId }}
+                    {{ $filterStatusName }}
                 </a>
 
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" wire:click="filterStatus(-2)">取り消す</a></li>
+                    <li><a class="dropdown-item" wire:click="filterStatus(0)">未勤中</a></li>
                     <li><a class="dropdown-item" wire:click="filterStatus(1)">出勤中</a></li>
                     <li><a class="dropdown-item" wire:click="filterStatus(2)">休憩中</a></li>
                     <li><a class="dropdown-item" wire:click="filterStatus(3)">休職中</a></li>
@@ -94,7 +96,7 @@
             @if (is_null($filterOverWorkId))
             <div class="filter-overwork dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    超過労働{{ $filterOverWorkId}}
+                    超過労働
                 </a>
                 <ul class="dropdown-menu">
                 <li><a class="dropdown-item" wire:click="filterOverWork(-2)">取り消す</a></li>
@@ -105,7 +107,7 @@
             @else
             <div class="filter-on dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    超過労働{{ $filterOverWorkId}}
+                    {{ $filterOverWorkName }}
                 </a>
                 <ul class="dropdown-menu">
                 <li><a class="dropdown-item" wire:click="filterOverWork(-2)">取り消す</a></li>
@@ -114,9 +116,15 @@
                 </ul>
             </div>
             @endif
+            @if ($filterUnset == false)
             <div class="filter-unset">
                 <button wire:click="unsetFilter" class="btn btn-primary">未設定</button>
             </div>
+            @else
+            <div class="filter-on">
+                <button wire:click="unsetFilter" class="btn btn-primary">未設定</button>
+            </div>
+            @endif
             <div class="clear-filter">
                 <button wire:click="clearFilter" class="btn btn-primary">クリア</button>
             </div>
@@ -124,22 +132,22 @@
 
 
         @if(session('unselect'))
-            <div class="error d-block text-center">
+            <div class="error d-block text-center mt-5">
                 <strong>{{ session('unselect') }}</strong>
             </div>
         @endif
         @if(session('errorBossDepartment'))
-            <div class="error d-block text-center">
+            <div class="error d-block text-center mt-5">
                 <strong>{{ session('errorBossDepartment') }}</strong>
             </div>
         @endif
         @if(session('successDeleteUser'))
-            <div class="success d-block text-center">
+            <div class="success d-block text-center mt-5">
                 <strong>{{ session('successUser') }}</strong>
             </div>
         @endif
         @if(session('successUser'))
-            <div class="success d-block text-center">
+            <div class="success d-block text-center mt-5">
                 <strong>{{ session('successUser') }}</strong>
             </div>
         @endif
@@ -244,9 +252,7 @@
                                 </div>
                             </div>
                         </div>
-                    @endif
-
-                    
+                    @endif                
                 @endforeach
             @endif
             </tbody>
