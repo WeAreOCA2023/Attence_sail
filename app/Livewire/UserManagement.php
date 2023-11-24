@@ -35,6 +35,12 @@ class UserManagement extends Component
     public $filterOverWorkId = null;
     public $filterUnset = false;
 
+    // フィルター内容表示
+    public $filterDepartmentName = '部署';
+    public $filterPositionName = '役職';
+    public $filterStatusName = 'ステータス';
+    public $filterOverWorkName = '超過労働';
+
 
 
     public function render()
@@ -53,11 +59,13 @@ class UserManagement extends Component
             $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->get();
         }
         foreach ($users_table_pagination as $user_pagination) {
+            $unsetCount = 0;
             $user = User::where('user_id', $user_pagination->user_id)->first();
             $user_login = UserLogin::where('id', $user->user_id)->first();
             $department_id = $user->department_id;
             if ($department_id == 0) {
                 $department_name = '<span class="unset">' . '未設定' . '</span>';
+                $unsetCount++;
             } elseif($department_id == -1){
                 $department_name = '<span class="unaffliated">' . '無し' . '</span>';
             } else {
@@ -66,12 +74,14 @@ class UserManagement extends Component
             $position_id = $user->position_id;
             if ($position_id == 0) {
                 $position_name = '<span class="unset">' . '未設定' . '</span>';
+                $unsetCount++;
             } else {
                 $position_name = Position::where('id', $position_id)->first()->position_name;
             }
             $agreement_36 = $user->agreement_36;
             if ($agreement_36 == 0) {
                 $agreement_36 = '<span class="unset">' . '未設定' . '</span>';
+                $unsetCount++;
             } elseif ($agreement_36 == 1) {
                 $agreement_36 = '有り';
             } elseif ($agreement_36 == 2) {
@@ -82,6 +92,7 @@ class UserManagement extends Component
             $variable_working_hours_system = $user->variable_working_hours_system;
             if ($variable_working_hours_system == 0) {
                 $variable_working_hours_system = '<span class="unset">' . '未設定' . '</span>';
+                $unsetCount++;
             } elseif ($variable_working_hours_system == 1) {
                 $variable_working_hours_system = '有り';
             } else {
@@ -105,6 +116,9 @@ class UserManagement extends Component
             } else {
                 $over_work = '<span class="status-overwork">' . '警告' . '</span>';
             }
+            if ($this->filterUnset == true && $unsetCount > 0) {
+                continue;
+            }
             // user-managementで使用するデータ
             $users_info[$user->user_id] = [
                 'user_id' => $user->user_id,
@@ -121,14 +135,7 @@ class UserManagement extends Component
                 'assignable_positions' => $assignable_positions,
             ];      
         }  
-        if ($this->filterUnset == true) {
-            foreach ($users_info as $user_info) {
-                if ($user_info['department_name'] == '<span class="unset">未設定</span>' || $user_info['position_name'] == '<span class="unset">未設定</span>' || $user_info['agreement_36'] == '<span class="unset">未設定</span>' || $user_info['variable_working_hours_system'] == '<span class="unset">未設定</span>' ) {
-                    continue;
-                } 
-                unset($users_info[$user_info['user_id']]);
-            }
-        }
+
 
         $all_departments = Department::select('id', 'department_name')->get();
         $all_positions = Position::select('id', 'position_name')->get();
@@ -178,6 +185,7 @@ class UserManagement extends Component
             $this->filter = false;
         } elseif (($this->filter == false && $this->filterPositionId == -2) || ($this->filter == true && $this->filterPositionId == -2)) {
             $this->filterPositionId = null;
+            $this->filterPositionName = null;
         } else {
             $this->filter = true;
             $this->filterPositionId = $id;
@@ -191,6 +199,7 @@ class UserManagement extends Component
     {
         if (!is_null($this->filterPositionId)) {
             $filteredPosition  = $filteredDepartment->where('position_id', $this->filterPositionId);
+            $this->filterPositionName = Position::where('id', $this->filterPositionId)->first()->position_name;
             return $filteredPosition;
         }   
         return $filteredDepartment;
@@ -222,6 +231,9 @@ class UserManagement extends Component
                 ->search('full_name', $this->search_user)
                 ->where('department_id', $this->filterDepartmentId)
                 ->orderBy('user_id', 'asc')->get();
+            if ($this->filterDepartmentId != -2) {
+                $this->filterDepartmentName = Department::where('id', $this->filterDepartmentId)->first()->department_name;
+            }
             return $filteredDepartment;
         }
         $noFilter = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->get();
@@ -252,6 +264,17 @@ class UserManagement extends Component
     {
         if (!is_null($this->filterStatusId)) {
             $filteredStatus = $filteredPosition->where('status', $this->filterStatusId);
+            if ($this->filterStatusId == 0) {
+                $this->filterStatusName = '未出勤';
+            } elseif ($this->filterStatusId == 1) {
+                $this->filterStatusName = '出勤中';
+            } elseif ($this->filterStatusId == 2) {
+                $this->filterStatusName =  '休憩中';
+            } elseif ($this->filterStatusId == 3) {
+                $this->filterStatusName = '休職中';
+            } else {
+                $this->filterStatusName = '退職済';
+            }
             return $filteredStatus;
         }
         return $filteredPosition;
@@ -280,8 +303,15 @@ class UserManagement extends Component
     {
         if (!is_null($this->filterOverWorkId)) {
             $filteredOverWork = $filteredStatus->where('over_work', $this->filterOverWorkId);
+            if ($this->filterOverWorkId == 0) {
+                $this->filterOverWorkName = '正常';
+            } elseif($this->filterOverWorkId == 1) {
+                $this->filterOverWorkName = '警告';
+            } else {
+                $this->filterOverWorkName = '超過労働';
+            }
             return $filteredOverWork;
-        }
+        } 
         return $filteredStatus;
     }
 
