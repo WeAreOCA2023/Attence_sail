@@ -54,7 +54,7 @@
                         <h2>現在:{{$weekWorkTime}}時間</h2>
                         <h2>上限: {{$weekWorkLimit}}時間</h2>
                     </div>
-                    <progress class="mx-auto" id="creditScore" value="88" max="100">88%</progress>
+                    <progress class="mx-auto" id="creditScore" value={{$weekWorkTime}} max={{$weekWorkLimitBar}}>88%</progress>
                 </div>
                 <div class="monthWorkTime w-100 d-flex flex-column align-items-center justify-content-around">
                     <h1>総労働時間(今週)</h1>
@@ -62,7 +62,7 @@
                         <h2>現在:{{$monthWorkTime}}時間</h2>
                         <h2>上限: {{$monthWorkLimit}}時間</h2>
                     </div>
-                    <progress class="mx-auto" id="creditScore" value="88" max="100">88%</progress>
+                    <progress class="mx-auto" id="creditScore" value={{$weekOverLimit}} max={{$weekOverLimitBar}}>88%</progress>
                 </div>
             </div>
             <div class="extraWorkList d-flex justify-content-around">
@@ -72,7 +72,7 @@
                         <h2>{{$weekOverTime}}時間</h2>
                         <h2>上限: {{$weekOverLimit}}時間</h2>
                     </div>
-                    <progress class="mx-auto" id="creditScore" value="88" max="100">88%</progress>
+                    <progress class="mx-auto" id="creditScore" value={{$monthWorkLimit}} max={{$monthWorkLimitBar}}>88%</progress>
                 </div>
                 <div class="monthOverTime w-100 d-flex flex-column align-items-center justify-content-around">
                     <h1>総残業時間(先月)</h1>
@@ -80,7 +80,7 @@
                         <h2>{{$monthOverTime}}時間</h2>
                         <h2>上限: {{$monthOverLimit}}時間</h2>
                     </div>
-                    <progress class="mx-auto" id="creditScore" value="88" max="100">88%</progress>
+                    <progress class="mx-auto" id="creditScore" value={{$monthOverLimit}} max={{$monthOverLimitBar}}>88%</progress>
                 </div>
             <div class="extraWorkList ">
             </div>
