@@ -24,8 +24,8 @@ class UserManagementController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        if ($match = Department::find($user->department_id)){
-            return redirect('/user-management')->with('errorBossDepartment', "このユーザーは「{$match->department_name}」の責任者のため削除できません。");
+        if ($user->department_id > 0 && Department::find($user->department_id)->boss_id == $user->user_id) {
+            return redirect('/user-management')->with('errorBossDepartment', 'このユーザーは部署の責任者のため削除できません。');
         }
         $user = UserLogin::find($id);
         $user->delete();

@@ -18,7 +18,7 @@ class UserManagement extends Component
 
     // 検索用
     public $search_user = '';
-    
+
     // 編集用
     public $editUserId;
     public $editing = false;
@@ -54,7 +54,7 @@ class UserManagement extends Component
             $filteredPosition = $this->positionFilter($filteredDepartment);
             $filteredStatus = $this->statusFilter($filteredPosition);
             $filteredOverWork = $this->overWorkFilter($filteredStatus);
-            $users_table_pagination = $filteredOverWork;    
+            $users_table_pagination = $filteredOverWork;
         } else {
             $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->get();
         }
@@ -124,7 +124,7 @@ class UserManagement extends Component
                 'user_id' => $user->user_id,
                 'full_name' => $user->full_name,
                 'email' => $user_login->email,
-                'department_id' => $department_id, 
+                'department_id' => $department_id,
                 'department_name' => $department_name,
                 'position_name' => $position_name,
                 'agreement_36' => $agreement_36,
@@ -133,8 +133,8 @@ class UserManagement extends Component
                 'over_work' => $over_work,
                 'assignable_departments' => $assinable_departments,
                 'assignable_positions' => $assignable_positions,
-            ];      
-        }  
+            ];
+        }
         // dd($users_info);
 
 
@@ -162,7 +162,7 @@ class UserManagement extends Component
      */
     public function update()
     {
-        if ($this->assignDepartmentId == null || $this->assignPositionId == null) 
+        if ($this->assignDepartmentId == null || $this->assignPositionId == null)
         {
             session()->flash('unselect', '部署と役職を選択してください。');
             return redirect('/user-management');
@@ -202,7 +202,7 @@ class UserManagement extends Component
             $filteredPosition  = $filteredDepartment->where('position_id', $this->filterPositionId);
             $this->filterPositionName = Position::where('id', $this->filterPositionId)->first()->position_name;
             return $filteredPosition;
-        }   
+        }
         return $filteredDepartment;
     }
     /**
@@ -227,13 +227,19 @@ class UserManagement extends Component
      */
     public function departmentFilter(int $company_id): object
     {
-        if (!is_null($this->filterDepartmentId)) { 
+        if (!is_null($this->filterDepartmentId)) {
             $filteredDepartment = User::where('company_id', $company_id)
                 ->search('full_name', $this->search_user)
                 ->where('department_id', $this->filterDepartmentId)
                 ->orderBy('user_id', 'asc')->get();
-            $this->filterDepartmentName = Department::where('id', $this->filterDepartmentId)->first()->department_name;
-            return $filteredDepartment;
+            $department = Department::where('id', $this->filterDepartmentId)->first();
+            if ($this->filterDepartmentId == -1 && $department == null) {
+                $this->filterDepartmentName = '無し';
+                return $filteredDepartment;
+            } else {
+                $this->filterDepartmentName = $department->department_name;
+                return $filteredDepartment;
+            }
         }
         $noFilter = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->get();
         return  $noFilter;
@@ -258,7 +264,7 @@ class UserManagement extends Component
 
     /**
      * ステータスでフィルターをかける際に使用する関数
-    */
+     */
     public function statusFilter($filteredPosition): object
     {
         if (!is_null($this->filterStatusId)) {
@@ -310,7 +316,7 @@ class UserManagement extends Component
                 $this->filterOverWorkName = '超過労働';
             }
             return $filteredOverWork;
-        } 
+        }
         return $filteredStatus;
     }
 
@@ -334,6 +340,4 @@ class UserManagement extends Component
         $this->filterOverWorkId = null;
         $this->filterUnset = false;
     }
-
-
 }

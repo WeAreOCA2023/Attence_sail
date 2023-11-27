@@ -132,14 +132,12 @@ class HomeController extends Controller
     function getTaskData()
     {
         $giveTask = [];
-        //taskを持ってくる↓
-        $allTask = AllTasksAssign::where('assignee_id', Auth::user()->id)->orderBy('created_at', 'asc')->paginate(3);
-        foreach ($allTask as $eachTask){
-            $task = Task::where('id', $eachTask->task_id)->first();
-            $time = strtotime($task->deadline);
-            $newTime = date("Y-m-d h:i", $time);
-//            dd($newTime);
-            $giveTask[$task->title] = $newTime;
+        $taskIds = AllTasksAssign::where('assignee_id', Auth::user()->id)->pluck('task_id');
+        $deadlineOrder = Task::whereIn('id', $taskIds)
+                                ->where('status', 0)
+                                ->orderBy('deadline', 'asc')->paginate(3);
+        foreach ($deadlineOrder as $task) {
+            $giveTask[$task->title] = $task->deadline;
         }
         return $giveTask;
     }

@@ -2,12 +2,12 @@
     <div class="whiteBox">
         <div class="sticky-top">
             <div class="input-group d-flex justify-content-center">
-                <span class="svg">
-                    <img src="{{ asset('img/search.svg') }}" alt="searching icon">
+                <span class="svg d-flex align-items-center">
+                    <span class="icon d-flex"></span>
                     <input type="text" wire:model.live.debounce.250ms="search_user" placeholder="名前を入力して検索" >
                 </span>
             </div>
-            
+
             <div class="filter-group d-flex justify-content-center align-items-center">
                 @if (is_null($filterDepartmentId))
                 <div class="filter-position dropdown">
@@ -178,7 +178,7 @@
                         <td class="td-department">
                             <select wire:model="assignDepartmentId" class="form-select" aria-label="assignable departments">
                                 <option selected>選択してください</option>
-                                <option value="1">無し</option>
+                                <option value="-1">無し</option>
                                 @foreach ($user_info['assignable_departments'] as $assignable_department)
                                     <option value="{{ $assignable_department->id }}">{{ $assignable_department->department_name }}</option>
                                 @endforeach
@@ -198,10 +198,10 @@
                         <td>
                             <div class="save-cancel d-flex justify-content-between align-items-center">
                                 <button wire:click="update({{ $user_info['user_id'] }})">
-                                    <img class="saveImg" src="{{ asset('img/save.svg') }}" alt="saving icon">
+                                    <span class="save d-flex"></span>
                                 </button>
                                 <button wire:click="$set('editing', false)" class="cancelBtn btn-primary">
-                                    <img class="cancelImg" src="{{ asset('img/cancel.svg') }}" alt="canceling icon">
+                                    <span class="cancel d-flex"></span>
                                 </button>
                             </div>
                         </td>
@@ -220,10 +220,10 @@
                         <td class="td-Btn">
                             <div class="edit-delete d-flex justify-content-between align-items-center">
                                 <button wire:click="edit({{ $user_info['user_id'] }})">
-                                    <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
-                                </button>                                
+                                    <span class="edit d-flex"></span>
+                                </button>
                                 <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $user_info['user_id'] }}">
-                                    <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
+                                    <span class="delete d-flex"></span>
                                 </button>
                             </div>
                         </td>
@@ -253,7 +253,7 @@
                                 </div>
                             </div>
                         </div>
-                    @endif                
+                    @endif
                 @endforeach
             @endif
             </tbody>
