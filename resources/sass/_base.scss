@@ -1151,6 +1151,10 @@ main {
                 td{
                     width: fit-content;
                     padding: 10px;
+                    select{
+                        padding: 8px;
+                        @include m.fz(15);
+                    }
                     .form-select{
                         width: 4vw;
                     }
@@ -1168,23 +1172,20 @@ main {
                         button{ 
                             border: none;
                             background: none;
-                            span{
-                                width: 2vw;
-                            }
                         }
                         .edit{
                             background-image: var(--bs-edit);
                             background-size: contain; /* または contain など、適切な値を指定 */
                             background-repeat: no-repeat;
-                            width: 1.5vw;
-                            height: 1.5vw;
+                            width: 2.5vw;
+                            height: 2.5vh;
                         }
                         .delete{
                             background-image: var(--bs-delete);
                             background-size: contain; /* または contain など、適切な値を指定 */
                             background-repeat: no-repeat;
-                            width: 1.5vw;
-                            height: 1.5vw;
+                            width: 2.5vw;
+                            height: 2.5vh;
                         }
                     }
                     .status-unoverwork{
@@ -1220,7 +1221,7 @@ main {
                         font-weight: map-get(v.$font-weight, 1);
                     }
                     .save-cancel{
-                        width: 5.3vw;
+                        width: 6vw;
                         button{
                             border: none;
                             background: none;
@@ -1229,15 +1230,15 @@ main {
                             background-image: var(--bs-save);
                             background-size: contain; /* または contain など、適切な値を指定 */
                             background-repeat: no-repeat;
-                            width: 1.5vw;
-                            height: 1.5vw;
+                            width: 2.2vw;
+                            height: 2vw;
                         }
                         .cancel{
                             background-image: var(--bs-cancel);
                             background-size: contain; /* または contain など、適切な値を指定 */
                             background-repeat: no-repeat;
-                            width: 1.5vw;
-                            height: 1.5vw;
+                            width: 2vw;
+                            height: 2vw;
                         }
                     }
                 }

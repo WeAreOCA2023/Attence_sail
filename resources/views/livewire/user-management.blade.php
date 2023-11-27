@@ -177,18 +177,26 @@
                         <td>{{ $user_info['email'] }}</td>
                         <td class="td-department">
                             <select wire:model="assignDepartmentId" class="form-select" aria-label="assignable departments">
-                                <option selected>選択してください</option>
+                                <option selected>選択</option>
                                 <option value="-1">無し</option>
                                 @foreach ($user_info['assignable_departments'] as $assignable_department)
+                                    @if ($assignable_department->department_name == $user_info['department_name'])
+                                    <option value="{{ $assignable_department->id }}">{{ $assignable_department->department_name }}(現在)</option>
+                                    @else
                                     <option value="{{ $assignable_department->id }}">{{ $assignable_department->department_name }}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </td>
                         <td>
                             <select wire:model="assignPositionId" class="form-select" aria-label="asignable positions">
-                                <option selected>選択してください</option>
+                                <option selected>選択</option>
                                 @foreach ($user_info['assignable_positions'] as $assignable_position)
+                                    @if ($assignable_position->position_name == $user_info['position_name'])
+                                    <option value="{{ $assignable_position->id }}">{{ $assignable_position->position_name }}(現在)</option>
+                                    @else
                                     <option value="{{ $assignable_position->id }}">{{ $assignable_position->position_name }}</option>
+                                    @endif
                                 @endforeach
                         </td>
                         <td>{!! $user_info['agreement_36'] !!}</td>
@@ -200,7 +208,7 @@
                                 <button wire:click="update({{ $user_info['user_id'] }})">
                                     <span class="save d-flex"></span>
                                 </button>
-                                <button wire:click="$set('editing', false)" class="cancelBtn btn-primary">
+                                <button wire:click="$set('editing', false)" class="cancelBtn btn-primary mb-2">
                                     <span class="cancel d-flex"></span>
                                 </button>
                             </div>
