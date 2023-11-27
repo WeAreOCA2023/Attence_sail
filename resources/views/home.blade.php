@@ -7,17 +7,12 @@
             <h2 class="text-center">2023/8/30</h2>
             <div class="home-timer mx-auto">
                 <div class="position-relative circle mx-auto">
-                    <svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="200" cy="200" r="190" stroke="#E8E8E8" stroke-width="20"/>
-                    </svg>
                     <svg id="progress" class="position-absolute top-50 start-50 translate-middle" width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path id="progressPath" d="M200 10C224.951 10 249.658 14.9145 272.71 24.4629C295.762 34.0113 316.707 48.0066 334.35 65.6497C351.993 83.2929 365.989 104.238 375.537 127.29C385.086 150.342 390 175.049 390 200C390 224.951 385.085 249.658 375.537 272.71C365.989 295.762 351.993 316.707 334.35 334.35C316.707 351.993 295.762 365.989 272.71 375.537C249.658 385.086 224.951 390 200 390C175.049 390 150.342 385.085 127.29 375.537C104.238 365.989 83.2928 351.993 65.6497 334.35C48.0065 316.707 34.0112 295.762 24.4629 272.71C14.9145 249.658 9.99999 224.951 10 200C10 175.049 14.9145 150.342 24.4629 127.29C34.0113 104.238 48.0066 83.2928 65.6498 65.6496C83.2929 48.0065 104.238 34.0112 127.29 24.4628C150.342 14.9145 175.049 9.99998 200 10L200 10Z" stroke="url(#paint0_linear_567_156)" stroke-width="20"/>
                         <defs>
-                            <linearGradient id="paint0_linear_567_156" x1="200" y1="6.73532e-06" x2="313" y2="362.5" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#71FF6F"/>
-                                <stop offset="0.336775" stop-color="#C0FF5A"/>
-                                <stop offset="0.671875" stop-color="#FFC076"/>
-                                <stop offset="1" stop-color="#FF7D7D"/>
+                            <linearGradient id="paint0_linear_567_156" x1="200" y1="6.73532e-06" x2="200" y2="400" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#BF09FF"/>
+                                <stop offset="1" stop-color="#FF2626"/>
                             </linearGradient>
                         </defs>
                     </svg>
