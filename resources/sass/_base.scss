@@ -1005,11 +1005,23 @@ main {
             }
             .accountInnerBox{
                 gap: 1.3vh;
+                .success{
+                    color: v.$green;
+                    font-weight: map-get(v.$font-weight, 1);
+                    @include m.fz(15);
+                }
             }
         }
-        .agreement36Input{
-            width: fit-content;
-            margin: 0 auto;
+        .agreement36Box{
+            .success{
+                color: v.$green;
+                font-weight: map-get(v.$font-weight, 1);
+                @include m.fz(15);
+            }
+            .agreement36Input{
+                width: fit-content;
+                margin: 0 auto;
+            }
         }
         .form-select{
             width: 5vw;
