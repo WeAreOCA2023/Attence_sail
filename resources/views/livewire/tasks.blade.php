@@ -79,4 +79,9 @@
             }, 500);
         });
     })
+
+    $(".select2-6r3r-container-choice-xm0f-testuser").select2({
+        // width: 'resolve'
+        color: 'black'// need to override the changed default
+    });
 </script>

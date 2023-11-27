@@ -1392,6 +1392,14 @@ main {
             }
             .assign{
                 width: 40%;
+                .select2-selection--multiple{
+                    background-color: var(--bs-main-color);
+                    border: solid 1px v.$white;
+                    border-radius: v.$round-10;
+                }
+                .select2-selection__choice__display{
+                    color: black;
+                }
                 span{
                     width: 100%  !important;
                 }
