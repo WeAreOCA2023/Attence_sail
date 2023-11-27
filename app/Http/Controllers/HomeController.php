@@ -133,7 +133,9 @@ class HomeController extends Controller
     {
         $giveTask = [];
         $taskIds = AllTasksAssign::where('assignee_id', Auth::user()->id)->pluck('task_id');
-        $deadlineOrder = Task::whereIn('id', $taskIds)->orderBy('deadline', 'asc')->paginate(3);
+        $deadlineOrder = Task::whereIn('id', $taskIds)
+                                ->where('status', 0)
+                                ->orderBy('deadline', 'asc')->paginate(3);
         foreach ($deadlineOrder as $task) {
             $giveTask[$task->title] = $task->deadline;
         }
