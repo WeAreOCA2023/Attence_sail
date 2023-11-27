@@ -15,16 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-        // \App\Models\UserLogin::factory(20)->create();
-        // \App\Models\Position::factory(20)->create();
-        // \App\Models\Department::factory(20)->create();
-        // \App\Models\User::factory(20)->create();
         $positions = [
             '代表取締役社長' => 100,
             '副社長' => 90,

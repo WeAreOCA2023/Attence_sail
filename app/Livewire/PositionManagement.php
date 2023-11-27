@@ -73,6 +73,17 @@ class PositionManagement extends Component
             $this->editing = false;
             return;
         }
+        $this->validate([
+            'update_position_name' => 'required|max:128|unique:positions,position_name,' . $this->editPositionId,
+            'rank' => 'required|numeric|between:0,100'
+        ], [
+            'update_position_name.required' => '役職名を入力してください',
+            'update_position_name.max' => '役職名が長すぎます',
+            'update_position_name.unique' => 'その役職名は既に登録されています',
+            'rank.required' => '権威レベルを入力してください',
+            'rank.numeric' => '数字で入力してください',
+            'rank.between' => '0から100の範囲で入力してください'
+        ]);
         $position = Position::where('id', $this->editPositionId)->first();
         if ($position->position_name == $this->update_position_name) {
             $position->rank = $this->rank;

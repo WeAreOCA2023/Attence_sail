@@ -78,8 +78,8 @@
                     </div>
                 @endif
                 <label class="d-block" for="positionName">{{ __('役職名') }}</label>
-                <input id="positionName" type="text" wire:model='update_position_name' value="{{ old('positionName') }}" autocomplete="positionName" autofocus>
-                @error ('position_name')
+                <input id="positionName" type="text" wire:model='update_position_name' value="{{ old('positionName') }}" autocomplete="off" autofocus>
+                @error ('update_position_name')
                     <span class="error d-block text-center" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -88,7 +88,7 @@
 
             <div class="rank">
                 <label class="d-block" for="rank">{{ __('権威レベル (0~100の範囲)') }}</label>
-                <input id="rank" type="text" wire:model="rank" value="{{ old('rank') }}">
+                <input id="rank" type="text" wire:model="rank" value="{{ old('rank') }}" autocomplete="off">
                 @error ('rank')
                     <span class="error d-block text-center" role="alert">
                         <strong>{{ $message }}</strong>
@@ -117,8 +117,8 @@
                     </div>
                 @endif
                 <label class="d-block" for="positionName">{{ __('役職名') }}</label>
-                <input id="positionName" type="text" wire:model='save_position_name' value="{{ old('positionName') }}" autocomplete="positionName" autofocus>
-                @error ('position_name')
+                <input id="positionName" type="text" wire:model='save_position_name' value="{{ old('positionName') }}" autocomplete="off" autofocus>
+                @error ('save_position_name')
                     <span class="error d-block text-center" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -127,7 +127,7 @@
 
             <div class="rank">
                 <label class="d-block" for="rank">{{ __('権威レベル (0~100の範囲)') }}</label>
-                <input id="rank" type="text" wire:model="rank" value="{{ old('rank') }}">
+                <input id="rank" type="text" wire:model="rank" value="{{ old('rank') }}" autocomplete="off">
                 @error ('rank')
                     <span class="error d-block text-center" role="alert">
                         <strong>{{ $message }}</strong>

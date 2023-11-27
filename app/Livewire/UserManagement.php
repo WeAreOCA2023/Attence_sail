@@ -232,8 +232,14 @@ class UserManagement extends Component
                 ->search('full_name', $this->search_user)
                 ->where('department_id', $this->filterDepartmentId)
                 ->orderBy('user_id', 'asc')->get();
-            $this->filterDepartmentName = Department::where('id', $this->filterDepartmentId)->first()->department_name;
-            return $filteredDepartment;
+            $department = Department::where('id', $this->filterDepartmentId)->first();
+            if ($this->filterDepartmentId == -1 && $department == null) {
+                $this->filterDepartmentName = '無し';
+                return $filteredDepartment;
+            } else {
+                $this->filterDepartmentName = $department->department_name;
+                return $filteredDepartment;
+            }
         }
         $noFilter = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->get();
         return  $noFilter;

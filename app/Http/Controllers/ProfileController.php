@@ -35,6 +35,7 @@ class ProfileController extends Controller
         $company_name = $company->company_name;
         $company_id = $company->id;
         $full_name = $user->full_name;
+        $assigned_tasks = AllTasksAssign::where('assignee_id', $user->user_id)->get();
         $assigned_tasks = count(AllTasksAssign::where('assignee_id', $user->user_id)->get());
         $tasks = Task::where('assigner_id', $user->user_id)->get();
         $tasks_within_deadline = 0;

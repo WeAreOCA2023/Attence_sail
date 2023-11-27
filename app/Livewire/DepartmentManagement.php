@@ -16,6 +16,9 @@ class DepartmentManagement extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
+    public $editDepartmentId;
+    public $editing = false;
+
     #[Rule('required', message: '部署名を入力してください')]
     #[Rule('max:128', message: '部署名が長すぎます')]
     #[Rule('unique:department,department_name', message: 'その部署名は既に登録されています')]
@@ -24,11 +27,9 @@ class DepartmentManagement extends Component
     public $update_department_name;
 
     #[Rule('required', message: '責任者名を入力してください')]
-    // #[Rule('exists:user_logins,email', message: '責任者が見つかりませんでした。')]
     public $search;
 
-    public $editDepartmentId;
-    public $editing = false;
+
 
     public function selectedData($boss_email)
     {
@@ -49,7 +50,7 @@ class DepartmentManagement extends Component
                 'department_id' => $department->id,
                 'department_name' => $department->department_name,
                 'boss_name' => $user->full_name,
-                'email' => $user_login->email
+                'email' => $user_login->email,
             ];
         }
         return view('livewire.department-management', [
@@ -74,7 +75,6 @@ class DepartmentManagement extends Component
             session()->flash('errorDepartment', '責任者が見つかりませんでした。');
             return redirect('/department-management');
         }
-        session()->forget('errorDepartment');
         Department::create([
             'department_name' => $this->save_department_name,
             'company_id' => $user->company_id,
@@ -93,6 +93,13 @@ class DepartmentManagement extends Component
             $this->editing = false;
             return;
         }
+        $this->validate([
+            'update_department_name' => 'required|max:128|unique:department,department_name,' . $this->editDepartmentId,
+        ], [
+            'update_department_name.required' => '部署名を入力してください',
+            'update_department_name.max' => '部署名が長すぎます',
+            'update_department_name.unique' => 'その部署名は既に登録されています',
+        ]);
         $user = User::where('user_id', Auth::user()->id)->first();
         $boss_id = UserLogin::where('email', $this->search)->first();
         if ($boss_id == null) {
