@@ -160,7 +160,7 @@
                     <th>Eメール</th>
                     <th>部署</th>
                     <th>役職</th>
-                    <th class="th-agreement36">36協定aa</th>
+                    <th class="th-agreement36">36協定</th>
                     <th class="th-variable_working_hours_system">変形労働時間制</th>
                     <th class="th-status">ステータス</th>
                     <th class="th-overwork">超過労働</th>

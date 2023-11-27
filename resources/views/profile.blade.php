@@ -8,7 +8,7 @@
             <h3>{{ $full_name }}</h3>
             <div class="creditScore d-flex flex-column w-fit-content">
                 <label class="text-left" for="creditScore">信頼スコア{{ $trust_score }}</label>
-                <progress class="mx-auto" id="creditScore" value="88" max="100">88%</progress>
+                <progress class="mx-auto" id="creditScore" value="{{ $trust_score }}" max="100"></progress>
             </div>
         </div>
         <div class="upperRightBox d-flex flex-column">
@@ -49,8 +49,8 @@
                 </div>
                 <div class="d-flex justify-content-around mt-auto mb-auto">
                     <h3 class="m-0">割り当て数:{{ $assigned_tasks }}</h3>
-                    <h3 class="m-0">期限内達成数:</h3>
-                    <h3 class="m-0">期限後達成数:</h3>
+                    <h3 class="m-0">期限内達成数:{{ $tasks_within_deadline }}</h3>
+                    <h3 class="m-0">期限後達成数:{{ $tasks_after_deadline }}</h3>
                 </div>
             </div>
         </div>
