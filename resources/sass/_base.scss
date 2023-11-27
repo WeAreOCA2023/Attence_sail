@@ -978,6 +978,9 @@ main {
                 height: 3vh;
                 width: 10vw;
                 @include m.fz(20);
+                outline: none;
+                border: none;
+                border-bottom: 1px solid var(--bs-anti-main-color);
             }
         }
         .lawBox{
@@ -1002,11 +1005,23 @@ main {
             }
             .accountInnerBox{
                 gap: 1.3vh;
+                .success{
+                    color: v.$green;
+                    font-weight: map-get(v.$font-weight, 1);
+                    @include m.fz(15);
+                }
             }
         }
-        .agreement36Input{
-            width: fit-content;
-            margin: 0 auto;
+        .agreement36Box{
+            .success{
+                color: v.$green;
+                font-weight: map-get(v.$font-weight, 1);
+                @include m.fz(15);
+            }
+            .agreement36Input{
+                width: fit-content;
+                margin: 0 auto;
+            }
         }
         .form-select{
             width: 5vw;
@@ -1039,12 +1054,18 @@ main {
     .whiteBox{
         max-height: 90vh;
         overflow-y: scroll;
-        width: 80vw;
+        width: 85vw;
         background-color: var(--bs-main-color);
         border-radius: v.$round-40;
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+        .svg input{
+            outline: none;
+            border: none;
+            border-bottom: 1px solid var(--bs-anti-main-color);
+        }
         .sticky-top{
             background-color: var(--bs-main-color);
+            z-index: 1;
         }
         .filter-group{
             gap: 2vw;
@@ -1105,12 +1126,15 @@ main {
         .table{
             width: 75vw;
             margin: 20px auto 18px;
-            overflow-x: scroll;
+            overflow-y: scroll;
             tr, th{
                 width: fit-content;
                 @include m.fz(22);
                 .td-department, .td-position, .td-email, .td-fullName, .th-agreement36, .th-variable_working_hours_system, .th-status, .th-overwork{
                     white-space: nowrap;
+                }
+                .th-agreement36{
+                    width: 6vw;
                 }
                 .td-Btn{
                     width: 1vw;

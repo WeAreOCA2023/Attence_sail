@@ -7,7 +7,7 @@
             <img class="mx-auto" src="{{ asset('img/profileIcon.svg') }}" alt="Profile Icon">
             <h3>{{ $full_name }}</h3>
             <div class="creditScore d-flex flex-column w-fit-content">
-                <label class="text-left" for="creditScore">信頼スコア</label>
+                <label class="text-left" for="creditScore">信頼スコア{{ $trust_score }}</label>
                 <progress class="mx-auto" id="creditScore" value="88" max="100">88%</progress>
             </div>
         </div>
@@ -48,7 +48,7 @@
                     <h2 class="m-0">過去のタスク履歴</h2>
                 </div>
                 <div class="d-flex justify-content-around mt-auto mb-auto">
-                    <h3 class="m-0">割り当て数:</h3>
+                    <h3 class="m-0">割り当て数:{{ $assigned_tasks }}</h3>
                     <h3 class="m-0">期限内達成数:</h3>
                     <h3 class="m-0">期限後達成数:</h3>
                 </div>
@@ -65,12 +65,12 @@
                 <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateContract', Auth::user()->id) }}" method="POST">
                     @csrf
                     @method('PUT')
-                    @if (session('successAgreement'))
-                        <div class="success d-block text-center">
-                            <strong>{{ session('successAgreement') }}</strong>
-                        </div>
-                    @endif
                     <div class="agreement36Box">
+                        @if (session('successAgreement'))
+                            <div class="success d-block text-center">
+                                <strong>{{ session('successAgreement') }}</strong>
+                            </div>
+                        @endif
                         @error('agreement36')
                             <span class="error d-block" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -108,9 +108,10 @@
         <div class="accountOuterBox d-flex">
             <div class="accountBox  d-flex flex-column align-items-center justify-content-center">
                 <div class="title d-flex align-items-center mt-5">
-                    <img src="{{ asset('img/contract.svg') }}" alt="Contract Setting Icon">
+                    <img src="{{ asset('img/user-setting.svg') }}" alt="User Setting Icon">
                     <h2 class="m-0">アカウント情報</h2>
                 </div>
+                <div class="accountInnerBox d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
                 @if (session('successFullName'))
                     <div class="success d-block text-center">
                         <strong>{{ session('successFullName') }}</strong>
@@ -131,7 +132,6 @@
                         <strong>{{ session('successTelephone') }}</strong>
                     </div>
                 @endif
-                <div class="accountInnerBox d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
                     <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateFullName', Auth::user()->id) }}" method="POST">
                         @csrf
                         @method('PUT')

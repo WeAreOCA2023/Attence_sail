@@ -44,6 +44,9 @@ class UserFactory extends Factory
             'full_name' => $faker->name(),
             'telephone' => $faker->phoneNumber(),
             'company_id' => 1,
+            'department_id' => $faker->numberBetween(1, 9),
+            'position_id' => $faker->numberBetween(1, 13),
+            'status' => $faker->numberBetween(0, 4)
         ];
     }
 

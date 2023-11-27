@@ -2,7 +2,7 @@
     <div class="whiteBox">
         <div class="sticky-top">
             <div class="input-group d-flex justify-content-center">
-            <span class="svg">
+                <span class="svg">
                     <img src="{{ asset('img/search.svg') }}" alt="searching icon">
                     <input type="text" wire:model.live.debounce.250ms="search_user" placeholder="名前を入力して検索" >
                 </span>
@@ -157,10 +157,10 @@
                 <tr>
                     <th></th>
                     <th>名前</th>
-                    <th>メールアドレス</th>
+                    <th>Eメール</th>
                     <th>部署</th>
                     <th>役職</th>
-                    <th class="th-agreement36">36協定</th>
+                    <th class="th-agreement36">36協定aa</th>
                     <th class="th-variable_working_hours_system">変形労働時間制</th>
                     <th class="th-status">ステータス</th>
                     <th class="th-overwork">超過労働</th>

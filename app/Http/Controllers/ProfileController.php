@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\UserLogin;
 use App\Models\Position;
 use App\Models\Department;
+use App\Models\AllTasksAssign;
 
 class ProfileController extends Controller
 {
@@ -33,6 +34,10 @@ class ProfileController extends Controller
         $company_name = $company->company_name;
         $company_id = $company->id;
         $full_name = $user->full_name;
+        $assigned_tasks = count(AllTasksAssign::where('assignee_id', $user->user_id)->get());
+        $tasks_within_deadline = 100;
+        $tasks_after_deadline = 10;
+        $trust_score = $this->calculateTrustScore($tasks_within_deadline, $tasks_after_deadline);
 
         $position_id = $user->position_id;
         if ($position_id == 0) {
@@ -49,7 +54,6 @@ class ProfileController extends Controller
         } else {
             $department_name = $department->department_name;
         }
-
 
         $agreement_36 = $user->agreement_36;
         if ($agreement_36 == 1) {
@@ -78,7 +82,9 @@ class ProfileController extends Controller
             'department_name' => $department_name,
             'position_name' => $position_name,
             'agreement_36' => $agreement_36,
-            'variable_working_hours_system' => $variable_working_hours_system
+            'variable_working_hours_system' => $variable_working_hours_system,
+            'assigned_tasks' => $assigned_tasks,
+            'trust_score' => $trust_score,
         ]);
     }
 
@@ -128,42 +134,7 @@ class ProfileController extends Controller
         $company->update();
         return redirect('/profile')->with('successCompany', '会社情報を更新しました。');
     }
-    /**
-     * アカウント情報を更新する
-     */
-    // public function updateAccount(Request $request, User $user): RedirectResponse
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'fullName' => ['required'],
-    //         'userName' => ['required'],
-    //         'email' => ['required', 'string', 'email', 'max:255', 'unique:user_logins'],
-    //         'telephone' => ['required', 'numeric', 'digits_between:10,11', 'unique:users'],
-    //     ], [
-    //         'fullName.required' => '氏名は必須です。',
-    //         'userName.required' => 'ユーザー名は必須です。',
-    //         'email.required' => 'メールアドレスは必須です。',
-    //         'email.string' => 'メールアドレスは文字列で入力してください。',
-    //         'email.email' => 'メールアドレスの形式で入力してください。',
-    //         'email.max' => 'メールアドレスは255文字以内で入力してください。',
-    //         'email.unique' => 'このメールアドレスは既に登録されています。',
-    //         'telephone.required' => '電話番号は必須です。',
-    //         'telephone.numeric' => '電話番号は数字で入力してください。',
-    //         'telephone.digits_between' => '電話番号は10桁か11桁で入力してください。',
-    //         'telephone.exists' => 'この電話番号は既に登録されています。'
-    //     ]);
-    //     if ($validator->fails()) {
-    //         return redirect('/profile')->withErrors($validator)->withInput();
-    //     }
-    //     $user_login = UserLogin::where('id', $user->id)->first();
-    //     $user->full_name = $request->get('fullName');
-    //     $user->user_name = $request->get('userName');
-    //     $user->telephone = $request->get('telephone');
-    //     $user_login = $request->get('email');
-    //     $user->update();
-    //     $user_login->update();
-    //     return redirect('/profile')->with('successAccount', 'アカウント情報を更新しました。');
 
-    // }
 
     /**
      * 名前の更新
@@ -182,6 +153,7 @@ class ProfileController extends Controller
         $user->update();
         return redirect('/profile')->with('successFullName', '氏名を更新しました。');
     }
+
 
     /**
      * ユーザー名の更新
@@ -244,12 +216,26 @@ class ProfileController extends Controller
         return redirect('/profile')->with('successTelephone', '電話番号を更新しました。');
     }
 
-
     /**
-     * Remove the specified resource from storage.
+     * 信頼スコアの計算
      */
-    public function destroy(string $id)
+    public function calculateTrustScore($tasks_within_deadline, $tasks_after_deadline)
     {
-        //
+        $total_tasks = $tasks_within_deadline + $tasks_after_deadline;
+
+        if ($total_tasks == 0) {
+            return 0;  # タスクがない場合は信頼スコアをゼロに設定
+        }    
+        $within_deadline_percentage = number_format($tasks_within_deadline / $total_tasks, 2);
+        $after_deadline_percentage = number_format($tasks_after_deadline / $total_tasks, 2);
+    
+        # 期限内達成率が高いほど、期限後達成率が低いほど、信頼スコアが高くなる例
+        $trust_score = ($within_deadline_percentage - $after_deadline_percentage) * 100;
+
+    
+        # 信頼スコアが負にならないように調整
+        $trust_score = max(0, $trust_score);
+    
+        return $trust_score;
     }
 }
