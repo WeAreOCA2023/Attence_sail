@@ -207,6 +207,10 @@ class HomeController extends Controller
         $monthWorkLimit = $this->limitResponse()[1];
         $weekOverLimit = $this->limitResponse()[2];
         $monthOverLimit = $this->limitResponse()[3];
+        if ($weekWorkLimit =="なし"){$weekWorkLimitBar = 100;}else{$weekWorkLimitBar = $weekWorkLimit;}
+        if ($weekOverLimit == "なし"){$weekOverLimitBar = 100;}else{$weekOverLimitBar = $weekOverLimit;}
+        if ($monthWorkLimit == "なし"){$monthWorkLimitBar = 100;}else{$monthWorkLimitBar = $monthWorkLimit;}
+        if ($monthOverLimit == "なし"){$monthOverLimitBar = 100;}else{$monthOverLimitBar = $monthOverLimit;}
 
 //        $this->weeklyProcess();
         return view('home', [
@@ -219,6 +223,10 @@ class HomeController extends Controller
             'monthWorkLimit' => $monthWorkLimit,
             'weekOverLimit' => $weekOverLimit,
             'monthOverLimit' => $monthOverLimit,
+            'weekWorkLimitBar' => $weekWorkLimitBar,
+            'weekOverLimitBar' => $weekOverLimitBar,
+            'monthWorkLimitBar' => $monthWorkLimitBar,
+            'monthOverLimitBar' => $monthOverLimitBar,
         ]);
     }
 
