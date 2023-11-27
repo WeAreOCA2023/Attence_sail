@@ -9,7 +9,7 @@
         </div>
         <ul class="tasks list-unstyled">
             @foreach ($tasks as $task)
-                <li class="task mb-3 d-flex align-items-center" data-task-id="{{ $task->id }}">
+                <li class="task mb-3 d-flex align-items-center" id="{{ $task->id }}" data-task-id="{{ $task->id }}">
                     <div class="check d-flex h-50"></div>
                     <span wire:click="showTask({{ $task->id }})" class="d-flex h-100 w-100 align-items-center">{{ $task->title }}</span>
                 </li>
@@ -73,7 +73,7 @@
         })
         $('.check').on('click', function (e) {
             $(this).toggleClass('checked');
-            var taskId = $(this).closest('li').data('task-id');
+            let taskId = $(this).closest('.task').data('task-id');
             window.setTimeout(function(){
                 Livewire.dispatch('doneTask', {taskId: taskId});
             }, 500);
