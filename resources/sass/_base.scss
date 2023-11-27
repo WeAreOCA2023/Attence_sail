@@ -1124,10 +1124,11 @@ main {
 
         }
         .table{
-            width: 75vw;
+            max-width: 75vw;
             margin: 20px auto 18px;
             overflow-y: scroll;
             tr, th{
+                white-space: nowrap;
                 width: fit-content;
                 @include m.fz(22);
                 .td-department, .td-position, .td-email, .td-fullName, .th-agreement36, .th-variable_working_hours_system, .th-status, .th-overwork{
