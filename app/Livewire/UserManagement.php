@@ -211,7 +211,7 @@ class UserManagement extends Component
     public function filterDepartment(int $id): void
     {
         $this->filterDepartmentId = $id;
-        if ($this->filter == true && $this->filterPositionId == null && $this->filterDepartmentId == null && $this->filterStatusId == null && $this->filterOverWorkId == null) {
+        if ($this->filter == true && $this->filterDepartmentId == null && $this->filterPositionId == null && $this->filterDepartmentId == null && $this->filterStatusId == null && $this->filterOverWorkId == null) {
             $this->filterDepartmentId = null;
             $this->filter = false;
         } elseif (($this->filter == false && $this->filterDepartmentId == -2) || ($this->filter == true && $this->filterDepartmentId == -2)) {
@@ -227,14 +227,12 @@ class UserManagement extends Component
      */
     public function departmentFilter(int $company_id): object
     {
-        if (!is_null($this->filterDepartmentId)){
+        if (!is_null($this->filterDepartmentId)) { 
             $filteredDepartment = User::where('company_id', $company_id)
                 ->search('full_name', $this->search_user)
                 ->where('department_id', $this->filterDepartmentId)
                 ->orderBy('user_id', 'asc')->get();
-            if ($this->filterDepartmentId != -2) {
-                $this->filterDepartmentName = Department::where('id', $this->filterDepartmentId)->first()->department_name;
-            }
+            $this->filterDepartmentName = Department::where('id', $this->filterDepartmentId)->first()->department_name;
             return $filteredDepartment;
         }
         $noFilter = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->get();

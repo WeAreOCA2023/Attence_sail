@@ -48,7 +48,7 @@
                     <h2 class="m-0">過去のタスク履歴</h2>
                 </div>
                 <div class="d-flex justify-content-around mt-auto mb-auto">
-                    <h3 class="m-0">割り当て数:</h3>
+                    <h3 class="m-0">割り当て数:{{ $assigned_tasks }}</h3>
                     <h3 class="m-0">期限内達成数:</h3>
                     <h3 class="m-0">期限後達成数:</h3>
                 </div>
@@ -108,7 +108,7 @@
         <div class="accountOuterBox d-flex">
             <div class="accountBox  d-flex flex-column align-items-center justify-content-center">
                 <div class="title d-flex align-items-center mt-5">
-                    <img src="{{ asset('img/contract.svg') }}" alt="Contract Setting Icon">
+                    <img src="{{ asset('img/user-setting.svg') }}" alt="User Setting Icon">
                     <h2 class="m-0">アカウント情報</h2>
                 </div>
                 @if (session('successFullName'))

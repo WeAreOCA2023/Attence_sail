@@ -978,6 +978,9 @@ main {
                 height: 3vh;
                 width: 10vw;
                 @include m.fz(20);
+                outline: none;
+                border: none;
+                border-bottom: 1px solid var(--bs-anti-main-color);
             }
         }
         .lawBox{
@@ -1043,6 +1046,11 @@ main {
         background-color: var(--bs-main-color);
         border-radius: v.$round-40;
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
+        .svg input{
+            outline: none;
+            border: none;
+            border-bottom: 1px solid var(--bs-anti-main-color);
+        }
         .sticky-top{
             background-color: var(--bs-main-color);
             z-index: 1;

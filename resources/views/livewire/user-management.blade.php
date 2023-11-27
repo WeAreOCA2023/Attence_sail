@@ -2,7 +2,7 @@
     <div class="whiteBox">
         <div class="sticky-top">
             <div class="input-group d-flex justify-content-center">
-            <span class="svg">
+                <span class="svg">
                     <img src="{{ asset('img/search.svg') }}" alt="searching icon">
                     <input type="text" wire:model.live.debounce.250ms="search_user" placeholder="名前を入力して検索" >
                 </span>
