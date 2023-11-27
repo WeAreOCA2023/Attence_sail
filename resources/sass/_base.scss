@@ -1442,7 +1442,7 @@ main {
                 width: 40%;
                 .select2-selection--multiple{
                     background-color: var(--bs-main-color);
-                    border: solid 1px v.$white;
+                    border: solid 1px var(--bs-anti-main-color);
                     border-radius: v.$round-10;
                 }
                 .select2-selection__choice__display{

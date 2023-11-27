@@ -35,8 +35,14 @@ class ProfileController extends Controller
         $company_name = $company->company_name;
         $company_id = $company->id;
         $full_name = $user->full_name;
-        $assigned_tasks = AllTasksAssign::where('assignee_id', $user->user_id)->get();
-        $assigned_tasks = count(AllTasksAssign::where('assignee_id', $user->user_id)->get());
+        // タスクの割り当て数の取得
+        $assigned_tasks_per_employee = 0;
+        $all_assigned_tasks = AllTasksAssign::all();
+        foreach ($all_assigned_tasks as $assinged_task) {
+            if ($all_tasks = Task::where('id', $assinged_task->task_id)->where('assigner_id', Auth::user()->id) != null) {
+                $assigned_tasks_per_employee++;
+            }
+        }
         $tasks = Task::where('assigner_id', $user->user_id)->get();
         $tasks_within_deadline = 0;
         $tasks_after_deadline = 0;
@@ -96,7 +102,7 @@ class ProfileController extends Controller
             'position_name' => $position_name,
             'agreement_36' => $agreement_36,
             'variable_working_hours_system' => $variable_working_hours_system,
-            'assigned_tasks' => $assigned_tasks,
+            'assigned_tasks' => $assigned_tasks_per_employee,
             'tasks_within_deadline' => $tasks_within_deadline,
             'tasks_after_deadline' => $tasks_after_deadline,
             'trust_score' => $trust_score,
@@ -241,12 +247,9 @@ class ProfileController extends Controller
         if ($total_tasks == 0) {
             return 0;  # タスクがない場合は信頼スコアをゼロに設定
         }    
-        $within_deadline_percentage = number_format($tasks_within_deadline / $total_tasks, 2);
-        $after_deadline_percentage = number_format($tasks_after_deadline / $total_tasks, 2);
+        
     
-        # 期限内達成率が高いほど、期限後達成率が低いほど、信頼スコアが高くなる例
-        $trust_score = ($within_deadline_percentage - $after_deadline_percentage) * 100;
-
+        $trust_score = 100 - number_format($tasks_after_deadline / $total_tasks, 2) * 100;
     
         # 信頼スコアが負にならないように調整
         $trust_score = max(0, $trust_score);
