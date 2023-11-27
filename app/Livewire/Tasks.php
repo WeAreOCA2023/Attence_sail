@@ -55,8 +55,14 @@ class Tasks extends Component
 
         $this->reset();
         $this->done_at = now();
+        $deadline = TaskModel::where('id', $taskId)->value('deadline');
+        if ($deadline < $this->done_at) {
+            $this->status = 2;
+        } else {
+            $this->status = 1;
+        }
         TaskModel::where('id', $taskId)->update([
-            'status' => 1,
+            'status' => $this->status,
             'done_at' => $this->done_at,
         ]);
     }
