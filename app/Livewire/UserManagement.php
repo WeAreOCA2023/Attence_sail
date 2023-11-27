@@ -18,7 +18,7 @@ class UserManagement extends Component
 
     // 検索用
     public $search_user = '';
-    
+
     // 編集用
     public $editUserId;
     public $editing = false;
@@ -42,6 +42,19 @@ class UserManagement extends Component
     public $filterOverWorkName = '超過労働';
 
 
+<<<<<<< Updated upstream
+=======
+    function positionFilter(object $test){
+        if (!is_null($this->filterPositionId)){
+            // dd(gettype($test));
+
+            $test2 = $test->where('position_id', $this->filterPositionId);
+            // dd ($test2);
+            return $test2;
+        }
+        return $test;
+    }
+>>>>>>> Stashed changes
 
     public function render()
     {
@@ -49,6 +62,8 @@ class UserManagement extends Component
         $assignable_positions = Position::select('id', 'position_name')->get();
         $users_info = [];
         $company_id = User::where('user_id', Auth::user()->id)->first()->company_id;
+        $test = User::where('user_id', Auth::user()->id)->first()->where('company_id', $company_id)->first()->company_id;
+//        dd($test);
         if ($this->filter == true) {
             $filteredDepartment = $this->departmentFilter($company_id);
             $filteredPosition = $this->positionFilter($filteredDepartment);
@@ -58,6 +73,100 @@ class UserManagement extends Component
         } else {
             $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->get();
         }
+<<<<<<< Updated upstream
+=======
+        // if ($this->filter == true) {
+        //     if ($this->filterDepartmentId == null && $this->filterPositionId == null) {
+        //         $this->filter = false;
+        //     } else {
+        //         if ($this->filterPositionId != null) {
+        //             if (strlen($this->search_user >= 0)) {
+        //                 $users_table_pagination = User::where('company_id', $company_id)
+        //                 ->where('position_id', $this->filterPositionId)
+        //                 ->search('full_name', $this->search_user)
+        //                 ->orderBy('user_id', 'asc')
+        //                 ->paginate(12);
+        //             } else{
+        //                 $users_table_pagination = User::where('company_id', $company_id)
+        //                 ->where('position_id', $this->filterPositionId)
+        //                 ->orderBy('user_id', 'asc')
+        //                 ->paginate(12);
+        //             }
+        //         } else {
+        //             $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->paginate(12);
+        //         }
+        //         if ($this->filterDepartmentId != null) {
+        //             if ($this->filterPositionId != null) {
+        //                 if (strlen($this->search_user >= 0)) {
+        //                     $users_table_pagination = User::where('company_id', $company_id)
+        //                     ->where('department_id', $this->filterDepartmentId)
+        //                     ->where('position_id', $this->filterPositionId)
+        //                     ->search('full_name', $this->search_user)
+        //                     ->orderBy('user_id', 'asc')
+        //                     ->paginate(12);
+        //                 } else{
+        //                     $users_table_pagination = User::where('company_id', $company_id)
+        //                     ->where('department_id', $this->filterDepartmentId)
+        //                     ->where('position_id', $this->filterPositionId)
+        //                     ->orderBy('user_id', 'asc')
+        //                     ->paginate(12);
+        //                 }
+        //             } else {
+        //                 if (strlen($this->search_user >= 0)) {
+        //                     $users_table_pagination = User::where('company_id', $company_id)
+        //                     ->where('department_id', $this->filterDepartmentId)
+        //                     ->search('full_name', $this->search_user)
+        //                     ->orderBy('user_id', 'asc')
+        //                     ->paginate(12);
+        //                 } else{
+        //                     $users_table_pagination = User::where('company_id', $company_id)
+        //                     ->where('department_id', $this->filterDepartmentId)
+        //                     ->orderBy('user_id', 'asc')
+        //                     ->paginate(12);
+        //                 }
+        //             }
+        //         } else {
+        //             $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->paginate(12);
+        //         }
+
+
+        //     }
+        // } else {
+        //     $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->paginate(12);
+        // }
+        // if ($this->filter == true){
+        //     if ($this->filterDepartmentId == null && $this->filterPositionId == null) {
+        //         $this->filter = false;
+        //         $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->paginate(12);
+
+        //     } else {
+        //         if ($this->filterDepartmentId != null && $this->filterPositinoId) {
+
+        //         }
+        //         if ($this->filterDepartmentId != null) {
+        //             if (strlen($this->search_user >= 0)) {
+        //                 $users_table_pagination = User::where('company_id', $company_id)
+        //                 ->where('department_id', $this->filterDepartmentId)
+        //                 ->search('full_name', $this->search_user)
+        //                 ->orderBy('user_id', 'asc')
+        //                 ->paginate(12);
+        //             } else{
+        //                 $users_table_pagination = User::where('company_id', $company_id)
+        //                 ->where('department_id', $this->filterDepartmentId)
+        //                 ->orderBy('user_id', 'asc')
+        //                 ->paginate(12);
+        //             }
+        //         } else {
+        //             $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->paginate(12);
+        //         }
+
+
+        //     }
+        // } else {
+        //     $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->paginate(12);
+        // }
+
+>>>>>>> Stashed changes
         foreach ($users_table_pagination as $user_pagination) {
             $unsetCount = 0;
             $user = User::where('user_id', $user_pagination->user_id)->first();
@@ -133,11 +242,19 @@ class UserManagement extends Component
                 'over_work' => $over_work,
                 'assignable_departments' => $assinable_departments,
                 'assignable_positions' => $assignable_positions,
+<<<<<<< Updated upstream
             ];      
         }  
         // dd($users_info);
 
 
+=======
+            ];
+        }
+        // if ($this->filterDepartmentId != null) {
+        //     dd($users_info);
+        // }
+>>>>>>> Stashed changes
         $all_departments = Department::select('id', 'department_name')->get();
         $all_positions = Position::select('id', 'position_name')->get();
         return view('livewire.user-management', [
