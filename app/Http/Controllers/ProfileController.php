@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\UserLogin;
 use App\Models\Position;
 use App\Models\Department;
+use App\Models\Task;
 use App\Models\AllTasksAssign;
 
 class ProfileController extends Controller
@@ -35,10 +36,21 @@ class ProfileController extends Controller
         $company_id = $company->id;
         $full_name = $user->full_name;
         $assigned_tasks = count(AllTasksAssign::where('assignee_id', $user->user_id)->get());
-        $tasks_within_deadline = 100;
-        $tasks_after_deadline = 10;
+        $tasks = Task::where('assigner_id', $user->user_id)->get();
+        $tasks_within_deadline = 0;
+        $tasks_after_deadline = 0;
+        if (count($tasks) > 0) {
+            foreach($tasks as $task) {
+                if ($task->status == 1) {
+                    $tasks_within_deadline++;
+                } elseif ($task->status == 2) {
+                    $tasks_after_deadline++;
+                } else {
+                    continue;
+                } 
+            }
+        } 
         $trust_score = $this->calculateTrustScore($tasks_within_deadline, $tasks_after_deadline);
-
         $position_id = $user->position_id;
         if ($position_id == 0) {
             $position_name = '<span class="unset">' . '未設定' . '</span>';
@@ -84,6 +96,8 @@ class ProfileController extends Controller
             'agreement_36' => $agreement_36,
             'variable_working_hours_system' => $variable_working_hours_system,
             'assigned_tasks' => $assigned_tasks,
+            'tasks_within_deadline' => $tasks_within_deadline,
+            'tasks_after_deadline' => $tasks_after_deadline,
             'trust_score' => $trust_score,
         ]);
     }
