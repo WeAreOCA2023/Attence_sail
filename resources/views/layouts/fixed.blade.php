@@ -61,7 +61,7 @@
                         ["home", "Home", '<i class="fa-solid fa-house"></i>'],
                         ["tasks", "My all tasks", '<i class="fa-solid fa-table-list"></i>'],
                         ["next-7-days", "Next 7 days", '<i class="fa-solid fa-calendar-days"></i>'],
-                        ["analytics", "Analytics", '<i class="fa-solid fa-poo"></i>'],
+                        ["analytics", "Analytics", '<i class="fa-solid fa-chart-simple"></i>'],
                         ["department-management", "Department Management", '<i class="fa-solid fa-calendar-days"></i>'],
                         ["position-management", "Position Management", '<i class="fa-solid fa-calendar-days"></i>'],
                         ["user-management", "User Management", '<i class="fa-solid fa-calendar-days"></i>'],
