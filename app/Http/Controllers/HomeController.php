@@ -169,6 +169,30 @@ class HomeController extends Controller
 
         return [$weekWorkTime, $monthWorkTime, $weekOverTime, $monthOverTime];
     }
+
+    function limitResponse(){
+        $user = User::where('user_id', Auth::user()->id)->first();
+        $check = $user->agreement_36;
+        if ($check == CheckConstants::defaultAgreement()){
+            $weekWorkLimit = AgreementConstants::DEFAULT_WEEKLY_LIMIT;
+            $monthWorkLimit = "なし";
+            $weekOverLimit = "なし";
+            $monthOverLimit = "なし";
+        }
+        elseif ($check == CheckConstants::threeCheck()){
+            $weekWorkLimit = AgreementConstants::DEFAULT_WEEKLY_LIMIT;
+            $monthWorkLimit = "なし";
+            $weekOverLimit = "なし";
+            $monthOverLimit = AgreementConstants::MONTHLY_OVERTIME_LIMIT;
+        }
+        elseif ($check == CheckConstants::specialCheck()){
+            $weekWorkLimit = AgreementConstants::DEFAULT_WEEKLY_LIMIT;
+            $monthWorkLimit = "なし";
+            $weekOverLimit = "なし";
+            $monthOverLimit = AgreementConstants::MONTHLY_OVERTIME_LIMIT;
+        }
+        return [$weekWorkLimit, $monthWorkLimit, $weekOverLimit, $monthOverLimit];
+    }
     public function index()
     {
         $this->defaultCheck(); //関数呼び出し(初期チェック)
@@ -179,6 +203,10 @@ class HomeController extends Controller
         $monthWorkTime = $this->getWorkData()[1];
         $weekOverTime = $this->getWorkData()[2];
         $monthOverTime = $this->getWorkData()[3];
+        $weekWorkLimit = $this->limitResponse()[0];
+        $monthWorkLimit = $this->limitResponse()[1];
+        $weekOverLimit = $this->limitResponse()[2];
+        $monthOverLimit = $this->limitResponse()[3];
 
 //        $this->weeklyProcess();
         return view('home', [
@@ -187,6 +215,10 @@ class HomeController extends Controller
             'monthWorkTime' => $this->hourCalc($monthWorkTime),
             'weekOverTime' => $this->hourCalc($weekOverTime),
             'monthOverTime' => $this->hourCalc($monthOverTime),
+            'weekWorkLimit' => $weekWorkLimit,
+            'monthWorkLimit' => $monthWorkLimit,
+            'weekOverLimit' => $weekOverLimit,
+            'monthOverLimit' => $monthOverLimit,
         ]);
     }
 
