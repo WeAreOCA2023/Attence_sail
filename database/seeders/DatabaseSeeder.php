@@ -71,18 +71,35 @@ class DatabaseSeeder extends Seeder
             ]
         ];
 
-        foreach ($positions as $position_name => $rank) {
-            Position::factory()->create([
-                'position_name' => $position_name,
-                'rank' => $rank,
-            ]);
-        }
+        // foreach ($positions as $position_name => $rank) {
+        //     Position::factory()->create([
+        //         'position_name' => $position_name,
+        //         'rank' => $rank,
+        //     ]);
+        // }
         
+        // foreach ($departments as $department => $department_info) {
+        //     Department::factory()->create([
+        //         'department_name' => $department,
+        //         'company_id' => $department_info['company_id'],
+        //         'boss_id' => $department_info['boss_id'],
+        //         'agreement_36' => 1,
+        //         'variable_working_hours_system' => 1
+        //     ]);
+        // }
+
         foreach ($departments as $department => $department_info) {
+            do {
+                $agreement_36 = rand(1, 3);
+                $variable_working_hours_system = rand(1, 3);
+            } while (($agreement_36 == 1 && $variable_working_hours_system == 1) || ($agreement_36 == 2 && $variable_working_hours_system == 1));
+        
             Department::factory()->create([
                 'department_name' => $department,
                 'company_id' => $department_info['company_id'],
-                'boss_id' => $department_info['boss_id']
+                'boss_id' => $department_info['boss_id'],
+                'agreement_36' => $agreement_36,
+                'variable_working_hours_system' => $variable_working_hours_system,
             ]);
         }
 
