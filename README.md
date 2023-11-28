@@ -15,6 +15,7 @@
 #### マイグレーションファイルの作成: ```sail artisan make:migration "テーブル名"```
 #### コントローラー作成: ```sail artisan make:controller "コントローラー名" --resource```
 #### routeをリストで表示: ```sail artisan route:list```
+### Bossアカウント(1)、役職(13)、部署(9)、一般アカウント(20) (Pwd: test@123) ```sail artisan db:seed --class=DatabaseSeeder```
 ```sail artisan migrate```
 ```sail artisan config:clear```
 ```source ~/.zshrc```
