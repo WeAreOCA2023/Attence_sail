@@ -32,7 +32,7 @@ return [
     |
     |
     */
-    'cloud_url' => env('CLOUDINARY_URL=cloudinary://267553237417775:ddIFv05btnVXuxArqb5OkToMlz4@dhurwr4no'),
+    'cloud_url' => env('CLOUDINARY_URL'),
 
     /**
      * Upload Preset From Cloudinary Dashboard

@@ -12,7 +12,7 @@ class FileUploadController extends Controller
     {
         $image = $request->file('profile_image');
         if ($image) {
-            Cloudinary::upload($image);
+            $uploadedFileUrl = Cloudinary::upload($image->getRealPath())->getSecurePath();        
         }
     }
 }
