@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Validator;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -40,6 +41,7 @@ class ProfileController extends Controller
         $company_name = $company->company_name;
         $company_id = $company->id;
         $full_name = $user->full_name;
+        $profile_image = $user->profile_image;
         // タスクの割り当て数の取得
         $assigned_tasks_per_employee = 0;
         $all_assigned_tasks = AllTasksAssign::all();
@@ -111,6 +113,7 @@ class ProfileController extends Controller
             'tasks_within_deadline' => $tasks_within_deadline,
             'tasks_after_deadline' => $tasks_after_deadline,
             'trust_score' => $trust_score,
+            'profile_image' => $profile_image
         ]);
     }
 
