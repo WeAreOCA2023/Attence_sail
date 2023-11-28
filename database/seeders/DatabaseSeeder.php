@@ -7,7 +7,10 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Position;
 use App\Models\Department;
+use App\Models\Company;
 use App\Models\User;
+use App\Models\UserLogin;
+use App\Models\AllWorkHours;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -15,7 +18,43 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // adminアカウント作成 
+        $userLogin = UserLogin::create([
+            "email" => 'test-boss@test.com',
+            "password" => 'test@123',
+        ]);
 
+        $company = Company::create([
+            'company_name' => '株式会社アテンス',
+            'company_code' => '111111111111',
+            'company_password' => 'test@123',
+            'post_code' => '1111111',
+            'address' => '東京都渋谷区渋谷1-1-1',
+        ]);
+
+        $user = User::create([
+            'user_id' => $userLogin->id,
+            'user_name' => 'test-boss',
+            'full_name' => 'Admin',
+            'telephone' => '11111111111',
+            'company_id' => 1,
+            'is_boss' => 1,
+            'department_id' => 0,
+            'position_id' => 0,
+            'status' => 0,
+            'agreement_36' => 0,
+            'variable_working_hours_system' => 0,
+        ]);
+
+        $allWorkHours = AllWorkHours::create([
+            'user_id' => $userLogin->id,
+            'weekly_total_work_hours' => 0,
+            'monthly_total_work_hours' => 0,
+            'yearly_total_work_hours' => 0,
+            'total_over_work_hours' => 0,
+        ]);
+
+        // これより下は一般用のテストデータ
         $positions = [
             '代表取締役社長' => 100,
             '副社長' => 90,
@@ -82,12 +121,10 @@ class DatabaseSeeder extends Seeder
             Department::factory()->create([
                 'department_name' => $department,
                 'company_id' => $department_info['company_id'],
-                'boss_id' => $department_info['boss_id']
+                'boss_id' => $department_info['boss_id'],
             ]);
         }
 
         User::factory(20)->create();
-
-
     }
 }
