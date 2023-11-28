@@ -884,7 +884,8 @@ main {
                 font-weight: map-get(v.$font-weight, 1);
             }
             img{
-                width: 8vw;
+                max-width: 100%;
+                height: auto;
             }
             progress {
                 width: 10vw;

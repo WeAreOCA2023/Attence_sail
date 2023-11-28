@@ -4,7 +4,7 @@
 <div class="profile d-flex flex-column justify-content-between h-100 mx-auto py-4">
     <div class="upperBox d-flex">
         <div class="upperLeftBox d-flex flex-column items-center text-center justify-content-center">
-            <img class="mx-auto" src="{{ asset('img/profileIcon.svg') }}" alt="Profile Icon">
+            <img class="mx-auto" src="{{ $profile_image }}" alt="Profile Icon">
             <h3>{{ $full_name }}</h3>
             <div class="creditScore d-flex flex-column w-fit-content">
                 <label class="text-left" for="creditScore">信頼スコア{{ $trust_score }}</label>
@@ -132,6 +132,24 @@
                         <strong>{{ session('successTelephone') }}</strong>
                     </div>
                 @endif
+                    <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.storeUploadImage', Auth::user()->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <div class="profileIconBox d-flex flex-column">
+                            <label for="profileIcon">{{ __('プロフィール画像') }}</label>
+                            <div class="profileIconInput d-flex">
+                                <input type="file" name="profile_image" id="profile_image" accept="image/*">                               
+                                <button class="saveButton" type="submit">
+                                    {{ __('保存') }}
+                                </button>
+                            </div>
+                            @error('profile_image')
+                                <span class="error d-block text-center" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </form>
                     <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateFullName', Auth::user()->id) }}" method="POST">
                         @csrf
                         @method('PUT')
