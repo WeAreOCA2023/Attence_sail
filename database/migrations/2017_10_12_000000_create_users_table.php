@@ -27,6 +27,7 @@ return new class extends Migration
             $table->integer('over_work_count')->default(0);
 //            $table->foreignId('position_id')->references('id')->on('positions')->nullable();
             $table->integer('position_id')->default(0);
+            $table->string('profile_image')->nullable();
             $table->timestamps();
         });
     }

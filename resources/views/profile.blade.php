@@ -132,9 +132,18 @@
                         <strong>{{ session('successTelephone') }}</strong>
                     </div>
                 @endif
-                    <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateFullName', Auth::user()->id) }}" method="POST">
+                    <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.storeUploadImage', Auth::user()->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+                        <div class="profileIconBox d-flex flex-column">
+                            <label for="profileIcon">{{ __('プロフィール画像') }}</label>
+                            <div class="profileIconInput d-flex">
+                                <input type="file" name="profile_image" id="profile_image" accept="image/*" required>                               
+                                <button class="saveButton" type="submit">
+                                    {{ __('保存') }}
+                                </button>
+                            </div>
+                        </div>
                         <div class="fullNameBox d-flex flex-column">
                             <label for="fullName">{{ __('名前') }}</label>
                             <div class="fullNameInput d-flex">

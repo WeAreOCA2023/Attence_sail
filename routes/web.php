@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PositionManagementController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\CreateTask;
@@ -48,3 +49,4 @@ Route::put('profile/updateFullName/{user}', [ProfileController::class, 'updateFu
 Route::put('profile/updateUserName/{user}', [ProfileController::class, 'updateUserName'])->name('profile.updateUserName');
 Route::put('profile/updateEmail/{user_logins}', [ProfileController::class, 'updateEmail'])->name('profile.updateEmail');
 Route::put('profile/updateTelephone/{user}', [ProfileController::class, 'updateTelephone'])->name('profile.updateTelephone');
+Route::put('profile/uploadImage/{user}', [FileUploadController::class, 'storeUploadImage'])->name('profile.storeUploadImage');
