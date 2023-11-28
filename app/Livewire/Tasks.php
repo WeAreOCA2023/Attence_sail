@@ -29,6 +29,7 @@ class Tasks extends Component
     public $done_at;
 // 検索クエリ
     public $search;
+    public $assigner;
     public $assignUsers = [];
 
     #[On('showTaskCreate')]
@@ -47,6 +48,9 @@ class Tasks extends Component
         $this->title = TaskModel::find($taskId)->title;
         $this->description = TaskModel::find($taskId)->description;
         $this->deadline = TaskModel::find($taskId)->deadline;
+        $this->assigner = User::where('user_id', TaskModel::find($taskId)->assigner_id)->value('full_name');
+        $this->assignUsers = AllTasksAssign::where('task_id', $taskId)->pluck('assignee_id')->toArray();
+        $this->assignUsers = User::whereIn('user_id', $this->assignUsers)->pluck('full_name')->toArray();
     }
 
     #[On('doneTask')]
@@ -66,7 +70,7 @@ class Tasks extends Component
             'done_at' => $this->done_at,
         ]);
     }
-    
+
 
     public function save()
     {

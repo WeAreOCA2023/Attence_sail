@@ -1169,7 +1169,7 @@ main {
                         color: var(--bs-anti-main-color);
                     }
                     .edit-delete{
-                        button{ 
+                        button{
                             border: none;
                             background: none;
                         }
@@ -1492,15 +1492,29 @@ main {
             .taskMain{
                 width: 75%;
                 padding-left: 3%;
+                h2{
+                    margin: 4% 0 0 1%;
+                    @include m.fz(30);
+                }
+                p{
+                    margin: 3% 0 0 3%;
+                }
             }
-            h2{
-                margin: 3% 0 0 0;
-                @include m.fz(30);
-            }
+
             .taskSidebar{
                 width: 25%;
-                background: rgba(15, 20, 25, 0.1);
+                background: var(--bs-taskDetail-sidebar);
                 border-radius: 0 40px 40px 0;
+                .container{
+                    width: 95%;
+                    margin: 5% 0 0 3%;
+                    h4{
+                        @include m.fz(16);
+                    }
+                    p{
+                        @include m.fz(12);
+                    }
+                }
             }
         }
     }
