@@ -54,7 +54,18 @@
                     <p>{{ $description }}</p>
                 </div>
                 <div class="taskSidebar">
-                    <p>{{ $deadline }}</p>
+                    <div class="container">
+                        <h4>期限日</h4>
+                        <p>{{ $deadline }}</p>
+                        <hr>
+                        <h4>指名者</h4>
+                        <p>{{ $assigner }}</p>
+                        <hr>
+                        <h4>担当者</h4>
+                        @foreach($assignUsers as $user)
+                            <p>{{ $user }}</p>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         @endif
