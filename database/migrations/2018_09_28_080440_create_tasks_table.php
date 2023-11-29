@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('assigner_id')->references('id')->on('user_logins');
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->integer('status') ->default(1);
             $table->dateTime('deadline') ->nullable();
             $table->dateTime('done_at') ->nullable();
