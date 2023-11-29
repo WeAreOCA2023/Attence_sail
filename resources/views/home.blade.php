@@ -44,7 +44,7 @@
             </div>
             <div class="workHourList d-flex justify-content-around">
                 <div class="weekWorkTime w-100 d-flex flex-column align-items-center justify-content-around">
-                    <h1>総労働時間(今週)</h1>
+                    <h1>総労働時間(先週)</h1>
                     <div class="showTime d-flex w-100 justify-content-around">
                         <h2>現在:{{$weekWorkTime}}時間</h2>
                         <h2>上限: {{$weekWorkLimit}}時間</h2>

@@ -113,7 +113,6 @@ class ProfileController extends Controller
             'tasks_within_deadline' => $tasks_within_deadline,
             'tasks_after_deadline' => $tasks_after_deadline,
             'trust_score' => $trust_score,
-            'profile_image' => $profile_image
         ]);
     }
 

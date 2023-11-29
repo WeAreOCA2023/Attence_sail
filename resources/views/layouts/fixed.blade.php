@@ -27,7 +27,7 @@
         </a>
         <div class="dropdown user">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa-solid fa-gear padding" style="color: #0F1419;"></i>
+                <img class="mx-auto" src="{{ $profile_image }}" alt="Profile Icon">
                 <div class="d-flex flex-flow">
                     <span class="fw-bold">{{ $user_name }}</span>
                 </div>

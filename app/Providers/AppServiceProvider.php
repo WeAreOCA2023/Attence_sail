@@ -62,6 +62,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with([
                 'user_name' => $users->user_name,
                 'is_boss' => $users->is_boss,
+                'profile_image' => $users->profile_image
             ]);
         });
 

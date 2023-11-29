@@ -31,7 +31,7 @@ class FileUploadController extends Controller
                     'width' => 200,
                     'height' => 200,
                     'crop' => 'fill', // 画像が指定したサイズにピッタリと収まるようにトリミング
-                    // 'gravity' => 'face', // 顔を中心にトリミング
+                    'gravity' => 'face', // 顔を中心にトリミング
                     'radius' => 'max', // 角を丸める
                 ]
             ])->getSecurePath();       
