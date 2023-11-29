@@ -293,10 +293,16 @@ main {
 
 
 // index
-.dropdown a img{
-    margin-right: 5px;
-    width: 3.3vw;
-    height: auto;
+.dropdown{
+    width: fit-content;
+    .defaultProfileImageSmall, .setProfileImageSmall{
+        margin-right: 5px;
+        background-image: var(--bs-profile_image);
+        background-size: contain; 
+        background-repeat: no-repeat;
+        width: 2.807vw;
+        height: 5vh;
+    }
 }
 .sidebar {
     background-color: var(--bs-main-color);
@@ -419,6 +425,8 @@ main {
             }
             .taskListButton{
                 button{
+                    border: none;
+                    border: 1px solid var(--bs-anti-main-color);
                     @include m.fz(15);
                     background-color: v.$black;
                     color: v.$white;
@@ -655,13 +663,13 @@ main {
             @include m.fz(18);
         }
         .department, .responsible{
-            width: 18vw;
+            width: 22vw;
             height: 10vh;
             label{
                 @include m.fz(20);
             }
             input{
-                width: 18vw;
+                width: 100%;
                 @include m.fz(25);
                 border: none;
                 outline: none;
@@ -671,16 +679,26 @@ main {
             }
             .responsibleInput{
                 ul{
-                    max-height: 12vh;
+                    width: 100%;
+                    height: 30vh;
                     overflow-y: scroll;
                     li{
                         width: 100%;
                         @include m.fz(25);
                         background-color: var(--bs-main-color);
                         color: var(--bs-anti-main-color);
-                        img{
+                        .defaultProfileImageBoss{
+                            margin-right: 5px;
+                            background-image: var(--bs-profile_image);
+                            background-size: contain;
+                            background-repeat: no-repeat;
                             width: 4vw;
-                            height: auto;
+                            height: 7.1258vh;
+                        }
+                        .setProfileImageBoss{
+                            margin-right: 5px;
+                            width: 4vw;
+                            height: 7.1258vh;
                         }
                     }
                     li:hover{
@@ -888,17 +906,24 @@ main {
             width: 26%;
             height: 100%;
             border-right: 1px solid var(--bs-anti-main-color);
+            .defaultProfileImage{
+                background-image: var(--bs-profile_image);
+                background-size: contain; 
+                background-repeat: no-repeat;
+                width: 11vw;
+                height: 19.596vh;
+            }
+            .setProfileImage{
+                width: 11vw;
+                height: auto;
+            }
             h3{
                 @include m.fz(40);
                 font-weight: map-get(v.$font-weight, 1);
             }
-            img{
-                max-width: 100%;
-                height: auto;
-            }
             progress {
                 width: 10vw;
-                height: 1.5vh;
+                height: 1.2vh;
                 border-radius: v.$round-15;
             }
             // 角を丸くする
@@ -920,10 +945,10 @@ main {
                 appearance: none;
             }
             ::-webkit-progress-bar {
-                background-color: gray;
+                background-color: transparent;
             }
             ::-webkit-progress-value {
-                background-color: v.$darkGray;
+                background: -webkit-linear-gradient(left, rgb(218, 6, 137) 50%, rgb(215, 23, 23));
             }
             .creditScore{
                 label{
@@ -951,15 +976,48 @@ main {
                 width: 100%;
                 height: 33.33%;
                 border-bottom: 1px solid var(--bs-anti-main-color);
+                .title{
+                    margin: 6px 0 0 6px;
+                    .userSetting{
+                        margin-right: 5px;
+                        background-image: var(--bs-user_setting);
+                        background-size: contain; 
+                        background-repeat: no-repeat;
+                        width: 1.6vw;
+                        height: 2.7vh;
+                    }
+                }
             }
             .upperRightMiddleBox{
                 width: 100%;
                 height: 33.33%;
                 border-bottom: 1px solid var(--bs-anti-main-color);
+                .title{
+                    margin: 6px 0 0 6px;
+                    .companySetting{
+                        margin-right: 5px;
+                        background-image: var(--bs-company_setting);
+                        background-size: contain; 
+                        background-repeat: no-repeat;
+                        width: 1.6vw;
+                        height: 2.7vh;
+                    }
+                }
             }
             .upperRightBottomBox{
                 width: 100%;
                 height: 33.33%;
+                .title{
+                    margin: 6px 0 0 6px;
+                    .taskSetting{
+                        margin-right: 5px;
+                        background-image: var(--bs-task_setting);
+                        background-size: contain; 
+                        background-repeat: no-repeat;
+                        width: 1.6vw;
+                        height: 2.7vh;
+                    }
+                }
             }
 
         }
@@ -985,8 +1043,9 @@ main {
                 @include m.fz(20);
             }
             input, select{
+                background: none;
                 height: 3vh;
-                width: 10vw;
+                width: 13vw;
                 @include m.fz(20);
                 outline: none;
                 border: none;
@@ -998,30 +1057,31 @@ main {
                 gap: 5vh;
             }
         }
-        .accountOuterBox{
-            .accountBox
-            form{
-                gap: 1.3vh;
-                button{
-                    width: 3vw;
-                    @include m.fz(20);
-                    border: none;
-                    outline: none;
-                    color: var(--bs-main-color);
-                    background-color: v.$black;
-                    padding: 3px;
-                    border-radius: v.$round-10;
-                }
-            }
-            .accountInnerBox{
-                gap: 1.3vh;
-                .success{
-                    color: v.$green;
-                    font-weight: map-get(v.$font-weight, 1);
-                    @include m.fz(15);
-                }
+        
+        .accountBox
+        form{
+            gap: 1.3vh;
+            button{
+                width: 3vw;
+                @include m.fz(20);
+                border: none;
+                outline: none;
+                color: v.$white;
+                background-color: v.$black;
+                border: 1px solid var(--bs-anti-main-color);
+                padding: 3px;
+                border-radius: v.$round-10;
             }
         }
+        .accountInnerBox{
+            gap: 1.3vh;
+            .success{
+                color: v.$green;
+                font-weight: map-get(v.$font-weight, 1);
+                @include m.fz(15);
+            }
+        }
+        
         .agreement36Box{
             .success{
                 color: v.$green;
@@ -1047,9 +1107,10 @@ main {
                 @include m.fz(30);
                 border: none;
                 outline: none;
-                color: var(--bs-main-color);
-                background-color: v.$darkGray;
-                padding: 3%;
+                color: v.$white;
+                background-color: v.$black;
+                border: 1px solid var(--bs-anti-main-color);
+                padding: 8px;
                 border-radius: v.$round-10;
             }
         }

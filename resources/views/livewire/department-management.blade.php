@@ -154,16 +154,21 @@
                 <div class="responsibleInput d-flex flex-column">
                     <input wire:model.live.debounce.500ms="search" type="text" name="bossEmail" value="{{ old('bossEmail') }}" autocomplete="off">
                     @if (strlen($search) > 0)
-                        <ul class="list-group d-flex flex-column justify-content-center align-items-center overflow-auto mt-2">
-                            @foreach($boss_users as $boss_user)
+                        <ul class="list-group">
+                            @foreach($boss_users_info as $boss_user_info)
                                 @php 
-                                    $boss_email = DB::table('user_logins')->where('id', $boss_user->user_id)->get()[0]->email 
+                                    $boss_email = DB::table('user_logins')->where('id', $boss_user_info->user_id)->get()[0]->email;
+                                    $profile_image = DB::table('users')->where('user_id', $boss_user_info->user_id)->get()[0]->profile_image;
                                 @endphp
-                                <li wire:click="selectedData('{{ $boss_email }}')" class="list-group-item d-flex justify-content-between">
-                                    <img src="{{ $profile_image }}" alt="Profile Icon">
-                                    <div class="d-flex flex-column align-items-center text-start">
-                                        <p class="m-0">{{ $boss_user->full_name }}</p>
-                                        <p class="m-0   ">{{ $boss_email }}</p>
+                                <li wire:click="selectedData('{{ $boss_email }}')" class="list-group-item d-flex">
+                                    @if (is_null($profile_image))
+                                    <span class="defaultProfileImageBoss"></span>
+                                    @else
+                                    <img class="setProfileImageBoss" src="{{ $profile_image }}" alt="Profile Icon">
+                                    @endif
+                                    <div class="d-flex flex-column text-start">
+                                        <p class="m-0">{{ $boss_user_info->full_name }}</p>
+                                        <p class="m-0">{{ $boss_email }}</p>
                                     </div>
                                 </li>
                             @endforeach
