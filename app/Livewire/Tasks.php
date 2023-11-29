@@ -51,6 +51,7 @@ class Tasks extends Component
         $this->assigner = User::where('user_id', TaskModel::find($taskId)->assigner_id)->value('full_name');
         $this->assignUsers = AllTasksAssign::where('task_id', $taskId)->pluck('assignee_id')->toArray();
         $this->assignUsers = User::whereIn('user_id', $this->assignUsers)->pluck('full_name')->toArray();
+        dd($this->assignUsers);
     }
 
     #[On('doneTask')]

@@ -1446,8 +1446,9 @@ main {
                     border-radius: v.$round-10;
                 }
                 .select2-selection__choice__display{
-                    color: black;
+                    color: v.$black;
                 }
+
                 span{
                     width: 100%  !important;
                 }
@@ -1518,6 +1519,9 @@ main {
             }
         }
     }
+}
+.select2-results__option{
+    color: v.$black;
 }
 .registerBoss{
 
