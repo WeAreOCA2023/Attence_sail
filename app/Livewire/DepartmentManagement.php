@@ -57,13 +57,12 @@ class DepartmentManagement extends Component
         return view('livewire.department-management', [
             'departments' => $departments_table_pagination,
             'departments_info' => $departments_info,
-            'boss_users' => User::where(function ($query) {
+            'boss_users_info' => User::where(function ($query) {
                 $query->where('full_name', 'like', '%' . $this->search . '%')
                       ->orWhereHas('UserLogin', function ($subQuery) {
                           $subQuery->where('email', 'like', '%' . $this->search . '%');
                       });
             })->get(),
-            'profile_image' => $user->profile_image,
         ]);
     }
     public function edit($id)

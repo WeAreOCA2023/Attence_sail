@@ -4,17 +4,21 @@
 <div class="profile d-flex flex-column justify-content-between h-100 mx-auto py-4">
     <div class="upperBox d-flex">
         <div class="upperLeftBox d-flex flex-column items-center text-center justify-content-center">
-            <img class="mx-auto" src="{{ $profile_image }}" alt="Profile Icon">
-            <h3>{{ $full_name }}</h3>
+        @if(is_null($profile_image))
+            <span class="defaultProfileImage mx-auto"></span>
+        @else
+            <img class="setProfileImage mx-auto" src="{{ $profile_image }}" alt="Profile Icon">
+        @endif
+            <h3 class="mt-3">{{ $full_name }}</h3>
             <div class="creditScore d-flex flex-column w-fit-content">
-                <label class="text-left" for="creditScore">信頼スコア{{ $trust_score }}</label>
-                <progress class="mx-auto" id="creditScore" value="{{ $trust_score }}" max="100"></progress>
+                <label class="mt-4" for="creditScore">信頼スコア : {{ $trust_score }}</label>
+                <progress class="mx-auto mt-2" id="creditScore" value="{{ $trust_score }}" max="100"></progress>
             </div>
         </div>
         <div class="upperRightBox d-flex flex-column">
             <div class="upperRightTopBox d-flex flex-column items-center justify-content-center">
-                <div class="d-flex mb-4">
-                    <img src="{{ asset('img/user-setting.svg') }}" alt="User Setting Icon">
+                <div class="title d-flex">
+                    <span class="userSetting"></span>                    
                     <h2 class="m-0">個人設定</h2>
                 </div>
                 <div class="d-flex justify-content-around mt-auto mb-auto">
@@ -30,8 +34,8 @@
                 </div>
             </div>
             <div class="upperRightMiddleBox d-flex flex-column items-center justify-content-center">
-                <div class="d-flex mb-4">
-                    <img src="{{ asset('img/company-setting.svg') }}" alt="Company Setting Icon">
+                <div class="title d-flex">
+                    <span class="companySetting"></span>
                     <h2 class="m-0">会社設定</h2>
                 </div>
                 <div class="d-flex justify-content-around mt-auto mb-auto">
@@ -43,8 +47,8 @@
                 </div>
             </div>
             <div class="upperRightBottomBox d-flex flex-column items-center justify-content-center">
-                <div class="d-flex mb-4">
-                    <img src="{{ asset('img/task-setting.svg') }}" alt="Task Result Icon">
+                <div class="title d-flex">
+                    <span class="taskSetting"></span>                    
                     <h2 class="m-0">過去のタスク履歴</h2>
                 </div>
                 <div class="d-flex justify-content-around mt-auto mb-auto">
@@ -105,126 +109,126 @@
             </div>
         </div>
 
-        <div class="accountOuterBox d-flex">
-            <div class="accountBox  d-flex flex-column align-items-center justify-content-center">
-                <div class="title d-flex align-items-center mt-5">
-                    <img src="{{ asset('img/user-setting.svg') }}" alt="User Setting Icon">
-                    <h2 class="m-0">アカウント情報</h2>
+        
+        <div class="accountBox  d-flex flex-column align-items-center justify-content-center">
+            <div class="title d-flex align-items-center mt-5">
+                <img src="{{ asset('img/user-setting.svg') }}" alt="User Setting Icon">
+                <h2 class="m-0">アカウント情報</h2>
+            </div>
+            <div class="accountInnerBox d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
+            @if (session('successFullName'))
+                <div class="success d-block text-center">
+                    <strong>{{ session('successFullName') }}</strong>
                 </div>
-                <div class="accountInnerBox d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
-                @if (session('successFullName'))
-                    <div class="success d-block text-center">
-                        <strong>{{ session('successFullName') }}</strong>
-                    </div>
-                @endif
-                @if (session('successUserName'))
-                    <div class="success d-block text-center">
-                        <strong>{{ session('successUserName') }}</strong>
-                    </div>
-                @endif
-                @if (session('successEmail'))
-                    <div class="success d-block text-center">
-                        <strong>{{ session('successEmail') }}</strong>
-                    </div>
-                @endif
-                @if (session('successTelephone'))
-                    <div class="success d-block text-center">
-                        <strong>{{ session('successTelephone') }}</strong>
-                    </div>
-                @endif
-                    <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.storeUploadImage', Auth::user()->id) }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <div class="profileIconBox d-flex flex-column">
-                            <label for="profileIcon">{{ __('プロフィール画像') }}</label>
-                            <div class="profileIconInput d-flex">
-                                <input type="file" name="profile_image" id="profile_image" accept="image/*">                               
-                                <button class="saveButton" type="submit">
-                                    {{ __('保存') }}
-                                </button>
-                            </div>
-                            @error('profile_image')
-                                <span class="error d-block text-center" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </form>
-                    <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateFullName', Auth::user()->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="fullNameBox d-flex flex-column">
-                            <label for="fullName">{{ __('名前') }}</label>
-                            <div class="fullNameInput d-flex">
-                                <input id="fullName" type="text"  name="fullName" value="{{ old('fullName') }}" autocomplete="off">
-                                <button class="saveButton" type="submit">
-                                    {{ __('保存') }}
-                                </button>
-                            </div>
-                            @error('fullName')
-                                <span class="error d-block text-center" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </form>
-                    <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateUserName', Auth::user()->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="userNameBox">
-                            <label for="userName">{{ __('ユーザー名') }}</label>
-                            <div class="userNameInput">
-                                <input id="userName" type="text"  name="userName" value="{{ old('userName') }}" autocomplete="off">
-                                <button class="saveButton" type="submit">
-                                    {{ __('保存') }}
-                                </button>
-                            </div>
-                            @error('userName')
-                                <span class="error d-block text-center" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </form>
-                    <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateEmail', Auth::user()->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="emailBox">
-                            <label for="email">{{ __('Eメール') }}</label>
-                            <div class="emailInput">
-                                <input id="email" type="text"  name="email" value="{{ old('email') }}" autocomplete="off">
-                                <button class="saveButton" type="submit">
-                                    {{ __('保存') }}
-                                </button>
-                            </div>
-                            @error('email')
-                                <span class="error d-block text-center" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </form>
-                    <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateTelephone', Auth::user()->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="telephoneBox">
-                            <label for="telephone">{{ __('電話番号') }}</label>
-                            <div class="telephoneInput">
-                                <input id="telephone" type="tel"  name="telephone" value="{{ old('telephone') }}" autocomplete="off">
-                                <button class="saveButton" type="submit">
-                                    {{ __('保存') }}
-                                </button>
-                            </div>
-                            @error('telephone')
-                                <span class="error d-block text-center" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </form>
+            @endif
+            @if (session('successUserName'))
+                <div class="success d-block text-center">
+                    <strong>{{ session('successUserName') }}</strong>
                 </div>
+            @endif
+            @if (session('successEmail'))
+                <div class="success d-block text-center">
+                    <strong>{{ session('successEmail') }}</strong>
+                </div>
+            @endif
+            @if (session('successTelephone'))
+                <div class="success d-block text-center">
+                    <strong>{{ session('successTelephone') }}</strong>
+                </div>
+            @endif
+                <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.storeUploadImage', Auth::user()->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <div class="profileIconBox d-flex flex-column">
+                        <label for="profileIcon">{{ __('プロフィール画像') }}</label>
+                        <div class="profileIconInput d-flex">
+                            <input type="file" name="profile_image" id="profile_image" accept="image/*">    
+                            <button class="saveButton" type="submit">
+                                {{ __('保存') }}
+                            </button>
+                        </div>
+                        @error('profile_image')
+                            <span class="error d-block text-center" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </form>
+                <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateFullName', Auth::user()->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="fullNameBox d-flex flex-column">
+                        <label for="fullName">{{ __('名前') }}</label>
+                        <div class="fullNameInput d-flex">
+                            <input id="fullName" type="text"  name="fullName" value="{{ old('fullName') }}" autocomplete="off">
+                            <button class="saveButton" type="submit">
+                                {{ __('保存') }}
+                            </button>
+                        </div>
+                        @error('fullName')
+                            <span class="error d-block text-center" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </form>
+                <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateUserName', Auth::user()->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="userNameBox">
+                        <label for="userName">{{ __('ユーザー名') }}</label>
+                        <div class="userNameInput">
+                            <input id="userName" type="text"  name="userName" value="{{ old('userName') }}" autocomplete="off">
+                            <button class="saveButton" type="submit">
+                                {{ __('保存') }}
+                            </button>
+                        </div>
+                        @error('userName')
+                            <span class="error d-block text-center" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </form>
+                <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateEmail', Auth::user()->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="emailBox">
+                        <label for="email">{{ __('Eメール') }}</label>
+                        <div class="emailInput">
+                            <input id="email" type="text"  name="email" value="{{ old('email') }}" autocomplete="off">
+                            <button class="saveButton" type="submit">
+                                {{ __('保存') }}
+                            </button>
+                        </div>
+                        @error('email')
+                            <span class="error d-block text-center" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </form>
+                <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateTelephone', Auth::user()->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="telephoneBox">
+                        <label for="telephone">{{ __('電話番号') }}</label>
+                        <div class="telephoneInput">
+                            <input id="telephone" type="tel"  name="telephone" value="{{ old('telephone') }}" autocomplete="off">
+                            <button class="saveButton" type="submit">
+                                {{ __('保存') }}
+                            </button>
+                        </div>
+                        @error('telephone')
+                            <span class="error d-block text-center" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </form>
             </div>
         </div>
+        
 
 
         @can('boss')
@@ -288,4 +292,12 @@
         </div>
     </div>
 </div>
+<script>
+    $('input').on('change', function () {
+    //propを使って、file[0]にアクセスする
+    var file = $(this).prop('files')[0];
+    //text()で要素内のテキストを変更する
+    $('.select-image').text(file.name);
+    });
+</script>
 @endsection

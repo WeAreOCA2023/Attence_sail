@@ -33,7 +33,8 @@ class FileUploadController extends Controller
                     'crop' => 'fill', // 画像が指定したサイズにピッタリと収まるようにトリミング
                     'gravity' => 'face', // 顔を中心にトリミング
                     'radius' => 'max', // 角を丸める
-                ]
+                ],
+                'format' => 'png',
             ])->getSecurePath();       
             $user = User::where('user_id', Auth::user()->id)->first();
             $user->profile_image = $uploadedFileUrl;
