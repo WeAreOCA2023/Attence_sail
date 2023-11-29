@@ -140,12 +140,14 @@
                     </div>
                 @endif
                 <label class="d-block" for="departmentName">{{ __('部署名') }}</label>
-                <input id="departmentName" type="text" wire:model="save_department_name" value="{{ old('departmentName') }}" autocomplete="off" autofocus>
-                @error ('save_department_name')
-                    <span class="error d-flex justify-content-center" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
+                <div class="departmentInput">
+                    <input id="departmentName" type="text" wire:model="save_department_name" value="{{ old('departmentName') }}" autocomplete="off" autofocus>
+                    @error ('save_department_name')
+                        <span class="error d-flex justify-content-center" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
             </div>
             <div class="responsible mx-auto">
                 <label class="d-block" for="bossName">{{ __('責任者名') }}</label>
@@ -157,7 +159,13 @@
                                 @php 
                                     $boss_email = DB::table('user_logins')->where('id', $boss_user->user_id)->get()[0]->email 
                                 @endphp
-                                <li wire:click="selectedData('{{ $boss_email }}')" class="list-group-item">{{ $boss_user->full_name }}, {{ $boss_email }}</li>
+                                <li wire:click="selectedData('{{ $boss_email }}')" class="list-group-item d-flex justify-content-between">
+                                    <img src="{{ $profile_image }}" alt="Profile Icon">
+                                    <div class="d-flex flex-column align-items-center text-start">
+                                        <p class="m-0">{{ $boss_user->full_name }}</p>
+                                        <p class="m-0   ">{{ $boss_email }}</p>
+                                    </div>
+                                </li>
                             @endforeach
                         </ul>
                     @endif

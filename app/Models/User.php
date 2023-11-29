@@ -41,4 +41,8 @@ class User extends Authenticatable
     // public function userToCompany() :BelongsTo{
     //     return $this->belongsTo(Company::class);
     // }
+    public function userLogin()
+    {
+        return $this->belongsTo(UserLogin::class, 'user_id');
+    }
 }
