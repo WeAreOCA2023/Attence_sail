@@ -32,13 +32,13 @@ class HomeController extends Controller
         echo "testFuncが呼ばれたよ！";
     }
 
-    function hourCalc(int $num){
-        $num = $num / 3600000;
-        $newNum = round($num, 2);
-//        $newNum = floor($num);
-//        return $num;
-        return $newNum;
+    function hourCalc($num){
+        if ($num == "なし"){return "なし";}
+        $hourNum = round($num / (60000 * 60));
+        $minNum = round($num - $hourNum * (60000 * 60));
+        return $hourNum . "時間" . $minNum . "分";
     }
+
     function defaultCheck(): void{
         if (count(AllWorkHours::where('user_id', Auth::user()->id)->get()) == 0){
             $allUpdate = new AllWorkHours([
@@ -217,10 +217,14 @@ class HomeController extends Controller
             'monthWorkTime' => $this->hourCalc($monthWorkTime),
             'weekOverTime' => $this->hourCalc($weekOverTime),
             'monthOverTime' => $this->hourCalc($monthOverTime),
-            'weekWorkLimit' => $weekWorkLimit,
-            'monthWorkLimit' => $monthWorkLimit,
-            'weekOverLimit' => $weekOverLimit,
-            'monthOverLimit' => $monthOverLimit,
+            'weekWorkLimit' => $this->hourCalc($weekWorkLimit),
+            'monthWorkLimit' => $this->hourCalc($monthWorkLimit),
+            'weekOverLimit' => $this->hourCalc($weekOverLimit),
+            'monthOverLimit' => $this->hourCalc($monthOverLimit),
+            'weekWorkTimeBar' => $weekWorkTime,
+            'monthWorkTimeBar' => $monthWorkTime,
+            'weekOverTimeBar' => $weekOverTime,
+            'monthOverTimeBar' => $monthOverTime,
             'weekWorkLimitBar' => $weekWorkLimitBar,
             'weekOverLimitBar' => $weekOverLimitBar,
             'monthWorkLimitBar' => $monthWorkLimitBar,
