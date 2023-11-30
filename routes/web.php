@@ -10,6 +10,7 @@ use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\CreateTask;
+use App\Http\Controllers\Next7DaysController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,9 @@ Route::resource('home', HomeController::class, ['only' => ['index', 'store']]);
 //Route::post('/insert', 'HomeController@insert')->name('home.insert');
 
 Route::resource('tasks', TaskController::class);
+
+Route::resource('next-7-days', Next7DaysController::class);
+
 
 Route::resource('user-management', UserManagementController::class);
 

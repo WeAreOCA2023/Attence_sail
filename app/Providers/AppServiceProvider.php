@@ -47,7 +47,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
 
         // ここで指定するのは bladeテンプレート
-        View::composer(['home', 'user-management', 'my-all-tasks', 'department-management', 'department-management-edit' , 'position-management', 'profile'], function ($view) {
+        View::composer(['home', 'user-management', 'my-all-tasks', 'department-management', 'department-management-edit' , 'position-management', 'profile', 'next-7-days'], function ($view) {
 
 
             // user_login_table の id の取得
@@ -55,7 +55,7 @@ class AppServiceProvider extends ServiceProvider
 
             // users_table の user_id = user_login_table の id が一致する一番最初のレコード
             $users = User::where('user_id', $user_login_id)->first();
-            
+
             // companies_table の company_id = users_table の company_id が一致する一番最初のレコード
             $company = Company::where('id', $users->company_id)->first();
 
