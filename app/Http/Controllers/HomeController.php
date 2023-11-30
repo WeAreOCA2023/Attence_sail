@@ -34,9 +34,9 @@ class HomeController extends Controller
 
     function hourCalc($num){
         if ($num == "なし"){return "なし";}
-        $hourNum = round($num / (60000 * 60));
-        $minNum = round($num - $hourNum * (60000 * 60));
-        return $hourNum . "時間" . $minNum . "分";
+        $hours = ($num / 1000 / 60 / 60) % 24;
+        $minutes = ($num / 1000 / 60) % 60;
+        return $hours . "時間" . $minutes . "分";
     }
 
     function defaultCheck(): void{
