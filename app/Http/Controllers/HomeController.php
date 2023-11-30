@@ -253,8 +253,8 @@ class HomeController extends Controller
         $workHours = abs($data->elapsed_time);
         // overtimeチェック
         $overWork = 0; //overworkの初期値
-        if ($workHours > 5000){
-            $overWork = $workHours - 5000;
+        if ($workHours > 28800000){
+            $overWork = $workHours - 28800000;
         }
 
         CheckConstants::dailyDefaultOverCheck($workHours); // デフォの日チェック(労働:日-8h)
