@@ -8,8 +8,10 @@ use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AnalyticsController;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\CreateTask;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +43,7 @@ Route::resource('user-management', UserManagementController::class);
 
 Route::resource('department-management', DepartmentManagementController::class);
 Route::resource('position-management', PositionManagementController::class);
+Route::resource('analytics', AnalyticsController::class);
 
 Route::resource('profile', ProfileController::class, ['only' => ['index']]);
 Route::put('profile/update-contract/{user}', [ProfileController::class, 'updateContract'])->name('profile.updateContract');
