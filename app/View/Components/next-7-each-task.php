@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class next-7-each-day extends Component
+class next-7-each-task extends Component
 {
     /**
      * Create a new component instance.
@@ -16,15 +16,11 @@ class next-7-each-day extends Component
         //
     }
 
-
-
-
-
     /**
      * Get the view / contents that represent the component.
      */
     public function render(): View|Closure|string
     {
-        return view('components.next-7-each-day');
+        return view('components.next-7-each-task');
     }
 }
