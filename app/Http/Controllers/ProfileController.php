@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Validator;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -16,12 +17,17 @@ use App\Models\Department;
 use App\Models\Task;
 use App\Models\AllTasksAssign;
 
+          
+
+
 class ProfileController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
+
+
     /**
      * Display a listing of the resource.
      */
@@ -35,6 +41,7 @@ class ProfileController extends Controller
         $company_name = $company->company_name;
         $company_id = $company->id;
         $full_name = $user->full_name;
+        $profile_image = $user->profile_image;
         // タスクの割り当て数の取得
         $assigned_tasks_per_employee = 0;
         $all_assigned_tasks = AllTasksAssign::all();

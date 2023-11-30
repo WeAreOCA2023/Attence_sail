@@ -40,7 +40,8 @@ class DepartmentManagement extends Component
     public function render()
     {
         $departments_info = [];
-        $company_id = User::where('user_id', Auth::user()->id)->first()->company_id;
+        $user = User::where('user_id', Auth::user()->id)->first();
+        $company_id = $user->company_id;
         $departments_table_pagination = Department::where('company_id', $company_id)->paginate(17);
         foreach ($departments_table_pagination as $department_pagination) {
             $department = Department::where('id', $department_pagination->id)->first();
@@ -56,8 +57,12 @@ class DepartmentManagement extends Component
         return view('livewire.department-management', [
             'departments' => $departments_table_pagination,
             'departments_info' => $departments_info,
-            'boss_users' => User::where('full_name', 'like', '%' . $this->search . '%')->get(),
-
+            'boss_users_info' => User::where(function ($query) {
+                $query->where('full_name', 'like', '%' . $this->search . '%')
+                      ->orWhereHas('UserLogin', function ($subQuery) {
+                          $subQuery->where('email', 'like', '%' . $this->search . '%');
+                      });
+            })->get(),
         ]);
     }
     public function edit($id)

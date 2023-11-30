@@ -17,6 +17,8 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Builder;
+use Cloudinary\Configuration\Configuration;
+
 
 
 
@@ -36,7 +38,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
-
         // livewireの検索用のmacro(App\Http\Livewire\SearchName.php)
         Builder::macro('search', function ($field, $string) {
             return $string ? $this->where($field, 'LIKE', "%{$string}%") : $this;
@@ -61,6 +62,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with([
                 'user_name' => $users->user_name,
                 'is_boss' => $users->is_boss,
+                'profile_image' => $users->profile_image
             ]);
         });
 
