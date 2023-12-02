@@ -7,6 +7,8 @@ use Illuminate\Support\Str;
 use App\Models\UserLogin;
 use App\Models\User;
 use App\Models\AllWorkHours;
+use Faker\Factory as Faker;
+
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -20,7 +22,7 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $faker = \Faker\Factory::create();
+        $faker = \Faker\Factory::create('ja_JP');
 
         do {
             // Insert data into UserLoginTable

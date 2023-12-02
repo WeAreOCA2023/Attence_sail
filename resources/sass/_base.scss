@@ -670,7 +670,7 @@ main {
             @include m.fz(18);
         }
         .department, .responsible{
-            width: 22vw;
+            width: 25vw;
             height: 10vh;
             label{
                 @include m.fz(20);

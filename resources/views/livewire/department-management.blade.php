@@ -91,30 +91,45 @@
                 @enderror
             </div>
             <div class="responsible mx-auto">
-                <label class="d-block" for="bossName">{{ __('責任者名') }}</label>
+                <label class="d-block" for="bossName">{{ __('責任者名またはEメール') }}</label>
                 <div class="responsibleInput d-flex flex-column">
                     <input wire:model.live.debounce.500ms="search" type="text" name="bossEmail" value="{{ old('bossEmail') }}" autocomplete="off">
-                    @if (strlen($search) > 0)
-                        <ul class="list-group d-flex flex-column justify-content-center align-items-center">
-                            @foreach($boss_users as $boss_user)
-                                @php 
-                                    $boss_email = DB::table('user_logins')->where('id', $boss_user->user_id)->get()[0]->email 
-                                @endphp
-                                <li wire:click="selectedData('{{ $boss_email }}')" class="list-group-item">{{ $boss_user->full_name }}, {{ $boss_email }}</li>
-                            @endforeach
-                        </ul>
-                    @endif
                     @error ('search')
                         <span class="error d-block text-center" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                     @error ('errorDepartment')
-                   
                         <span class="error d-block text-center" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
+                    @error ('needBoss')
+                        <span class="error d-block text-center" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    @if (strlen($search) > 0)
+                    <ul class="list-group">
+                            @foreach($boss_users_info as $boss_user_info)
+                                @php 
+                                    $boss_email = DB::table('user_logins')->where('id', $boss_user_info->user_id)->get()[0]->email;
+                                    $profile_image = DB::table('users')->where('user_id', $boss_user_info->user_id)->get()[0]->profile_image;
+                                @endphp
+                                <li wire:click="selectedData('{{ $boss_email }}')" class="list-group-item d-flex">
+                                    @if (is_null($profile_image))
+                                    <span class="defaultProfileImageBoss"></span>
+                                    @else
+                                    <img class="setProfileImageBoss" src="{{ $profile_image }}" alt="Profile Icon">
+                                    @endif
+                                    <div class="d-flex flex-column text-start">
+                                        <p class="m-0">{{ $boss_user_info->full_name }}</p>
+                                        <p class="m-0">{{ $boss_email }}</p>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
             </div>
             <div class="BtnGroup d-flex justify-content-between align-items-center">
@@ -150,9 +165,19 @@
                 </div>
             </div>
             <div class="responsible mx-auto">
-                <label class="d-block" for="bossName">{{ __('責任者名') }}</label>
+                <label class="d-block" for="bossName">{{ __('責任者名またはEメール') }}</label>
                 <div class="responsibleInput d-flex flex-column">
                     <input wire:model.live.debounce.500ms="search" type="text" name="bossEmail" value="{{ old('bossEmail') }}" autocomplete="off">
+                    @error ('search')
+                        <span class="error d-block text-center" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    @error ('errorDepartment')
+                        <span class="error d-block text-center" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                     @if (strlen($search) > 0)
                         <ul class="list-group">
                             @foreach($boss_users_info as $boss_user_info)
@@ -174,16 +199,6 @@
                             @endforeach
                         </ul>
                     @endif
-                    @error ('search')
-                        <span class="error d-block text-center" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                    @error ('errorDepartment')
-                        <span class="error d-block text-center" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
                 </div>
             </div>
             <div class="createButton d-block text-center">

@@ -5,12 +5,15 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 use App\Models\Position;
 use App\Models\Department;
 use App\Models\Company;
 use App\Models\User;
 use App\Models\UserLogin;
 use App\Models\AllWorkHours;
+
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -20,7 +23,7 @@ class DatabaseSeeder extends Seeder
     {
         // adminアカウント作成
          $userLogin = UserLogin::create([
-             "email" => 'test-boss@test.com',
+             "email" => 'oca-horikawa@test.com',
              "password" => 'test@123',
          ]);
 
@@ -34,8 +37,8 @@ class DatabaseSeeder extends Seeder
 
          $user = User::create([
              'user_id' => $userLogin->id,
-             'user_name' => 'test-boss',
-             'full_name' => 'Admin',
+             'user_name' => 'Horikawa',
+             'full_name' => '堀川優介',
              'telephone' => '11111111111',
              'company_id' => 1,
              'is_boss' => 1,
@@ -117,6 +120,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+        
         foreach ($departments as $department => $department_info) {
             Department::factory()->create([
                 'department_name' => $department,
