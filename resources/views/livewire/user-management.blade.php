@@ -4,7 +4,7 @@
             <div class="input-group d-flex justify-content-center">
                 <span class="svg d-flex align-items-center">
                     <span class="icon d-flex"></span>
-                    <input type="text" wire:model.live.debounce.250ms="search_user" placeholder="名前を入力して検索" >
+                    <input type="text" wire:model.live.debounce.250ms="search_user" placeholder="名前またはEメールを入力して検索" >
                 </span>
             </div>
 

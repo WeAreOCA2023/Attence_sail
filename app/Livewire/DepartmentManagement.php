@@ -91,7 +91,7 @@ class DepartmentManagement extends Component
 
     public function update()
     {
-        if ($this->editing == false) {
+        if ($this->editing == false || ($this->update_department_name == null && $this->search == null)) {
             return;
         }
 
@@ -106,11 +106,6 @@ class DepartmentManagement extends Component
         $user = User::where('user_id', Auth::user()->id)->first();
 
         $department = Department::find($this->editDepartmentId);
-
-        if ($this->update_department_name == null && $this->search == null) {
-            $this->editing = false;
-            return;
-        }
 
         // もし部署名が空 or nullじゃないなら値をsetする
         if (!empty(trim($this->update_department_name))) {
@@ -132,9 +127,17 @@ class DepartmentManagement extends Component
         $department->save();
         session()->flash('successDepartment', '部署を更新しました。');
         return redirect('/department-management');
-
-
     }
 
+    public function destroy($id)
+    {
+        $match = User::where('department_id', $id)->first();
+        if ($match == null) {
+            $department = Department::find($id);
+            $department->delete();
+            return redirect('/department-management');
+        }
+        return redirect('/department-management')->with('userExistsOnDepartment', 'この部署に所属するユーザーがいるため削除できません。');
+    }
 }
 
