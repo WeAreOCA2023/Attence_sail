@@ -26,6 +26,8 @@ class PositionManagement extends Component
 
     public $update_position_name;
 
+    public $cancel = false;
+
     #[Rule('required', message: '権威レベルを入力してください')]
     #[Rule('numeric', message: '数字で入力してください')]
     #[Rule('between:0,100', message: '0から100の範囲で入力してください')]
@@ -33,6 +35,13 @@ class PositionManagement extends Component
 
     public $editPositionId;
     public $editing = false;
+
+    public function initialize()
+    {
+        $this->update_position_name = null;
+        $this->save_position_name = null;
+        $this->rank = null;
+    }
 
     public function render()
     {
@@ -66,35 +75,38 @@ class PositionManagement extends Component
 
     public function update()
     {
-        if ($this->editing == false) {
+        if ($this->editing == false || ($this->update_position_name == null && $this->rank == null)) {
+            $this->initialize();
             return;
         }
-        if ($this->update_position_name == null || $this->update_position_name == null) {
-            $this->editing = false;
-            return;
-        }
+
         $this->validate([
-            'update_position_name' => 'required|max:128|unique:positions,position_name,' . $this->editPositionId,
-            'rank' => 'required|numeric|between:0,100'
+            'update_position_name' => 'max:128|unique:positions,position_name,' . $this->editPositionId,
+            'rank' => 'between:0,100'
         ], [
-            'update_position_name.required' => '役職名を入力してください',
             'update_position_name.max' => '役職名が長すぎます',
             'update_position_name.unique' => 'その役職名は既に登録されています',
-            'rank.required' => '権威レベルを入力してください',
-            'rank.numeric' => '数字で入力してください',
             'rank.between' => '0から100の範囲で入力してください'
         ]);
-        $position = Position::where('id', $this->editPositionId)->first();
-        if ($position->position_name == $this->update_position_name) {
-            $position->rank = $this->rank;
-            $position->save();
-        } else {
-            $position->position_name = $this->update_position_name;
-            $position->rank = $this->rank;
-            $position->save();
-        }
-        session()->flash('successPosition', '役職を更新しました。');
-        return redirect('/position-management');
-    }
 
+        $position = Position::where('id', $this->editPositionId)->first();
+        if (!empty(trim($this->update_position_name))) {
+            $position->position_name = $this->update_position_name;
+        }
+
+    
+        if (!empty(trim($this->rank))) {
+            if (is_numeric($this->rank)) {
+                $position->rank = $this->rank;
+            } else {
+                session()->flash('typeNumber', '数字で入力してください');
+                return;
+            }
+        }
+        $position->save();
+        session()->flash('successPosition', '役職を更新しました。');
+        $this->editing = false;
+        $this->initialize();
+        return;
+    }
 }

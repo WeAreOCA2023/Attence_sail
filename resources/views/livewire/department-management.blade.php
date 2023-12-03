@@ -55,11 +55,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-                                        <form class="delete" method="POST" action="{{ route('department-management.destroy',$department_info['department_id']) }}">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-primary">削除</button>
-                                        </form>
+                                        <button wire:click="destroy({{ $department_info['department_id'] }})" class="btn btn-primary">削除</button>
                                     </div>
                                 </div>
                             </div>

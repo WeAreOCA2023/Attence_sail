@@ -3,6 +3,7 @@
 @use "mixin" as m;
 @use "responsive" as r;
 
+
 html {
     font-size: 62.5%;
     transition-duration: 1s;
@@ -644,9 +645,13 @@ main {
         }
         .pagination-link{
             .pagination{
-                .page-link {
+                margin: 0;
+                .page-link{
+                    padding: 5px;
+                    width: 2vw;
                     background-color: var(--bs-anti-main-color);
                     color: var(--bs-main-color);
+                    @include m.fz(20);
                 }
             }
         }
@@ -787,23 +792,39 @@ main {
             gap: 1.5vh;
             .pagination-link{
                 .pagination{
-                    .page-link {
+                    margin: 0;
+                    .page-link{
+                        padding: 5px;
+                        width: 2vw;
                         background-color: var(--bs-anti-main-color);
                         color: var(--bs-main-color);
+                        @include m.fz(20);
                     }
                 }
             }
             .positionInnerBox{
                 width: 80%;
                 height: 4vh;
-                background-color: var(--bs-main-color)Gray;
+                background-color: var(--bs-main-color);
+                border: 1px solid var(--bs-anti-main-color);
                 border-radius: v.$round-10;
                 box-shadow: 3px 3px 3px rgba(15, 20, 25, 0.25);
                 h3{
                     @include m.fz(20);
                 }
-                .drag img{
-                    width: 2.2vw;
+                .drag{
+                    img{
+                        width: 2.2vw;
+                    }
+                }
+                .positionName{
+                    width: 45%;
+                }
+                .rank{
+                    width: 25%
+                }
+                .edit-delete{
+                    width: 10%;
                 }
                 .content{
                     width: 40vw;
@@ -1137,6 +1158,7 @@ main {
         border-radius: v.$round-40;
         box-shadow: 10px 10px 10px rgba(15, 20, 25, 0.25);
         .svg input{
+            width: 25vw;
             outline: none;
             border: none;
             border-bottom: 1px solid var(--bs-anti-main-color);
@@ -1182,11 +1204,11 @@ main {
             @include m.fz(20);
         }
         .input-group{
-            width: 26vw;
+            width: 28vw;
             margin: 1% auto;
             .icon{
                 background-image: var(--bs-search);
-                background-size: contain; /* または contain など、適切な値を指定 */
+                background-size: contain;
                 background-repeat: no-repeat;
                 width: 4rem;
                 height: 4rem;
