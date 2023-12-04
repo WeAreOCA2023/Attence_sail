@@ -62,8 +62,8 @@
     <div class="lowerBox d-flex justify-content-around">
         <div class="lawBox  d-flex flex-column align-items-center justify-content-center">
             <div class="title d-flex align-items-center mt-5">
-                <img src="{{ asset('img/contract.svg') }}" alt="Contract Setting Icon">
-                <h2 class="m-0">契約情報</h2>
+            <span class="contractSetting"></span>                   
+            <h2 class="m-0">契約情報</h2>
             </div>
             <div class="lawBoxInner d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
                 <form class="d-flex flex-column align-items-center justify-content-between" action="{{ route('profile.updateContract', Auth::user()->id) }}" method="POST">
@@ -112,7 +112,7 @@
         
         <div class="accountBox  d-flex flex-column align-items-center justify-content-center">
             <div class="title d-flex align-items-center mt-5">
-                <img src="{{ asset('img/user-setting.svg') }}" alt="User Setting Icon">
+                <span class="userSetting"></span>
                 <h2 class="m-0">アカウント情報</h2>
             </div>
             <div class="accountInnerBox d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">
@@ -235,7 +235,7 @@
 
         <div class="companyBox  d-flex flex-column align-items-center justify-content-center">
             <div class="title d-flex align-items-center mt-5">
-                <img src="{{ asset('img/company-setting.svg') }}" alt="Company Setting Icon">
+                <span class="companySetting"></span>
                 <h2 class="m-0">会社情報</h2>
             </div>
             <div class="companyBoxInner  d-flex flex-column justify-content-center align-items-center mb-auto mt-auto">

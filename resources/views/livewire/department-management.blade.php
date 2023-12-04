@@ -1,7 +1,7 @@
 <div class="departmentManagement d-flex justify-content-center h-100 mx-auto py-4">
     <div class="allDepartmentsBox">
-        <div class="title d-flex justify-content-between mb-4">
-            <img src="{{ asset('img/department.svg') }}" alt="department icon">
+        <div class="title d-flex justify-content-between align-items-center mb-4">
+            <span class="department"></span>
             <h2 class="m-0">部署</h2>
         </div>
         @if(session('userExistsOnDepartment'))
