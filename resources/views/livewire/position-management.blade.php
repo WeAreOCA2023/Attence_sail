@@ -1,7 +1,7 @@
 <div class="positionManagement d-flex justify-content-center h-100 mx-auto py-4">
     <div class="allPositionsBox">
-        <div class="title d-flex justify-content-between mb-4">
-            <img src="{{ asset('img/position.svg') }}" alt="department icon">
+        <div class="title d-flex justify-content-between align-items-center mb-4">
+            <span class="position"></span>
             <h2 class="m-0">役職</h2>
         </div>
         @if(session('userExistsOnPosition'))
