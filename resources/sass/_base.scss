@@ -620,12 +620,19 @@ main {
             }
         }
         .edit-delete{
-            button{
-                border: none;
-                background: none;
+            .edit{
+                background-image: var(--bs-edit);
+                background-size: contain; 
+                background-repeat: no-repeat;
+                width: 2.5vw;
+                height: 2.5vh;
             }
-            .deleteBtn{
-                cursor: pointer;
+            .delete{
+                background-image: var(--bs-delete);
+                background-size: contain; 
+                background-repeat: no-repeat;
+                width: 2.5vw;
+                height: 2.5vh;
             }
         }
 
@@ -835,7 +842,22 @@ main {
                     width: 25%
                 }
                 .edit-delete{
-                    width: 10%;
+                    width: 13%;
+                    .edit{
+                        background-image: var(--bs-edit);
+                        background-size: contain; 
+                        background-repeat: no-repeat;
+                        width: 2.5vw;
+                        height: 2.5vh;
+                    }
+                    .delete{
+                        background-image: var(--bs-delete);
+                        background-size: contain; 
+                        background-repeat: no-repeat;
+                        width: 2.5vw;
+                        height: 2.5vh;
+                    }
+                    
                 }
                 .content{
                     width: 40vw;
@@ -1022,6 +1044,17 @@ main {
                         height: 2.7vh;
                     }
                 }
+                .password{
+                    width: fit-content;
+                    a{
+                        margin-left: 5px;   
+                        text-decoration: none;
+                        color: var(--bs-anti-main-color);
+                        border: 1px solid var(--bs-anti-main-color);
+                        border-radius: v.$round-10;
+                        padding: 7px;
+                    }
+                }
             }
             .upperRightMiddleBox{
                 width: 100%;
@@ -1155,8 +1188,9 @@ main {
             @include m.fz(15);
         }
         .saveButton{
+            width: 40%;
             button{
-                width: 4.5vw;
+                width: 100%;
                 @include m.fz(30);
                 border: none;
                 outline: none;

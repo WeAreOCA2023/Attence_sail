@@ -29,7 +29,7 @@
                         <h3 class="m-0">電話番号:{{ $phone_number }}</h3>
                     </div>
                     <div class="password">
-                        <h3 class="m-0">パスワード:******</h3>
+                        <h3 class="m-0">パスワード:<a href="password/reset">変更する</a></h3>
                     </div>
                 </div>
             </div>

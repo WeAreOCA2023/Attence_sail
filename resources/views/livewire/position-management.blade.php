@@ -13,9 +13,6 @@
             @foreach ($positions as $position)
             <div class="positionBox d-flex justify-content-center">
                 <div class="positionInnerBox d-flex align-items-center">
-                    <div class="drag me-auto">
-                        <img src="{{ asset('img/drag-handle.svg') }}" alt="drag handle icon">
-                    </div>
                     <div class="content d-flex justify-content-around">
                         <h3 class="positionName m-0 d-flex align-items-center">{{ $position->position_name }}</h3>
                         <h3 class="rank m-0 d-flex align-items-center">権威レベル:{{ $position->rank }}</h3>
@@ -24,16 +21,11 @@
                             <h3 class="m-0">編集中</h3>
                         </div>
                         @else
-                            <div class="edit-delete d-flex justify-content-between">
-                                <button wire:click="edit({{ $position->id }})" class="editBtn btn-primary">
-                                    <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
-                                </button>
-                                <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $position->id }}">
-                                    <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
-                                </button>
-                            </div>
+                        <div class="edit-delete d-flex justify-content-between">
+                            <span wire:click="edit({{ $position->id }})"  class="edit"></span>
+                            <span class="delete" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $position->id }}"></span>
+                        </div>
                         @endif
-
                     </div>
                 </div>
             </div>

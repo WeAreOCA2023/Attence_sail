@@ -32,12 +32,8 @@
                             </div>
                             @else
                                 <div class="edit-delete d-flex">
-                                    <button  wire:click="edit({{ $department_info['department_id'] }})" class="editBtn btn-primary">
-                                        <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
-                                    </button>
-                                    <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $department_info['department_id'] }}">
-                                        <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
-                                    </button>
+                                    <span wire:click="edit({{ $department_info['department_id'] }})" class="edit"></span>
+                                    <span class="delete" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $department_info['department_id'] }}"></span>
                                 </div>
                             @endif
                         </td>
