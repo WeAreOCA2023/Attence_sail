@@ -34,6 +34,7 @@ class AnalyticsController extends Controller
         $fifthDate = $currentDate - 4;
         $sixthDate = $currentDate - 5;
         $seventhDate = $currentDate - 6;
+        $workedAt = 0;
         $currentWorkHours = 0;
         $secondWorkHours = 0;
         $thirdWorkHours = 0;
