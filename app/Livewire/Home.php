@@ -41,6 +41,7 @@ class Home extends Component
             'worked_hours' => $workHours,
             'overwork' => $overWork,
         ]);
+
         $dailyWork->save();
     }
     function hourCalc($num){

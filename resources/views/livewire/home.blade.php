@@ -79,9 +79,8 @@
             <div class="workHourList ">
             </div>
         </div>
-    </div>>
+    </div>
 </div>
-    @script
     <script>
         $(document).ready(function() {
             let setTimeoutId = undefined;
@@ -164,7 +163,11 @@
                     'elapsed_time': -(elapsedTime),
                     'break_time': -(breakTime),
                 }
-                $wire.dispatch('store', { data: data });
+                document.addEventListener('livewire:init', () => {
+                    Livewire.on('', (event) => {
+                        Livewire.dispatch('store', {data: data});
+                    });
+                });
 
 
                 // ↓ で/homeにredirectしてる
@@ -214,4 +217,3 @@
             });
         });
     </script>
-    @endscript
