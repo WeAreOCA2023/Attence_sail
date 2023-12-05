@@ -202,6 +202,37 @@ main {
     }
 }
 
+// password-reset (auth/passwords/email.blade)
+.container{
+    .card{
+        width: 30vw;        height: 20vh;
+        background-color: v.$darkGray;
+        .card-header{
+            color: var(--bs-main-color);
+            background-color: rgb(118, 118, 118);
+            @include m.fz(36);
+        }
+        .card-body{
+            form{
+                color: v.$white;
+                label, input{
+                    @include m.fz(20);
+                }
+                button{
+                    outline: none;
+                    background: none;
+                    @include m.fz(20);
+                    color: v.$white;
+                    padding: 8px;
+                    background-color: v.$darkGray;
+                    border: 1px solid v.$white;
+                    border-radius: v.$round-10;
+                }
+            }
+        }
+    }
+}
+
 // register
 .register {
     .logo{
@@ -1686,5 +1717,5 @@ main {
     width: 100%;
 }
 
-// password-reset (auth/passwords/email.blade)
+
   
