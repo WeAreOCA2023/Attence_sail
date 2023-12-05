@@ -1,7 +1,7 @@
 <div class="positionManagement d-flex justify-content-center h-100 mx-auto py-4">
     <div class="allPositionsBox">
-        <div class="title d-flex justify-content-between mb-4">
-            <img src="{{ asset('img/position.svg') }}" alt="department icon">
+        <div class="title d-flex justify-content-between align-items-center mb-4">
+            <span class="position"></span>
             <h2 class="m-0">役職</h2>
         </div>
         @if(session('userExistsOnPosition'))
@@ -13,27 +13,19 @@
             @foreach ($positions as $position)
             <div class="positionBox d-flex justify-content-center">
                 <div class="positionInnerBox d-flex align-items-center">
-                    <div class="drag me-auto">
-                        <img src="{{ asset('img/drag-handle.svg') }}" alt="drag handle icon">
-                    </div>
                     <div class="content d-flex justify-content-around">
-                        <h3 class="m-0 d-flex align-items-center">{{ $position->position_name }}</h3>
-                        <h3 class="m-0 d-flex align-items-center">権威レベル:{{ $position->rank }}</h3>
+                        <h3 class="positionName m-0 d-flex align-items-center">{{ $position->position_name }}</h3>
+                        <h3 class="rank m-0 d-flex align-items-center">権威レベル:{{ $position->rank }}</h3>
                         @if ($editing == true && $editPositionId == $position->id)
                         <div class="editing d-flex justify-content-center align-items-center text-center">
                             <h3 class="m-0">編集中</h3>
                         </div>
                         @else
-                            <div class="edit-delete d-flex justify-content-between">
-                                <button wire:click="edit({{ $position->id }})" class="editBtn btn-primary">
-                                    <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
-                                </button>
-                                <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $position->id }}">
-                                    <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
-                                </button>
-                            </div>
+                        <div class="edit-delete d-flex justify-content-between">
+                            <span wire:click="edit({{ $position->id }})"  class="edit"></span>
+                            <span class="delete" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $position->id }}"></span>
+                        </div>
                         @endif
-
                     </div>
                 </div>
             </div>
@@ -62,7 +54,7 @@
                 </div>
             </div>
             @endforeach
-            <div class="pagination-link d-flex justify-content-center align-items-center">
+            <div class="pagination-link d-flex justify-content-center">
                 {{ $positions->links() }}
             </div>
         </div>
@@ -72,11 +64,6 @@
         <form wire:submit="update" class="d-flex flex-column justify-content-between">
             @csrf
             <div class="position">
-                @if(session('successPosition'))
-                    <div class="success d-block text-center">
-                        <strong>{{ session('successPosition') }}</strong>
-                    </div>
-                @endif
                 <label class="d-block" for="positionName">{{ __('役職名') }}</label>
                 <input id="positionName" type="text" wire:model='update_position_name' value="{{ old('positionName') }}" autocomplete="off" autofocus>
                 @error ('update_position_name')
@@ -90,6 +77,11 @@
                 <label class="d-block" for="rank">{{ __('権威レベル (0~100の範囲)') }}</label>
                 <input id="rank" type="text" wire:model="rank" value="{{ old('rank') }}" autocomplete="off">
                 @error ('rank')
+                    <span class="error d-block text-center" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+                @error ('typeNumber')
                     <span class="error d-block text-center" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

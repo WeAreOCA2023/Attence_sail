@@ -1,7 +1,7 @@
 <div class="departmentManagement d-flex justify-content-center h-100 mx-auto py-4">
     <div class="allDepartmentsBox">
-        <div class="title d-flex justify-content-between mb-4">
-            <img src="{{ asset('img/department.svg') }}" alt="department icon">
+        <div class="title d-flex justify-content-between align-items-center mb-4">
+            <span class="department"></span>
             <h2 class="m-0">部署</h2>
         </div>
         @if(session('userExistsOnDepartment'))
@@ -32,12 +32,8 @@
                             </div>
                             @else
                                 <div class="edit-delete d-flex">
-                                    <button  wire:click="edit({{ $department_info['department_id'] }})" class="editBtn btn-primary">
-                                        <img src="{{ asset('img/edit.svg') }}" alt="editing icon">
-                                    </button>
-                                    <button class="deleteBtn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $department_info['department_id'] }}">
-                                        <img src="{{ asset('img/delete.svg') }}" alt="deleting icon">
-                                    </button>
+                                    <span wire:click="edit({{ $department_info['department_id'] }})" class="edit"></span>
+                                    <span class="delete" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $department_info['department_id'] }}"></span>
                                 </div>
                             @endif
                         </td>
@@ -55,11 +51,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-                                        <form class="delete" method="POST" action="{{ route('department-management.destroy',$department_info['department_id']) }}">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-primary">削除</button>
-                                        </form>
+                                        <button wire:click="destroy({{ $department_info['department_id'] }})" class="btn btn-primary">削除</button>
                                     </div>
                                 </div>
                             </div>
@@ -91,30 +83,45 @@
                 @enderror
             </div>
             <div class="responsible mx-auto">
-                <label class="d-block" for="bossName">{{ __('責任者名') }}</label>
+                <label class="d-block" for="bossName">{{ __('責任者名またはEメール') }}</label>
                 <div class="responsibleInput d-flex flex-column">
                     <input wire:model.live.debounce.500ms="search" type="text" name="bossEmail" value="{{ old('bossEmail') }}" autocomplete="off">
-                    @if (strlen($search) > 0)
-                        <ul class="list-group d-flex flex-column justify-content-center align-items-center">
-                            @foreach($boss_users as $boss_user)
-                                @php 
-                                    $boss_email = DB::table('user_logins')->where('id', $boss_user->user_id)->get()[0]->email 
-                                @endphp
-                                <li wire:click="selectedData('{{ $boss_email }}')" class="list-group-item">{{ $boss_user->full_name }}, {{ $boss_email }}</li>
-                            @endforeach
-                        </ul>
-                    @endif
                     @error ('search')
                         <span class="error d-block text-center" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                     @error ('errorDepartment')
-                   
                         <span class="error d-block text-center" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
+                    @error ('needBoss')
+                        <span class="error d-block text-center" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    @if (strlen($search) > 0)
+                    <ul class="list-group">
+                            @foreach($boss_users_info as $boss_user_info)
+                                @php 
+                                    $boss_email = DB::table('user_logins')->where('id', $boss_user_info->user_id)->get()[0]->email;
+                                    $profile_image = DB::table('users')->where('user_id', $boss_user_info->user_id)->get()[0]->profile_image;
+                                @endphp
+                                <li wire:click="selectedData('{{ $boss_email }}')" class="list-group-item d-flex">
+                                    @if (is_null($profile_image))
+                                    <span class="defaultProfileImageBoss"></span>
+                                    @else
+                                    <img class="setProfileImageBoss" src="{{ $profile_image }}" alt="Profile Icon">
+                                    @endif
+                                    <div class="d-flex flex-column text-start">
+                                        <p class="m-0">{{ $boss_user_info->full_name }}</p>
+                                        <p class="m-0">{{ $boss_email }}</p>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
             </div>
             <div class="BtnGroup d-flex justify-content-between align-items-center">
@@ -150,9 +157,19 @@
                 </div>
             </div>
             <div class="responsible mx-auto">
-                <label class="d-block" for="bossName">{{ __('責任者名') }}</label>
+                <label class="d-block" for="bossName">{{ __('責任者名またはEメール') }}</label>
                 <div class="responsibleInput d-flex flex-column">
                     <input wire:model.live.debounce.500ms="search" type="text" name="bossEmail" value="{{ old('bossEmail') }}" autocomplete="off">
+                    @error ('search')
+                        <span class="error d-block text-center" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    @error ('errorDepartment')
+                        <span class="error d-block text-center" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                     @if (strlen($search) > 0)
                         <ul class="list-group">
                             @foreach($boss_users_info as $boss_user_info)
@@ -174,16 +191,6 @@
                             @endforeach
                         </ul>
                     @endif
-                    @error ('search')
-                        <span class="error d-block text-center" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                    @error ('errorDepartment')
-                        <span class="error d-block text-center" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
                 </div>
             </div>
             <div class="createButton d-block text-center">

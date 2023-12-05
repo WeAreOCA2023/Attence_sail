@@ -56,7 +56,13 @@ class UserManagement extends Component
             $filteredOverWork = $this->overWorkFilter($filteredStatus);
             $users_table_pagination = $filteredOverWork;
         } else {
-            $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->get();
+            // $users_table_pagination = User::where('company_id', $company_id)->search('full_name', $this->search_user)->orderBy('user_id', 'asc')->get();
+            $users_table_pagination = User::where(function ($query) {
+                $query->where('full_name', 'like', '%' . $this->search_user . '%')
+                      ->orWhereHas('UserLogin', function ($subQuery) {
+                          $subQuery->where('email', 'like', '%' . $this->search_user . '%');
+                      });
+            })->orderBy('user_id', 'asc')->get();
         }
         foreach ($users_table_pagination as $user_pagination) {
             $unsetCount = 0;
@@ -228,10 +234,16 @@ class UserManagement extends Component
     public function departmentFilter(int $company_id): object
     {
         if (!is_null($this->filterDepartmentId)) {
-            $filteredDepartment = User::where('company_id', $company_id)
-                ->search('full_name', $this->search_user)
-                ->where('department_id', $this->filterDepartmentId)
-                ->orderBy('user_id', 'asc')->get();
+            // $filteredDepartment = User::where('company_id', $company_id)
+                // ->search('full_name', $this->search_user)
+                // ->where('department_id', $this->filterDepartmentId)
+                // ->orderBy('user_id', 'asc')->get();
+                $filteredDepartment = User::where(function ($query) {
+                    $query->where('full_name', 'like', '%' . $this->search_user . '%')
+                          ->orWhereHas('UserLogin', function ($subQuery) {
+                              $subQuery->where('email', 'like', '%' . $this->search_user . '%');
+                          });
+                })->where('department_id', $this->filterDepartmentId)->orderBy('user_id', 'asc')->get();
             $department = Department::where('id', $this->filterDepartmentId)->first();
             if ($this->filterDepartmentId == -1 && $department == null) {
                 $this->filterDepartmentName = '無し';

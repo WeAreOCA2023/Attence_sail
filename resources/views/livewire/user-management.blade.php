@@ -4,7 +4,7 @@
             <div class="input-group d-flex justify-content-center">
                 <span class="svg d-flex align-items-center">
                     <span class="icon d-flex"></span>
-                    <input type="text" wire:model.live.debounce.250ms="search_user" placeholder="名前を入力して検索" >
+                    <input type="text" wire:model.live.debounce.250ms="search_user" placeholder="名前またはEメールを入力して検索" >
                 </span>
             </div>
 
@@ -155,7 +155,6 @@
         <table class="table table-hover">
             <thead class="table-dark">
                 <tr>
-                    <th></th>
                     <th>名前</th>
                     <th>Eメール</th>
                     <th>部署</th>
@@ -172,7 +171,6 @@
                 @foreach ($users_info as $user_info)
                     @if ($editing == true && $editUserId === $user_info['user_id'])
                     <tr>
-                        <th scope="row">{{ $user_info['user_id'] }}</th>
                         <td>{{ $user_info['full_name'] }}</td>
                         <td>{{ $user_info['email'] }}</td>
                         <td class="td-department">
@@ -216,7 +214,6 @@
                     </tr>
                     @else
                     <tr>
-                        <th scope="row">{{ $user_info['user_id'] }}</th>
                         <td class="td-fullName">{{ $user_info['full_name'] }}</td>
                         <td class="td-email">{{ $user_info['email'] }}</td>
                         <td class="td-department">{!! $user_info['department_name'] !!}</td>

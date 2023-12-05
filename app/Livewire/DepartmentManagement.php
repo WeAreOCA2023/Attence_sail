@@ -91,39 +91,53 @@ class DepartmentManagement extends Component
 
     public function update()
     {
-        if ($this->editing == false) {
+        if ($this->editing == false || ($this->update_department_name == null && $this->search == null)) {
             return;
         }
-        if ($this->update_department_name == null || $this->update_department_name == null) {
-            $this->editing = false;
-            return;
-        }
+
         $this->validate([
-            'update_department_name' => 'required|max:128|unique:department,department_name,' . $this->editDepartmentId,
+            'update_department_name' => 'max:128|unique:department,department_name,' . $this->editDepartmentId,
+            'search' => 'max:255'
         ], [
-            'update_department_name.required' => '部署名を入力してください',
             'update_department_name.max' => '部署名が長すぎます',
             'update_department_name.unique' => 'その部署名は既に登録されています',
+            'search.max' => '責任者名が長すぎます'
         ]);
         $user = User::where('user_id', Auth::user()->id)->first();
+
+        $department = Department::find($this->editDepartmentId);
+
+        // もし部署名が空 or nullじゃないなら値をsetする
+        if (!empty(trim($this->update_department_name))) {
+            $department->department_name = $this->update_department_name;
+        }
+
+        if (is_null($this->search))  {
+            $department->save();
+            session()->flash('successDepartment', '部署を更新しました。');
+            return redirect('/department-management');
+        }
+        
         $boss_id = UserLogin::where('email', $this->search)->first();
         if ($boss_id == null) {
             session()->flash('errorDepartment', '責任者が見つかりませんでした。');
             return redirect('/department-management');
         }
-        session()->forget('errorDepartment');
-        $department = Department::find($this->editDepartmentId);
-        if ($department->department_name == $this->update_department_name) {
-            $department->boss_id = $boss_id->id;
-            $department->save();
-        } else {
-            $department->department_name = $this->update_department_name;
-            $department->boss_id = $boss_id->id;
-            $department->save();
-        }
-
+        $department->boss_id = $boss_id->id;
+        $department->save();
         session()->flash('successDepartment', '部署を更新しました。');
         return redirect('/department-management');
+    }
+
+    public function destroy($id)
+    {
+        $match = User::where('department_id', $id)->first();
+        if ($match == null) {
+            $department = Department::find($id);
+            $department->delete();
+            return redirect('/department-management');
+        }
+        return redirect('/department-management')->with('userExistsOnDepartment', 'この部署に所属するユーザーがいるため削除できません。');
     }
 }
 
