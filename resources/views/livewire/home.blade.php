@@ -81,6 +81,7 @@
         </div>
     </div>>
 </div>
+    @script
     <script>
         $(document).ready(function() {
             let setTimeoutId = undefined;
@@ -163,7 +164,8 @@
                     'elapsed_time': -(elapsedTime),
                     'break_time': -(breakTime),
                 }
-                Livewire.dispatch('store', { postId: data })
+                $wire.dispatch('store', { data: data });
+
 
                 // ↓ で/homeにredirectしてる
                 // window.location.replace("/home");
@@ -212,3 +214,4 @@
             });
         });
     </script>
+    @endscript

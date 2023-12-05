@@ -18,9 +18,9 @@ use Livewire\Component;
 
 class Home extends Component
 {
-    public function store(Request $request)
+    public function store($data)
     {
-        dd($request->all());
+        dd($data->all());
         $raw = file_get_contents('php://input'); // POSTされた生のデータを受け取る
         $data = json_decode($raw); // json形式をphp変数に変換
         $currentDate = date("Y-m-d");//今の日付を取得
