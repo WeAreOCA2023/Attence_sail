@@ -52,7 +52,7 @@
 
                             @if (Route::has('register-boss'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register-boss') }}">{{ __('サインアップ（ボス）') }}</a>
+                                    <a class="nav-link" href="{{ route('register-boss') }}">{{ __('サインアップ（責任者）') }}</a>
                                 </li>
                             @endif
                         @else
