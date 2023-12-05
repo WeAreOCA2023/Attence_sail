@@ -47,7 +47,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
 
         // ここで指定するのは bladeテンプレート
-        View::composer(['home', 'user-management', 'my-all-tasks', 'department-management', 'department-management-edit' , 'position-management', 'profile', 'analytics', 'auth/passwords/email'], function ($view) {
+        View::composer(['home', 'user-management', 'my-all-tasks', 'department-management', 'department-management-edit' , 'position-management', 'profile', 'analytics'], function ($view) {
 
 
             // user_login_table の id の取得
