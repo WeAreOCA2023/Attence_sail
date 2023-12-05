@@ -163,7 +163,7 @@
                     'elapsed_time': -(elapsedTime),
                     'break_time': -(breakTime),
                 }
-
+                Livewire.dispatch('store', { postId: data })
 
                 // ↓ で/homeにredirectしてる
                 // window.location.replace("/home");
