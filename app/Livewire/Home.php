@@ -14,17 +14,19 @@ use App\Models\WeeklyWorkHours;
 use App\Models\YearlyWorkHours;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Home extends Component
 {
+
+    #[On('workSave')]
     public function store($data)
     {
-        dd($data->all());
-        $raw = file_get_contents('php://input'); // POSTされた生のデータを受け取る
-        $data = json_decode($raw); // json形式をphp変数に変換
+        $this->reset();
         $currentDate = date("Y-m-d");//今の日付を取得
-        $workHours = abs($data->elapsed_time);
+        $workHours = $data['elapsed_time']; // 今日の労働時間を取得
+        $breakTime = $data['break_time']; // 今日の休憩時間を取得
         // overtimeチェック
         $overWork = 0; //overworkの初期値
         if ($workHours > 28800000){
@@ -39,6 +41,7 @@ class Home extends Component
             'user_id' => Auth::user()->id,
             'worked_at' => $currentDate,
             'worked_hours' => $workHours,
+            'break_time' => $breakTime,
             'overwork' => $overWork,
         ]);
 

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->references('id')->on('user_logins');
             $table->date('worked_at');
             $table->integer('worked_hours');
+            $table->integer('break_time');
             $table->integer('overwork');
             $table->timestamps();
         });

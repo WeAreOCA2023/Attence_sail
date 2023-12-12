@@ -653,14 +653,14 @@ main {
         .edit-delete{
             .edit{
                 background-image: var(--bs-edit);
-                background-size: contain; 
+                background-size: contain;
                 background-repeat: no-repeat;
                 width: 2.5vw;
                 height: 2.5vh;
             }
             .delete{
                 background-image: var(--bs-delete);
-                background-size: contain; 
+                background-size: contain;
                 background-repeat: no-repeat;
                 width: 2.5vw;
                 height: 2.5vh;
@@ -876,19 +876,19 @@ main {
                     width: 13%;
                     .edit{
                         background-image: var(--bs-edit);
-                        background-size: contain; 
+                        background-size: contain;
                         background-repeat: no-repeat;
                         width: 2.5vw;
                         height: 2.5vh;
                     }
                     .delete{
                         background-image: var(--bs-delete);
-                        background-size: contain; 
+                        background-size: contain;
                         background-repeat: no-repeat;
                         width: 2.5vw;
                         height: 2.5vh;
                     }
-                    
+
                 }
                 .content{
                     width: 40vw;
@@ -1078,7 +1078,7 @@ main {
                 .password{
                     width: fit-content;
                     a{
-                        margin-left: 5px;   
+                        margin-left: 5px;
                         text-decoration: none;
                         color: var(--bs-anti-main-color);
                         border: 1px solid var(--bs-anti-main-color);
@@ -1153,26 +1153,26 @@ main {
                 background-repeat: no-repeat;
                 width: 2.3vw;
                 height: 3.3vh;
-            }  
+            }
             .userSetting{
                 background-image: var(--bs-user_setting);
                 background-size: contain;
                 background-repeat: no-repeat;
                 width: 2.3vw;
                 height: 3.3vh;
-            }  
+            }
             .companySetting{
                 background-image: var(--bs-company_setting);
                 background-size: contain;
                 background-repeat: no-repeat;
                 width: 2.3vw;
                 height: 3.3vh;
-            }  
+            }
         }
         .lawBox{
             form{
                 gap: 5vh;
-            } 
+            }
         }
 
         .accountBox
@@ -1718,4 +1718,4 @@ main {
 }
 
 
-  
+

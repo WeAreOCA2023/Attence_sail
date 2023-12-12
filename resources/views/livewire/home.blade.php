@@ -163,15 +163,10 @@
                     'elapsed_time': -(elapsedTime),
                     'break_time': -(breakTime),
                 }
-                document.addEventListener('livewire:init', () => {
-                    Livewire.on('', (event) => {
-                        Livewire.dispatch('store', {data: data});
-                    });
-                });
-
+                Livewire.dispatch('workSave', { data: data });
 
                 // ↓ で/homeにredirectしてる
-                // window.location.replace("/home");
+                window.location.replace("/home");
             });
 
             // toggleするボタンを押した時
