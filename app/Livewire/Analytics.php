@@ -33,29 +33,6 @@ class Analytics extends Component
         $this->fifthDate = intval(date('d', strtotime("-4 day")));
         $this->sixthDate = intval(date('d', strtotime("-5 day")));
         $this->seventhDate = intval(date('d', strtotime("-6 day")));
-    }
-    public function incrementWeek()
-    {
-        $this->currentDate++;
-    }
-
-    public function decrementWeek()
-    {
-        $this->currentDate--;
-    }
-    protected function calcWorkHours($workedHours)
-    {
-        $hours = ($workedHours / 1000 / 60 / 60) % 24;
-        $minutes = ($workedHours / 1000 / 60) % 60;
-        $formattedTime = $hours . '時間' . $minutes . '分';
-        $raw = $hours + $minutes / 60;
-        return [
-            'formattedTime' => $formattedTime,
-            'raw' => $raw
-        ];
-    }
-    public function render()
-    {
 
         $dailyWorkHours = DailyWorkHours::where('user_id', auth()->user()->id)->get();
         foreach ($dailyWorkHours as $dailyWorkHour) {
@@ -86,7 +63,30 @@ class Analytics extends Component
         $this->fifthWorkHours = $this->calcWorkHours($this->fifthWorkHours);
         $this->sixthWorkHours = $this->calcWorkHours($this->sixthWorkHours);
         $this->seventhWorkHours = $this->calcWorkHours($this->seventhWorkHours);
+    }
+    public function incrementWeek()
+    {
+        $this->currentDate += 7;
+    }
 
+    public function decrementWeek()
+    {
+        $this->currentDate--;
+    }
+    protected function calcWorkHours($workedHours)
+    {
+        $hours = ($workedHours / 1000 / 60 / 60) % 24;
+        $minutes = ($workedHours / 1000 / 60) % 60;
+        $formattedTime = $hours . '時間' . $minutes . '分';
+        $raw = $hours + $minutes / 60;
+        return [
+            'formattedTime' => $formattedTime,
+            'raw' => $raw
+        ];
+    }
+    public function render()
+    {
+        $this->dispatch('buttonClicked');
         return view('livewire.analytics', [
             'currentDate' => $this->currentDate,
             'secondDate' => $this->secondDate,
