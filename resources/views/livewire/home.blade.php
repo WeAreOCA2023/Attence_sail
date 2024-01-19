@@ -1,7 +1,7 @@
 <div class="home d-flex justify-content-center h-100 mx-auto py-4">
     <div class="stopWatch">
         <h1 class="mx-auto text-center d-flex align-items-center justify-content-center status" id="status">勤務時間外</h1>
-        <h2 class="text-center">2023/8/30</h2>
+        <h2 class="text-center">2024/1/19</h2>
         <div class="home-timer mx-auto">
             <div class="position-relative circle mx-auto">
                 <svg id="progress" class="position-absolute top-50 start-50 translate-middle" width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
